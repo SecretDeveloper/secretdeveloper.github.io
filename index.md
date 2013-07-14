@@ -1,7 +1,7 @@
 ---
 layout: page
 title: posts by @secretdeveloper
-tagline: 
+tagline: fairly random
 ---
 ## What is this blog about?
 This is a playground blog to store some posts written by a guy called Gary Kenneally.  You should follow me on [twitter under the handle @secretdeveloper](http://twitter.com/secretdeveloper), more  [here]({{BASE_PATH}}/pages/about) or on [linkedin](http://www.linkedin.com/profile/view?id=49530287&trk=tab_pro).  He set this blog up to play with the following:
