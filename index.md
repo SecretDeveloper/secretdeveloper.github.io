@@ -1,46 +1,30 @@
 ---
 layout: page
-title: Hello World!
-tagline: Supporting tagline
+title: posts by @secretdeveloper
+tagline: 
 ---
-{% include JB/setup %}
+## What is this blog?
+This is a playground blog to store some posts written by a guy called Gary Kenneally.  You can find him on [twitter under the handle @secretdeveloper](http://twitter.com/secretdeveloper). You should follow him.  You can read more about him [here]({{BASE_PATH}}/pages/about) or on [linkedin](http://www.linkedin.com/profile/view?id=49530287&trk=tab_pro).  He set this blog up to play with the following:
+<ul>
+  <li><span><a href="http://jekyllrb.com/">jekyll</a></span></li>
+  <li><span><a href="http://www.ruby-lang.org/en/">ruby</a></span></li>
+  <li><span><a href="http://rake.rubyforge.org/">rake</a></span></li> 
+  <li><span><a href="http://twitter.github.io/bootstrap/">twitter bootstrap</a></span></li>
+  <li><span><a href="http://jekyllbootstrap.com/">jekyll bootstrap</a></span></li>
+  <li><span>and <a href="http://pages.github.com/">github pages</a></span></li>  
+</ul> 
+This blog contains static content generated from a [git repository](https://github.com/SecretDeveloper/secretdeveloper.github.io)
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
-
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
-
-## Update Author Attributes
-
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
-
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
-
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
-
-    $ rm -rf _posts/core-samples
-
-Here's a sample "posts list".
+{% if site.posts.length > 0%}
+## Posts
 
 <ul class="posts">
   {% for post in site.posts %}
     <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
   {% endfor %}
 </ul>
+{% endif %}
 
-## To-Do
 
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
 
 
