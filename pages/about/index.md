@@ -2,7 +2,6 @@
 layout: page
 title: "About Me"
 description: "@secretdeveloper aka Gary Kenneally"
-comments:true
 ---
 {% include JB/setup %}
 ## Development
