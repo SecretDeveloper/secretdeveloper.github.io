@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example that shows off a blog page with a list of posts.">
+
+    <title>Javascript &middot; Just another blog with random, unripenend thoughts.</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+    
+
+    
+    
+        <link rel="stylesheet" href="/css/blog.css">
+    
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://localhost:1313">Just another blog with random, unripenend thoughts.</a></h1>
+            <h2 class="brand-tagline">A theme based on the pure css blog layout.</h2>
+        </hgroup>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/ "><i class="fa fa-github-alt"></i> github</a>
+                </li>
+               
+            </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                
+                <h1 class="content-subhead">21 Jul 2013, 15:03</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://localhost:1313/post/functional-javascript-using-underscore/" class="post-title">Functional javascript using underscore</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under 
+                                <a class="post-category post-category-functional-programming" href="/categories/functional-programming">functional-programming</a><a class="post-category post-category-javascript" href="/categories/javascript">javascript</a><a class="post-category post-category-underscore" href="/categories/underscore">underscore</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<h2 id="toc_0">Functional javascript using underscore</h2>
+
+<h3 id="toc_1">Why?</h3>
+
+<p>A little while ago I picked up <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> by Michael Fogus.  I&rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&hellip;</p>
+
+<p>There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:
+&gt;&ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&rdquo; - Alan Perlis</p>
+
+<p>This is very different concept to what is normally seen in large enterprise level projects and applications.  I have to say that I have spent a large amount of time writing code to map one model to another and back again. Its not fun. This functional stuff might be on to something.</p>
+
+<h3 id="toc_2">What?</h3>
+
+<p>Well Michaels book uses the <a href="http://underscorejs.org">underscore</a> library for all of his examples and its a really powerful tool.  I have started using it here and there on smaller projects and the more I use it the more I like it.</p>
+
+<h3 id="toc_3">How?</h3>
+
+<p><a href="http://http://projecteuler.net/">Project Euler</a> is probably the go-to set of problems when developers try to learn a new language or framework.  I don&rsquo;t see why I should be any different.  I have started a small project to play around with this and you can see it over on <a href="https://github.com/SecretDeveloper/sdjs">github</a>.</p>
+
+<h4 id="toc_4">Problem 1</h4>
+
+<blockquote>
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.</p>
+</blockquote>
+
+<p>Can be solved with a few lines of code like the following:
+<code>
+    return _.reduce(_.range(0,1000), function(memo, number){  
+            if( number%3===0 || number%5==0) return memo+number;  
+            return memo;}  
+        );  
+</code></p>
+
+<h4 id="toc_5">Testing</h4>
+
+<p>Unit testing javascript has come a long way in the last few years and I have added a simple QUnit test runner to the repository.</p>
+
+                    </div>
+                </section>
+                
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

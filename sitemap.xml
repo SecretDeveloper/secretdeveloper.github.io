@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2013-08-06T15:03:58+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/data-models-functional-composition-and-validation/</loc>
+    <lastmod>2013-08-06T15:03:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/knockoutjs-demo-using-google-books-api/</loc>
+    <lastmod>2013-07-21T17:03:58+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://localhost:1313/post/functional-javascript-using-underscore/</loc>
+    <lastmod>2013-07-21T15:03:58+01:00</lastmod>
+  </url>
+  
+</urlset>
