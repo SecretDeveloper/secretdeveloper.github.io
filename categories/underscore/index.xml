@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Underscore on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/underscore/index.xml/</link>
+    <language>en-us</language>
+    
+    
+    <updated>Tue, 06 Aug 2013 15:03:58 BST</updated>
+    
+    <item>
+      <title>Data Models, functional composition and validation</title>
+      <link>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</link>
+      <pubDate>Tue, 06 Aug 2013 15:03:58 BST</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</guid>
+      <description>
+
+&lt;p&gt;While I am working my way through the &lt;a href=&#34;http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B00D624AQO&amp;amp;linkCode=as2&amp;amp;tag=secretdeveloper-20&#34;&gt;Functional Javascript&lt;/a&gt; book I came across something that could be really useful, especially when dealing with AJAX requests.&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_0&#34;&gt;Functional Composition&lt;/h4&gt;
+
+&lt;p&gt;In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function validator(message, fun){
+    var f = function(){
+        return fun.apply(fun, arguments);
+    };
+    f[&#39;message&#39;] = message;
+    return f;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which takes a message string and a function as parameters and returns an object what can be called with an arbitrary number of arguments to perform a task.  The returned object has a &amp;lsquo;message&amp;rsquo; property assigned also.&lt;/p&gt;
+
+&lt;p&gt;Next we need a &amp;lsquo;driver&amp;rsquo; function:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function checker(){  
+    var validators = _.toArray(arguments);  
+    return function(obj){  
+        return _.reduce(validators, function(errs, check){  
+            if(check(obj))  
+                return errs;  
+            else  
+                return _.chain(errs).push(check.message).value();  
+        }, []);  
+    };  
+};  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &amp;lsquo;obj&amp;rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &amp;lsquo;message&amp;rsquo; to the list it will return. If all validators pass then the array returned will be empty.&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_1&#34;&gt;Putting it all together&lt;/h4&gt;
+
+&lt;p&gt;I can use my checker and validator functions to create a validation function like the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function isValidResourceItem(){
+    var validators = checker(
+
+        validator(&#39;obj can not be nul&#39;,
+            function(obj){return !_.isNull(obj);}),
+
+        validator(&#39;obj must contain title&#39;,
+            function(obj){return !_.isNull(obj.title);}),
+
+        validator(&#39;obj must contain canonicalVolumeLink&#39;,
+            function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
+
+        validator(&#39;obj must contain description&#39;,
+            function(obj){return !_.isNull(obj.description);})
+    );
+    return validators;
+};
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;which will help to ensure the data was returned in a format I expect and cut down on those &amp;lsquo;undefined&amp;rsquo; errors you would get without something like this.&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_2&#34;&gt;Example&lt;/h4&gt;
+
+&lt;p&gt;I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.&lt;/p&gt;
+
+&lt;iframe width=&#34;100%&#34; height=&#34;300&#34; src=&#34;http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/&#34; allowfullscreen=&#34;allowfullscreen&#34; frameborder=&#34;0&#34;&gt; &lt;/iframe&gt;
+
+&lt;h4 id=&#34;toc_3&#34;&gt;Whats the point?&lt;/h4&gt;
+
+&lt;p&gt;Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Functional javascript using underscore</title>
+      <link>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</link>
+      <pubDate>Sun, 21 Jul 2013 15:03:58 BST</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</guid>
+      <description>
+
+&lt;h2 id=&#34;toc_0&#34;&gt;Functional javascript using underscore&lt;/h2&gt;
+
+&lt;h3 id=&#34;toc_1&#34;&gt;Why?&lt;/h3&gt;
+
+&lt;p&gt;A little while ago I picked up &lt;a href=&#34;http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B00D624AQO&amp;amp;linkCode=as2&amp;amp;tag=secretdeveloper-20&#34;&gt;Functional Javascript&lt;/a&gt; by Michael Fogus.  I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:
+&amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&amp;rdquo; - Alan Perlis&lt;/p&gt;
+
+&lt;p&gt;This is very different concept to what is normally seen in large enterprise level projects and applications.  I have to say that I have spent a large amount of time writing code to map one model to another and back again. Its not fun. This functional stuff might be on to something.&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_2&#34;&gt;What?&lt;/h3&gt;
+
+&lt;p&gt;Well Michaels book uses the &lt;a href=&#34;http://underscorejs.org&#34;&gt;underscore&lt;/a&gt; library for all of his examples and its a really powerful tool.  I have started using it here and there on smaller projects and the more I use it the more I like it.&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_3&#34;&gt;How?&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://http://projecteuler.net/&#34;&gt;Project Euler&lt;/a&gt; is probably the go-to set of problems when developers try to learn a new language or framework.  I don&amp;rsquo;t see why I should be any different.  I have started a small project to play around with this and you can see it over on &lt;a href=&#34;https://github.com/SecretDeveloper/sdjs&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_4&#34;&gt;Problem 1&lt;/h4&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Can be solved with a few lines of code like the following:
+&lt;code&gt;
+    return _.reduce(_.range(0,1000), function(memo, number){  
+            if( number%3===0 || number%5==0) return memo+number;  
+            return memo;}  
+        );  
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;toc_5&#34;&gt;Testing&lt;/h4&gt;
+
+&lt;p&gt;Unit testing javascript has come a long way in the last few years and I have added a simple QUnit test runner to the repository.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

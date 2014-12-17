@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Csharp on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/csharp/index.xml/</link>
+    <language>en-us</language>
+    
+    
+    <updated>Tue, 16 Dec 2014 22:34:47 UTC</updated>
+    
+    <item>
+      <title>Directed Graph of hubski users created with D3</title>
+      <link>http://secretdeveloper.github.io/post/hubski-directed-graph-with-d3/</link>
+      <pubDate>Tue, 16 Dec 2014 22:34:47 UTC</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/hubski-directed-graph-with-d3/</guid>
+      <description>&lt;p&gt;Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/SecretDeveloper/SocialGraph&#34;&gt;Source code on github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph.html&#34;&gt;Demo version&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/Ko6TQQ3.png&#34; title=&#34;Hubski Followers&#34; width=400 height=400 /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

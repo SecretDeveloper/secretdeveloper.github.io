@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Ajax on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/ajax/index.xml/</link>
+    <language>en-us</language>
+    
+    
+    <updated>Sun, 21 Jul 2013 17:03:58 BST</updated>
+    
+    <item>
+      <title>KnockoutJS demo using Google Books API</title>
+      <link>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</link>
+      <pubDate>Sun, 21 Jul 2013 17:03:58 BST</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</guid>
+      <description>
+
+&lt;h1 id=&#34;toc_0&#34;&gt;Knockout.js&lt;/h1&gt;
+
+&lt;h3 id=&#34;toc_1&#34;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call.  I use the google books API to provide a simple search form.&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_2&#34;&gt;Show me the Code&lt;/h3&gt;
+
+&lt;p&gt;JSFiddle:
+&lt;iframe width=&#34;100%&#34; height=&#34;400&#34; src=&#34;http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/&#34; frameborder=&#34;0&#34;&gt; &lt;/iframe&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out the &lt;a href=&#34;http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/&#34;&gt;jsfiddle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I also use the &lt;a href=&#34;http://underscorejs.org/&#34;&gt;underscore&lt;/a&gt; library to work with the observableArray but that is not really a requirement.  I just like it.&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_3&#34;&gt;So whats happening?&lt;/h3&gt;
+
+&lt;p&gt;We start off by creating a simple html page that contains a text box, a button and a results list. In our javascript file we create a ViewModel object (function) that contains properties that match our html form. It has a field for searchInput, a function to handle searches etc.  In our document ready function we apply this ViewModel to our html using &lt;code&gt;ko.applyBindings(vm);&lt;/code&gt;.  When we do this knockoutjs takes our html and resolves all the &lt;code&gt;data-bind=&amp;quot;&amp;quot;&lt;/code&gt; attributes we have added to elements and resolves them to fields on our ViewModel.  This is called Model Binding and it is a powerful tool that allows us to have a single ViewModel property displayed in several places on a page, with each kept in sync to any changes.  If the field we are binding to is a &lt;code&gt;ko.observable&lt;/code&gt; then any changes made to its value will immediately show wherever it is bound.&lt;/p&gt;
+
+&lt;p&gt;We also use a &lt;code&gt;ko.observableArray&lt;/code&gt; to hold our search results.  When we initiate a search we make an AJAX call to the appropriate url and then parse the results.  You can see the result structure we receive back by running &lt;code&gt;curl -i https://www.googleapis.com/books/v1/volumes?q=potter&lt;/code&gt; (where &amp;lsquo;potter&amp;rsquo; is what you want to search for).  Once we receive the result we loop over the returned items and create a new resultItem to contain the information we want.  These items are then added to our array, &lt;code&gt;self.items.push(resultI);&lt;/code&gt; which thanks to knockoutjs gets rendered to our results div immediately.  You can see that knockoutjs can iterate over collections by using the &lt;code&gt;foreach:items&lt;/code&gt; databinding.&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_4&#34;&gt;Whats the big deal?&lt;/h3&gt;
+
+&lt;p&gt;Well this particular demo is about as easy as it gets, but even so it covers a few important topics:
+    - &lt;a href=&#34;http://en.wikipedia.org/wiki/Model_View_ViewModel&#34;&gt;Model View ViewModel&lt;/a&gt; pattern.
+    - &lt;a href=&#34;http://knockoutjs.com/documentation/binding-context.html&#34;&gt;Model Binding&lt;/a&gt; as it applies to Knockout
+    - Working with &lt;a href=&#34;http://en.wikipedia.org/wiki/Web_API&#34;&gt;web API&amp;rsquo;s&lt;/a&gt; using &lt;a href=&#34;http://en.wikipedia.org/wiki/JSON&#34;&gt;JSON&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;It shows what we can achieve with a few lines of code by building upon these powerful libraries.  KnockoutJS is taking care of binding our ViewModel to our html and also updates that html whenever we change an observable. jQuery is handling the AJAX request for us.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

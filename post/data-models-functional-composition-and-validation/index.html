@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example that shows off a blog page with a list of posts.">
+
+    <title>Data Models, functional composition and validation &middot; Just another blog with random, unripenend thoughts.</title>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    
+    
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+    
+
+    
+    
+        <link rel="stylesheet" href="/css/blog.css">
+    
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="layout" class="pure-g">
+    <div class="sidebar pure-u-1 pure-u-md-1-4">
+    <div class="header">
+        <hgroup>
+            <h1 class="brand-title"><a href="http://secretdeveloper.github.io">Just another blog with random, unripenend thoughts.</a></h1>
+            <h2 class="brand-tagline">Gary Kenneally - @SecretDeveloper</h2>
+        </hgroup>
+
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a class="pure-button" href="http://twitter.com/@secretdeveloper"><i class="fa fa-twitter"></i> Twitter</a>
+                </li>
+                <li class="nav-item">
+                    <a class="pure-button" href="http://github.com/secretdeveloper "><i class="fa fa-github-alt"></i> github</a>
+                </li>
+               
+            </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            
+            <div class="posts">
+                <h1 class="content-subhead">06 Aug 2013, 15:03</h1>
+                <section class="post">
+                    <header class="post-header">
+
+                        <a href="http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/" class="post-title">Data Models, functional composition and validation</a>
+
+                        <p class="post-meta">
+                            
+                            
+                                under 
+                                <a class="post-category post-category-underscore" href="/categories/underscore">underscore</a><a class="post-category post-category-data-models" href="/categories/data-models">data-models</a><a class="post-category post-category-composition" href="/categories/composition">composition</a><a class="post-category post-category-validation" href="/categories/validation">validation</a>
+                            
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        
+
+<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
+
+<h4 id="toc_0">Functional Composition</h4>
+
+<p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>
+
+<pre><code>function validator(message, fun){
+    var f = function(){
+        return fun.apply(fun, arguments);
+    };
+    f['message'] = message;
+    return f;
+};
+</code></pre>
+
+<p>which takes a message string and a function as parameters and returns an object what can be called with an arbitrary number of arguments to perform a task.  The returned object has a &lsquo;message&rsquo; property assigned also.</p>
+
+<p>Next we need a &lsquo;driver&rsquo; function:</p>
+
+<pre><code>function checker(){  
+    var validators = _.toArray(arguments);  
+    return function(obj){  
+        return _.reduce(validators, function(errs, check){  
+            if(check(obj))  
+                return errs;  
+            else  
+                return _.chain(errs).push(check.message).value();  
+        }, []);  
+    };  
+};  
+</code></pre>
+
+<p>that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &lsquo;obj&rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &lsquo;message&rsquo; to the list it will return. If all validators pass then the array returned will be empty.</p>
+
+<h4 id="toc_1">Putting it all together</h4>
+
+<p>I can use my checker and validator functions to create a validation function like the following:</p>
+
+<pre><code>function isValidResourceItem(){
+    var validators = checker(
+
+        validator('obj can not be nul',
+            function(obj){return !_.isNull(obj);}),
+
+        validator('obj must contain title',
+            function(obj){return !_.isNull(obj.title);}),
+
+        validator('obj must contain canonicalVolumeLink',
+            function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
+
+        validator('obj must contain description',
+            function(obj){return !_.isNull(obj.description);})
+    );
+    return validators;
+};
+</code></pre>
+
+<p>which will help to ensure the data was returned in a format I expect and cut down on those &lsquo;undefined&rsquo; errors you would get without something like this.</p>
+
+<h4 id="toc_2">Example</h4>
+
+<p>I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"> </iframe>
+
+<h4 id="toc_3">Whats the point?</h4>
+
+<p>Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.</p>
+
+                    </div>
+                </section>
+            </div>
+            <div class="footer">
+    <div class="pure-menu pure-menu-horizontal pure-menu-open">
+        <ul>
+            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
+        </ul>
+    </div>
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
