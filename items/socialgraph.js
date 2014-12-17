@@ -45,7 +45,7 @@ function drawGraph() {
   };
   
 
-  $.getJSON("/hubski2.json", function(data) {
+  $.getJSON("./hubski2.json", function(data) {
     renderGraph(data,options);
   });
 
