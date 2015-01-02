@@ -5,16 +5,16 @@
       <generator uri="https://hugo.spf13.com">Hugo</generator>
     <link>http://secretdeveloper.github.io/categories/googleapi/index.xml/</link>
     <language>en-us</language>
-    
+    <author>Gary Kenneally - @SecretDeveloper</author>
     
     <updated>Sun, 21 Jul 2013 17:03:58 BST</updated>
     
     <item>
       <title>KnockoutJS demo using Google Books API</title>
-      <link>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</link>
+      <link>http://secretdeveloper.github.io/blog/2013/07/21/KnockoutJS-demo-using-Google-Books-API/</link>
       <pubDate>Sun, 21 Jul 2013 17:03:58 BST</pubDate>
-      
-      <guid>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</guid>
+      <author>Gary Kenneally - @SecretDeveloper</author>
+      <guid>http://secretdeveloper.github.io/blog/2013/07/21/KnockoutJS-demo-using-Google-Books-API/</guid>
       <description>
 
 &lt;h1 id=&#34;toc_0&#34;&gt;Knockout.js&lt;/h1&gt;

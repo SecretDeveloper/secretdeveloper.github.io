@@ -5,16 +5,16 @@
       <generator uri="https://hugo.spf13.com">Hugo</generator>
     <link>http://secretdeveloper.github.io/categories/functional-programming/index.xml/</link>
     <language>en-us</language>
-    
+    <author>Gary Kenneally - @SecretDeveloper</author>
     
     <updated>Sun, 21 Jul 2013 15:03:58 BST</updated>
     
     <item>
       <title>Functional javascript using underscore</title>
-      <link>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</link>
+      <link>http://secretdeveloper.github.io/blog/2013/07/21/Functional-javascript-using-underscore/</link>
       <pubDate>Sun, 21 Jul 2013 15:03:58 BST</pubDate>
-      
-      <guid>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</guid>
+      <author>Gary Kenneally - @SecretDeveloper</author>
+      <guid>http://secretdeveloper.github.io/blog/2013/07/21/Functional-javascript-using-underscore/</guid>
       <description>
 
 &lt;h2 id=&#34;toc_0&#34;&gt;Functional javascript using underscore&lt;/h2&gt;
