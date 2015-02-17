@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Jsfiddle on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/jsfiddle/index.xml/</link>
+    <language>en-us</language>
+    <author>Gary Kenneally - @SecretDeveloper</author>
+    
+    <updated>Tue, 17 Feb 2015 12:52:32 UTC</updated>
+    
+    <item>
+      <title>javascript equality grid</title>
+      <link>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-grid/</link>
+      <pubDate>Tue, 17 Feb 2015 12:52:32 UTC</pubDate>
+      <author>Gary Kenneally - @SecretDeveloper</author>
+      <guid>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-grid/</guid>
+      <description>&lt;p&gt;Javascript gets some bad press these days especially over how its comparison operators work.&lt;/p&gt;
+
+&lt;p&gt;I decided to extend &lt;a href=&#34;http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html&#34;&gt;Craig Gidneys&lt;/a&gt; example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://jsfiddle.net/SecretDeveloper/1zywbpLL/&#34;&gt;Source code on jsfiddle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://http://secretdeveloper.github.io/js_equality.png&#34; title=&#34;JS equality operator grids&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
