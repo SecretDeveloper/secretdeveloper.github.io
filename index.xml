@@ -10,11 +10,11 @@
     <updated>Tue, 17 Feb 2015 12:52:32 UTC</updated>
     
     <item>
-      <title>javascript equality grid</title>
-      <link>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-grid/</link>
+      <title>Javascript Equality Operator Grids</title>
+      <link>http://secretdeveloper.github.io/blog/2015/02/17/Javascript-Equality-Operator-Grids/</link>
       <pubDate>Tue, 17 Feb 2015 12:52:32 UTC</pubDate>
       <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-grid/</guid>
+      <guid>http://secretdeveloper.github.io/blog/2015/02/17/Javascript-Equality-Operator-Grids/</guid>
       <description>&lt;p&gt;Javascript gets some bad press these days especially over how its comparison operators work.&lt;/p&gt;
 
 &lt;p&gt;I decided to extend &lt;a href=&#34;http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html&#34;&gt;Craig Gidneys&lt;/a&gt; example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.&lt;/p&gt;
