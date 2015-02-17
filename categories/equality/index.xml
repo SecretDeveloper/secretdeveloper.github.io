@@ -19,6 +19,8 @@
 
 &lt;p&gt;I decided to extend &lt;a href=&#34;http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html&#34;&gt;Craig Gidneys&lt;/a&gt; example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.&lt;/p&gt;
 
+&lt;p&gt;Rows are the left side operand and columns are the right.&lt;/p&gt;
+
 &lt;p&gt;&lt;a href=&#34;https://jsfiddle.net/SecretDeveloper/1zywbpLL/&#34;&gt;Source code on jsfiddle&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;http://i.imgur.com/H9axhC3.png&#34; title=&#34;JS equality operator grids&#34; /&gt;&lt;/p&gt;
