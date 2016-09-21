@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>Bias on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/bias/index.xml/</link>
+    <language>en-us</language>
+    <author>Gary Kenneally - @SecretDeveloper</author>
+    
+    <updated>Sun, 11 Sep 2016 09:34:47 UTC</updated>
+    
+    <item>
+      <title>Software, Estimation and the Planning Fallacy</title>
+      <link>http://secretdeveloper.github.io/blog/2016/09/11/Software-Estimation-and-the-Planning-Fallacy/</link>
+      <pubDate>Sun, 11 Sep 2016 09:34:47 UTC</pubDate>
+      <author>Gary Kenneally - @SecretDeveloper</author>
+      <guid>http://secretdeveloper.github.io/blog/2016/09/11/Software-Estimation-and-the-Planning-Fallacy/</guid>
+      <description>
+
+&lt;h1 id=&#34;toc_0&#34;&gt;Software, Estimation and the Planning Fallacy&lt;/h1&gt;
+
+&lt;p&gt;I always find it interesting that the IT industry borrows so many terms from  Construction; Programmers are called Engineers and Architects, Code is built rather than compiled, we have Planning and Construction phases in delivery models.  In the early days this would have been useful to help form the initial mental model of the roles and processes used to deliver software.  As the industry matured we developed new terms of our own but some older phrases still remain.&lt;/p&gt;
+
+&lt;p&gt;Another carry over from the Construction industry is cost estimation, any large project whether it is built with concrete or javascript must have an estimated cost right from the start it seems.  And those estimates are expected to be accurate, statements on various goals such as &amp;ldquo;within 20% of final cost&amp;rdquo; are relatively common.  There is also an expectation for estimates to become more accurate over time.  Like a hunter stalking deer in a deep forest at night, estimators are expected to get better at hitting the mark with practice. But is this a reasonable expectation?&lt;/p&gt;
+
+&lt;p&gt;The Sydney opera house&lt;a href=&#34;#1&#34;&gt;1&lt;/a&gt; is one of the most famous budget overruns for any construction project, coming in at a whopping ten years and fourteen times over original estimate, final costs are at around $102M.  But of course that is concrete and steel, surely software doesn&amp;rsquo;t cost as much and is easier to estimate, right?  Not so, Wikipedia keeps a nice list of failed and overbudget software projects&lt;a href=&#34;#2&#34;&gt;2&lt;/a&gt;, here are a few highlights:
+- NHS Connecting for Health&lt;a href=&#34;#3&#34;&gt;3&lt;/a&gt; - Estimated at £2.3bn over 3 years, it has so far cost £12.4bn over 10 years.
+- Universal Credit&lt;a href=&#34;#4&#34;&gt;4&lt;/a&gt; - Estimated at £2.2bn this was later revised to £12.8bn and again revised to £15.8bn.
+- Expeditionary Combat Support System &lt;a href=&#34;#5&#34;&gt;5&lt;/a&gt; - $1.1bn was spent with no significant deliverables, another $1.1bn would need to be invested to even achieve a quarter of original scope.
+Those are staggering numbers making the Opera house seem like a bargain at $100M.&lt;/p&gt;
+
+&lt;p&gt;Software is still a relatively new industry in comparison to construction, each decade sees major changes in how software is built and how projects are managed e.g. Waterfall to Agile. Humans have been building homes and other structures for centuries yet we still fail to accurately estimate the cost of construction. Why are we so bad at estimating?&lt;/p&gt;
+
+&lt;p&gt;Buehler and associates (1995)&lt;a href=&#34;#6&#34;&gt;6&lt;/a&gt; performed a study on a number of students and asked each of them to estimate the dates when they&lt;/p&gt;
+
+&lt;p&gt;I have become more involved in the task of software estimation in recent months and have found it to largely be a frustrating experience, one where expectations of accuracy are high.&lt;/p&gt;
+
+&lt;hr/&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;1&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/Sydney_Opera_House&#34;&gt;https://en.wikipedia.org/wiki/Sydney_Opera_House&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;2&#34;&gt;[2]&lt;/a&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_failed_and_overbudget_custom_software_projects&#34;&gt;https://en.wikipedia.org/wiki/List_of_failed_and_overbudget_custom_software_projects&lt;/a&gt;&lt;br /&gt;
+When I started looking at this I was reminded of something from another interest of mine, history.  Prior to Napoleon wars were relatively smaller affairs with troop numbers limited to around 30K due to economic constraints.  Napoleon was able to gather armies up to 300K-500K men funded a booming french economy.  The scale of the software projects above are beyond the reach of most companies, instead they can only really be funded by healthy nations economy.&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;3&#34;&gt;[3]&lt;/a&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/NHS_Connecting_for_Health&#34;&gt;https://en.wikipedia.org/wiki/NHS_Connecting_for_Health&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;4&#34;&gt;[4]&lt;/a&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/Universal_Credit&#34;&gt;https://en.wikipedia.org/wiki/Universal_Credit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;5&#34;&gt;[5]&lt;/a&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/Expeditionary_Combat_Support_System&#34;&gt;https://en.wikipedia.org/wiki/Expeditionary_Combat_Support_System&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a name=&#34;6&#34;&gt;[6]&lt;/a&gt; &lt;a href=&#34;http://web.mit.edu/curhan/www/docs/Articles/biases/67_J_Personality_and_Social_Psychology_366,_1994.pdf&#34;&gt;http://web.mit.edu/curhan/www/docs/Articles/biases/67_J_Personality_and_Social_Psychology_366,_1994.pdf&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
