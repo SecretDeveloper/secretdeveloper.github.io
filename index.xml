@@ -7,14 +7,14 @@
     <language>en-us</language>
     <author>Gary Kenneally - @SecretDeveloper</author>
     
-    <updated>Sun, 11 Sep 2016 09:34:47 UTC</updated>
+    <updated>Fri, 14 Oct 2016 12:54:47 UTC</updated>
     
     <item>
       <title>Software, Estimation and the Planning Fallacy</title>
-      <link>http://secretdeveloper.github.io/blog/2016/09/11/Software-Estimation-and-the-Planning-Fallacy/</link>
-      <pubDate>Sun, 11 Sep 2016 09:34:47 UTC</pubDate>
+      <link>http://secretdeveloper.github.io/blog/2016/10/14/Software-Estimation-and-the-Planning-Fallacy/</link>
+      <pubDate>Fri, 14 Oct 2016 12:54:47 UTC</pubDate>
       <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2016/09/11/Software-Estimation-and-the-Planning-Fallacy/</guid>
+      <guid>http://secretdeveloper.github.io/blog/2016/10/14/Software-Estimation-and-the-Planning-Fallacy/</guid>
       <description>&lt;p&gt;My flight is delayed for 3 hours so I&amp;rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.&lt;/p&gt;
 
 &lt;p&gt;Remember way back when we had the Waterfall model?  Well actually we didn&amp;rsquo;t have the Waterfall, the Waterfall model was put forward by Winston Royce back in the early 70&amp;rsquo;s as an example of a &lt;em&gt;broken&lt;/em&gt; SDLC model, unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use!  Lets forget all of that, you would be hard pressed to find any organizations still working under a Waterfall model and the reason for that is pretty strong.&lt;/p&gt;
