@@ -30,9 +30,9 @@
 &lt;p&gt;Lets talk for a moment about why estimation is a broken concept.&lt;/p&gt;
 
 &lt;p&gt;The Sydney opera house&lt;a href=&#34;#1&#34;&gt;1&lt;/a&gt; is one of the most famous budget overruns for any construction project, coming in at a whopping ten years and fourteen times over original estimate, final costs are at around $102M.  But of course that is concrete and steel, surely software doesn&amp;rsquo;t cost as much and is easier to estimate, right?  Not so, Wikipedia keeps a nice list of failed and overbudget software projects&lt;a href=&#34;#2&#34;&gt;2&lt;/a&gt;, here are a few highlights:
-- NHS Connecting for Health&lt;a href=&#34;#3&#34;&gt;3&lt;/a&gt; - Estimated at £2.3bn over 3 years, it has so far cost £12.4bn over 10 years.
-- Universal Credit&lt;a href=&#34;#4&#34;&gt;4&lt;/a&gt; - Estimated at £2.2bn this was later revised to £12.8bn and again revised to £15.8bn.
-- Expeditionary Combat Support System &lt;a href=&#34;#5&#34;&gt;5&lt;/a&gt; - $1.1bn was spent with no significant deliverables, another $1.1bn would need to be invested to even achieve a quarter of original scope.
+ - NHS Connecting for Health&lt;a href=&#34;#3&#34;&gt;3&lt;/a&gt; - Estimated at £2.3bn over 3 years, it has so far cost £12.4bn over 10 years.
+ - Universal Credit&lt;a href=&#34;#4&#34;&gt;4&lt;/a&gt; - Estimated at £2.2bn this was later revised to £12.8bn and again revised to £15.8bn.
+ - Expeditionary Combat Support System &lt;a href=&#34;#5&#34;&gt;5&lt;/a&gt; - $1.1bn was spent with no significant deliverables, another $1.1bn would need to be invested to even achieve a quarter of original scope.
 Those are staggering numbers making the Opera house seem like a bargain at $100M.&lt;/p&gt;
 
 &lt;p&gt;Software is still a relatively new industry in comparison to construction, each decade sees major changes in how software is built and how projects are managed e.g. Waterfall to Agile. Humans have been building homes and other structures for centuries yet we still fail to accurately estimate the cost of construction. Why are we so bad at estimating?&lt;/p&gt;
