@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>List-Of-Things on Just another blog with random, unripenend thoughts. </title>
+      <generator uri="https://hugo.spf13.com">Hugo</generator>
+    <link>http://secretdeveloper.github.io/categories/list-of-things/index.xml/</link>
+    <language>en-us</language>
+    <author>Gary Kenneally - @SecretDeveloper</author>
+    
+    <updated>Thu, 22 Dec 2016 12:56:02 UTC</updated>
+    
+    <item>
+      <title>2016 roundup</title>
+      <link>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</link>
+      <pubDate>Thu, 22 Dec 2016 12:56:02 UTC</pubDate>
+      <author>Gary Kenneally - @SecretDeveloper</author>
+      <guid>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</guid>
+      <description>
+
+&lt;h1 id=&#34;toc_0&#34;&gt;2016 round up&lt;/h1&gt;
+
+&lt;p&gt;So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists.  Think of this as a far less interesting homage to &lt;a href=&#34;http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/&#34;&gt;Fogus&lt;/a&gt; yearly reviews.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_1&#34;&gt;Books&lt;/h2&gt;
+
+&lt;h3 id=&#34;toc_2&#34;&gt;Technical&lt;/h3&gt;
+
+&lt;p&gt;Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.  Usually if I am reading a tech book its of a more abstract or fundamental topic rather than specific to a language and is therefore a longer living.
+- &lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Architcture of Open Source Applications&lt;/a&gt; - Various
+- &lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Architcture of Open Source Applications, Volume II&lt;/a&gt; - Various
+- &lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Performance of Open Source Applications&lt;/a&gt; - Various
+- &lt;a href=&#34;http://amzn.to/2ij9qUH&#34;&gt;Code: The Hidden Language of Computer Hardware and Software&lt;/a&gt; - Charles Petzold&lt;/p&gt;
+
+&lt;h3 id=&#34;toc_3&#34;&gt;Non Technical&lt;/h3&gt;
+
+&lt;p&gt;Most people hate commuting but it allows me to consume audiobooks and podcasts at a rate that would be impossible otherwise.  Almost all of these were &amp;ldquo;read&amp;rdquo; via audiobook.
+- &lt;a href=&#34;http://amzn.to/2i59Cbd&#34;&gt;The Passage of Power&lt;/a&gt; - Robert A. Caro
+- &lt;a href=&#34;http://amzn.to/2hKJc0r&#34;&gt;The Age of Innocence&lt;/a&gt; - Edith Wharton
+- &lt;a href=&#34;http://amzn.to/2hWIivM&#34;&gt;Seveneves&lt;/a&gt; - Neal Stephenson
+- &lt;a href=&#34;http://amzn.to/2hghrht&#34;&gt;One Hundred Years of Solitude&lt;/a&gt; - Gabriel Garcia Marquez
+- &lt;a href=&#34;http://amzn.to/2hKLQ6p&#34;&gt;To Kill a Mockingbird&lt;/a&gt; - Harper Lee
+- &lt;a href=&#34;http://amzn.to/2i54Lqu&#34;&gt;The Name of the Wind&lt;/a&gt; - Patrick Rothfuss
+- &lt;a href=&#34;http://amzn.to/2if8u7R&#34;&gt;The Wise Man&amp;rsquo;s Fear&lt;/a&gt; - Patrick Rothfuss
+- &lt;a href=&#34;http://amzn.to/2if3v7h&#34;&gt;Anathem&lt;/a&gt; - Neal Stephenson
+- &lt;a href=&#34;http://amzn.to/2ieXtUe&#34;&gt;Influence: The Psychology of Persuasion&lt;/a&gt; - Robert B. Cialdini
+- &lt;a href=&#34;http://amzn.to/2ifeqxG&#34;&gt;Wolf Hall&lt;/a&gt; - Hilary Mantel
+- &lt;a href=&#34;http://amzn.to/2hYLQjT&#34;&gt;Bring Up the Bodies&lt;/a&gt; - Hilary Mantel
+- &lt;a href=&#34;http://amzn.to/2ij81hh&#34;&gt;iWoz&lt;/a&gt; - Steve Wozniak
+- &lt;a href=&#34;http://amzn.to/2if5VTr&#34;&gt;Quiet: The Power of Introverts in a World That Can&amp;rsquo;t Stop Talking&lt;/a&gt; - Susan Cain
+- &lt;a href=&#34;http://hpmor.com/&#34;&gt;Harry Potter and the Methods of Rationality&lt;/a&gt; - Eliezer Yudkowsky&lt;/p&gt;
+
+&lt;p&gt;Next up is &lt;a href=&#34;http://amzn.to/2hKULoh&#34;&gt;The Gene: An Intimate History&lt;/a&gt; - Siddhartha Mukherjee as soon as I finish The Passage of Power.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_4&#34;&gt;Blog posts&lt;/h2&gt;
+
+&lt;h3 id=&#34;toc_5&#34;&gt;Technical&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://aphyr.com/tags/Jepsen&#34;&gt;Aphyr - Jepsen series&lt;/a&gt; - Interesting set of posts on distributed systems and how they fail.  The Redis one is particularly interesting if you are into the realities of Consistent, Available or Partition consistent distributed systems, and hey who isnt.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.codelitt.com/blog/my-first-10-minutes-on-a-server-primer-for-securing-ubuntu/&#34;&gt;My first 10 minutes on a server&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/&#34;&gt;MS - Introducing .NET standard&lt;/a&gt; - Microsoft have gone from being a non participant in the opens source world to one of its biggest players. The feat of engineering involved and the planning it required is stunning.  This blog gave a taste of that new direction.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://fsharpforfunandprofit.com/posts/how-types-work-with-functions/&#34;&gt;F# for Fun and Profit&lt;/a&gt; - I started a slightly more concerted effort to learn F# properly this year and wrote some simple apps (web crawlers, epub generators etc).  This website was hugely helpful and well worth checking out.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/@billjordan1/the-quiet-crisis-unfolding-in-software-development-cffbdafbf450#.tser0a9b3&#34;&gt;The Quiet Crisis unfolding in Software Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://idlewords.com/talks/robot_armies.htm&#34;&gt;Who Will Command The Robot Armies?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://18f.gsa.gov/2015/10/05/managing-technical-debt/&#34;&gt;Managing technical debt&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://thecodist.com/article/my-biggest-regret-as-a-programmer&#34;&gt;My Biggest Regret As A Programmer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/&#34;&gt;Bayes&amp;rsquo;s Theorem: What&amp;rsquo;s the Big Deal?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://sidbala.com/h-264-is-magic/&#34;&gt;H.264 is magic&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://bravenewgeek.com/you-are-not-paid-to-write-code/&#34;&gt;You Are Not Paid to Write Code&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.6y2emclav&#34;&gt;How it feels to learn JavaScript in 2016&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.empear.com/blog/parse-a-monster/&#34;&gt;THE DAY I PARSED A MONSTER&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/&#34;&gt;Fizz Buzz in Tensorflow&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/research/publication/uniqueness-and-reference-immutability-for-safe-parallelism/&#34;&gt;Uniqueness and Reference Immutability for Safe Parallelism&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;toc_6&#34;&gt;Non Technical&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://magazine.atavist.com/he-always-had-a-dark-side&#34;&gt;He Always Had a Dark Side&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://hintjens.com/blog:115&#34;&gt;A Protocol for Dying&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://slatestarcodex.com/2014/07/30/meditations-on-moloch/&#34;&gt;MEDITATIONS ON MOLOCH&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.kiplingsociety.co.uk/poems_copybook.htm&#34;&gt;The Gods of the Copybook Headings&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.nytimes.com/interactive/2016/08/11/magazine/isis-middle-east-arab-spring-fractured-lands.html?_r=0&#34;&gt;FRACTURED LANDS: HOW THE ARAB WORLD CAME APART&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://artlung.com/smorgasborg/C_R_Y_P_T_O_N_O_M_I_C_O_N.shtml&#34;&gt;In the Beginning Was The Command Line&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blogs.scientificamerican.com/cross-check/scott-aaronson-answers-every-ridiculously-big-question-i-throw-at-him/&#34;&gt;Scott Aaronson Answers Every Ridiculously Big Question I Throw at Him&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://classicprogrammerpaintings.com/&#34;&gt;Classic Programmer Paintings&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;toc_7&#34;&gt;Music&lt;/h2&gt;
+
+&lt;p&gt;I discovered almost no new music this year apart from a handful of albums.
+- The Black Keys discography has been my background music for at least 2 years.  Its on shuffle as I work almost constantly.
+- Radiohead - See above
+- Andrew Bird
+- Beck
+- Ben Howard
+- Chris Stapleton - I&amp;rsquo;m not a country fan at all but this dude has a great voice.
+- Daft Punk
+- Gary Clark Jr - Awesome
+- Kaleo
+- LCD Soundsystem
+- Raising Sand - Robert Plant and Alison Krauss - This one has been out a few years and I never got to it before now.
+- The White Stripes&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_8&#34;&gt;Podcasts&lt;/h2&gt;
+
+&lt;p&gt;Only two worth mentioning this year:
+- Hardcore History - Dan Carlin - Been listening to Dan for a few years now. He drops 3-4 audiobook length podcasts each year which are interesting both from a historical context but also in Dans perspective on how events happened.
+- Robert B. Peterson Podcast - This is pretty new, only started listening a week ago and only 2 episodes are up but the content is great.  It seems to be a slight reworking of his Maps of Meanings lecture series into podcast form. Well worth checking out if you are interested in Psychology, Mythological Archtypes, Parenting and the realities of being a limited being.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_9&#34;&gt;TV Shows&lt;/h2&gt;
+
+&lt;p&gt;Too many to list but here are the best ones.
+- Olive Kitteridge (HBO) - Set in Maine with Frances McDormand and Bill Murray.  Interesting look at life, depression, repression.
+- Mr. Robot - Loved season 1, not so much Season 2.
+- Jessica Jones
+- The Walking Dead - I think this is like season 6 of a show centered around a simple core concept: &amp;ldquo;We have to survive&amp;rdquo;.  But whatever, Zombies!
+- Westworld - Awesome, need to rewatch, best show I have seen for a long time.
+- Veep - Really enjoyed this.
+- The Night Of - Excellent
+- Peaky Blinders - &amp;ldquo;Tommy FOCKIN Shelby&amp;rdquo;
+- Always Sunny in Philadelphia - Excellent
+- Narcos - Excellent
+- Planet Earth 2 - David Attenborough and HD nature shots&lt;/p&gt;
+
+&lt;p&gt;On my list to watch:
+- Stranger Things - Seen 1 episode and enjoyed it.
+- Black Mirror - Ditto&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_10&#34;&gt;Films enjoyed&lt;/h2&gt;
+
+&lt;p&gt;Too many to list but here are the best ones.
+- Nocturnal Animals - Sparked a lot of conversation this one.
+- The Martian - Loved the book and the Movie.
+- The secret Life of Pets - Greate family Movie
+- Finding Dory - Where the hell is she.&lt;/p&gt;
+
+&lt;h2 id=&#34;toc_11&#34;&gt;Technical stuff encountered&lt;/h2&gt;
+
+&lt;h3 id=&#34;toc_12&#34;&gt;Work related&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;C#&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.codingthearchitecture.com/2014/08/24/c4_model_poster.html&#34;&gt;C4 architecural diagrams&lt;/a&gt; - Been using this for a while but it became my main visual explanation method this year.&lt;/li&gt;
+&lt;li&gt;Powershell&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Event-driven_architecture&#34;&gt;Event Driven Architecture&lt;/a&gt; - Loosely coupled, message oriented, queue based.&lt;/li&gt;
+&lt;li&gt;REST APIs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;toc_13&#34;&gt;Playtime related&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;F#&lt;/li&gt;
+&lt;li&gt;Javascript&lt;/li&gt;
+&lt;li&gt;Rust&lt;/li&gt;
+&lt;li&gt;Node&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;toc_14&#34;&gt;Stuff I wanted to do or learn but have not spent enough time on yet&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;More Arduino - I have tons of components waiting to be used in a crappy project that will kinda half work.&lt;/li&gt;
+&lt;li&gt;Teaching the kids programming - Starting to feel guilty about this one as it would be a great skill for them to learn.  It is the modern equivalent of literacy to some degree.&lt;/li&gt;
+&lt;li&gt;Drones&lt;/li&gt;
+&lt;li&gt;Photography&lt;/li&gt;
+&lt;li&gt;Procedural generation&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;toc_15&#34;&gt;Opensource code read&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/BenchmarkDotNet&#34;&gt;https://github.com/dotnet/BenchmarkDotNet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/vadixidav/evobots&#34;&gt;https://github.com/vadixidav/evobots&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/nightscout/cgm-remote-monitor&#34;&gt;https://github.com/nightscout/cgm-remote-monitor&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/aosabook/500lines&#34;&gt;https://github.com/aosabook/500lines&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/structurizr/dotnet&#34;&gt;https://github.com/structurizr/dotnet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/reactjs/redux&#34;&gt;https://github.com/reactjs/redux&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/coreclr&#34;&gt;https://github.com/dotnet/coreclr&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/AutoMapper/AutoMapper&#34;&gt;https://github.com/AutoMapper/AutoMapper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/roslyn&#34;&gt;https://github.com/dotnet/roslyn&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;toc_16&#34;&gt;Countries visited&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;USA - Maine
+&lt;img src=&#34;/img/maine_lighthouse.jpg&#34; title=&#34;Maine Lighthouse - Cape Elizabeth&#34; width=20% height=20% /&gt;&lt;/a&gt;
+&lt;img src=&#34;/img/maine_garden.jpg&#34; title=&#34;Maine Garden&#34; width=20% height=20% /&gt;&lt;/a&gt;
+&lt;img src=&#34;/img/maine_beach.jpg&#34; title=&#34;Maine Beach&#34; width=20% height=20% /&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;toc_17&#34;&gt;Things I bought that had an impact.&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Bose QC35 - I work in an Agile space, which basically means I sit in a big room with lots of other people and no partitions.  People can be noisy, to help fix this most companies use a whitenoise generator which helps reduce noise by creating more noise.  So yea I bought some noise cancelling headphones, silence is my drug of choice.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;toc_18&#34;&gt;References&lt;/h3&gt;
+
+&lt;p&gt;&lt;a name=&#34;1&#34;&gt;[1]&lt;/a&gt; &lt;a href=&#34;http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/&#34;&gt;http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
