@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ajax on My New Hugo Site</title>
-    <link>http://example.org/categories/ajax/</link>
-    <description>Recent content in Ajax on My New Hugo Site</description>
+    <title>Ajax on Just another blog with random, unripenend thoughts.</title>
+    <link>http://secretdeveloper.github.io/categories/ajax/</link>
+    <description>Recent content in Ajax on Just another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Jul 2013 17:03:58 +0100</lastBuildDate>
     
-	<atom:link href="http://example.org/categories/ajax/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://secretdeveloper.github.io/categories/ajax/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>KnockoutJS demo using Google Books API</title>
-      <link>http://example.org/post/knockoutjs-demo-using-google-books-api/</link>
+      <link>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</link>
       <pubDate>Sun, 21 Jul 2013 17:03:58 +0100</pubDate>
       
-      <guid>http://example.org/post/knockoutjs-demo-using-google-books-api/</guid>
+      <guid>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</guid>
       <description>Knockout.js Introduction A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call. I use the google books API to provide a simple search form.
 Show me the Code JSFiddle: 
 Check out the jsfiddle

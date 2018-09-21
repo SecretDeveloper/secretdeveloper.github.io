@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Presentations on My New Hugo Site</title>
-    <link>http://example.org/presentations/</link>
-    <description>Recent content in Presentations on My New Hugo Site</description>
+    <title>Presentations on Just another blog with random, unripenend thoughts.</title>
+    <link>http://secretdeveloper.github.io/presentations/</link>
+    <description>Recent content in Presentations on Just another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     
-	<atom:link href="http://example.org/presentations/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://secretdeveloper.github.io/presentations/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title></title>
-      <link>http://example.org/presentations/visualizingsoftwarearchitecture/</link>
+      <link>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://example.org/presentations/visualizingsoftwarearchitecture/</guid>
+      <guid>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</guid>
       <description>Visualizing Software Architecturevar link = document.createElement( &#39;link&#39; );link.rel = &#39;stylesheet&#39;;link.type = &#39;text/css&#39;;link.href = window.location.search.match( /print-pdf/gi ) ? &#39;css/print/pdf.css&#39; : &#39;css/print/paper.css&#39;;document.getElementsByTagName( &#39;head&#39; )[0].appendChild( link );.subslide{background-color: #b5533c;}Visualizing Software ArchitectureGary Kenneallygoo.gl/p8urH2 --How is software architecture usually visualized?UMLUML provides a standard notationUML is a general-purpose, developmental, modeling languageWhile UML is a powerful tool it does come with some challenges.</description>
     </item>
     

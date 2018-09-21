@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="description" content="Learning some functional programming techniques using the underscore library.">
+	
+		<title>
+				Functional javascript using underscore &middot; Just another blog with random, unripenend thoughts.
+		</title>
+	
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+	
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="http://secretdeveloper.github.io/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="http://secretdeveloper.github.io/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="http://secretdeveloper.github.io/images/apple-touch-icon.png">
+	
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Just another blog with random, unripenend thoughts." />
+	</head>
+	
+
+  <body>
+		<nav class="nav">
+			<div class="nav-container">
+			<a href="http://secretdeveloper.github.io//">
+				<h2 class="nav-title">Just another blog with random, unripenend thoughts.</h2>
+			</a>
+			<ul>
+				<li><a href="http://secretdeveloper.github.io/about">About</a></li>
+				<li><a href="http://secretdeveloper.github.io/">Posts</a></li>
+			</ul>
+			</div>
+		</nav>
+
+<main>
+	<div class="post">
+		<div class="post-info">
+		<span>Written by</span>
+			
+			<br>
+			<span>on&nbsp;</span><time datetime="2013-07-21 15:03:58 &#43;0100 BST">July 21, 2013</time>
+		</div>
+
+		<h1 class="post-title">Functional javascript using underscore</h1>
+		<div class="post-line"></div>
+
+		
+
+<h2 id="functional-javascript-using-underscore">Functional javascript using underscore</h2>
+
+<h3 id="why">Why?</h3>
+
+<p>A little while ago I picked up <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> by Michael Fogus.  I&rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&hellip;</p>
+
+<p>There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:
+&gt;&ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&rdquo; - Alan Perlis</p>
+
+<p>This is very different concept to what is normally seen in large enterprise level projects and applications.  I have to say that I have spent a large amount of time writing code to map one model to another and back again. Its not fun. This functional stuff might be on to something.</p>
+
+<h3 id="what">What?</h3>
+
+<p>Well Michaels book uses the <a href="http://underscorejs.org">underscore</a> library for all of his examples and its a really powerful tool.  I have started using it here and there on smaller projects and the more I use it the more I like it.</p>
+
+<h3 id="how">How?</h3>
+
+<p><a href="http://http://projecteuler.net/">Project Euler</a> is probably the go-to set of problems when developers try to learn a new language or framework.  I don&rsquo;t see why I should be any different.  I have started a small project to play around with this and you can see it over on <a href="https://github.com/SecretDeveloper/sdjs">github</a>.</p>
+
+<h4 id="problem-1">Problem 1</h4>
+
+<blockquote>
+<p>If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.</p>
+</blockquote>
+
+<p>Can be solved with a few lines of code like the following:</p>
+
+<pre><code>    return _.reduce(_.range(0,1000), function(memo, number){  
+            if( number%3===0 || number%5==0) return memo+number;  
+            return memo;}  
+        );  
+</code></pre>
+
+<h4 id="testing">Testing</h4>
+
+<p>Unit testing javascript has come a long way in the last few years and I have added a simple QUnit test runner to the repository.</p>
+
+
+	</div>
+
+	<div class="pagination">
+		<a href="/blog/1/01/01/" class="left arrow">&#8592;</a>
+		<a href="/blog/2013/07/21/knockoutjs-demo-using-google-books-api/" class="right arrow">&#8594;</a>
+
+		<a href="#" class="top">Top</a>
+	</div>
+</main>		<footer>
+			<span>
+			&copy; <time datetime="2018-09-21 11:03:30.967976 &#43;0100 BST m=&#43;0.436181401">2018</time> . Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
+			</span>
+		</footer>
+  </body>
+</html>
