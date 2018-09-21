@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on Just another blog with random, unripenend thoughts.</title>
-    <link>http://secretdeveloper.github.io/categories/javascript/</link>
-    <description>Recent content in Javascript on Just another blog with random, unripenend thoughts.</description>
+    <title>Javascript on My New Hugo Site</title>
+    <link>http://example.org/categories/javascript/</link>
+    <description>Recent content in Javascript on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 17 Feb 2015 12:52:32 +0000</lastBuildDate>
     
-	<atom:link href="http://secretdeveloper.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://example.org/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Javascript Equality Operator Grids</title>
-      <link>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</link>
+      <link>http://example.org/post/javascript-equality-operator-grids/javascript-equality-operator-grids/</link>
       <pubDate>Tue, 17 Feb 2015 12:52:32 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</guid>
+      <guid>http://example.org/post/javascript-equality-operator-grids/javascript-equality-operator-grids/</guid>
       <description>Javascript gets some bad press these days especially over how its comparison operators work.
 I decided to extend Craig Gidneys example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.
 Rows are the left side operand and columns are the right.
@@ -25,10 +25,10 @@ Source code on jsfiddle</description>
     
     <item>
       <title>Directed Graph of hubski users created with D3</title>
-      <link>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</link>
+      <link>http://example.org/post/hubski-directed-graph-with-d3/hubski-directed-graph-with-d3/</link>
       <pubDate>Tue, 16 Dec 2014 22:34:47 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</guid>
+      <guid>http://example.org/post/hubski-directed-graph-with-d3/hubski-directed-graph-with-d3/</guid>
       <description>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.
 Source code on github
 Demo version
@@ -40,10 +40,10 @@ I then looped over each of that users followers and recorded the same informatio
     
     <item>
       <title>Functional javascript using underscore</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</link>
+      <link>http://example.org/post/functional-javascript-using-underscore/</link>
       <pubDate>Sun, 21 Jul 2013 15:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</guid>
+      <guid>http://example.org/post/functional-javascript-using-underscore/</guid>
       <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
 There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>

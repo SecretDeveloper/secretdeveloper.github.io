@@ -3,168 +3,173 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</loc>
+    <loc>http://example.org/post/2016-roundup/2016-roundup/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</loc>
+    <loc>http://example.org/post/javascript-equality-operator-grids/javascript-equality-operator-grids/</loc>
     <lastmod>2015-02-17T12:52:32+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</loc>
+    <loc>http://example.org/post/hubski-directed-graph-with-d3/hubski-directed-graph-with-d3/</loc>
     <lastmod>2014-12-16T22:34:47+00:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</loc>
+    <loc>http://example.org/post/data-models-functional-composition-and-validation/</loc>
     <lastmod>2013-08-06T15:03:58+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</loc>
+    <loc>http://example.org/post/knockoutjs-demo-using-google-books-api/</loc>
     <lastmod>2013-07-21T17:03:58+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</loc>
+    <loc>http://example.org/post/functional-javascript-using-underscore/</loc>
     <lastmod>2013-07-21T15:03:58+01:00</lastmod>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/1/01/01/</loc>
+    <loc>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph/</loc>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/blog/1/01/01/</loc>
+    <loc>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph_advanced/</loc>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</loc>
+    <loc>http://example.org/presentations/visualizingsoftwarearchitecture/</loc>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/2016/</loc>
+    <loc>http://example.org/categories/2016/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/ajax/</loc>
+    <loc>http://example.org/categories/ajax/</loc>
     <lastmod>2013-07-21T17:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/</loc>
+    <loc>http://example.org/categories/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/composition/</loc>
+    <loc>http://example.org/categories/composition/</loc>
     <lastmod>2013-08-06T15:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/csharp/</loc>
+    <loc>http://example.org/categories/csharp/</loc>
     <lastmod>2014-12-16T22:34:47+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/d3/</loc>
+    <loc>http://example.org/categories/d3/</loc>
     <lastmod>2014-12-16T22:34:47+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/data-models/</loc>
+    <loc>http://example.org/categories/data-models/</loc>
     <lastmod>2013-08-06T15:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/equality/</loc>
+    <loc>http://example.org/categories/equality/</loc>
     <lastmod>2015-02-17T12:52:32+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/functional-programming/</loc>
+    <loc>http://example.org/categories/functional-programming/</loc>
     <lastmod>2013-07-21T15:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/googleapi/</loc>
+    <loc>http://example.org/categories/googleapi/</loc>
     <lastmod>2013-07-21T17:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/graph/</loc>
+    <loc>http://example.org/categories/graph/</loc>
     <lastmod>2014-12-16T22:34:47+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/javascript/</loc>
+    <loc>http://example.org/categories/javascript/</loc>
     <lastmod>2015-02-17T12:52:32+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/jsfiddle/</loc>
+    <loc>http://example.org/categories/jsfiddle/</loc>
     <lastmod>2015-02-17T12:52:32+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/</loc>
-    <lastmod>2016-12-22T12:56:02+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://secretdeveloper.github.io/categories/knockoutjs/</loc>
+    <loc>http://example.org/categories/knockoutjs/</loc>
     <lastmod>2013-07-21T17:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/list-of-things/</loc>
+    <loc>http://example.org/categories/list-of-things/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/post/</loc>
+    <loc>http://example.org/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/presentations/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>http://secretdeveloper.github.io/categories/roundup/</loc>
+    <loc>http://example.org/post/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/underscore/</loc>
+    <loc>http://example.org/presentations/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/roundup/</loc>
+    <lastmod>2016-12-22T12:56:02+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://example.org/categories/underscore/</loc>
     <lastmod>2013-08-06T15:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://secretdeveloper.github.io/categories/validation/</loc>
+    <loc>http://example.org/categories/validation/</loc>
     <lastmod>2013-08-06T15:03:58+01:00</lastmod>
     <priority>0</priority>
   </url>

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Just another blog with random, unripenend thoughts.</title>
-    <link>http://secretdeveloper.github.io/</link>
-    <description>Recent content on Just another blog with random, unripenend thoughts.</description>
+    <title>My New Hugo Site</title>
+    <link>http://example.org/</link>
+    <description>Recent content on My New Hugo Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 22 Dec 2016 12:56:02 +0000</lastBuildDate>
     
-	<atom:link href="http://secretdeveloper.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://example.org/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>2016 roundup</title>
-      <link>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</link>
+      <link>http://example.org/post/2016-roundup/2016-roundup/</link>
       <pubDate>Thu, 22 Dec 2016 12:56:02 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</guid>
+      <guid>http://example.org/post/2016-roundup/2016-roundup/</guid>
       <description>So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists. Think of this as a far less interesting homage to Fogus yearly reviews.
 Books Technical Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.</description>
     </item>
     
     <item>
       <title>Javascript Equality Operator Grids</title>
-      <link>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</link>
+      <link>http://example.org/post/javascript-equality-operator-grids/javascript-equality-operator-grids/</link>
       <pubDate>Tue, 17 Feb 2015 12:52:32 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</guid>
+      <guid>http://example.org/post/javascript-equality-operator-grids/javascript-equality-operator-grids/</guid>
       <description>Javascript gets some bad press these days especially over how its comparison operators work.
 I decided to extend Craig Gidneys example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.
 Rows are the left side operand and columns are the right.
@@ -35,10 +35,10 @@ Source code on jsfiddle</description>
     
     <item>
       <title>Directed Graph of hubski users created with D3</title>
-      <link>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</link>
+      <link>http://example.org/post/hubski-directed-graph-with-d3/hubski-directed-graph-with-d3/</link>
       <pubDate>Tue, 16 Dec 2014 22:34:47 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</guid>
+      <guid>http://example.org/post/hubski-directed-graph-with-d3/hubski-directed-graph-with-d3/</guid>
       <description>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.
 Source code on github
 Demo version
@@ -50,20 +50,20 @@ I then looped over each of that users followers and recorded the same informatio
     
     <item>
       <title>Data Models, functional composition and validation</title>
-      <link>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</link>
+      <link>http://example.org/post/data-models-functional-composition-and-validation/</link>
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</guid>
+      <guid>http://example.org/post/data-models-functional-composition-and-validation/</guid>
       <description>While I am working my way through the Functional Javascript book I came across something that could be really useful, especially when dealing with AJAX requests.
 Functional Composition In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task. In this example we want to validate that the json being returned from an AJAX call contains the properties we require.</description>
     </item>
     
     <item>
       <title>KnockoutJS demo using Google Books API</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</link>
+      <link>http://example.org/post/knockoutjs-demo-using-google-books-api/</link>
       <pubDate>Sun, 21 Jul 2013 17:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</guid>
+      <guid>http://example.org/post/knockoutjs-demo-using-google-books-api/</guid>
       <description>Knockout.js Introduction A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call. I use the google books API to provide a simple search form.
 Show me the Code JSFiddle: 
 Check out the jsfiddle
@@ -72,38 +72,38 @@ I also use the underscore library to work with the observableArray but that is n
     
     <item>
       <title>Functional javascript using underscore</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</link>
+      <link>http://example.org/post/functional-javascript-using-underscore/</link>
       <pubDate>Sun, 21 Jul 2013 15:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</guid>
+      <guid>http://example.org/post/functional-javascript-using-underscore/</guid>
       <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
 There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://secretdeveloper.github.io/blog/1/01/01/</link>
+      <link>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/1/01/01/</guid>
+      <guid>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph/</guid>
       <description>.node {stroke: #fff;stroke-width: 1.5px;}.link {stroke: #999;stroke-opacity: .6;}Find Me!function findNode(){var find = document.getElementById(&#34;txtfind&#34;).value.toLowerCase();var node = d3.select(&#34;#node_&#34;+find);//	node[0][0].r.animVal.value =2000;//node[0][0].attr(&#34;fill&#34;,&#34;#000&#34;);}(function(){var width = 1800,height = 1800;var scaledcolor = d3.scale.category20();var color = function(v){if(v=0 &amp;&amp; v=100 &amp;&amp; v=200 &amp;&amp; v=300 &amp;&amp; v=400 &amp;&amp; v=500 &amp;&amp; v=600 &amp;&amp; v=700 &amp;&amp; v=800 &amp;&amp; v=900 &amp;&amp; v=1000 &amp;&amp; v=1100 &amp;&amp; v=1200 &amp;&amp; v25) nodeMap[d.</description>
     </item>
     
     <item>
       <title></title>
-      <link>http://secretdeveloper.github.io/blog/1/01/01/</link>
+      <link>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph_advanced/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/1/01/01/</guid>
+      <guid>http://example.org/post/hubski-directed-graph-with-d3/hubski_graph_advanced/</guid>
       <description>.node {stroke: #fff;stroke-width: 1.5px;}.link {stroke: #999;stroke-opacity: .6;}User to highlight  Canvas sizeChargeLink DistanceGravityFollowersAgeBadges receivedDraw!Clear </description>
     </item>
     
     <item>
       <title></title>
-      <link>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</link>
+      <link>http://example.org/presentations/visualizingsoftwarearchitecture/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</guid>
+      <guid>http://example.org/presentations/visualizingsoftwarearchitecture/</guid>
       <description>Visualizing Software Architecturevar link = document.createElement( &#39;link&#39; );link.rel = &#39;stylesheet&#39;;link.type = &#39;text/css&#39;;link.href = window.location.search.match( /print-pdf/gi ) ? &#39;css/print/pdf.css&#39; : &#39;css/print/paper.css&#39;;document.getElementsByTagName( &#39;head&#39; )[0].appendChild( link );.subslide{background-color: #b5533c;}Visualizing Software ArchitectureGary Kenneallygoo.gl/p8urH2 --How is software architecture usually visualized?UMLUML provides a standard notationUML is a general-purpose, developmental, modeling languageWhile UML is a powerful tool it does come with some challenges.</description>
     </item>
     
