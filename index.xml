@@ -49,17 +49,6 @@ I then looped over each of that users followers and recorded the same informatio
     </item>
     
     <item>
-      <title>about me</title>
-      <link>http://secretdeveloper.github.io/about/</link>
-      <pubDate>Sun, 19 Oct 2014 15:00:37 +0100</pubDate>
-      
-      <guid>http://secretdeveloper.github.io/about/</guid>
-      <description>What is this blog about? This is a playground blog to store some posts written by a guy called Gary Kenneally. You should follow me on twitter under the handle @secretdeveloper, more here or on linkedin. He set this blog up to play with the following:  jekyll ruby rake twitter bootstrap jekyll bootstrap and github pages
- This blog contains static content generated from a github repository
-Development Programmer, System designer, and Technical Lead on a variety of large enterprise projects and solutions including Websites, Windows Services and large SOA systems.</description>
-    </item>
-    
-    <item>
       <title>Data Models, functional composition and validation</title>
       <link>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</link>
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
