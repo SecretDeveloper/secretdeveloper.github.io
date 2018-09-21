@@ -80,5 +80,23 @@ I also use the underscore library to work with the observableArray but that is n
 There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>http://secretdeveloper.github.io/blog/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/1/01/01/</guid>
+      <description>.node {stroke: #fff;stroke-width: 1.5px;}.link {stroke: #999;stroke-opacity: .6;}Find Me!function findNode(){var find = document.getElementById(&#34;txtfind&#34;).value.toLowerCase();var node = d3.select(&#34;#node_&#34;+find);//	node[0][0].r.animVal.value =2000;//node[0][0].attr(&#34;fill&#34;,&#34;#000&#34;);}(function(){var width = 1800,height = 1800;var scaledcolor = d3.scale.category20();var color = function(v){if(v=0 &amp;&amp; v=100 &amp;&amp; v=200 &amp;&amp; v=300 &amp;&amp; v=400 &amp;&amp; v=500 &amp;&amp; v=600 &amp;&amp; v=700 &amp;&amp; v=800 &amp;&amp; v=900 &amp;&amp; v=1000 &amp;&amp; v=1100 &amp;&amp; v=1200 &amp;&amp; v25) nodeMap[d.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>http://secretdeveloper.github.io/blog/1/01/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/1/01/01/</guid>
+      <description>.node {stroke: #fff;stroke-width: 1.5px;}.link {stroke: #999;stroke-opacity: .6;}User to highlight  Canvas sizeChargeLink DistanceGravityFollowersAgeBadges receivedDraw!Clear </description>
+    </item>
+    
   </channel>
 </rss>
