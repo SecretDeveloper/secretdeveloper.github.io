@@ -91,5 +91,14 @@ I also use the underscore library to work with the observableArray but that is n
 There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>
     
+    <item>
+      <title></title>
+      <link>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/presentations/visualizingsoftwarearchitecture/</guid>
+      <description>Visualizing Software Architecturevar link = document.createElement( &#39;link&#39; );link.rel = &#39;stylesheet&#39;;link.type = &#39;text/css&#39;;link.href = window.location.search.match( /print-pdf/gi ) ? &#39;css/print/pdf.css&#39; : &#39;css/print/paper.css&#39;;document.getElementsByTagName( &#39;head&#39; )[0].appendChild( link );.subslide{background-color: #b5533c;}Visualizing Software ArchitectureGary Kenneallygoo.gl/p8urH2 --How is software architecture usually visualized?UMLUML provides a standard notationUML is a general-purpose, developmental, modeling languageWhile UML is a powerful tool it does come with some challenges.</description>
+    </item>
+    
   </channel>
 </rss>
