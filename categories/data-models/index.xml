@@ -13,10 +13,10 @@
     
     <item>
       <title>Data Models, functional composition and validation</title>
-      <link>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</link>
+      <link>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</link>
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</guid>
+      <guid>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</guid>
       <description>While I am working my way through the Functional Javascript book I came across something that could be really useful, especially when dealing with AJAX requests.
 Functional Composition In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task. In this example we want to validate that the json being returned from an AJAX call contains the properties we require.</description>
     </item>

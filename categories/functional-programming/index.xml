@@ -13,10 +13,10 @@
     
     <item>
       <title>Functional javascript using underscore</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</link>
+      <link>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</link>
       <pubDate>Sun, 21 Jul 2013 15:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</guid>
+      <guid>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</guid>
       <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
 There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>

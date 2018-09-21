@@ -13,10 +13,10 @@
     
     <item>
       <title>KnockoutJS demo using Google Books API</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</link>
+      <link>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</link>
       <pubDate>Sun, 21 Jul 2013 17:03:58 +0100</pubDate>
       
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</guid>
+      <guid>http://secretdeveloper.github.io/post/knockoutjs-demo-using-google-books-api/</guid>
       <description>Knockout.js Introduction A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call. I use the google books API to provide a simple search form.
 Show me the Code JSFiddle: 
 Check out the jsfiddle
