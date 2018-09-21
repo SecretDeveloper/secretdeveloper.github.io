@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>http://secretdeveloper.github.io/post/2016-roundup/</loc>
+    <loc>http://secretdeveloper.github.io/post/2016-roundup/2016-roundup/</loc>
     <lastmod>2016-12-22T12:56:02+00:00</lastmod>
   </url>
   
@@ -30,14 +30,6 @@
   <url>
     <loc>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</loc>
     <lastmod>2013-07-21T15:03:58+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://secretdeveloper.github.io/post/hubski-directed-graph-with-d3/hubski_graph/</loc>
-  </url>
-  
-  <url>
-    <loc>http://secretdeveloper.github.io/post/hubski-directed-graph-with-d3/hubski_graph_advanced/</loc>
   </url>
   
   <url>
