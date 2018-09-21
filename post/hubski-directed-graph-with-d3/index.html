@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head lang="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+	<meta name="description" content="Gary Kenneally - @SecretDeveloper">
+	<meta name="generator" content="Hugo 0.48" />
+	
+	<title>Directed Graph of hubski users created with D3 &mdash; Just another blog with random, unripenend thoughts.</title>
+	
+	<link rel="stylesheet" href="http://secretdeveloper.github.io/css/alabaster.css" type="text/css" />
+	<link rel="stylesheet" href="http://secretdeveloper.github.io/css/pygments.css" type="text/css" />
+
+	
+
+	<link rel="shortcut icon" href="http://secretdeveloper.github.io/favicon.ico" type="image/x-icon"/>
+</head>
+
+	<body role="document">
+		<div class="document">
+			<div class="documentwrapper">
+				<div class="bodywrapper">
+					<div class="body" role="main">
+						
+	<h1>Directed Graph of hubski users created with D3</h1>
+	
+	<p>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.</p>
+
+<p><a href="https://github.com/SecretDeveloper/SocialGraph">Source code on github</a></p>
+
+<p><a href="http://secretdeveloper.github.io/items/hubski_graph.html">Demo version</a></p>
+
+<p><a href="http://secretdeveloper.github.io/items/hubski_graph_advanced.html">Advanced Demo version</a></p>
+
+<p><a href="./hubski_graph.html">
+<img src="http://i.imgur.com/Ko6TQQ3.png" title="Hubski Followers" width=400 height=400 /></a></p>
+
+<p>I started off by scanning a users profile and recording various pieces of information such as:
+- Age in days
+- Number of followers
+- Number of people followed
+- Number of badges received.</p>
+
+<p>I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&hellip;  you get the idea.</p>
+
+<p>I ended up thousands of accounts which was good but most of them only had 1 or 2 followers indicating a low level of social integration.  I filtered out most accounts with less than 25 followers (a few did make it in) in order to represent the core social group members.</p>
+
+<p>I graphed the data using <a href="http://d3js.org/">D3</a> into a force directed graph that included all of the connections (follows) between each of the gathered members.  There is some gravity applied to the area which results in the larger (more followed) users being drawn towards the center while the smaller users encircle them, like satellites basking in the glow of a shining sun, or hornets buzzing around fresh manure.</p>
+
+<p>It&rsquo;s a work in progress, search needs to be fixed&hellip;</p>
+
+
+
+						<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "secretdevelopernet" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+	<div class="sphinxsidebarwrapper">
+		<p class="logo">
+			<a href="http://secretdeveloper.github.io/">
+				
+				<h1 class="logo logo-name"></h1>
+			</a>
+		</p>
+		
+		<p class="blurb">Gary Kenneally - @SecretDeveloper</p>
+
+		
+		
+
+		
+
+<h3>Navigation</h3>
+<ul>
+	
+	<li class="toctree-l1">
+		<a class="reference internal" href="/presentations/">Presentations</a>
+	</li>
+	
+</ul>
+
+
+		
+
+	</div>
+</div>
+<div class="clearer"></div>
+</div>
+			<div class="footer">
+	&copy; 2018 
+	
+</div>
+
+
+
+
+			
+
+			
+
+			
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-6023272-11', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+		</div>
+	</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head lang="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+	<meta name="description" content="Gary Kenneally - @SecretDeveloper">
+	<meta name="generator" content="Hugo 0.48" />
+	
+	<title>Data Models, functional composition and validation &mdash; Just another blog with random, unripenend thoughts.</title>
+	
+	<link rel="stylesheet" href="http://secretdeveloper.github.io/css/alabaster.css" type="text/css" />
+	<link rel="stylesheet" href="http://secretdeveloper.github.io/css/pygments.css" type="text/css" />
+
+	
+
+	<link rel="shortcut icon" href="http://secretdeveloper.github.io/favicon.ico" type="image/x-icon"/>
+</head>
+
+	<body role="document">
+		<div class="document">
+			<div class="documentwrapper">
+				<div class="bodywrapper">
+					<div class="body" role="main">
+						
+	<h1>Data Models, functional composition and validation</h1>
+	
+	
+
+<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
+
+<h4 id="functional-composition">Functional Composition</h4>
+
+<p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>
+
+<pre><code>function validator(message, fun){
+    var f = function(){
+        return fun.apply(fun, arguments);
+    };
+    f['message'] = message;
+    return f;
+};
+</code></pre>
+
+<p>which takes a message string and a function as parameters and returns an object what can be called with an arbitrary number of arguments to perform a task.  The returned object has a &lsquo;message&rsquo; property assigned also.</p>
+
+<p>Next we need a &lsquo;driver&rsquo; function:</p>
+
+<pre><code>function checker(){  
+    var validators = _.toArray(arguments);  
+    return function(obj){  
+        return _.reduce(validators, function(errs, check){  
+            if(check(obj))  
+                return errs;  
+            else  
+                return _.chain(errs).push(check.message).value();  
+        }, []);  
+    };  
+};  
+</code></pre>
+
+<p>that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &lsquo;obj&rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &lsquo;message&rsquo; to the list it will return. If all validators pass then the array returned will be empty.</p>
+
+<h4 id="putting-it-all-together">Putting it all together</h4>
+
+<p>I can use my checker and validator functions to create a validation function like the following:</p>
+
+<pre><code>function isValidResourceItem(){
+    var validators = checker(
+
+        validator('obj can not be nul',
+            function(obj){return !_.isNull(obj);}),
+
+        validator('obj must contain title',
+            function(obj){return !_.isNull(obj.title);}),
+
+        validator('obj must contain canonicalVolumeLink',
+            function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
+
+        validator('obj must contain description',
+            function(obj){return !_.isNull(obj.description);})
+    );
+    return validators;
+};
+</code></pre>
+
+<p>which will help to ensure the data was returned in a format I expect and cut down on those &lsquo;undefined&rsquo; errors you would get without something like this.</p>
+
+<h4 id="example">Example</h4>
+
+<p>I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.</p>
+
+<iframe width="100%" height="300" src="http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"> </iframe>
+
+<h4 id="whats-the-point">Whats the point?</h4>
+
+<p>Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.</p>
+
+
+
+						<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "secretdevelopernet" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+	<div class="sphinxsidebarwrapper">
+		<p class="logo">
+			<a href="http://secretdeveloper.github.io/">
+				
+				<h1 class="logo logo-name"></h1>
+			</a>
+		</p>
+		
+		<p class="blurb">Gary Kenneally - @SecretDeveloper</p>
+
+		
+		
+
+		
+
+<h3>Navigation</h3>
+<ul>
+	
+	<li class="toctree-l1">
+		<a class="reference internal" href="/presentations/">Presentations</a>
+	</li>
+	
+</ul>
+
+
+		
+
+	</div>
+</div>
+<div class="clearer"></div>
+</div>
+			<div class="footer">
+	&copy; 2018 
+	
+</div>
+
+
+
+
+			
+
+			
+
+			
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-6023272-11', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+		</div>
+	</body>
+</html>

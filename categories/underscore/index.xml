@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Underscore on Just another blog with random, unripenend thoughts.</title>
+    <link>http://secretdeveloper.github.io/categories/underscore/</link>
+    <description>Recent content in Underscore on Just another blog with random, unripenend thoughts.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Aug 2013 15:03:58 +0100</lastBuildDate>
+    
+	<atom:link href="http://secretdeveloper.github.io/categories/underscore/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data Models, functional composition and validation</title>
+      <link>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</link>
+      <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/data-models-functional-composition-and-validation/</guid>
+      <description>While I am working my way through the Functional Javascript book I came across something that could be really useful, especially when dealing with AJAX requests.
+Functional Composition In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task. In this example we want to validate that the json being returned from an AJAX call contains the properties we require.</description>
+    </item>
+    
+    <item>
+      <title>Functional javascript using underscore</title>
+      <link>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</link>
+      <pubDate>Sun, 21 Jul 2013 15:03:58 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</guid>
+      <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
+There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
+    </item>
+    
+  </channel>
+</rss>
