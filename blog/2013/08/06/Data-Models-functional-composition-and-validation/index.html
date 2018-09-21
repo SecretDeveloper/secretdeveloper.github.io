@@ -1,73 +1,59 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A layout example that shows off a blog page with a list of posts.">
+<!DOCTYPE html>
+<html lang="en-us">
 
-    <title>Data Models, functional composition and validation &middot; Just another blog with random, unripenend thoughts.</title>
-    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Oxygen:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
-    
-    
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
-    
+  <head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="description" content="Using function composition to validate data models in javascript.">
+	
+		<title>
+				Data Models, functional composition and validation &middot; Just another blog with random, unripenend thoughts.
+		</title>
+	
+		
+  		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700">
+	
+		
+		<link rel="icon" type="image/png" sizes="32x32" href="http://secretdeveloper.github.io/images/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="http://secretdeveloper.github.io/images/favicon-16x16.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="http://secretdeveloper.github.io/images/apple-touch-icon.png">
+	
+		
+		<link href="" rel="alternate" type="application/rss+xml" title="Just another blog with random, unripenend thoughts." />
+	</head>
+	
 
-    
-    
-        <link rel="stylesheet" href="/css/blog.css">
-    
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-</head>
-<body>
+  <body>
+		<nav class="nav">
+			<div class="nav-container">
+			<a href="http://secretdeveloper.github.io//">
+				<h2 class="nav-title">Just another blog with random, unripenend thoughts.</h2>
+			</a>
+			<ul>
+				<li><a href="http://secretdeveloper.github.io/about">About</a></li>
+				<li><a href="http://secretdeveloper.github.io/">Posts</a></li>
+			</ul>
+			</div>
+		</nav>
 
-<div id="layout" class="pure-g">
-    <div class="sidebar pure-u-1 pure-u-md-1-4">
-    <div class="header">
-        <hgroup>
-            <h1 class="brand-title"><a href="http://secretdeveloper.github.io">Just another blog with random, unripenend thoughts.</a></h1>
-            <h2 class="brand-tagline">Gary Kenneally - @SecretDeveloper</h2>
-        </hgroup>
+<main>
+	<div class="post">
+		<div class="post-info">
+		<span>Written by</span>
+			
+			<br>
+			<span>on&nbsp;</span><time datetime="2013-08-06 15:03:58 &#43;0100 BST">August 6, 2013</time>
+		</div>
 
-        <nav class="nav">
-            <ul class="nav-list">
-                <li class="nav-item">
-                    <a class="pure-button" href="http://twitter.com/@secretdeveloper"><i class="fa fa-twitter"></i> Twitter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="pure-button" href="http://github.com/secretdeveloper "><i class="fa fa-github-alt"></i> Github</a>
-                </li>
-                
-            </ul>
-        </nav>
-    </div>
-</div>
+		<h1 class="post-title">Data Models, functional composition and validation</h1>
+		<div class="post-line"></div>
 
-    <div class="content pure-u-1 pure-u-md-3-4">
-        <div>
-            
-            <div class="posts">
-                <h1 class="content-subhead">06 Aug 2013, 15:03</h1>
-                <section class="post">
-                    <header class="post-header">
-
-                        <a href="http://secretdeveloper.github.io/blog/2013/08/06/Data-Models-functional-composition-and-validation/" class="post-title">Data Models, functional composition and validation</a>
-
-                        <p class="post-meta">
-                            
-                            
-                                under 
-                                <a class="post-category post-category-underscore" href="/categories/underscore">underscore</a><a class="post-category post-category-data-models" href="/categories/data-models">data-models</a><a class="post-category post-category-composition" href="/categories/composition">composition</a><a class="post-category post-category-validation" href="/categories/validation">validation</a>
-                            
-                        </p>
-                    </header>
-
-                    <div class="post-description">
-                        
+		
 
 <p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
 
-<h4 id="toc_0">Functional Composition</h4>
+<h4 id="functional-composition">Functional Composition</h4>
 
 <p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>
 
@@ -99,7 +85,7 @@
 
 <p>that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &lsquo;obj&rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &lsquo;message&rsquo; to the list it will return. If all validators pass then the array returned will be empty.</p>
 
-<h4 id="toc_1">Putting it all together</h4>
+<h4 id="putting-it-all-together">Putting it all together</h4>
 
 <p>I can use my checker and validator functions to create a validation function like the following:</p>
 
@@ -124,51 +110,29 @@
 
 <p>which will help to ensure the data was returned in a format I expect and cut down on those &lsquo;undefined&rsquo; errors you would get without something like this.</p>
 
-<h4 id="toc_2">Example</h4>
+<h4 id="example">Example</h4>
 
 <p>I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.</p>
 
 <iframe width="100%" height="300" src="http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"> </iframe>
 
-<h4 id="toc_3">Whats the point?</h4>
+<h4 id="whats-the-point">Whats the point?</h4>
 
 <p>Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.</p>
 
-                    </div>                    
-                </section>
-                
-                <section>
-                    <div class="post-comments">
-                        <div id="disqus_thread"></div>
-<script type="text/javascript">
-    var disqus_shortname = 'secretdevelopernet';
-    var disqus_identifier = 'http:\/\/secretdeveloper.github.io\/blog\/2013\/08\/06\/Data-Models-functional-composition-and-validation\/';
-    var disqus_title = 'Data Models, functional composition and validation';
-    var disqus_url = 'http:\/\/secretdeveloper.github.io\/blog\/2013\/08\/06\/Data-Models-functional-composition-and-validation\/';
 
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-                    </div>
-                </section>
-            </div>
-            <div class="footer">
-    <div class="pure-menu pure-menu-horizontal pure-menu-open">
-        <ul>
-            <li>Powered by <a class="hugo" href="http://hugo.spf13.com/" target="_blank">hugo</a></li>
-        </ul>
-    </div>
-</div>
+	</div>
 
-        </div>
-    </div>
-</div>
+	<div class="pagination">
+		<a href="/blog/2013/07/21/knockoutjs-demo-using-google-books-api/" class="left arrow">&#8592;</a>
+		<a href="/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/" class="right arrow">&#8594;</a>
 
-
-</body>
+		<a href="#" class="top">Top</a>
+	</div>
+</main>		<footer>
+			<span>
+			&copy; <time datetime="2018-09-21 09:25:23.1975226 &#43;0100 BST m=&#43;0.119744301">2018</time> . Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
+			</span>
+		</footer>
+  </body>
 </html>

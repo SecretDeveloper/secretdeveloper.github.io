@@ -1,470 +1,83 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>Recent Content on Just another blog with random, unripenend thoughts. </title>
-      <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>http://secretdeveloper.github.io/index.xml/</link>
+    <title>Just another blog with random, unripenend thoughts.</title>
+    <link>http://secretdeveloper.github.io/</link>
+    <description>Recent content on Just another blog with random, unripenend thoughts.</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <author>Gary Kenneally - @SecretDeveloper</author>
+    <lastBuildDate>Thu, 22 Dec 2016 12:56:02 +0000</lastBuildDate>
     
-    <updated>Thu, 22 Dec 2016 12:56:02 UTC</updated>
+	<atom:link href="http://secretdeveloper.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>2016 roundup</title>
       <link>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</link>
-      <pubDate>Thu, 22 Dec 2016 12:56:02 UTC</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
+      <pubDate>Thu, 22 Dec 2016 12:56:02 +0000</pubDate>
+      
       <guid>http://secretdeveloper.github.io/blog/2016/12/22/2016-roundup/</guid>
-      <description>
-
-&lt;p&gt;So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists.  Think of this as a far less interesting homage to &lt;a href=&#34;http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/&#34;&gt;Fogus&lt;/a&gt; yearly reviews.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_0&#34;&gt;Books&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_1&#34;&gt;Technical&lt;/h3&gt;
-
-&lt;p&gt;Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.  Usually if I am reading a tech book its of a more abstract or fundamental topic rather than specific to a language and is therefore a longer living.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Architcture of Open Source Applications&lt;/a&gt; - Various&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Architcture of Open Source Applications, Volume II&lt;/a&gt; - Various&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://aosabook.org/en/index.html&#34;&gt;The Performance of Open Source Applications&lt;/a&gt; - Various&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2ij9qUH&#34;&gt;Code: The Hidden Language of Computer Hardware and Software&lt;/a&gt; - Charles Petzold&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;toc_2&#34;&gt;Non Technical&lt;/h3&gt;
-
-&lt;p&gt;Most people hate commuting but it allows me to consume audiobooks and podcasts at a rate that would be impossible otherwise.  Almost all of these were &amp;ldquo;read&amp;rdquo; via audiobook:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2i59Cbd&#34;&gt;The Passage of Power&lt;/a&gt; - Robert A. Caro&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hKJc0r&#34;&gt;The Age of Innocence&lt;/a&gt; - Edith Wharton&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hWIivM&#34;&gt;Seveneves&lt;/a&gt; - Neal Stephenson&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hghrht&#34;&gt;One Hundred Years of Solitude&lt;/a&gt; - Gabriel Garcia Marquez&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hKLQ6p&#34;&gt;To Kill a Mockingbird&lt;/a&gt; - Harper Lee&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2i54Lqu&#34;&gt;The Name of the Wind&lt;/a&gt; - Patrick Rothfuss&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2if8u7R&#34;&gt;The Wise Man&amp;rsquo;s Fear&lt;/a&gt; - Patrick Rothfuss&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2if3v7h&#34;&gt;Anathem&lt;/a&gt; - Neal Stephenson&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2ieXtUe&#34;&gt;Influence: The Psychology of Persuasion&lt;/a&gt; - Robert B. Cialdini&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2ifeqxG&#34;&gt;Wolf Hall&lt;/a&gt; - Hilary Mantel&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hYLQjT&#34;&gt;Bring Up the Bodies&lt;/a&gt; - Hilary Mantel&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2ij81hh&#34;&gt;iWoz&lt;/a&gt; - Steve Wozniak&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2if5VTr&#34;&gt;Quiet: The Power of Introverts in a World That Can&amp;rsquo;t Stop Talking&lt;/a&gt; - Susan Cain&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://hpmor.com/&#34;&gt;Harry Potter and the Methods of Rationality&lt;/a&gt; - Eliezer Yudkowsky&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Not listed are about 10 other books that I abandoned at the 10% mark, I used to stick with a bad book to the bitter end but not anymore.&lt;/p&gt;
-
-&lt;p&gt;Next up is &lt;a href=&#34;http://amzn.to/2hKULoh&#34;&gt;The Gene: An Intimate History&lt;/a&gt; - Siddhartha Mukherjee as soon as I finish The Passage of Power.&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_3&#34;&gt;Blog posts&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_4&#34;&gt;Technical&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://aphyr.com/tags/Jepsen&#34;&gt;Aphyr - Jepsen series&lt;/a&gt; - Interesting set of posts on distributed systems and how they fail.  The Redis   one is particularly interesting if you are into the realities of Consistent, Available or Partition consistent distributed systems, and hey who isnt.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.codelitt.com/blog/my-first-10-minutes-on-a-server-primer-for-securing-ubuntu/&#34;&gt;My first 10 minutes on a server&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogs.msdn.microsoft.com/dotnet/2016/09/26/introducing-net-standard/&#34;&gt;MS - Introducing .NET standard&lt;/a&gt; - Microsoft have gone   from being a non participant in the opens source world to one of its biggest players. The feat of engineering involved and the planning   it required is stunning.  This blog gave a taste of that new direction.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://fsharpforfunandprofit.com/posts/how-types-work-with-functions/&#34;&gt;F# for Fun and Profit&lt;/a&gt; - I started a slightly more concerted   effort to learn F# properly this year and wrote some simple apps (web crawlers, epub generators etc).  This website was hugely helpful and well worth checking out.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/@billjordan1/the-quiet-crisis-unfolding-in-software-development-cffbdafbf450#.tser0a9b3&#34;&gt;The Quiet Crisis unfolding in Software Development&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://idlewords.com/talks/robot_armies.htm&#34;&gt;Who Will Command The Robot Armies?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://18f.gsa.gov/2015/10/05/managing-technical-debt/&#34;&gt;Managing technical debt&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://thecodist.com/article/my-biggest-regret-as-a-programmer&#34;&gt;My Biggest Regret As A Programmer&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogs.scientificamerican.com/cross-check/bayes-s-theorem-what-s-the-big-deal/&#34;&gt;Bayes&amp;rsquo;s Theorem: What&amp;rsquo;s the Big Deal?&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://sidbala.com/h-264-is-magic/&#34;&gt;H.264 is magic&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://bravenewgeek.com/you-are-not-paid-to-write-code/&#34;&gt;You Are Not Paid to Write Code&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f#.6y2emclav&#34;&gt;How it feels to learn JavaScript in 2016&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.empear.com/blog/parse-a-monster/&#34;&gt;THE DAY I PARSED A MONSTER&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://joelgrus.com/2016/05/23/fizz-buzz-in-tensorflow/&#34;&gt;Fizz Buzz in Tensorflow&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.microsoft.com/en-us/research/publication/uniqueness-and-reference-immutability-for-safe-parallelism/&#34;&gt;Uniqueness and Reference Immutability for Safe Parallelism&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;toc_5&#34;&gt;Non Technical&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://magazine.atavist.com/he-always-had-a-dark-side&#34;&gt;He Always Had a Dark Side&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://hintjens.com/blog:115&#34;&gt;A Protocol for Dying&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://slatestarcodex.com/2014/07/30/meditations-on-moloch/&#34;&gt;MEDITATIONS ON MOLOCH&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.kiplingsociety.co.uk/poems_copybook.htm&#34;&gt;The Gods of the Copybook Headings&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.nytimes.com/interactive/2016/08/11/magazine/isis-middle-east-arab-spring-fractured-lands.html?_r=0&#34;&gt;FRACTURED LANDS: HOW THE ARAB WORLD CAME APART&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://artlung.com/smorgasborg/C_R_Y_P_T_O_N_O_M_I_C_O_N.shtml&#34;&gt;In the Beginning Was The Command Line&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://blogs.scientificamerican.com/cross-check/scott-aaronson-answers-every-ridiculously-big-question-i-throw-at-him/&#34;&gt;Scott Aaronson Answers Every Ridiculously Big Question I Throw at Him&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://classicprogrammerpaintings.com/&#34;&gt;Classic Programmer Paintings&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_6&#34;&gt;Music&lt;/h2&gt;
-
-&lt;p&gt;I discovered almost no new music this year apart from a handful of albums.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;The Black Keys - Their discography has been my background music for at least 2 years.  Its on shuffle as I work almost constantly.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Radiohead - See above&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Andrew Bird&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Beck&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Ben Howard&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Chris Stapleton - I&amp;rsquo;m not a country fan at all but this dude has a great voice.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Daft Punk&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Gary Clark Jr - Awesome&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Kaleo&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;LCD Soundsystem&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Raising Sand - Robert Plant and Alison Krauss - This one has been out a few years and I never got to it before now.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;The White Stripes&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_7&#34;&gt;Podcasts&lt;/h2&gt;
-
-&lt;p&gt;Only two worth mentioning this year:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Hardcore History - Dan Carlin - Been listening to Dan for a few years now. He drops 3-4 audiobook length podcasts each year which are   interesting both from a historical context but also in Dans perspective on how events happened.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Robert B. Peterson Podcast - This is pretty new, only started listening a week ago and only 2 episodes are up but the content is great.  It seems to be a slight reworking of his Maps of Meanings lecture series into podcast form. Well worth checking out if you are interested in Psychology, Mythological Archtypes, Parenting and the realities of being a limited being.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_8&#34;&gt;TV Shows&lt;/h2&gt;
-
-&lt;p&gt;Too many to list but here are the best ones:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Olive Kitteridge (HBO) - Set in Maine with Frances McDormand and Bill Murray.  Interesting look at life, depression, repression.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Mr. Robot - Loved season 1, not so much Season 2.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Jessica Jones&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;The Walking Dead - I think this is like season 6 of a show centered around a simple core concept: &amp;ldquo;We have to survive&amp;rdquo;.  But whatever,     Zombies!&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Westworld - Awesome, need to rewatch, best show I have seen for a long time.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Veep - Really enjoyed this.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;The Night Of - Excellent&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Peaky Blinders - &amp;ldquo;Tommy FOCKIN Shelby&amp;rdquo;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Always Sunny in Philadelphia - Excellent&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Narcos - Excellent&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Planet Earth 2 - David Attenborough and HD nature shots&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;On my list to watch:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Stranger Things - Seen 1 episode and enjoyed it.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Black Mirror - Ditto&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_9&#34;&gt;Films enjoyed&lt;/h2&gt;
-
-&lt;p&gt;Too many to list but here are the best ones:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Nocturnal Animals - Sparked a lot of conversation this one.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;The Martian - Loved the book and the Movie.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;The secret Life of Pets - Greate family Movie.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Finding Dory - Where the hell is she.&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_10&#34;&gt;Youtube stuff&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCAL3JXZSzSm8AlZyD3nQdBA&#34;&gt;Primitive Technology&lt;/a&gt; - Dude in the outback recreating primitive tools and objects.  I watch this with my son and he loves it.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/JordanPetersonVideos&#34;&gt;Jordan B Peterson&lt;/a&gt; - Professor of Psychology at the university or Toronto, highly articulate and engaging speaker with well thought out arguments.  I might not agree with everything he says but he covers several fundamental ideas.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/marquesbrownlee&#34;&gt;Marques Brownlee&lt;/a&gt; - Dope tech reviews, possibly the only reviewer I gave seen who can edit and compose a shot worth looking at.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/TheGreatWar&#34;&gt;The Great War&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/JaiWbio&#34;&gt;Alt Shift X&lt;/a&gt; - Game of Thrones fans already know about this guy, great analysis videos.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_11&#34;&gt;Technical stuff encountered&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_12&#34;&gt;Work related&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;C# .NET&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.codingthearchitecture.com/2014/08/24/c4_model_poster.html&#34;&gt;C4 architecural diagrams&lt;/a&gt; - Been using this for a while but it   became my main visual explanation method this year.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Powershell&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Event-driven_architecture&#34;&gt;Event Driven Architecture&lt;/a&gt; - Loosely coupled, message oriented, queue based.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;REST APIs&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;toc_13&#34;&gt;Playtime related&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;.NET Core, .NET standard&lt;/li&gt;
-&lt;li&gt;F#&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Javascript&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Rust&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Node&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;toc_14&#34;&gt;Stuff I wanted to do or learn but have not spent enough time on yet&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;More Arduino - I have tons of components waiting to be used in a crappy project that will kinda half work.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Teaching the kids programming - Starting to feel guilty about this one as it would be a great skill for them to learn.  It is the   modern equivalent of literacy to some degree.&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Drones&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Photography&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Procedural generation&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Running&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_15&#34;&gt;Opensource code read&lt;/h2&gt;
-
-&lt;p&gt;Reading code wrtten by other developers is a great way to learn new techniques and patterns.&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/BenchmarkDotNet&#34;&gt;https://github.com/dotnet/BenchmarkDotNet&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/vadixidav/evobots&#34;&gt;https://github.com/vadixidav/evobots&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/nightscout/cgm-remote-monitor&#34;&gt;https://github.com/nightscout/cgm-remote-monitor&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/aosabook/500lines&#34;&gt;https://github.com/aosabook/500lines&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/structurizr/dotnet&#34;&gt;https://github.com/structurizr/dotnet&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/reactjs/redux&#34;&gt;https://github.com/reactjs/redux&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/coreclr&#34;&gt;https://github.com/dotnet/coreclr&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/AutoMapper/AutoMapper&#34;&gt;https://github.com/AutoMapper/AutoMapper&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/dotnet/roslyn&#34;&gt;https://github.com/dotnet/roslyn&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;toc_16&#34;&gt;Things I bought that had an impact.&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2h5UaJY&#34;&gt;Bose QC35&lt;/a&gt; - I work in an Agile space, which basically means I sit in a big room with lots of other people and no partitions.  People can be noisy, to help fix this most companies use a whitenoise generator which helps reduce noise by creating more noise.  So yea I bought some noise cancelling headphones, silence is my drug of choice.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://amzn.to/2hZ7YdV&#34;&gt;Nikon DSLR&lt;/a&gt; - I bought an entry level DSLR and some lenses with the goal of taking some better pictures of the kids as they grow up but also to try my hand at Astrophotography.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&#34;/img/nikon.jpg&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;/img/nikon.jpg&#34; title=&#34;Nikon D3300&#34; width=20% height=20% /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_17&#34;&gt;Countries visited&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_18&#34;&gt;USA - Maine&lt;/h3&gt;
-
-&lt;p&gt;We were very fortunate to get to spend an extended period of time in Portland Maine this summer!  Beautiful spot and great people.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;/img/maine_lighthouse.JPG&#34; target=&#34;_blank&#34;&gt;
-&lt;img src=&#34;/img/maine_lighthouse.JPG&#34; title=&#34;Maine Lighthouse - Cape Elizabeth&#34; width=20% height=20% /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;/img/maine_garden.JPG&#34; target=&#34;_blank&#34;&gt;
-&lt;img src=&#34;/img/maine_garden.JPG&#34; title=&#34;Maine Garden&#34; width=20% height=20% /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;/img/maine_beach.jpg&#34; target=&#34;_blank&#34;&gt;
-&lt;img src=&#34;/img/maine_beach.jpg&#34; title=&#34;Maine Beach&#34; width=20% height=20% /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;toc_19&#34;&gt;Plans for 2017&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;Read 50 books&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Learn a programming language&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Build a meaningful product&lt;br /&gt;&lt;/li&gt;
-&lt;li&gt;Have fun!&lt;/li&gt;
-&lt;/ul&gt;
-</description>
+      <description>So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists. Think of this as a far less interesting homage to Fogus yearly reviews.
+Books Technical Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.</description>
     </item>
     
     <item>
       <title>Javascript Equality Operator Grids</title>
-      <link>http://secretdeveloper.github.io/blog/2015/02/17/Javascript-Equality-Operator-Grids/</link>
-      <pubDate>Tue, 17 Feb 2015 12:52:32 UTC</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2015/02/17/Javascript-Equality-Operator-Grids/</guid>
-      <description>&lt;p&gt;Javascript gets some bad press these days especially over how its comparison operators work.&lt;/p&gt;
-
-&lt;p&gt;I decided to extend &lt;a href=&#34;http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html&#34;&gt;Craig Gidneys&lt;/a&gt; example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.&lt;/p&gt;
-
-&lt;p&gt;Rows are the left side operand and columns are the right.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://jsfiddle.net/SecretDeveloper/1zywbpLL/&#34;&gt;Source code on jsfiddle&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/H9axhC3.png&#34; title=&#34;JS equality operator grids&#34; /&gt;&lt;/p&gt;
-</description>
+      <link>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</link>
+      <pubDate>Tue, 17 Feb 2015 12:52:32 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2015/02/17/javascript-equality-operator-grids/</guid>
+      <description>Javascript gets some bad press these days especially over how its comparison operators work.
+I decided to extend Craig Gidneys example and added ===, !=, !== &amp;lt;, &amp;lt;=, &amp;gt; and .= comparisons.
+Rows are the left side operand and columns are the right.
+Source code on jsfiddle</description>
     </item>
     
     <item>
       <title>Directed Graph of hubski users created with D3</title>
-      <link>http://secretdeveloper.github.io/blog/2014/12/16/Directed-Graph-of-hubski-users-created-with-D3/</link>
-      <pubDate>Tue, 16 Dec 2014 22:34:47 UTC</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2014/12/16/Directed-Graph-of-hubski-users-created-with-D3/</guid>
-      <description>&lt;p&gt;Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.&lt;/p&gt;
+      <link>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</link>
+      <pubDate>Tue, 16 Dec 2014 22:34:47 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</guid>
+      <description>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.
+Source code on github
+Demo version
+Advanced Demo version
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/SecretDeveloper/SocialGraph&#34;&gt;Source code on github&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph.html&#34;&gt;Demo version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph_advanced.html&#34;&gt;Advanced Demo version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph.html&#34;&gt;
-&lt;img src=&#34;http://i.imgur.com/Ko6TQQ3.png&#34; title=&#34;Hubski Followers&#34; width=400 height=400 /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I started off by scanning a users profile and recording various pieces of information such as:
-- Age in days
-- Number of followers
-- Number of people followed
-- Number of badges received.&lt;/p&gt;
-
-&lt;p&gt;I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&amp;hellip;  you get the idea.&lt;/p&gt;
-
-&lt;p&gt;I ended up thousands of accounts which was good but most of them only had 1 or 2 followers indicating a low level of social integration.  I filtered out most accounts with less than 25 followers (a few did make it in) in order to represent the core social group members.&lt;/p&gt;
-
-&lt;p&gt;I graphed the data using &lt;a href=&#34;http://d3js.org/&#34;&gt;D3&lt;/a&gt; into a force directed graph that included all of the connections (follows) between each of the gathered members.  There is some gravity applied to the area which results in the larger (more followed) users being drawn towards the center while the smaller users encircle them, like satellites basking in the glow of a shining sun, or hornets buzzing around fresh manure.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s a work in progress, search needs to be fixed&amp;hellip;&lt;/p&gt;
-</description>
+I started off by scanning a users profile and recording various pieces of information such as: - Age in days - Number of followers - Number of people followed - Number of badges received.
+I then looped over each of that users followers and recorded the same information, and then their followers, and then their followers&amp;hellip; you get the idea.</description>
     </item>
     
     <item>
       <title>Data Models, functional composition and validation</title>
-      <link>http://secretdeveloper.github.io/blog/2013/08/06/Data-Models-functional-composition-and-validation/</link>
-      <pubDate>Tue, 06 Aug 2013 15:03:58 BST</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2013/08/06/Data-Models-functional-composition-and-validation/</guid>
-      <description>
-
-&lt;p&gt;While I am working my way through the &lt;a href=&#34;http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B00D624AQO&amp;amp;linkCode=as2&amp;amp;tag=secretdeveloper-20&#34;&gt;Functional Javascript&lt;/a&gt; book I came across something that could be really useful, especially when dealing with AJAX requests.&lt;/p&gt;
-
-&lt;h4 id=&#34;toc_0&#34;&gt;Functional Composition&lt;/h4&gt;
-
-&lt;p&gt;In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function validator(message, fun){
-    var f = function(){
-        return fun.apply(fun, arguments);
-    };
-    f[&#39;message&#39;] = message;
-    return f;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;which takes a message string and a function as parameters and returns an object what can be called with an arbitrary number of arguments to perform a task.  The returned object has a &amp;lsquo;message&amp;rsquo; property assigned also.&lt;/p&gt;
-
-&lt;p&gt;Next we need a &amp;lsquo;driver&amp;rsquo; function:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function checker(){  
-    var validators = _.toArray(arguments);  
-    return function(obj){  
-        return _.reduce(validators, function(errs, check){  
-            if(check(obj))  
-                return errs;  
-            else  
-                return _.chain(errs).push(check.message).value();  
-        }, []);  
-    };  
-};  
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &amp;lsquo;obj&amp;rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &amp;lsquo;message&amp;rsquo; to the list it will return. If all validators pass then the array returned will be empty.&lt;/p&gt;
-
-&lt;h4 id=&#34;toc_1&#34;&gt;Putting it all together&lt;/h4&gt;
-
-&lt;p&gt;I can use my checker and validator functions to create a validation function like the following:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;function isValidResourceItem(){
-    var validators = checker(
-
-        validator(&#39;obj can not be nul&#39;,
-            function(obj){return !_.isNull(obj);}),
-
-        validator(&#39;obj must contain title&#39;,
-            function(obj){return !_.isNull(obj.title);}),
-
-        validator(&#39;obj must contain canonicalVolumeLink&#39;,
-            function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
-
-        validator(&#39;obj must contain description&#39;,
-            function(obj){return !_.isNull(obj.description);})
-    );
-    return validators;
-};
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;which will help to ensure the data was returned in a format I expect and cut down on those &amp;lsquo;undefined&amp;rsquo; errors you would get without something like this.&lt;/p&gt;
-
-&lt;h4 id=&#34;toc_2&#34;&gt;Example&lt;/h4&gt;
-
-&lt;p&gt;I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.&lt;/p&gt;
-
-&lt;iframe width=&#34;100%&#34; height=&#34;300&#34; src=&#34;http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/&#34; allowfullscreen=&#34;allowfullscreen&#34; frameborder=&#34;0&#34;&gt; &lt;/iframe&gt;
-
-&lt;h4 id=&#34;toc_3&#34;&gt;Whats the point?&lt;/h4&gt;
-
-&lt;p&gt;Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.&lt;/p&gt;
-</description>
+      <link>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</link>
+      <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2013/08/06/data-models-functional-composition-and-validation/</guid>
+      <description>While I am working my way through the Functional Javascript book I came across something that could be really useful, especially when dealing with AJAX requests.
+Functional Composition In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task. In this example we want to validate that the json being returned from an AJAX call contains the properties we require.</description>
     </item>
     
     <item>
       <title>KnockoutJS demo using Google Books API</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/KnockoutJS-demo-using-Google-Books-API/</link>
-      <pubDate>Sun, 21 Jul 2013 17:03:58 BST</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/KnockoutJS-demo-using-Google-Books-API/</guid>
-      <description>
-
-&lt;h1 id=&#34;toc_0&#34;&gt;Knockout.js&lt;/h1&gt;
-
-&lt;h3 id=&#34;toc_1&#34;&gt;Introduction&lt;/h3&gt;
-
-&lt;p&gt;A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call.  I use the google books API to provide a simple search form.&lt;/p&gt;
-
-&lt;h3 id=&#34;toc_2&#34;&gt;Show me the Code&lt;/h3&gt;
-
-&lt;p&gt;JSFiddle:
-&lt;iframe width=&#34;100%&#34; height=&#34;400&#34; src=&#34;http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/&#34; frameborder=&#34;0&#34;&gt; &lt;/iframe&gt;&lt;/p&gt;
-
-&lt;p&gt;Check out the &lt;a href=&#34;http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/&#34;&gt;jsfiddle&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I also use the &lt;a href=&#34;http://underscorejs.org/&#34;&gt;underscore&lt;/a&gt; library to work with the observableArray but that is not really a requirement.  I just like it.&lt;/p&gt;
-
-&lt;h3 id=&#34;toc_3&#34;&gt;So whats happening?&lt;/h3&gt;
-
-&lt;p&gt;We start off by creating a simple html page that contains a text box, a button and a results list. In our javascript file we create a ViewModel object (function) that contains properties that match our html form. It has a field for searchInput, a function to handle searches etc.  In our document ready function we apply this ViewModel to our html using &lt;code&gt;ko.applyBindings(vm);&lt;/code&gt;.  When we do this knockoutjs takes our html and resolves all the &lt;code&gt;data-bind=&amp;quot;&amp;quot;&lt;/code&gt; attributes we have added to elements and resolves them to fields on our ViewModel.  This is called Model Binding and it is a powerful tool that allows us to have a single ViewModel property displayed in several places on a page, with each kept in sync to any changes.  If the field we are binding to is a &lt;code&gt;ko.observable&lt;/code&gt; then any changes made to its value will immediately show wherever it is bound.&lt;/p&gt;
-
-&lt;p&gt;We also use a &lt;code&gt;ko.observableArray&lt;/code&gt; to hold our search results.  When we initiate a search we make an AJAX call to the appropriate url and then parse the results.  You can see the result structure we receive back by running &lt;code&gt;curl -i https://www.googleapis.com/books/v1/volumes?q=potter&lt;/code&gt; (where &amp;lsquo;potter&amp;rsquo; is what you want to search for).  Once we receive the result we loop over the returned items and create a new resultItem to contain the information we want.  These items are then added to our array, &lt;code&gt;self.items.push(resultI);&lt;/code&gt; which thanks to knockoutjs gets rendered to our results div immediately.  You can see that knockoutjs can iterate over collections by using the &lt;code&gt;foreach:items&lt;/code&gt; databinding.&lt;/p&gt;
-
-&lt;h3 id=&#34;toc_4&#34;&gt;Whats the big deal?&lt;/h3&gt;
-
-&lt;p&gt;Well this particular demo is about as easy as it gets, but even so it covers a few important topics:
-    - &lt;a href=&#34;http://en.wikipedia.org/wiki/Model_View_ViewModel&#34;&gt;Model View ViewModel&lt;/a&gt; pattern.
-    - &lt;a href=&#34;http://knockoutjs.com/documentation/binding-context.html&#34;&gt;Model Binding&lt;/a&gt; as it applies to Knockout
-    - Working with &lt;a href=&#34;http://en.wikipedia.org/wiki/Web_API&#34;&gt;web API&amp;rsquo;s&lt;/a&gt; using &lt;a href=&#34;http://en.wikipedia.org/wiki/JSON&#34;&gt;JSON&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;It shows what we can achieve with a few lines of code by building upon these powerful libraries.  KnockoutJS is taking care of binding our ViewModel to our html and also updates that html whenever we change an observable. jQuery is handling the AJAX request for us.&lt;/p&gt;
-</description>
+      <link>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</link>
+      <pubDate>Sun, 21 Jul 2013 17:03:58 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2013/07/21/knockoutjs-demo-using-google-books-api/</guid>
+      <description>Knockout.js Introduction A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call. I use the google books API to provide a simple search form.
+Show me the Code JSFiddle: 
+Check out the jsfiddle
+I also use the underscore library to work with the observableArray but that is not really a requirement. I just like it.</description>
     </item>
     
     <item>
       <title>Functional javascript using underscore</title>
-      <link>http://secretdeveloper.github.io/blog/2013/07/21/Functional-javascript-using-underscore/</link>
-      <pubDate>Sun, 21 Jul 2013 15:03:58 BST</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2013/07/21/Functional-javascript-using-underscore/</guid>
-      <description>
-
-&lt;h2 id=&#34;toc_0&#34;&gt;Functional javascript using underscore&lt;/h2&gt;
-
-&lt;h3 id=&#34;toc_1&#34;&gt;Why?&lt;/h3&gt;
-
-&lt;p&gt;A little while ago I picked up &lt;a href=&#34;http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;amp;camp=1789&amp;amp;creative=390957&amp;amp;creativeASIN=B00D624AQO&amp;amp;linkCode=as2&amp;amp;tag=secretdeveloper-20&#34;&gt;Functional Javascript&lt;/a&gt; by Michael Fogus.  I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:
-&amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&amp;rdquo; - Alan Perlis&lt;/p&gt;
-
-&lt;p&gt;This is very different concept to what is normally seen in large enterprise level projects and applications.  I have to say that I have spent a large amount of time writing code to map one model to another and back again. Its not fun. This functional stuff might be on to something.&lt;/p&gt;
-
-&lt;h3 id=&#34;toc_2&#34;&gt;What?&lt;/h3&gt;
-
-&lt;p&gt;Well Michaels book uses the &lt;a href=&#34;http://underscorejs.org&#34;&gt;underscore&lt;/a&gt; library for all of his examples and its a really powerful tool.  I have started using it here and there on smaller projects and the more I use it the more I like it.&lt;/p&gt;
-
-&lt;h3 id=&#34;toc_3&#34;&gt;How?&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://http://projecteuler.net/&#34;&gt;Project Euler&lt;/a&gt; is probably the go-to set of problems when developers try to learn a new language or framework.  I don&amp;rsquo;t see why I should be any different.  I have started a small project to play around with this and you can see it over on &lt;a href=&#34;https://github.com/SecretDeveloper/sdjs&#34;&gt;github&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h4 id=&#34;toc_4&#34;&gt;Problem 1&lt;/h4&gt;
-
-&lt;blockquote&gt;
-&lt;p&gt;If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. The sum of these multiples is 23. Find the sum of all the multiples of 3 or 5 below 1000.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Can be solved with a few lines of code like the following:
-&lt;code&gt;
-    return _.reduce(_.range(0,1000), function(memo, number){  
-            if( number%3===0 || number%5==0) return memo+number;  
-            return memo;}  
-        );  
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;h4 id=&#34;toc_5&#34;&gt;Testing&lt;/h4&gt;
-
-&lt;p&gt;Unit testing javascript has come a long way in the last few years and I have added a simple QUnit test runner to the repository.&lt;/p&gt;
-</description>
+      <link>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</link>
+      <pubDate>Sun, 21 Jul 2013 15:03:58 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2013/07/21/functional-javascript-using-underscore/</guid>
+      <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
+There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
     </item>
     
   </channel>

@@ -1,45 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-      <title>D3 on Just another blog with random, unripenend thoughts. </title>
-      <generator uri="https://hugo.spf13.com">Hugo</generator>
-    <link>http://secretdeveloper.github.io/categories/d3/index.xml/</link>
+    <title>D3 on Just another blog with random, unripenend thoughts.</title>
+    <link>http://secretdeveloper.github.io/categories/d3/</link>
+    <description>Recent content in D3 on Just another blog with random, unripenend thoughts.</description>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <author>Gary Kenneally - @SecretDeveloper</author>
+    <lastBuildDate>Tue, 16 Dec 2014 22:34:47 +0000</lastBuildDate>
     
-    <updated>Tue, 16 Dec 2014 22:34:47 UTC</updated>
+	<atom:link href="http://secretdeveloper.github.io/categories/d3/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>Directed Graph of hubski users created with D3</title>
-      <link>http://secretdeveloper.github.io/blog/2014/12/16/Directed-Graph-of-hubski-users-created-with-D3/</link>
-      <pubDate>Tue, 16 Dec 2014 22:34:47 UTC</pubDate>
-      <author>Gary Kenneally - @SecretDeveloper</author>
-      <guid>http://secretdeveloper.github.io/blog/2014/12/16/Directed-Graph-of-hubski-users-created-with-D3/</guid>
-      <description>&lt;p&gt;Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.&lt;/p&gt;
+      <link>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</link>
+      <pubDate>Tue, 16 Dec 2014 22:34:47 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/blog/2014/12/16/directed-graph-of-hubski-users-created-with-d3/</guid>
+      <description>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.
+Source code on github
+Demo version
+Advanced Demo version
 
-&lt;p&gt;&lt;a href=&#34;https://github.com/SecretDeveloper/SocialGraph&#34;&gt;Source code on github&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph.html&#34;&gt;Demo version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph_advanced.html&#34;&gt;Advanced Demo version&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://secretdeveloper.github.io/items/hubski_graph.html&#34;&gt;
-&lt;img src=&#34;http://i.imgur.com/Ko6TQQ3.png&#34; title=&#34;Hubski Followers&#34; width=400 height=400 /&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;I started off by scanning a users profile and recording various pieces of information such as:
-- Age in days
-- Number of followers
-- Number of people followed
-- Number of badges received.&lt;/p&gt;
-
-&lt;p&gt;I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&amp;hellip;  you get the idea.&lt;/p&gt;
-
-&lt;p&gt;I ended up thousands of accounts which was good but most of them only had 1 or 2 followers indicating a low level of social integration.  I filtered out most accounts with less than 25 followers (a few did make it in) in order to represent the core social group members.&lt;/p&gt;
-
-&lt;p&gt;I graphed the data using &lt;a href=&#34;http://d3js.org/&#34;&gt;D3&lt;/a&gt; into a force directed graph that included all of the connections (follows) between each of the gathered members.  There is some gravity applied to the area which results in the larger (more followed) users being drawn towards the center while the smaller users encircle them, like satellites basking in the glow of a shining sun, or hornets buzzing around fresh manure.&lt;/p&gt;
-
-&lt;p&gt;It&amp;rsquo;s a work in progress, search needs to be fixed&amp;hellip;&lt;/p&gt;
-</description>
+I started off by scanning a users profile and recording various pieces of information such as: - Age in days - Number of followers - Number of people followed - Number of badges received.
+I then looped over each of that users followers and recorded the same information, and then their followers, and then their followers&amp;hellip; you get the idea.</description>
     </item>
     
   </channel>
