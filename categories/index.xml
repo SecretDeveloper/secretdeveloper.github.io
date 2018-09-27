@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Architecture</title>
+      <link>http://secretdeveloper.github.io/categories/architecture/</link>
+      <pubDate>Thu, 27 Sep 2018 14:32:02 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Composition</title>
       <link>http://secretdeveloper.github.io/categories/composition/</link>
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
@@ -62,6 +71,15 @@
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
       
       <guid>http://secretdeveloper.github.io/categories/data-models/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Engineering</title>
+      <link>http://secretdeveloper.github.io/categories/engineering/</link>
+      <pubDate>Thu, 27 Sep 2018 14:32:02 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/engineering/</guid>
       <description></description>
     </item>
     
@@ -138,6 +156,15 @@
     </item>
     
     <item>
+      <title>Microservices</title>
+      <link>http://secretdeveloper.github.io/categories/microservices/</link>
+      <pubDate>Thu, 27 Sep 2018 14:32:02 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/microservices/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Roundup</title>
       <link>http://secretdeveloper.github.io/categories/roundup/</link>
       <pubDate>Thu, 22 Dec 2016 12:56:02 +0000</pubDate>
@@ -152,6 +179,15 @@
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
       
       <guid>http://secretdeveloper.github.io/categories/underscore/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Unix</title>
+      <link>http://secretdeveloper.github.io/categories/unix/</link>
+      <pubDate>Thu, 27 Sep 2018 14:32:02 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/unix/</guid>
       <description></description>
     </item>
     
