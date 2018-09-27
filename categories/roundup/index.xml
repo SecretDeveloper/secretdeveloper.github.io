@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Roundup on Just another blog with random, unripenend thoughts.</title>
+    <title>Roundup on Another blog with random, unripenend thoughts.</title>
     <link>http://secretdeveloper.github.io/categories/roundup/</link>
-    <description>Recent content in Roundup on Just another blog with random, unripenend thoughts.</description>
+    <description>Recent content in Roundup on Another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 22 Dec 2016 12:56:02 +0000</lastBuildDate>

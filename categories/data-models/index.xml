@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Data Models on Just another blog with random, unripenend thoughts.</title>
+    <title>Data Models on Another blog with random, unripenend thoughts.</title>
     <link>http://secretdeveloper.github.io/categories/data-models/</link>
-    <description>Recent content in Data Models on Just another blog with random, unripenend thoughts.</description>
+    <description>Recent content in Data Models on Another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 06 Aug 2013 15:03:58 +0100</lastBuildDate>

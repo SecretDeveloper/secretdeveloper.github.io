@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Just another blog with random, unripenend thoughts.</title>
+    <title>Another blog with random, unripenend thoughts.</title>
     <link>http://secretdeveloper.github.io/</link>
-    <description>Recent content on Just another blog with random, unripenend thoughts.</description>
+    <description>Recent content on Another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 27 Sep 2018 14:32:02 +0100</lastBuildDate>
