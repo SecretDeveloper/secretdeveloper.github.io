@@ -19,7 +19,7 @@
       <guid>http://secretdeveloper.github.io/post/on-the-design-of-small-things/</guid>
       <description>Those who do not understand UNIX are condemned to reinvent it, poorly.
 Henry Spencer
- The following is from (https://en.wikipedia.org/wiki/Unix_philosophy)[Unix Philosophy]
+ The following is from https://en.wikipedia.org/wiki/Unix_philosophy
 In his book, The Art of Unix Programming that was first published in 2003, Eric S. Raymond, an American programmer and open source advocate, summarizes the Unix philosophy as KISS Principle of &amp;ldquo;Keep it Simple, Stupid.&amp;rdquo; He provides a series of design rules:
 Rule of Modularity Developers should build a program out of simple parts connected by well defined interfaces, so problems are local, and parts of the program can be replaced in future versions to support new features.</description>
     </item>
