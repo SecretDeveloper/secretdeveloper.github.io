@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Bias</title>
+      <link>http://secretdeveloper.github.io/categories/bias/</link>
+      <pubDate>Fri, 05 Oct 2018 15:01:32 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/bias/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Composition</title>
       <link>http://secretdeveloper.github.io/categories/composition/</link>
       <pubDate>Tue, 06 Aug 2013 15:03:58 +0100</pubDate>
@@ -89,6 +98,15 @@
       <pubDate>Tue, 17 Feb 2015 12:52:32 +0000</pubDate>
       
       <guid>http://secretdeveloper.github.io/categories/equality/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Estimation</title>
+      <link>http://secretdeveloper.github.io/categories/estimation/</link>
+      <pubDate>Fri, 05 Oct 2018 15:01:32 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/estimation/</guid>
       <description></description>
     </item>
     
@@ -165,11 +183,29 @@
     </item>
     
     <item>
+      <title>Planning Fallacy</title>
+      <link>http://secretdeveloper.github.io/categories/planning-fallacy/</link>
+      <pubDate>Fri, 05 Oct 2018 15:01:32 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/planning-fallacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Roundup</title>
       <link>http://secretdeveloper.github.io/categories/roundup/</link>
       <pubDate>Thu, 22 Dec 2016 12:56:02 +0000</pubDate>
       
       <guid>http://secretdeveloper.github.io/categories/roundup/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Software</title>
+      <link>http://secretdeveloper.github.io/categories/software/</link>
+      <pubDate>Fri, 05 Oct 2018 15:01:32 +0100</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/categories/software/</guid>
       <description></description>
     </item>
     
