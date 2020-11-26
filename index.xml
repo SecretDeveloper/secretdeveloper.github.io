@@ -17,7 +17,8 @@
       <pubDate>Thu, 26 Nov 2020 10:17:14 +0000</pubDate>
       
       <guid>http://secretdeveloper.github.io/post/memento-mori/</guid>
-      <description>&amp;ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance life’s books each day. … The one who puts the finishing touches on their life each day is never short of time.&amp;rdquo; Seneca
+      <description>&amp;ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance life’s books each day. … The one who puts the finishing touches on their life each day is never short of time.&amp;rdquo;
+Seneca
  Date of Birth Life Expectancy  function LifeGraph(config) { console.log(&#34;Life Graph&#34;); config.currentWeekInLife = weeksBetween(config.startDate, config.currentDate); console.log(config); var vloc = 0; var ctx = config.</description>
     </item>
     
