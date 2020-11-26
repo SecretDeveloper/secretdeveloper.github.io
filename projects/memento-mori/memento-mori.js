@@ -12,7 +12,7 @@ function LifeGraph(config) {
 
   // title
   ctx.font = '48px verdana';
-  var text = "LIFE CALENDAR";
+  var text = "Memento Mori";
   ctx.fillText(text, (config.width - ctx.measureText(text).width) / 2, getVerticalLocation(50));
 
   // Weeks per year
@@ -142,7 +142,7 @@ function draw() {
   config.cellSize = 10;
 
   // presentation
-  config.startDate = new Date(1980, 07, 08);
+  config.startDate = new Date(1980, 01, 01);
   config.startDate = new Date(document.getElementById("dob").value);
   config.currentDate = new Date();
   config.lifeExpectancy = document.getElementById("expectancy").value;
