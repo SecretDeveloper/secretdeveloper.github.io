@@ -6,10 +6,20 @@
     <description>Recent content on Another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Oct 2018 15:01:32 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 26 Nov 2020 10:17:14 +0000</lastBuildDate>
     
 	<atom:link href="http://secretdeveloper.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Memento Mori</title>
+      <link>http://secretdeveloper.github.io/post/memento-mori/</link>
+      <pubDate>Thu, 26 Nov 2020 10:17:14 +0000</pubDate>
+      
+      <guid>http://secretdeveloper.github.io/post/memento-mori/</guid>
+      <description> &amp;ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance life’s books each day. … The one who puts the finishing touches on their life each day is never short of time.&amp;rdquo; Seneca
+ </description>
+    </item>
     
     <item>
       <title>Software Architecture</title>
