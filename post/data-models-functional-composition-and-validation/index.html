@@ -49,14 +49,9 @@
 		<h1 class="post-title">Data Models, functional composition and validation</h1>
 		<div class="post-line"></div>
 
-		
-
-<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
-
+		<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
 <h4 id="functional-composition">Functional Composition</h4>
-
 <p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>
-
 <pre><code>function validator(message, fun){
     var f = function(){
         return fun.apply(fun, arguments);
@@ -65,11 +60,8 @@
     return f;
 };
 </code></pre>
-
 <p>which takes a message string and a function as parameters and returns an object what can be called with an arbitrary number of arguments to perform a task.  The returned object has a &lsquo;message&rsquo; property assigned also.</p>
-
 <p>Next we need a &lsquo;driver&rsquo; function:</p>
-
 <pre><code>function checker(){  
     var validators = _.toArray(arguments);  
     return function(obj){  
@@ -82,56 +74,46 @@
     };  
 };  
 </code></pre>
-
 <p>that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object &lsquo;obj&rsquo;. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators &lsquo;message&rsquo; to the list it will return. If all validators pass then the array returned will be empty.</p>
-
 <h4 id="putting-it-all-together">Putting it all together</h4>
-
 <p>I can use my checker and validator functions to create a validation function like the following:</p>
-
 <pre><code>function isValidResourceItem(){
     var validators = checker(
-
+	
         validator('obj can not be nul',
-            function(obj){return !_.isNull(obj);}),
-
+		    function(obj){return !_.isNull(obj);}),
+		
         validator('obj must contain title',
-            function(obj){return !_.isNull(obj.title);}),
-
+	        function(obj){return !_.isNull(obj.title);}),
+		
         validator('obj must contain canonicalVolumeLink',
-            function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
-
+	        function(obj){return !_.isNull(obj.canonicalVolumeLink);}),
+		
         validator('obj must contain description',
-            function(obj){return !_.isNull(obj.description);})
+	        function(obj){return !_.isNull(obj.description);})
     );
     return validators;
 };
 </code></pre>
-
 <p>which will help to ensure the data was returned in a format I expect and cut down on those &lsquo;undefined&rsquo; errors you would get without something like this.</p>
-
 <h4 id="example">Example</h4>
-
 <p>I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list.</p>
-
-<iframe width="100%" height="300" src="http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"> </iframe>
-
+<!-- raw HTML omitted -->
 <h4 id="whats-the-point">Whats the point?</h4>
-
 <p>Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.</p>
 
 
 	</div>
 
 	<div class="pagination">
-		<a href="/post/knockoutjs-demo-using-google-books-api/" class="left arrow">&#8592;</a>
-		<a href="/about/" class="right arrow">&#8594;</a>
+		<a href="/about/" class="left arrow">&#8592;</a>
+		<a href="/post/knockoutjs-demo-using-google-books-api/" class="right arrow">&#8594;</a>
 
 		<a href="#" class="top">Top</a>
 	</div>
 </main>		<footer>
 			<span>
-			&copy; <time datetime="2020-11-26 10:54:19.7547793 &#43;0000 GMT m=&#43;0.307995901">2020</time> Gary Kenneally. Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
+			&copy; <time datetime="2022-01-21 11:39:55.7574722 &#43;0000 GMT m=&#43;0.306097501">2022</time> Gary Kenneally. Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
 			</span>
 		</footer>
   </body>

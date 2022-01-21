@@ -49,65 +49,42 @@
 		<h1 class="post-title">Software, Estimation and the Planning Fallacy</h1>
 		<div class="post-line"></div>
 
-		
-
-<p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
-
+		<p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
 <h2 id="waterfall">Waterfall</h2>
-
 <p>Remember way back when everyone thought the Waterfall model was great?  Well actually no, for the most part they didnt. The Waterfall model was put forward by Winston Royce back in the early 70&rsquo;s as an example of a <em>broken</em> SDLC model.  Unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use.  Now what is interesting to me is its original creator could see that the waterall model contained flaws, but thousands  of people could either not see those same flaws, or were unable to cease its adoption even if they tried; I&rsquo;m not sure which of those is worse.  30 years later you would be hard pressed to find any organizations still working under a Waterfall model, which is good.  The real problem however is not that a mistake was made, its that it took a generation before we acknowledged there was a problem.</p>
-
-<h3 id="it-didn-t-work">It didn&rsquo;t work.</h3>
-
+<h3 id="it-didnt-work">It didn&rsquo;t work.</h3>
 <p>A big upfront design session only works if you know what you are designing, anyone who has worked on any Enterprise level applications knows that a project that has a clearly defined end goal is pretty rare. Oh sure there are ideas, and concepts, and even some rules about what it <em>won&rsquo;t</em> be but often the final product evolves significantly from beginning to end. So if you don&rsquo;t know what you are building until you see it then all of that Waterfall upfront design time is not only wasted effort, it is baggage that you have to carry with you, making it harder to pivot or change plans once the real product starts to form.</p>
-
 <h2 id="agile">Agile</h2>
-
 <p><em>Waterfall didn&rsquo;t work so we abandoned it. We understand that change and evolution is a part of product development now, right? RIGHT?!?</em></p>
-
 <p>In the Agile world you would look to define an MVP product, Epics are identified and prioritized, you start implementing the pieces you can earlier and find your way as you go. We threw out some good items like structured requirement gathering as a valued activity but kept broken concepts like estimation.</p>
-
 <p>Not only are estimates still expected, there is a common understanding that they will be highly accurate, and for them to get more accurate over time?  Its like expecting a blind hunter stalking deer in a deep forest to get better at hitting the mark with practice.</p>
-
 <p>Lets talk for a moment about why estimation is a broken concept.</p>
-
 <p>The <a href="https://en.wikipedia.org/wiki/Sydney_Opera_House">Sydney Opera House</a> is one of the most famous budget overruns for any construction project, coming in at a whopping ten years and fourteen times over original estimate, final costs are at around $102M.  But of course that is concrete and steel, surely software doesn&rsquo;t cost as much and is easier to estimate, right?</p>
-
 <p>Not so, Wikipedia keeps a nice list of <a href="https://en.wikipedia.org/wiki/List_of_failed_and_overbudget_custom_software_projects">failed and overbudget software projects</a>, here are a few highlights:</p>
-
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/NHS_Connecting_for_Health">NHS Connecting for Health</a> - Estimated at £2.3bn over 3 years, it has so far cost £12.4bn over 10 years.<br /></li>
-<li><a href="https://en.wikipedia.org/wiki/Universal_Credit">Universal Credit</a> - Estimated at £2.2bn this was later revised to £12.8bn and again revised to £15.8bn.<br /></li>
-<li><a href="https://en.wikipedia.org/wiki/Expeditionary_Combat_Support_System">Expeditionary Combat Support System</a> - $1.1bn was spent with no significant deliverables, another $1.1bn would need to be invested to even achieve a quarter of original scope.<br />
-Those are staggering numbers making the Opera house seem like a bargain at $100M.<br /></li>
+<li><a href="https://en.wikipedia.org/wiki/NHS_Connecting_for_Health">NHS Connecting for Health</a> - Estimated at £2.3bn over 3 years, it has so far cost £12.4bn over 10 years.</li>
+<li><a href="https://en.wikipedia.org/wiki/Universal_Credit">Universal Credit</a> - Estimated at £2.2bn this was later revised to £12.8bn and again revised to £15.8bn.</li>
+<li><a href="https://en.wikipedia.org/wiki/Expeditionary_Combat_Support_System">Expeditionary Combat Support System</a> - $1.1bn was spent with no significant deliverables, another $1.1bn would need to be invested to even achieve a quarter of original scope.<br>
+Those are staggering numbers making the Opera house seem like a bargain at $100M.</li>
 </ul>
-
 <p>Software is still a relatively new industry in comparison to construction, each decade sees major changes in how software is built and how projects are managed e.g. Waterfall to Agile. Humans have been building homes and other structures for centuries yet we still fail to accurately estimate the cost of construction. Why are we so bad at estimating?</p>
-
-<p>There are a number of factors and some previous studies are pretty revealing.<br />
+<p>There are a number of factors and some previous studies are pretty revealing.<br>
 <strong>Overly optimistic planning:</strong></p>
-
 <ul>
-<li><a href="http://web.mit.edu/curhan/www/docs/Articles/biases/67_J_Personality_and_Social_Psychology_366,_1994.pdf">Buehler and associates</a> performed a study on a number of students and asked each of them to estimate the date by which they would be finished their Senior Thesis.<br />
-
+<li><a href="http://web.mit.edu/curhan/www/docs/Articles/biases/67_J_Personality_and_Social_Psychology_366,_1994.pdf">Buehler and associates</a> performed a study on a number of students and asked each of them to estimate the date by which they would be finished their Senior Thesis.
 <ul>
-<li>The average was 33.9 days.<br /></li>
-<li>They then asked the students to estimate how long it would take if everything went perfectly to plan and the average was 27.4 days.<br /></li>
-<li>They then asked how long it would take if everything went as poorly as possible and the response was an average of 48.6 days.<br /></li>
-<li>The <strong>actual</strong> time it took the students to complete their thesis was 55.5 days.<br /></li>
-</ul></li>
+<li>The average was 33.9 days.</li>
+<li>They then asked the students to estimate how long it would take if everything went perfectly to plan and the average was 27.4 days.</li>
+<li>They then asked how long it would take if everything went as poorly as possible and the response was an average of 48.6 days.</li>
+<li>The <strong>actual</strong> time it took the students to complete their thesis was 55.5 days.</li>
 </ul>
-
+</li>
+</ul>
 <p>So even when we try to estimate the worst case scenario we fail to come close.  In fact the estimate for how long it will take is very close to the perfect scenario.  It seems people are optimists by nature and while that helps us to believe it is physically possible to build skyscrapers, it probably does not help us estimate the cost of the skyscraper.</p>
-
 <p>So what is to be done?  The old way of doing things was to estimate the cost of a proposed project and compare it against the projected return (cost saving, ROI, new customers, whatever) in order to green light a project or not.  We <em>know</em> the estimate is going to be off, in some  cases by an order of magnitude.  If we are honest we can also say that the projected return suffers from the same problem.  So I suggest dropping the whole thing and change how you green light projects.</p>
-
 <p><strong>Seed money:</strong> Give a Product Owner (there should be one&hellip;) some seed money and a team, maybe a month, maybe 3 depending on the product.  Get them to build something real, something representative of a final product.  Have a second round of funding meeting where Product Owners pitch for funding based on what they have built.  By that point they should have a much clearer picture of the real cost required (being 1% complete, 10% complete&hellip;) to build a production ready product (including architectural signoff on plans, quality metrics on what has been built so far etc).  The return on investment should also be easier to quantify if not actually visualize with the working prototype.</p>
-
 <p>Funding should be pretty ruthless at this point, it should be easy to scrap a product that is not showing enough promise in favour of something else.</p>
-
 <h3 id="notes">Notes</h3>
-
 <ol>
 <li>Weird tangent. Prior to Napoleon, wars were relatively smaller affairs with troop numbers limited to around 30K due to economic constraints.  Napoleon was able to gather armies up to 300K-500K men, funded a booming french economy.  The huge cost of the software projects listed here are far beyond the reach of most enterprises.  Much like war, mistakes at this scale can only really be funded by the economy of a nation state.</li>
 </ol>
@@ -116,14 +93,14 @@ Those are staggering numbers making the Opera house seem like a bargain at $100M
 	</div>
 
 	<div class="pagination">
-		<a href="/post/javascript-equality-operator-grids/" class="left arrow">&#8592;</a>
-		<a href="/post/2016-roundup/" class="right arrow">&#8594;</a>
+		<a href="/post/2016-roundup/" class="left arrow">&#8592;</a>
+		<a href="/post/javascript-equality-operator-grids/" class="right arrow">&#8594;</a>
 
 		<a href="#" class="top">Top</a>
 	</div>
 </main>		<footer>
 			<span>
-			&copy; <time datetime="2020-11-26 10:54:19.7457791 &#43;0000 GMT m=&#43;0.298995701">2020</time> Gary Kenneally. Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
+			&copy; <time datetime="2022-01-21 11:39:55.7644739 &#43;0000 GMT m=&#43;0.313099401">2022</time> Gary Kenneally. Made with Hugo using the <a href="https://github.com/EmielH/tale-hugo/">Tale</a> theme.
 			</span>
 		</footer>
   </body>

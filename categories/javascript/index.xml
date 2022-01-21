@@ -1,16 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on Another blog with random, unripenend thoughts.</title>
+    <title>javascript on Another blog with random, unripenend thoughts.</title>
     <link>http://secretdeveloper.github.io/categories/javascript/</link>
-    <description>Recent content in Javascript on Another blog with random, unripenend thoughts.</description>
+    <description>Recent content in javascript on Another blog with random, unripenend thoughts.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Feb 2015 12:52:32 +0000</lastBuildDate>
-    
-	<atom:link href="http://secretdeveloper.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 17 Feb 2015 12:52:32 +0000</lastBuildDate><atom:link href="http://secretdeveloper.github.io/categories/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Javascript Equality Operator Grids</title>
       <link>http://secretdeveloper.github.io/post/javascript-equality-operator-grids/</link>
@@ -33,9 +29,8 @@ Source code on jsfiddle</description>
 Source code on github
 Demo version
 Advanced Demo version
-
-I started off by scanning a users profile and recording various pieces of information such as: - Age in days - Number of followers - Number of people followed - Number of badges received.
-I then looped over each of that users followers and recorded the same information, and then their followers, and then their followers&amp;hellip; you get the idea.</description>
+I started off by scanning a users profile and recording various pieces of information such as:
+ Age in days Number of followers Number of people followed Number of badges received.  I then looped over each of that users followers and recorded the same information, and then their followers, and then their followers&amp;hellip; you get the idea.</description>
     </item>
     
     <item>
@@ -45,7 +40,7 @@ I then looped over each of that users followers and recorded the same informatio
       
       <guid>http://secretdeveloper.github.io/post/functional-javascript-using-underscore/</guid>
       <description>Functional javascript using underscore Why? A little while ago I picked up Functional Javascript by Michael Fogus. I&amp;rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&amp;hellip;
-There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote: &amp;gt;&amp;ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.</description>
+There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming. It can be summed up in this quote:</description>
     </item>
     
   </channel>
