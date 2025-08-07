@@ -7,25 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 26 Nov 2020 10:17:14 +0000</lastBuildDate><atom:link href="http://secretdeveloper.github.io/post/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Memento Mori</title>
-      <link>http://secretdeveloper.github.io/post/memento-mori/</link>
-      <pubDate>Thu, 26 Nov 2020 10:17:14 +0000</pubDate>
-      
-      <guid>http://secretdeveloper.github.io/post/memento-mori/</guid>
-      <description>&amp;ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance life’s books each day. … The one who puts the finishing touches on their life each day is never short of time.&amp;rdquo;
-Seneca  I have read some stoic philosophy recently and one of the ideas it presents is the awareness of death, not in a morbid sense, but as something we should remain aware of.</description>
-    </item>
-    
-    <item>
-      <title>Software Architecture</title>
-      <link>http://secretdeveloper.github.io/post/softwarearchitecture/</link>
-      <pubDate>Fri, 05 Oct 2018 15:01:32 +0100</pubDate>
-      
-      <guid>http://secretdeveloper.github.io/post/softwarearchitecture/</guid>
-      <description>What is software architecture? It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.
-What IS a Software Architect? It depends. I think of Software architects as “Master builders”. They may not have the title &amp;ldquo;Architect&amp;rdquo; but they are doing most of the following:</description>
-    </item>
+   
     
     <item>
       <title>On the Design of Small Things</title>
