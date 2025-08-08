@@ -1,1 +1,3 @@
-/docs
+# Hugo build artifacts
+.hugo_build.lock
+/resources/_gen/

@@ -1,0 +1,81 @@
+
+/* ──────────────────────────────────────────────── */
+/* 80’s Arcade Retro Theme – shared by all pages   */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --bg-dark: #111;
+    --bg-arcade: #0f0;          /* neon green */
+    --text-light: #fff;
+    --border-gold: #ff0;
+    --accent-cyan: #0ff;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    font-family: 'Press Start 2P', monospace;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    overflow-x: hidden;
+}
+
+/* ---------- Header & Banner ---------- */
+.banner {
+    text-align: center;
+    padding: 1.5rem 0;
+    background: linear-gradient(135deg, #ff0, #f00);
+    border-bottom: 4px solid var(--border-gold);
+    box-shadow: 0 4px 10px rgba(255,255,0,.6);
+}
+.banner h1 {
+    font-size: 2.5rem;
+    letter-spacing: .15em;
+    color: var(--bg-dark);
+    text-shadow: 0 0 8px var(--accent-cyan), 0 0 12px var(--accent-cyan);
+}
+
+/* ---------- Game List ---------- */
+.game-list ul {
+    list-style: none;
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 1rem;
+}
+.game-list li {
+    background: rgba(255,255,255,.05);
+    border: 2px solid var(--border-gold);
+    margin-bottom: .75rem;
+    border-radius: 4px;
+}
+.game-list a {
+    display: block;
+    width: 100%;
+    padding: 1.25rem;
+    text-decoration: none;
+    color: var(--accent-cyan);
+    font-size: 1.15rem;
+    letter-spacing: .12em;
+    transition: all .2s ease-in-out;
+}
+.game-list a:hover,
+.game-list a:focus {
+    background: rgba(255,255,0,.15);
+    transform: translateX(5px) scale(1.02);
+}
+
+/* ---------- Footer ---------- */
+.credits {
+    text-align: center;
+    padding: 1rem 0;
+    font-size: .9rem;
+    border-top: 2px solid var(--border-gold);
+    color: #aaa;
+}

@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breakout – Retro Arcade</title>
+
+    <!-- Global CSS (or local copy) -->
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        body, html { height: 100%; overflow: hidden; }
+        #gameCanvas {
+            display: block;
+            margin: auto;
+            background: #000;
+            border: 3px solid var(--border-gold);
+        }
+
+        /* Start / Game‑Over overlay */
+        #overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: none;
+            background: rgba(0,0,0,.8);
+            color: var(--accent-cyan);
+            font-family: 'Press Start 2P', monospace;
+            text-align: center;
+            padding-top: 20%;
+        }
+        #overlay h2 { margin-bottom: 1rem; }
+        #overlay button {
+            background: var(--border-gold);
+            border: none;
+            padding: .5rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #111;
+            transition: transform .2s;
+        }
+        #overlay button:hover { transform: scale(1.05); }
+    </style>
+</head>
+<body>
+
+<header class="banner"><h1>Breakout &amp; Arkanoid</h1></header>
+
+<main style="position: relative;">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <!-- Overlay for instructions / game‑over -->
+    <div id="overlay">
+        <h2 id="msgTitle">Welcome to Breakout!</h2>
+        <p id="msgBody">
+            Use the ← and → arrow keys (or A/D) to move the paddle.<br>
+            Destroy all bricks before the ball falls below the paddle.<br>
+            You have 3 lives. Good luck!
+        </p>
+        <button id="startBtn">Start Game</button>
+    </div>
+</main>
+
+<footer class="credits"><a href="/index.html">← Back to Menu</a></footer>
+
+<script src="game.js"></script>
+</body>
+</html>
+</html>

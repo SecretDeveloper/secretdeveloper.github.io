@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" /><title>Software Architecture - Blog</title><meta name="Description" content=""><meta property="og:url" content="http://localhost:1313/blog/2018-10-05-software-architecture/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="Software Architecture">
+  <meta property="og:description" content="What is software architecture?It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.
+What IS a Software Architect?It depends. I think of Software architects as “Master builders”. They may not have the title “Architect” but they are doing most of the following:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2018-10-05T15:01:32+01:00">
+    <meta property="article:modified_time" content="2018-10-05T15:01:32+01:00">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Software Architecture">
+  <meta name="twitter:description" content="What is software architecture?It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.
+What IS a Software Architect?It depends. I think of Software architects as “Master builders”. They may not have the title “Architect” but they are doing most of the following:">
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<link rel="canonical" href="http://localhost:1313/blog/2018-10-05-software-architecture/" /><link rel="prev" href="http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/" /><link rel="next" href="http://localhost:1313/blog/2020-11-26-memento-mori/" />
+<link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">{"@context": "https://schema.org","@type": "BlogPosting",
+        "headline": "Software Architecture",
+        "inLanguage": "en-us",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "http://localhost:1313/blog/2018-10-05-software-architecture/"
+        },"genre": "post","wordcount":  622 ,
+        "url": "http://localhost:1313/blog/2018-10-05-software-architecture/","datePublished": "2018-10-05T15:01:32+01:00","dateModified": "2018-10-05T15:01:32+01:00","publisher": {
+            "@type": "Organization",
+            "name": "Gary Kenneally"},"author": {
+                "@type": "Person",
+                "name": "Gary Kenneally",
+                "url": "/"
+            },"description": ""
+    }</script></head>
+
+
+<body data-instant-intensity="viewport" class="tw-flex tw-min-h-screen tw-flex-col"><script>
+    function setTheme(theme) {
+      document.body.setAttribute('theme', theme); 
+      document.documentElement.className = theme;
+      document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');
+      if (theme === 'light') {
+        document.documentElement.classList.remove('tw-dark')
+      } else {
+        document.documentElement.classList.add('tw-dark')
+      }
+      window.theme = theme;   
+      window.isDark = window.theme !== 'light' 
+    }
+    function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+    function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+    if (window.localStorage && localStorage.getItem('theme')) {
+        let theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+        setTheme(theme);
+        } else {
+            if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+      } else { 
+        if ('' === 'light' || '' === 'dark') 
+            setTheme(''), saveTheme(''); 
+        else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');
+    }
+    let metaColors = {'light': '#f8f8f8','dark': '#161b22'}
+    getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    window.switchThemeEventSet = new Set()
+</script><div id="back-to-top"></div>
+    <div id="mask"></div><header class="desktop print:!tw-hidden" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item"
+                    href="/" > Posts </a><a class="menu-item"
+                    href="/categories/" > Categories </a><a class="menu-item"
+                    href="/tags/" > Tags </a><a class="menu-item"
+                    href="/showcase/" > Showcase </a><a class="menu-item"
+                    href="/games/" > Games </a><a class="menu-item"
+                    href="/about/" > About </a><span class="menu-item delimiter"></span><button class="menu-item theme-switch" aria-label="Switch Theme">
+                    <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+                </button></div>
+        </div>
+    </div>
+</header><header class="mobile print:!tw-hidden" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="" >Posts</a><a class="menu-item" href="/categories/" title="" >Categories</a><a class="menu-item" href="/tags/" title="" >Tags</a><a class="menu-item" href="/showcase/" title="" >Showcase</a><a class="menu-item" href="/games/" title="" >Games</a><a class="menu-item" href="/about/" title="" >About</a><button class="menu-item theme-switch tw-w-full" aria-label="Switch Theme">
+                <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+            </button></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="tw-mx-4 tw-flex-1"><div class="page single special print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class="single-title">Software Architecture</h1><div class="content" id="content"><h1 id="what-is-software-architecture" class="headerLink">
+    <a href="#what-is-software-architecture" class="header-mark"></a>What is software architecture?</h1><p>It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.</p>
+<h2 id="what-is-a-software-architect" class="headerLink">
+    <a href="#what-is-a-software-architect" class="header-mark"></a>What IS a Software Architect?</h2><p>It depends.
+I think of Software architects as “Master builders”. They may not have the title &ldquo;Architect&rdquo; but they are doing most of the following:</p>
+<ul>
+<li>They provide technical leadership.</li>
+<li>They use their influence to guide their organization towards the best outcome.</li>
+<li>They think about the “big picture”.</li>
+<li>They understand the high-level business strategy.  <em>(Business acumen and market awareness)</em></li>
+<li>They consider how it can be put into action,  <em>(Ideation and rational thinking)</em></li>
+<li>They work with others to design a feasible solution to realize the strategy, -  taking into account cost, technology, resources, environment etc. <em>(Collaboration, Creativity, Awareness of limitations)</em></li>
+<li>They can convey the merits/challenges of that solution, in an efficient manner, to widely varied groups with different perspectives <em>(Confidence, Communication, people skills, awareness of audience)</em></li>
+<li>They have developed a level of trust within their group/area/organization such that people will follow their lead. <em>(Confidence, Leadership, “good to work with”)</em></li>
+<li>They are comfortable saying “I don’t know” and not feel it is a weakness. <em>(Confidence)</em></li>
+<li>They LOVE solving problems, working with others and have a track record of doing so effectively <em>(Internal motivation and competency)</em></li>
+</ul>
+<p>Now when I say &ldquo;Business Acumen&rdquo; for example, I don&rsquo;t mean that the architect has an MBA, but they must have a good awareness of how their company operates and what influences its success.  Similarly when I mention Creativity, I don&rsquo;t mean they are artists or anything like that but they have some capacity to create something new and enjoy doing so.</p>
+<h2 id="ok-but-what-does-an-architect-do" class="headerLink">
+    <a href="#ok-but-what-does-an-architect-do" class="header-mark"></a>OK, but what does an Architect DO?</h2><p>It depends. At a really high level they focus on how the theoretical practices of software engineering can be practically applied.</p>
+<ul>
+<li>They are familiar with the theory, but theory for theory sake should be kept to research papers.</li>
+<li>They use their experience to decide what is important or architecturally significant in each situation.</li>
+<li>They act as a regulator and mediator between the Product Owners, Development teams and the longer term goals of the organization.  Providing guidance or firm direction as needed.</li>
+<li>They understand how their prior experience (or lack thereof) can bias the solution and seek to overcome this with collaboration and review with experts.</li>
+<li>They take guidance from industry best practices and are constantly increasing their knowledge.</li>
+<li>While they may not be involved in the coding they must remain involved in the daily development, testing, deployment, tools and processes used by teams they work with.
+<ul>
+<li>Time invested periodically to assist directly with the development work can help retain those skills and perspective.</li>
+<li>They must retain the trust of teams who they are seeking to lead, without that trust they will have reduced influence.</li>
+</ul>
+</li>
+</ul>
+<h2 id="do-you-need-an-architect" class="headerLink">
+    <a href="#do-you-need-an-architect" class="header-mark"></a>Do you NEED an Architect?</h2><p>It depends. There are TONS of applications being built where an architect is not involved and is not required. Those applications still have an architecture (even if it is accidental or unplanned) of some kind.  The trouble starts when things start to scale up, either in volume (business, users, traffic) or in the number of systems involved.  If this has not been considered beforehand then things can quickly start sliding toward &ldquo;big ball of mud&rdquo; territory and development progress reduces.  So the architecture of things, their design absolutely matters and is something we should always consider.  The person doing this (senior developer for example) may not always be titled an Architect but they are filling that role.</p>
+<h2 id="you-say-it-depends-a-lot-is-that-a-joke" class="headerLink">
+    <a href="#you-say-it-depends-a-lot-is-that-a-joke" class="header-mark"></a>You say &ldquo;it depends&rdquo; a lot, is that a joke?</h2><p>Well it depends, do you find it funny?</p>
+</div></div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a>
+                </div><div class="footer-line"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532 0-200-89.451-200-200 0-110.531 89.451-200 200-200 110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43 0-140.484-61.425-140.484-141.567 0-79.152 60.275-139.401 139.762-139.401 55.531 0 88.738 26.62 97.593 34.779a11.965 11.965 0 0 1 1.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303 0-77.916 35.33-77.916 80.082 0 41.589 26.888 83.692 78.277 83.692 32.657 0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947 0 0 1-1.152 15.518z"/></svg>2025<span class="author">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Gary Kenneally</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href="#back-to-top" id="back-to-top-button" class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;" title="Back to Top">
+      <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+  </a>
+
+  </div>
+
+<script>window.config={"comment":{}};</script><script
+    src="/js/theme.min.js"
+    
+      defer
+    
+  ></script>
+
+<script type="speculationrules">
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+</body>
+
+</html>

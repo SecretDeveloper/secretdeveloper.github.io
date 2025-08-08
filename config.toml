@@ -1,5 +1,6 @@
 publishDir = "docs"
-baseurl = "http://secretdeveloper.github.io"
+cleanDestinationDir = true
+baseurl = "https://secretdeveloper.github.io/"
 languageCode = "en-us"
 title = "Blog"
 disqusShortname = "secretdevelopernet"
@@ -151,9 +152,13 @@ Name = "Showcase"
 URL = "/showcase/"
 weight = 4
 [[menu.main]]
+Name = "Games"
+URL = "/games/"
+weight = 5
+[[menu.main]]
 Name = "About"
 URL = "/about/"
-weight = 5
+weight = 6
 
 [markup.goldmark.renderer]
 hardWraps = false

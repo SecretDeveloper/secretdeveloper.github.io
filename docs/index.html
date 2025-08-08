@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta name="generator" content="Hugo 0.148.2"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" /><title>Blog</title><meta name="Description" content=""><meta property="og:url" content="http://localhost:1313/">
+  <meta property="og:site_name" content="Blog">
+  <meta property="og:title" content="Blog">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Blog">
+<meta name="application-name" content="Blog">
+<meta name="apple-mobile-web-app-title" content="Blog">
+
+<meta name="theme-color" content="#f8f8f8"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+  
+
+<link rel="canonical" href="http://localhost:1313/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="Blog">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="Blog">
+<link rel="stylesheet" href="/css/main.min.css"><link rel="stylesheet" href="/css/style.min.css"><script type="application/ld+json">
+        {"@context": "https://schema.org",
+        "@graph": [{
+                "@type": "WebSite",
+                "url": "http://localhost:1313/","inLanguage": "en-us","author": {
+                        "@type": "Person",
+                        "name": "Gary Kenneally"
+                    },"copyrightYear":  2025 ,"copyrightHolder": {
+                        "@type": "Person",
+                        "name": "Gary Kenneally"
+                    },"name": "Blog"
+            }]}
+        </script></head>
+
+
+<body data-instant-intensity="viewport" class="tw-flex tw-min-h-screen tw-flex-col"><script>
+    function setTheme(theme) {
+      document.body.setAttribute('theme', theme); 
+      document.documentElement.className = theme;
+      document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');
+      if (theme === 'light') {
+        document.documentElement.classList.remove('tw-dark')
+      } else {
+        document.documentElement.classList.add('tw-dark')
+      }
+      window.theme = theme;   
+      window.isDark = window.theme !== 'light' 
+    }
+    function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+    function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+    if (window.localStorage && localStorage.getItem('theme')) {
+        let theme = localStorage.getItem('theme');
+        if (theme === 'light' || theme === 'dark') {
+        setTheme(theme);
+        } else {
+            if ((window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                setTheme('dark');
+            } else {
+                setTheme('light');
+            }
+        }
+      } else { 
+        if ('' === 'light' || '' === 'dark') 
+            setTheme(''), saveTheme(''); 
+        else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');
+    }
+    let metaColors = {'light': '#f8f8f8','dark': '#161b22'}
+    getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    window.switchThemeEventSet = new Set()
+</script><div id="back-to-top"></div>
+    <div id="mask"></div><header class="desktop print:!tw-hidden" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Blog">Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item active"
+                    href="/" > Posts </a><a class="menu-item"
+                    href="/categories/" > Categories </a><a class="menu-item"
+                    href="/tags/" > Tags </a><a class="menu-item"
+                    href="/showcase/" > Showcase </a><a class="menu-item"
+                    href="/games/" > Games </a><a class="menu-item"
+                    href="/about/" > About </a><span class="menu-item delimiter"></span><button class="menu-item theme-switch" aria-label="Switch Theme">
+                    <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+                </button></div>
+        </div>
+    </div>
+</header><header class="mobile print:!tw-hidden" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Blog">Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/" title="" >Posts</a><a class="menu-item" href="/categories/" title="" >Categories</a><a class="menu-item" href="/tags/" title="" >Tags</a><a class="menu-item" href="/showcase/" title="" >Showcase</a><a class="menu-item" href="/games/" title="" >Games</a><a class="menu-item" href="/about/" title="" >About</a><button class="menu-item theme-switch tw-w-full" aria-label="Switch Theme">
+                <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
+            </button></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="tw-mx-4 tw-flex-1"><div class="page home" posts><div class="home-profile"></div><article class="single summary"><h1 class="single-title">
+        <a href="/blog/2020-11-26-memento-mori/">Memento Mori</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2020-11-26">2020-11-26</time></span></div><div class="content"><blockquote>
+  <p>&ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance
+    life’s books each day. … The one who puts the finishing touches on their life each day is never short of
+    time.&rdquo;</p>
+  <br />
+  <em>Seneca</em>
+</blockquote>
+
+<p>I have read some stoic philosophy recently and one of the ideas it presents is the awareness of death, not in a
+  morbid sense, but as something we should remain aware of. Time passes, often without notice when we are busy in the
+  day to day living, but stoics such as <a href="https://en.wikipedia.org/wiki/Marcus_Aurelius" target="_new">Marcus
+    Aurelius</a>
+  believed it was
+  important to acknowledge that your life span is finite and to act accordingly; use it as a call to action.</p></div><div class="post-footer">
+        <a href="/blog/2020-11-26-memento-mori/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2018-10-05-software-architecture/">Software Architecture</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2018-10-05">2018-10-05</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/software/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Software</a>&nbsp;<a href="/categories/architecture/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Architecture</a></span></div><div class="content"><h1 id="what-is-software-architecture" class="headerLink">
+    <a href="#what-is-software-architecture" class="header-mark"></a>What is software architecture?</h1><p>It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.</p>
+<h2 id="what-is-a-software-architect" class="headerLink">
+    <a href="#what-is-a-software-architect" class="header-mark"></a>What IS a Software Architect?</h2><p>It depends.
+I think of Software architects as “Master builders”. They may not have the title &ldquo;Architect&rdquo; but they are doing most of the following:</p></div><div class="post-footer">
+        <a href="/blog/2018-10-05-software-architecture/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2018-09-27-on-the-design-of-small-things/">On the Design of Small Things</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2018-09-27">2018-09-27</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/unix/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Unix</a>&nbsp;<a href="/categories/microservices/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Microservices</a>&nbsp;<a href="/categories/architecture/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Architecture</a>&nbsp;<a href="/categories/engineering/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Engineering</a></span></div><div class="content"><blockquote>
+  <p>Those who do not understand UNIX are condemned to reinvent it, poorly.<br />
+<em>Henry Spencer</em></p>
+</blockquote><p>The following is from the wikipedia article on <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">Unix Philosophy</a>.  It is interesting to apply these rules when designing Microservices, there is significant overlap.  Unix did it first.</p>
+<p>In his book, The Art of Unix Programming that was first published in 2003, Eric S. Raymond, an American programmer and open source advocate, summarizes the Unix philosophy as KISS Principle of &ldquo;Keep it Simple, Stupid.&rdquo; He provides a series of design rules:</p></div><div class="post-footer">
+        <a href="/blog/2018-09-27-on-the-design-of-small-things/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2016-12-22-2016-round-up/">2016 Round-Up</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2016-12-22">2016-12-22</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/2016/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>2016</a>&nbsp;<a href="/categories/roundup/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Roundup</a>&nbsp;<a href="/categories/list-of-things/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>List of Things</a></span></div><div class="content"><p>So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists.  Think of this as a far less interesting homage to <a href="http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/" target="_blank" rel="noopener noreferrer">Fogus</a> yearly reviews.</p>
+<h2 id="books" class="headerLink">
+    <a href="#books" class="header-mark"></a>Books</h2><h3 id="technical" class="headerLink">
+    <a href="#technical" class="header-mark"></a>Technical</h3><p>Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.  Usually if I am reading a tech book its of a more abstract or fundamental topic rather than specific to a language and is therefore a longer living.</p></div><div class="post-footer">
+        <a href="/blog/2016-12-22-2016-round-up/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2016-10-14-software-estimation-and-the-planning-fallacy/">Software, Estimation and the Planning Fallacy</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2016-10-14">2016-10-14</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/software/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Software</a>&nbsp;<a href="/categories/estimation/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Estimation</a>&nbsp;<a href="/categories/planning-fallacy/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Planning Fallacy</a>&nbsp;<a href="/categories/bias/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Bias</a></span></div><div class="content"><p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
+<h2 id="waterfall" class="headerLink">
+    <a href="#waterfall" class="header-mark"></a>Waterfall</h2><p>Remember way back when everyone thought the Waterfall model was great?  Well actually no, for the most part they didnt. The Waterfall model was put forward by Winston Royce back in the early 70&rsquo;s as an example of a <em>broken</em> SDLC model.  Unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use.  Now what is interesting to me is its original creator could see that the waterall model contained flaws, but thousands  of people could either not see those same flaws, or were unable to cease its adoption even if they tried; I&rsquo;m not sure which of those is worse.  30 years later you would be hard pressed to find any organizations still working under a Waterfall model, which is good.  The real problem however is not that a mistake was made, its that it took a generation before we acknowledged there was a problem.</p></div><div class="post-footer">
+        <a href="/blog/2016-10-14-software-estimation-and-the-planning-fallacy/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2015-02-17-javascript-equality-operator-grids/">Javascript Equality Operator Grids</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2015-02-17">2015-02-17</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/javascript/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Javascript</a>&nbsp;<a href="/categories/equality/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Equality</a>&nbsp;<a href="/categories/jsfiddle/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Jsfiddle</a></span></div><div class="content"><p>Javascript gets some bad press these days especially over how its comparison operators work.</p>
+<p>I decided to extend <a href="http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html" target="_blank" rel="noopener noreferrer">Craig Gidneys</a> example and added ===, !=, !== &lt;, &lt;=, &gt; and .= comparisons.</p>
+<p>Rows are the left side operand and columns are the right.</p>
+<p><a href="https://jsfiddle.net/SecretDeveloper/1zywbpLL/" target="_blank" rel="noopener noreferrer">Source code on jsfiddle</a></p>
+<img src="./js_equality.png" title="JS equality operator grids" /></div><div class="post-footer">
+        <a href="/blog/2015-02-17-javascript-equality-operator-grids/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/">Directed Graph of hubski users created with D3</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2014-12-16">2014-12-16</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/javascript/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Javascript</a>&nbsp;<a href="/categories/csharp/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Csharp</a>&nbsp;<a href="/categories/d3/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>D3</a>&nbsp;<a href="/categories/graph/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Graph</a></span></div><div class="content"><p>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.</p>
+<p><a href="https://github.com/SecretDeveloper/SocialGraph" target="_blank" rel="noopener noreferrer">Source code on github</a></p>
+<p><a href="../../projects/hubski-socialgraph/hubski_graph.html" rel="">Demo version</a></p>
+<p><a href="../../projects/hubski-socialgraph/hubski_graph_advanced.html" rel="">Advanced Demo version</a></p>
+<a href="./hubski_graph.html">
+<img src="http://i.imgur.com/Ko6TQQ3.png" title="Hubski Followers" width=400 height=400 /></a>
+<p>I started off by scanning a users profile and recording various pieces of information such as:</p>
+<ul>
+<li>Age in days</li>
+<li>Number of followers</li>
+<li>Number of people followed</li>
+<li>Number of badges received.</li>
+</ul>
+<p>I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&hellip;  you get the idea.</p></div><div class="post-footer">
+        <a href="/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2013-08-06-data-models-functional-composition-and-validation/">Data Models, functional composition and validation</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2013-08-06">2013-08-06</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/underscore/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Underscore</a>&nbsp;<a href="/categories/data-models/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Data-Models</a>&nbsp;<a href="/categories/composition/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Composition</a>&nbsp;<a href="/categories/validation/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Validation</a></span></div><div class="content"><p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
+<h4 id="functional-composition" class="headerLink">
+    <a href="#functional-composition" class="header-mark"></a>Functional Composition</h4><p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p></div><div class="post-footer">
+        <a href="/blog/2013-08-06-data-models-functional-composition-and-validation/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2013-07-21-knockoutjs-demo-using-google-books-api/">KnockoutJS demo using Google Books API</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2013-07-21">2013-07-21</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/knockoutjs/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Knockoutjs</a>&nbsp;<a href="/categories/ajax/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Ajax</a>&nbsp;<a href="/categories/googleapi/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Googleapi</a></span></div><div class="content"><h1 id="knockoutjs" class="headerLink">
+    <a href="#knockoutjs" class="header-mark"></a>Knockout.js</h1><h3 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>Introduction</h3><p>A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call.  I use the google books API to provide a simple search form.</p>
+<h3 id="show-me-the-code" class="headerLink">
+    <a href="#show-me-the-code" class="header-mark"></a>Show me the Code</h3><p>JSFiddle:</p>
+<iframe width="100%" height="400" src="http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/" frameborder="0"> </iframe>
+<p>Check out the <a href="http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/" target="_blank" rel="noopener noreferrer">jsfiddle</a></p>
+<p>I also use the <a href="http://underscorejs.org/" target="_blank" rel="noopener noreferrer">underscore</a> library to work with the observableArray but that is not really a requirement.  I just like it.</p>
+<h3 id="so-whats-happening" class="headerLink">
+    <a href="#so-whats-happening" class="header-mark"></a>So whats happening?</h3><p>We start off by creating a simple html page that contains a text box, a button and a results list. In our javascript file we create a ViewModel object (function) that contains properties that match our html form. It has a field for searchInput, a function to handle searches etc.  In our document ready function we apply this ViewModel to our html using <code>ko.applyBindings(vm);</code>.  When we do this knockoutjs takes our html and resolves all the <code>data-bind=&quot;&quot;</code> attributes we have added to elements and resolves them to fields on our ViewModel.  This is called Model Binding and it is a powerful tool that allows us to have a single ViewModel property displayed in several places on a page, with each kept in sync to any changes.  If the field we are binding to is a <code>ko.observable</code> then any changes made to its value will immediately show wherever it is bound.</p></div><div class="post-footer">
+        <a href="/blog/2013-07-21-knockoutjs-demo-using-google-books-api/">Read more...</a></div>
+</article>
+<article class="single summary"><h1 class="single-title">
+        <a href="/blog/2013-07-21-functional-javascript-using-underscore/">Functional javascript using underscore</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
+        </span>&nbsp;<span class="post-publish">published on <time datetime="2013-07-21">2013-07-21</time></span>&nbsp;<span class="post-category">included in </span>&nbsp;<span class="post-category">categories <a href="/categories/functional-programming/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Functional-Programming</a>&nbsp;<a href="/categories/javascript/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Javascript</a>&nbsp;<a href="/categories/underscore/"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"/></svg>Underscore</a></span></div><div class="content"><h2 id="functional-javascript-using-underscore" class="headerLink">
+    <a href="#functional-javascript-using-underscore" class="header-mark"></a>Functional javascript using underscore</h2><h3 id="why" class="headerLink">
+    <a href="#why" class="header-mark"></a>Why?</h3><p>A little while ago I picked up <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> by Michael Fogus.  I&rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&hellip;</p>
+<p>There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:</p>
+<blockquote>
+  <p>&ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&rdquo; - Alan Perlis</p></div><div class="post-footer">
+        <a href="/blog/2013-07-21-functional-javascript-using-underscore/">Read more...</a></div>
+</article>
+</div></main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">
+                    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1 0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7 0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174L402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7l-43.2-43.2c-4.1-4.1-10.8-4.1-14.8 0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg> DoIt</a>
+                </div><div class="footer-line"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 448c-110.532 0-200-89.451-200-200 0-110.531 89.451-200 200-200 110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200zm107.351-101.064c-9.614 9.712-45.53 41.396-104.065 41.396-82.43 0-140.484-61.425-140.484-141.567 0-79.152 60.275-139.401 139.762-139.401 55.531 0 88.738 26.62 97.593 34.779a11.965 11.965 0 0 1 1.936 15.322l-18.155 28.113c-3.841 5.95-11.966 7.282-17.499 2.921-8.595-6.776-31.814-22.538-61.708-22.538-48.303 0-77.916 35.33-77.916 80.082 0 41.589 26.888 83.692 78.277 83.692 32.657 0 56.843-19.039 65.726-27.225 5.27-4.857 13.596-4.039 17.82 1.738l19.865 27.17a11.947 11.947 0 0 1-1.152 15.518z"/></svg>2025<span class="author">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Gary Kenneally</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer><div class="print:!tw-hidden tw-flex tw-flex-col tw-fixed tw-right-4 tw-bottom-4 tw-gap-2"><a href="#back-to-top" id="back-to-top-button" class="tw-transition-opacity tw-opacity-0 tw-block tw-bg-bgColor-secondary tw-rounded-full" style="padding: 0.6rem; line-height: 1.3rem; font-size: 1rem;" title="Back to Top">
+      <svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"/></svg>
+  </a>
+
+  </div>
+
+<script>window.config=null;</script><script
+    src="/js/theme.min.js"
+    
+      defer
+    
+  ></script>
+
+<script type="speculationrules">
+  {
+    "prerender": [
+      {
+        "where": { "href_matches": "/*" },
+        "eagerness": "moderate"
+      }
+    ]
+  }
+</script>
+</body>
+
+</html>

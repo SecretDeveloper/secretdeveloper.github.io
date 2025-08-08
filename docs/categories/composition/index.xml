@@ -1,0 +1,16 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Composition - Category - Blog</title>
+        <link>http://localhost:1313/categories/composition/</link>
+        <description>Composition - Category - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 06 Aug 2013 15:03:58 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/composition/" rel="self" type="application/rss+xml" /><item>
+    <title>Data Models, functional composition and validation</title>
+    <link>http://localhost:1313/blog/2013-08-06-data-models-functional-composition-and-validation/</link>
+    <pubDate>Tue, 06 Aug 2013 15:03:58 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2013-08-06-data-models-functional-composition-and-validation/</guid>
+    <description><![CDATA[<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
+<h4 id="functional-composition" class="headerLink">
+    <a href="#functional-composition" class="header-mark"></a>Functional Composition</h4><p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>]]></description>
+</item></channel>
+</rss>

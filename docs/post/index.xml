@@ -1,0 +1,136 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Posts -  - Blog</title>
+        <link>http://localhost:1313/post/</link>
+        <description>Posts -  - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 Nov 2020 10:17:14 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/post/" rel="self" type="application/rss+xml" /><item>
+    <title>Memento Mori</title>
+    <link>http://localhost:1313/blog/2020-11-26-memento-mori/</link>
+    <pubDate>Thu, 26 Nov 2020 10:17:14 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2020-11-26-memento-mori/</guid>
+    <description><![CDATA[<blockquote>
+  <p>&ldquo;Let us prepare our minds as if we’d come to the very end of life. Let us postpone nothing. Let us balance
+    life’s books each day. … The one who puts the finishing touches on their life each day is never short of
+    time.&rdquo;</p>
+  <br />
+  <em>Seneca</em>
+</blockquote>
+
+<p>I have read some stoic philosophy recently and one of the ideas it presents is the awareness of death, not in a
+  morbid sense, but as something we should remain aware of. Time passes, often without notice when we are busy in the
+  day to day living, but stoics such as <a href="https://en.wikipedia.org/wiki/Marcus_Aurelius" target="_new">Marcus
+    Aurelius</a>
+  believed it was
+  important to acknowledge that your life span is finite and to act accordingly; use it as a call to action.</p>]]></description>
+</item><item>
+    <title>Software Architecture</title>
+    <link>http://localhost:1313/blog/2018-10-05-software-architecture/</link>
+    <pubDate>Fri, 05 Oct 2018 15:01:32 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2018-10-05-software-architecture/</guid>
+    <description><![CDATA[<h1 id="what-is-software-architecture" class="headerLink">
+    <a href="#what-is-software-architecture" class="header-mark"></a>What is software architecture?</h1><p>It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.</p>
+<h2 id="what-is-a-software-architect" class="headerLink">
+    <a href="#what-is-a-software-architect" class="header-mark"></a>What IS a Software Architect?</h2><p>It depends.
+I think of Software architects as “Master builders”. They may not have the title &ldquo;Architect&rdquo; but they are doing most of the following:</p>]]></description>
+</item><item>
+    <title>On the Design of Small Things</title>
+    <link>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</link>
+    <pubDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</guid>
+    <description><![CDATA[<blockquote>
+  <p>Those who do not understand UNIX are condemned to reinvent it, poorly.<br />
+<em>Henry Spencer</em></p>
+</blockquote><p>The following is from the wikipedia article on <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">Unix Philosophy</a>.  It is interesting to apply these rules when designing Microservices, there is significant overlap.  Unix did it first.</p>
+<p>In his book, The Art of Unix Programming that was first published in 2003, Eric S. Raymond, an American programmer and open source advocate, summarizes the Unix philosophy as KISS Principle of &ldquo;Keep it Simple, Stupid.&rdquo; He provides a series of design rules:</p>]]></description>
+</item><item>
+    <title>2016 Round-Up</title>
+    <link>http://localhost:1313/blog/2016-12-22-2016-round-up/</link>
+    <pubDate>Thu, 22 Dec 2016 12:56:02 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2016-12-22-2016-round-up/</guid>
+    <description><![CDATA[<p>So another year draws to a close and I thought I would review the last 12 months in my favourite data struture; lists.  Think of this as a far less interesting homage to <a href="http://blog.fogus.me/2015/12/29/the-best-things-and-stuff-of-2015/" target="_blank" rel="noopener noreferrer">Fogus</a> yearly reviews.</p>
+<h2 id="books" class="headerLink">
+    <a href="#books" class="header-mark"></a>Books</h2><h3 id="technical" class="headerLink">
+    <a href="#technical" class="header-mark"></a>Technical</h3><p>Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.  Usually if I am reading a tech book its of a more abstract or fundamental topic rather than specific to a language and is therefore a longer living.</p>]]></description>
+</item><item>
+    <title>Software, Estimation and the Planning Fallacy</title>
+    <link>http://localhost:1313/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</link>
+    <pubDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</guid>
+    <description><![CDATA[<p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
+<h2 id="waterfall" class="headerLink">
+    <a href="#waterfall" class="header-mark"></a>Waterfall</h2><p>Remember way back when everyone thought the Waterfall model was great?  Well actually no, for the most part they didnt. The Waterfall model was put forward by Winston Royce back in the early 70&rsquo;s as an example of a <em>broken</em> SDLC model.  Unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use.  Now what is interesting to me is its original creator could see that the waterall model contained flaws, but thousands  of people could either not see those same flaws, or were unable to cease its adoption even if they tried; I&rsquo;m not sure which of those is worse.  30 years later you would be hard pressed to find any organizations still working under a Waterfall model, which is good.  The real problem however is not that a mistake was made, its that it took a generation before we acknowledged there was a problem.</p>]]></description>
+</item><item>
+    <title>Javascript Equality Operator Grids</title>
+    <link>http://localhost:1313/blog/2015-02-17-javascript-equality-operator-grids/</link>
+    <pubDate>Tue, 17 Feb 2015 12:52:32 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2015-02-17-javascript-equality-operator-grids/</guid>
+    <description><![CDATA[<p>Javascript gets some bad press these days especially over how its comparison operators work.</p>
+<p>I decided to extend <a href="http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html" target="_blank" rel="noopener noreferrer">Craig Gidneys</a> example and added ===, !=, !== &lt;, &lt;=, &gt; and .= comparisons.</p>
+<p>Rows are the left side operand and columns are the right.</p>
+<p><a href="https://jsfiddle.net/SecretDeveloper/1zywbpLL/" target="_blank" rel="noopener noreferrer">Source code on jsfiddle</a></p>
+<img src="./js_equality.png" title="JS equality operator grids" />]]></description>
+</item><item>
+    <title>Directed Graph of hubski users created with D3</title>
+    <link>http://localhost:1313/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/</link>
+    <pubDate>Tue, 16 Dec 2014 22:34:47 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/</guid>
+    <description><![CDATA[<p>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.</p>
+<p><a href="https://github.com/SecretDeveloper/SocialGraph" target="_blank" rel="noopener noreferrer">Source code on github</a></p>
+<p><a href="../../projects/hubski-socialgraph/hubski_graph.html" rel="">Demo version</a></p>
+<p><a href="../../projects/hubski-socialgraph/hubski_graph_advanced.html" rel="">Advanced Demo version</a></p>
+<a href="./hubski_graph.html">
+<img src="http://i.imgur.com/Ko6TQQ3.png" title="Hubski Followers" width=400 height=400 /></a>
+<p>I started off by scanning a users profile and recording various pieces of information such as:</p>
+<ul>
+<li>Age in days</li>
+<li>Number of followers</li>
+<li>Number of people followed</li>
+<li>Number of badges received.</li>
+</ul>
+<p>I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&hellip;  you get the idea.</p>]]></description>
+</item><item>
+    <title>Data Models, functional composition and validation</title>
+    <link>http://localhost:1313/blog/2013-08-06-data-models-functional-composition-and-validation/</link>
+    <pubDate>Tue, 06 Aug 2013 15:03:58 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2013-08-06-data-models-functional-composition-and-validation/</guid>
+    <description><![CDATA[<p>While I am working my way through the <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> book I came across something that could be really useful, especially when dealing with AJAX requests.</p>
+<h4 id="functional-composition" class="headerLink">
+    <a href="#functional-composition" class="header-mark"></a>Functional Composition</h4><p>In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:</p>]]></description>
+</item><item>
+    <title>KnockoutJS demo using Google Books API</title>
+    <link>http://localhost:1313/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</link>
+    <pubDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</guid>
+    <description><![CDATA[<h1 id="knockoutjs" class="headerLink">
+    <a href="#knockoutjs" class="header-mark"></a>Knockout.js</h1><h3 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>Introduction</h3><p>A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call.  I use the google books API to provide a simple search form.</p>
+<h3 id="show-me-the-code" class="headerLink">
+    <a href="#show-me-the-code" class="header-mark"></a>Show me the Code</h3><p>JSFiddle:</p>
+<iframe width="100%" height="400" src="http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/" frameborder="0"> </iframe>
+<p>Check out the <a href="http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/" target="_blank" rel="noopener noreferrer">jsfiddle</a></p>
+<p>I also use the <a href="http://underscorejs.org/" target="_blank" rel="noopener noreferrer">underscore</a> library to work with the observableArray but that is not really a requirement.  I just like it.</p>
+<h3 id="so-whats-happening" class="headerLink">
+    <a href="#so-whats-happening" class="header-mark"></a>So whats happening?</h3><p>We start off by creating a simple html page that contains a text box, a button and a results list. In our javascript file we create a ViewModel object (function) that contains properties that match our html form. It has a field for searchInput, a function to handle searches etc.  In our document ready function we apply this ViewModel to our html using <code>ko.applyBindings(vm);</code>.  When we do this knockoutjs takes our html and resolves all the <code>data-bind=&quot;&quot;</code> attributes we have added to elements and resolves them to fields on our ViewModel.  This is called Model Binding and it is a powerful tool that allows us to have a single ViewModel property displayed in several places on a page, with each kept in sync to any changes.  If the field we are binding to is a <code>ko.observable</code> then any changes made to its value will immediately show wherever it is bound.</p>]]></description>
+</item><item>
+    <title>Functional javascript using underscore</title>
+    <link>http://localhost:1313/blog/2013-07-21-functional-javascript-using-underscore/</link>
+    <pubDate>Sun, 21 Jul 2013 15:03:58 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2013-07-21-functional-javascript-using-underscore/</guid>
+    <description><![CDATA[<h2 id="functional-javascript-using-underscore" class="headerLink">
+    <a href="#functional-javascript-using-underscore" class="header-mark"></a>Functional javascript using underscore</h2><h3 id="why" class="headerLink">
+    <a href="#why" class="header-mark"></a>Why?</h3><p>A little while ago I picked up <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> by Michael Fogus.  I&rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&hellip;</p>
+<p>There is a central theme to this book which intrigued me, indeed its one of the main tenets of functional programming.  It can be summed up in this quote:</p>
+<blockquote>
+  <p>&ldquo;It is better to have 100 functions operate on one data structure than 10 functions on 10 data structures.&rdquo; - Alan Perlis</p>]]></description>
+</item></channel>
+</rss>

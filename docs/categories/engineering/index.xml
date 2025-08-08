@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Engineering - Category - Blog</title>
+        <link>http://localhost:1313/categories/engineering/</link>
+        <description>Engineering - Category - Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/engineering/" rel="self" type="application/rss+xml" /><item>
+    <title>On the Design of Small Things</title>
+    <link>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</link>
+    <pubDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</guid>
+    <description><![CDATA[<blockquote>
+  <p>Those who do not understand UNIX are condemned to reinvent it, poorly.<br />
+<em>Henry Spencer</em></p>
+</blockquote><p>The following is from the wikipedia article on <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">Unix Philosophy</a>.  It is interesting to apply these rules when designing Microservices, there is significant overlap.  Unix did it first.</p>
+<p>In his book, The Art of Unix Programming that was first published in 2003, Eric S. Raymond, an American programmer and open source advocate, summarizes the Unix philosophy as KISS Principle of &ldquo;Keep it Simple, Stupid.&rdquo; He provides a series of design rules:</p>]]></description>
+</item></channel>
+</rss>
