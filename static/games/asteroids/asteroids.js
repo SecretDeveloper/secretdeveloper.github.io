@@ -9,8 +9,10 @@ const ctx = canvas.getContext('2d');
 
 let W, H;
 function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
+  // Fit the canvas to its parent #game container
+  const rect = canvas.parentElement.getBoundingClientRect();
+  W = canvas.width = rect.width;
+  H = canvas.height = rect.height;
 }
 window.addEventListener('resize', resize);
 resize();

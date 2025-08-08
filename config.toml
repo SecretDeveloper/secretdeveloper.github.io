@@ -148,17 +148,9 @@ Name = "Tags"
 URL = "/tags/"
 weight = 3
 [[menu.main]]
-Name = "Showcase"
-URL = "/showcase/"
-weight = 4
-[[menu.main]]
-Name = "Games"
-URL = "/games/"
-weight = 5
-[[menu.main]]
 Name = "About"
 URL = "/about/"
-weight = 6
+weight = 60
 
 [markup.goldmark.renderer]
 hardWraps = false

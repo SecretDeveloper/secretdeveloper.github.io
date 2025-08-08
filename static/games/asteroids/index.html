@@ -3,36 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Mini Asteroids</title>
-<style>
-  body{margin:0;overflow:hidden;background:#000;color:#fff;font-family:sans-serif;}
-  #game{position:relative;width:100vw;height:100vh;}
-  canvas{display:block;background:#111;}
-
-  /* HUD */
-  #hud{
-    position:absolute;
-    top:10px; left:10px;
-    z-index:10;
-    font-size:1.2rem;
-    pointer-events:none;
-  }
-
-  /* Start screen overlay */
-  #startScreen{
-    position:absolute;
-    inset:0;
-    background:#000d;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    color:#fff;
-    z-index:20;
-  }
-  #startScreen h1{margin:0 0 10px;}
-  #startScreen p{max-width:600px;line-height:1.4;}
-</style>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="asteroids.css">
 </head>
 <body>
 <div id="game">

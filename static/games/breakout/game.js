@@ -1,9 +1,9 @@
 /* ──────────────────────────────────────── */
 /* Breakout / Arkanoid – Vanilla JS (fixed)
- * Author: yourname | 2025
+ * Author: Gary Kenneally | 2025
  * ----------------------------------------------------- */
 
-const canvas = document.getElementById('gameCanvas');
+const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width;
@@ -37,14 +37,10 @@ const bricks = Array.from({ length: brickColumnCount }, () =>
 );
 
 // ----- Overlay helpers -----
-const overlay = document.getElementById('overlay');
+const overlay = document.getElementById('startScreen');
 const startBtn = document.getElementById('startBtn');
-const msgTitle = document.getElementById('msgTitle');
-const msgBody = document.getElementById('msgBody');
 
 function showOverlay(title, body) {
-  msgTitle.textContent = title;
-  msgBody.innerHTML = body.replace(/\n/g, '<br>');
   overlay.style.display = 'block';
 }
 function hideOverlay() { overlay.style.display = 'none'; }
@@ -75,6 +71,12 @@ function startLevel() {
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 startBtn.addEventListener('click', startLevel);
+// Allow Enter key to start/restart the game
+window.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    startLevel();
+  }
+});
 
 function keyDownHandler(e) {
   if (e.key === 'Right' || e.key === 'ArrowRight') rightPressed = true;

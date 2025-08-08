@@ -1,6 +1,6 @@
 +++
 date = "2014-10-19T15:00:37+01:00"
-title = "about"
+title = "About"
 +++
 
 # What is this blog about?
