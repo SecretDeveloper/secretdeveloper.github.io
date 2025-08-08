@@ -1,0 +1,179 @@
+publishDir = "docs"
+baseurl = "http://secretdeveloper.github.io"
+languageCode = "en-us"
+title = "Blog"
+disqusShortname = "secretdevelopernet"
+googleAnalytics = "UA-6023272-11"
+theme = "DoIt"
+
+ignoreLogs = ['warning-goldmark-raw-html']
+
+[indexes]
+category = "categories"
+
+[taxonomies]
+category = "categories"
+tag = "tags"
+
+
+disablePathToLower = false
+paginate = 6
+
+[permalinks]
+post = "/blog/:year-:month-:day-:title/" # change the post URL to look like the old ones
+
+[markup]
+# Default is startLevel 2 and endLevel 3, we want to render every heading
+[markup.tableOfContents]
+endLevel = 8
+startLevel = 1
+# set the Chroma highlighting options
+# https://gohugo.io/getting-started/configuration-markup/#highlight
+[markup.highlight]
+style = "solarized-dark"
+# if you want to keep using Blackfriday
+# defaultMarkdownHandler = "blackfriday"
+#   [markup.blackFriday]
+#     hrefTargetBlank = true # open links in a new tab
+
+[params]
+
+# --- Start sidebar options ---
+# Number of last posts that will be displayed in the sidebar - set to 0 or remove to hide this section
+sidebarRecentLimit = 5
+
+# Sidebar header - passed to markdownify so you can write markdown here
+sidebarHeader = "Sidebar Header"
+
+# Sidebar text also supports markdown
+# New lines can be added with two spaces at the end of line. New paragraphs can be added with two an empty line.
+# when adding two new lines, remember to remove the indentation otherwise the new line will be treated as a codeblock
+sidebarText = """Here's a [link to google](https://www.google.com)
+
+  New paragraph
+
+  Another paragraph which has two spaces in the end to create a new line using markdown  
+  New line but not a new paragraph
+  """
+# Sidebar menu - if true will add a sidebar menu between sidebar text and recent posts
+sidebarMenuEnabled = true
+sidebarMenuHeader = "Sidebar Links"
+
+# sidebar links
+github = "https://github.com/SecretDeveloper"
+twitter = ""
+mastodon = ""
+keybase = ""
+stackoverflow = ""
+linkedin = ""
+
+# --- End sidebar options ---
+
+# If set to true, navigation menu links will open in a new window with the exception of links to root ("/")
+# If this item does not exist or set to false, then navigation menu links will open in the same window
+navigationNewWindow = true
+
+# If false, all of blog post will appear on front page (and in pagination)
+truncate = true
+
+# Author's name (appears in meta tags and under posts)
+author = "Gary Kenneally"
+
+# This text appears in the site header under website title
+subtitle = "blog"
+
+# Search engine URL
+searchEngineURL = "https://www.google.com/search"
+
+# Text of the "Continue Reading" label. Supports markdown and inline HTML.
+# For example, &rarr; == right arrow.
+continueReadingText = "more.."
+
+# Switch to true to enable RSS icon link
+rss = true
+
+# Set to true to use a text label for RSS instead of an icon
+# This is overwritten by the "rss" setting
+textrss = false
+
+# Website's default description
+description = ""
+
+# Populate this with your own search keywords - these will appear in the meta tags
+# defaultKeywords = ["keyword1" , "keyword2" , "keyword3" , "keyword4"]
+
+# CSS override files
+# Paths should be relative to the `static` directory
+# customCSS = ["css/custom.css","css/custom2.css"]
+
+# 404.html header and text - both support markdown
+notFoundHeader = "There's nothing here"
+
+notFoundText = """Please either go back or use the navigation/sidebar menus.
+  """
+
+# Set to true to hide ReadingTime on posts
+disableReadingTime = false
+
+# Set to true to disable downloading of remote Google fonts
+disableGoogleFonts = false
+
+# Remove or Set to false to use local fonts
+# remoteFonts = false
+
+# Remove or set to false to use FontAwesome CDN, otherwise the theme uses ForkAwesome local fonts.
+# fontAwesome = false
+
+# Generate taxonomy pages
+generateTaxonomyList = true
+
+# Hack to get DoIt theme to work as it needs this value
+[params.Author]
+name = "Gary Kenneally"
+
+# Menu
+# If navigationNewWindow (under [params]) is set to true then all links except root ("/") will open in a new window
+# If it does not exist or is set to false then links will open in the same window
+[[menu.main]]
+Name = "Posts"
+URL = "/"
+weight = 1
+[[menu.main]]
+Name = "Categories"
+URL = "/categories/"
+weight = 2
+[[menu.main]]
+Name = "Tags"
+URL = "/tags/"
+weight = 3
+[[menu.main]]
+Name = "Showcase"
+URL = "/showcase/"
+weight = 4
+[[menu.main]]
+Name = "About"
+URL = "/about/"
+weight = 5
+
+[markup.goldmark.renderer]
+hardWraps = false
+unsafe = true
+xhtml = true
+
+# Sidebar menus
+# Enable with "sidebarMenuEnabled = true" under [params]
+# Header text is "sidebarMenuHeader" under [params]
+[[menu.sidebar]]
+Name = "Google"
+URL = "https://www.google.com"
+weight = 0
+
+[[menu.sidebar]]
+Name = "Hugo category"
+URL = "/categories/golang/"
+weight = 1
+
+[[menu.sidebar]]
+Name = "About page"
+URL = "/about"
+weight = 2
