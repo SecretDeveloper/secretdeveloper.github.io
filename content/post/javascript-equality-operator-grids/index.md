@@ -14,4 +14,4 @@ Rows are the left side operand and columns are the right.
 
 [Source code on jsfiddle](https://jsfiddle.net/SecretDeveloper/1zywbpLL/)
 
-<img src="./js_equality.png" title="JS equality operator grids" />
+<img src="/blog/2015-02-17-javascript-equality-operator-grids/js_equality.png" title="JS equality operator grids" />

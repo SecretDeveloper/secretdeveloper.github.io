@@ -14,8 +14,8 @@ Using some c# code to scrape hubski.com I was able to produce a pretty basic dir
 
 [Advanced Demo version](../../projects/hubski-socialgraph/hubski_graph_advanced.html)
 
-<a href="./hubski_graph.html">
-<img src="http://i.imgur.com/Ko6TQQ3.png" title="Hubski Followers" width=400 height=400 /></a>
+[Hubski Social Graph](../../projects/hubski-socialgraph/hubski_graph.html)
+
 
 I started off by scanning a users profile and recording various pieces of information such as:
 - Age in days
