@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breakout – Retro Arcade</title>
+
+    <!-- Arcade theme CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div id="game">
+    <canvas id="c" width="800" height="600"></canvas>
+
+    <!-- HUD removed: breakout uses in-canvas HUD -->
+    <!-- Overlay for instructions / game‑over -->
+    <div id="startScreen">
+        <h1>Breakout!</h1>
+        <p>
+            • Use the ← and → arrow keys (or A/D) to move the paddle.<br>
+            • Destroy all bricks before the ball falls below the paddle.<br>
+            • You have 3 lives. Good luck!
+        </p>
+        <button id="startBtn">Start Game</button>
+    </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
