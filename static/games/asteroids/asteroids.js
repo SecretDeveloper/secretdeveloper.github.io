@@ -34,6 +34,54 @@ function dist(a, b) {
   return Math.hypot(dx, dy);
 }
 
+/* ---------- Starfield background ---------- */
+let stars = [];
+const STAR_COUNT = 100;
+const STAR_PARALLAX = 0.2;      // parallax factor versus ship speed
+
+function initStars() {
+  stars = [];
+  for (let i = 0; i < STAR_COUNT; i++) {
+    stars.push({
+      x: rand(0, W),
+      y: rand(0, H),
+      r: rand(0.5, 1.5),        // star radius
+      baseAlpha: rand(0.3, 0.8), // static brightness
+      drift: rand(0.05, 0.2)    // slow vertical drift
+    });
+  }
+}
+
+function updateStars() {
+  stars.forEach(s => {
+    // parallax movement
+    const vx = (game.ship && game.ship.velX) || 0;
+    const vy = (game.ship && game.ship.velY) || 0;
+    s.x -= vx * STAR_PARALLAX;
+    s.y -= vy * STAR_PARALLAX;
+    // slight downward drift
+    s.y += s.drift;
+    // wrap around edges
+    if (s.x < 0) s.x += W;
+    else if (s.x > W) s.x -= W;
+    if (s.y > H) s.y = 0;
+    else if (s.y < 0) s.y = H;
+  });
+}
+
+function renderStars() {
+  stars.forEach(s => {
+    ctx.fillStyle = `rgba(255,255,255,${s.baseAlpha})`;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+    ctx.fill();
+  });
+}
+// initialize starfield for first render
+initStars();
+// regenerate stars when canvas is resized
+window.addEventListener('resize', initStars);
+
 /* ---------- Particle system for thruster ---------- */
 class ThrusterParticle {
   constructor(x, y, angle) {
@@ -41,13 +89,25 @@ class ThrusterParticle {
     const speed = rand(0.5, 1.5);
     this.velX = speed * Math.cos(degToRad(angle));
     this.velY = speed * Math.sin(degToRad(angle));
-    this.life = 30;              // frames
+    this.life = 30;              // total frames
+    this.lifeMax = this.life;    // for alpha calculation
     this.size = 2 + rand(-1, 1);
+    // pick a flame/smoke color: red, orange, or grey
+    const colors = [
+      '255, 0, 0',    // red flame
+      '255, 165, 0',  // orange flame
+      '128, 128, 128' // smoke grey
+    ];
+    this.color = colors[Math.floor(rand(0, colors.length))];
   }
   update() { this.x += this.velX; this.y += this.velY; this.life--; }
   draw() {
-    ctx.fillStyle = `rgba(255,255,255,${Math.max(this.life / 30, 0)})`;
-    ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); ctx.fill();
+    // fade out over lifetime
+    const alpha = Math.max(this.life / this.lifeMax, 0);
+    ctx.fillStyle = `rgba(${this.color},${alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.fill();
   }
 }
 
@@ -81,20 +141,34 @@ class Ship {
     ctx.save();
     ctx.translate(this.x, this.y);
     ctx.rotate(degToRad(this.angle + 90));
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
 
-    /* triangle ship – points upward */
+    // shiny gradient fill
+    const grad = ctx.createRadialGradient(
+      0, -this.r * 1.2, this.r * 0.2,
+      0, -this.r * 1.2, this.r * 1.2
+    );
+    grad.addColorStop(0, '#fff');
+    grad.addColorStop(1, '#08f');
+    ctx.fillStyle = grad;
+
+    // glow effect
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = 'rgba(0,150,255,0.7)';
+
+    // draw ship shape
     ctx.beginPath();
     ctx.moveTo(0, -this.r * 1.5);
     ctx.lineTo(-this.r, this.r * 1.5);
     ctx.lineTo(this.r, this.r * 1.5);
     ctx.closePath();
+    ctx.fill();
 
-    ctx.fillStyle = '#fff';          // solid white interior
+    // outline without glow
+    ctx.shadowBlur = 0;
     ctx.strokeStyle = '#000';
     ctx.lineWidth = 2;
-    ctx.fill();
     ctx.stroke();
+
     ctx.restore();
   }
 }
@@ -136,7 +210,10 @@ class Asteroid {
     if (this.y < 0) this.y += H; if (this.y > H) this.y -= H;
   }
   draw() {
-    ctx.strokeStyle = this.color; ctx.lineWidth = 2;
+    // asteroid outline and fill
+    ctx.strokeStyle = this.color;
+    ctx.fillStyle = this.color;
+    ctx.lineWidth = 2;
     const angleStep = 360 / this.points;
     ctx.beginPath();
     for (let i = 0; i <= this.points; i++) {
@@ -144,8 +221,11 @@ class Asteroid {
       const r = this.size + rand(-5, 5);
       const x = this.x + r * Math.cos(a);
       const y = this.y + r * Math.sin(a);
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
     }
+    ctx.closePath();
+    ctx.fill();
     ctx.stroke();
   }
 }
@@ -321,7 +401,7 @@ function update() {
 }
 
 function render() {
-  ctx.clearRect(0, 0, W, H);
+  // draw game objects (canvas has been cleared and background drawn already)
   game.ship.draw();
   game.bullets.forEach(b => b.draw());
   game.thrusters.forEach(p => p.draw());
@@ -329,13 +409,22 @@ function render() {
 }
 
 function loop() {
+  // update game state
   if (game.started) {
     update();
+  }
+  // update and draw starfield background
+  updateStars();
+  ctx.clearRect(0, 0, W, H);
+  renderStars();
+  // draw game objects on top
+  if (game.started) {
     render();
   }
   requestAnimationFrame(loop);
 }
-loop();   // start the animation
+// initialize loop & start animation
+loop();
 
 /* ---------- Optional: FPS counter (debug) ---------- */
 let fps, lastTime = performance.now();
