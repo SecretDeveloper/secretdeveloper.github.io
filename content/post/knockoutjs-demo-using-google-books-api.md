@@ -15,9 +15,9 @@ A quick and dirty demo to show off a very simple example of what you can do with
 ### Show me the Code
 
 JSFiddle:
-<iframe width="100%" height="400" src="http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/" frameborder="0"> </iframe>
+<iframe width="100%" height="400" src="https://jsfiddle.net/SecretDeveloper/d9xfP/embedded/" frameborder="0"> </iframe>
 
-Check out the [jsfiddle](http://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/)
+Check out the [jsfiddle](https://jsfiddle.net/SecretDeveloper/d9xfP/embedded/result/)
 
 I also use the [underscore](http://underscorejs.org/) library to work with the observableArray but that is not really a requirement.  I just like it.
 

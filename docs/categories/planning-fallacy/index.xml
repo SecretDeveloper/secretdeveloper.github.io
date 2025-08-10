@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Planning Fallacy - Category - SecretDeveloper</title>
-        <link>http://localhost:1313/categories/planning-fallacy/</link>
+        <link>https://secretdeveloper.github.io/categories/planning-fallacy/</link>
         <description>Planning Fallacy - Category - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/planning-fallacy/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/planning-fallacy/" rel="self" type="application/rss+xml" /><item>
     <title>Software, Estimation and the Planning Fallacy</title>
-    <link>http://localhost:1313/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</link>
+    <link>https://secretdeveloper.github.io/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</link>
     <pubDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>http://localhost:1313/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</guid>
+    </author><guid>https://secretdeveloper.github.io/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</guid>
     <description><![CDATA[<p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
 <h2 id="waterfall" class="headerLink">
     <a href="#waterfall" class="header-mark"></a>Waterfall</h2><p>Remember way back when everyone thought the Waterfall model was great?  Well actually no, for the most part they didnt. The Waterfall model was put forward by Winston Royce back in the early 70&rsquo;s as an example of a <em>broken</em> SDLC model.  Unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use.  Now what is interesting to me is its original creator could see that the waterall model contained flaws, but thousands  of people could either not see those same flaws, or were unable to cease its adoption even if they tried; I&rsquo;m not sure which of those is worse.  30 years later you would be hard pressed to find any organizations still working under a Waterfall model, which is good.  The real problem however is not that a mistake was made, its that it took a generation before we acknowledged there was a problem.</p>]]></description>

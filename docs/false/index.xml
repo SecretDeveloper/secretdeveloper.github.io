@@ -1,7 +1,7 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>False - disablepathtolower - SecretDeveloper</title>
-        <link>http://localhost:1313/false/</link>
+        <link>https://secretdeveloper.github.io/false/</link>
         <description>False - disablepathtolower - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="http://localhost:1313/false/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://secretdeveloper.github.io/false/" rel="self" type="application/rss+xml" /></channel>
 </rss>
