@@ -140,6 +140,29 @@ class Ship {
   draw() {
     ctx.save();
     ctx.translate(this.x, this.y);
+    // draw pulsing shield ring around ship if active
+    if (game.shield > 0) {
+      // pulse factor oscillates [0..1]
+      const t = performance.now() / 300;
+      const pulse = (Math.sin(t) * 0.5 + 0.5);
+      // ring radius oscillates between 2× and 2.4× ship radius
+      const baseR = this.r * 2;
+      const radius = baseR + (this.r * 0.4) * pulse;
+      // line width oscillates between 3 and 6
+      const lineW = 3 + 3 * pulse;
+      let color;
+      switch (game.shield) {
+        case 3: color = 'rgba(0,255,0,0.8)'; break;   // bright green
+        case 2: color = 'rgba(255,255,0,0.8)'; break; // bright yellow
+        case 1: color = 'rgba(255,0,0,0.8)'; break;   // bright red
+      }
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineW;
+      ctx.stroke();
+    }
+    // rotate ship body to its current angle
     ctx.rotate(degToRad(this.angle + 90));
 
     // shiny gradient fill
@@ -238,14 +261,13 @@ const game = {
   asteroids: [],
   thrusters: [],
   score: 0,
-  lives: 3
+  shield: 3  // number of shield hits remaining: 3=green,2=yellow,1=red,0=none
 };
 
-// HUD element: hide it until gameplay starts
+// HUD element: hide it until gameplay starts (shield is shown around ship)
 const hud = document.getElementById('hud');
 hud.style.display = 'none';
 document.getElementById('score').textContent = game.score;
-document.getElementById('lives').textContent = game.lives;
 
 /* ---------- Helper functions ---------- */
 function spawnAsteroid() {
@@ -262,9 +284,10 @@ function resetGame() {
   game.bullets.length = 0;
   game.thrusters.length = 0;
   game.asteroids.length = 0;
-  game.score = 0; game.lives = 3;
+  game.score = 0;
+  game.shield = 3;
   document.getElementById('score').textContent = game.score;
-  document.getElementById('lives').textContent = game.lives;
+  // shield is shown as a circle around the ship, no HUD element
 
   // spawn fresh asteroids for the next round
   for (let i = 0; i < 5; i++) spawnAsteroid();
@@ -348,22 +371,45 @@ function update() {
   game.asteroids.forEach(a => a.update());
 
   /* ----- Collision detection ----- */
-  // ship vs asteroid
+  // ship vs asteroid (shield takes damage, ship bounces, asteroid splits)
   for (let i = 0; i < game.asteroids.length; i++) {
     const a = game.asteroids[i];
-    if (dist(game.ship, a) < a.size + game.ship.r * 1.5) {
-      game.lives--;
-      document.getElementById('lives').textContent = game.lives;
-      // reset ship
-      game.ship.reset();
-      if (game.lives <= 0) {
+    const minDist = a.size + game.ship.r * 1.5;
+    if (dist(game.ship, a) < minDist) {
+      // compute collision normal (asteroid → ship)
+      const dx = game.ship.x - a.x;
+      const dy = game.ship.y - a.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const nx = dx / d, ny = dy / d;
+      // relative velocity (ship relative to asteroid)
+      const relVX = game.ship.velX - a.velX;
+      const relVY = game.ship.velY - a.velY;
+      const dot = relVX * nx + relVY * ny;
+      // if approaching, reflect velocity vector
+      if (dot < 0) {
+        const reflVX = relVX - 2 * dot * nx;
+        const reflVY = relVY - 2 * dot * ny;
+        game.ship.velX = reflVX + a.velX;
+        game.ship.velY = reflVY + a.velY;
+      }
+      // split asteroid like bullet hit
+      game.asteroids.splice(i, 1);
+      if (a.size > 25) {
+        for (let j = 0; j < 2; j++) {
+          game.asteroids.push(new Asteroid(a.x, a.y, a.size / 2));
+        }
+      }
+      // consume shield
+      game.shield--;
+      // game over if shield below zero
+      if (game.shield < 0) {
         game.started = false;
         startScreen.innerHTML = `<h1>Game Over</h1><p>Your score: ${game.score}</p><p>Press Enter to restart.</p>`;
         startScreen.style.display = 'flex';
-        // hide HUD during game-over screen
         hud.style.display = 'none';
-        resetGame();          // clear everything & respawn
+        resetGame();
       }
+      i--; // adjust loop index after removal
     }
   }
 
