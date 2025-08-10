@@ -37,7 +37,7 @@ style = "solarized-dark"
 #   [markup.blackFriday]
 #     hrefTargetBlank = true # open links in a new tab
 
-[params]
+# (existing) [params]
 
 # --- Start sidebar options ---
 # Number of last posts that will be displayed in the sidebar - set to 0 or remove to hide this section
@@ -131,6 +131,10 @@ generateTaxonomyList = true
 # Hack to get DoIt theme to work as it needs this value
 [params.Author]
 name = "Gary Kenneally"
+  
+# SVG favicon (black 'SD' on white background)
+[params.app]
+svgFavicon = "/favicon.svg"
 
 # Menu
 # If navigationNewWindow (under [params]) is set to true then all links except root ("/") will open in a new window
