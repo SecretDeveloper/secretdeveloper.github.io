@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Unix - Category - Blog</title>
+        <title>Unix - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/unix/</link>
-        <description>Unix - Category - Blog</description>
+        <description>Unix - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/unix/" rel="self" type="application/rss+xml" /><item>
     <title>On the Design of Small Things</title>
     <link>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</link>

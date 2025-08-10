@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>D3 - Category - Blog</title>
+        <title>D3 - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/d3/</link>
-        <description>D3 - Category - Blog</description>
+        <description>D3 - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 16 Dec 2014 22:34:47 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/d3/" rel="self" type="application/rss+xml" /><item>
     <title>Directed Graph of hubski users created with D3</title>
     <link>http://localhost:1313/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/</link>

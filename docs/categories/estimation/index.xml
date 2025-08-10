@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Estimation - Category - Blog</title>
+        <title>Estimation - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/estimation/</link>
-        <description>Estimation - Category - Blog</description>
+        <description>Estimation - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/estimation/" rel="self" type="application/rss+xml" /><item>
     <title>Software, Estimation and the Planning Fallacy</title>
     <link>http://localhost:1313/blog/2016-10-14-software-estimation-and-the-planning-fallacy/</link>

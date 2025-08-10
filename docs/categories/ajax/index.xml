@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Ajax - Category - Blog</title>
+        <title>Ajax - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/ajax/</link>
-        <description>Ajax - Category - Blog</description>
+        <description>Ajax - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/ajax/" rel="self" type="application/rss+xml" /><item>
     <title>KnockoutJS demo using Google Books API</title>
     <link>http://localhost:1313/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</link>

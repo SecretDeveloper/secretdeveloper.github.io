@@ -2,7 +2,7 @@ publishDir = "docs"
 cleanDestinationDir = true
 baseurl = "https://secretdeveloper.github.io/"
 languageCode = "en-us"
-title = "Blog"
+title = "SecretDeveloper"
 disqusShortname = "secretdevelopernet"
 googleAnalytics = "UA-6023272-11"
 theme = "DoIt"
@@ -81,7 +81,7 @@ truncate = true
 author = "Gary Kenneally"
 
 # This text appears in the site header under website title
-subtitle = "blog"
+subtitle = ""
 
 # Search engine URL
 searchEngineURL = "https://www.google.com/search"

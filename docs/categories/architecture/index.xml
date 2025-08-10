@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Architecture - Category - Blog</title>
+        <title>Architecture - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/architecture/</link>
-        <description>Architecture - Category - Blog</description>
+        <description>Architecture - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Oct 2018 15:01:32 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/architecture/" rel="self" type="application/rss+xml" /><item>
     <title>Software Architecture</title>
     <link>http://localhost:1313/blog/2018-10-05-software-architecture/</link>

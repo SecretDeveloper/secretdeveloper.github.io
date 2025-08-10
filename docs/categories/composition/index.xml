@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Composition - Category - Blog</title>
+        <title>Composition - Category - SecretDeveloper</title>
         <link>http://localhost:1313/categories/composition/</link>
-        <description>Composition - Category - Blog</description>
+        <description>Composition - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 06 Aug 2013 15:03:58 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/composition/" rel="self" type="application/rss+xml" /><item>
     <title>Data Models, functional composition and validation</title>
     <link>http://localhost:1313/blog/2013-08-06-data-models-functional-composition-and-validation/</link>
