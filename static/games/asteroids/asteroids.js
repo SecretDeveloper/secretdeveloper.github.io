@@ -25,6 +25,8 @@ const BULLET_LIFETIME = 60;
 const SHIP_ACCEL = 0.1;
 const SHIP_MAX_SPEED = 5;
 const SHIP_FRICTION = 0.99;
+// ship size (radius)
+const SHIP_RADIUS = 7.5;  // half of previous 15 for 50% smaller ship
 
 function rand(min, max) { return Math.random() * (max - min) + min; }
 function degToRad(d) { return d * Math.PI / 180; }
@@ -111,10 +113,38 @@ class ThrusterParticle {
   }
 }
 
+/* ---------- Particle system for ship explosion ---------- */
+class ExplosionParticle {
+  constructor(x, y) {
+    this.x = x; this.y = y;
+    const speed = rand(1, 5);
+    const angle = rand(0, 360);
+    this.velX = speed * Math.cos(degToRad(angle));
+    this.velY = speed * Math.sin(degToRad(angle));
+    this.life = rand(30, 60);
+    this.lifeMax = this.life;
+    this.size = rand(2, 5);
+    const colors = ['255,0,0', '255,165,0'];
+    this.color = colors[Math.floor(rand(0, colors.length))];
+  }
+  update() {
+    this.x += this.velX;
+    this.y += this.velY;
+    this.life--;
+  }
+  draw() {
+    const alpha = Math.max(this.life / this.lifeMax, 0);
+    ctx.fillStyle = `rgba(${this.color},${alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+    ctx.fill();
+  }
+}
+
 /* ---------- Game Objects ---------- */
 class Ship {
   constructor() {
-    this.r = 15;                      // ship radius (used for collision)
+    this.r = SHIP_RADIUS;            // ship radius (used for collision)
     this.reset();
     this.lastShot = 0;                // ms timestamp of last fired bullet
   }
@@ -261,7 +291,11 @@ const game = {
   asteroids: [],
   thrusters: [],
   score: 0,
-  shield: 3  // number of shield hits remaining: 3=green,2=yellow,1=red,0=none
+  shield: 3,            // number of shield hits remaining: 3=green,2=yellow,1=red,0=none
+  exploding: false,     // explosion in progress
+  explosionStart: 0,    // timestamp when explosion began
+  explosionParticles: [],
+  finalScore: 0         // score to display after explosion
 };
 
 // HUD element: hide it until gameplay starts (shield is shown around ship)
@@ -278,6 +312,23 @@ function spawnAsteroid() {
   game.asteroids.push(new Asteroid(x, y));
 }
 for (let i = 0; i < 5; i++) spawnAsteroid();
+/**
+ * Begin ship explosion: generate explosion particles and hide HUD
+ */
+function startExplosion() {
+  game.exploding = true;
+  game.explosionStart = performance.now();
+  game.explosionParticles = [];
+  // generate particles at ship location
+  const count = 40;
+  for (let i = 0; i < count; i++) {
+    game.explosionParticles.push(
+      new ExplosionParticle(game.ship.x, game.ship.y)
+    );
+  }
+  // hide HUD during explosion
+  hud.style.display = 'none';
+}
 
 function resetGame() {
   game.ship.reset();
@@ -286,6 +337,9 @@ function resetGame() {
   game.asteroids.length = 0;
   game.score = 0;
   game.shield = 3;
+  // clear any prior explosion state
+  game.exploding = false;
+  game.explosionParticles.length = 0;
   document.getElementById('score').textContent = game.score;
   // shield is shown as a circle around the ship, no HUD element
 
@@ -401,13 +455,11 @@ function update() {
       }
       // consume shield
       game.shield--;
-      // game over if shield below zero
+      // if shield fell below zero, start explosion
       if (game.shield < 0) {
         game.started = false;
-        startScreen.innerHTML = `<h1>Game Over</h1><p>Your score: ${game.score}</p><p>Press Enter to restart.</p>`;
-        startScreen.style.display = 'flex';
-        hud.style.display = 'none';
-        resetGame();
+        game.finalScore = game.score;
+        startExplosion();
       }
       i--; // adjust loop index after removal
     }
@@ -448,9 +500,12 @@ function update() {
 
 function render() {
   // draw game objects (canvas has been cleared and background drawn already)
-  game.ship.draw();
-  game.bullets.forEach(b => b.draw());
+  // draw thruster particles behind the ship
   game.thrusters.forEach(p => p.draw());
+  // draw ship on top of thrusters
+  game.ship.draw();
+  // draw bullets and asteroids
+  game.bullets.forEach(b => b.draw());
   game.asteroids.forEach(a => a.draw());
 }
 
@@ -466,6 +521,19 @@ function loop() {
   // draw game objects on top
   if (game.started) {
     render();
+  } else if (game.exploding) {
+    // update and draw explosion particles
+    game.explosionParticles.forEach(p => p.update());
+    game.explosionParticles = game.explosionParticles.filter(p => p.life > 0);
+    game.explosionParticles.forEach(p => p.draw());
+    // after 2 seconds, show game-over screen
+    if (performance.now() - game.explosionStart > 2000) {
+      startScreen.innerHTML =
+        `<h1>Game Over</h1><p>Your score: ${game.finalScore}</p><p>Press Enter to restart.</p>`;
+      startScreen.style.display = 'flex';
+      // reset game state for next run
+      resetGame();
+    }
   }
   requestAnimationFrame(loop);
 }
