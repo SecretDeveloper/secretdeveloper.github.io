@@ -10,3 +10,4 @@ Here are some simple browser based games i created with the help of different La
 
 - [Asteroids](/games/asteroids/)
 - [Breakout / Arkanoid](/games/breakout/)
+- [Pacman](/games/pacman/)

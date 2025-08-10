@@ -18,6 +18,8 @@ window.addEventListener('resize', resize);
 resize();
 
 /* ---------- Constants & Helpers ---------- */
+// power-up size (radius)
+const POWERUP_RADIUS = 10 * 1.1; // 10% larger than base 10
 const FPS = 60;           // target frame rate (used only for comments)
 const THRUST_PARTICLES = 3;           // per accelerate frame
 const MAX_THRUST_PARTS = 200;         // cap particle array
@@ -276,7 +278,7 @@ class Powerup {
   constructor(x, y, type) {
     this.x = x; this.y = y;
     this.type = type;            // 'shield','machine','power','missile'
-    this.r = 10;                 // visual radius
+    this.r = POWERUP_RADIUS;     // visual radius (10% larger)
     this.angle = 0;
     this.life = 600;             // frames until auto-remove (10s)
   }
