@@ -28,6 +28,31 @@ const SHIP_FRICTION = 0.99;
 // ship size (radius)
 const SHIP_RADIUS = 7.5;  // half of previous 15 for 50% smaller ship
 
+// bullet configuration (dynamic for power-ups)
+const BASE_BULLET_SPEED_MIN = 8;
+const BASE_BULLET_SPEED_MAX = 12;
+const POWER_BULLET_SPEED_MIN = 12;
+const POWER_BULLET_SPEED_MAX = 18;
+let bulletSpeedMin = BASE_BULLET_SPEED_MIN;
+let bulletSpeedMax = BASE_BULLET_SPEED_MAX;
+const BASE_BULLET_SIZE = 2;
+const POWER_BULLET_SIZE = 4;
+let bulletSize = BASE_BULLET_SIZE;
+const BASE_BULLET_LIFE = BULLET_LIFETIME;
+const POWER_BULLET_LIFE = 100;
+let bulletLife = BASE_BULLET_LIFE;
+
+// firing rate (ms between shots)
+const BASE_SHOT_INTERVAL = 200;
+const MACHINE_GUN_INTERVAL = 50;
+let shotInterval = BASE_SHOT_INTERVAL;
+
+// power-up management
+const POWERUP_DURATION = 10000; // 10 seconds
+const POWERUP_SPAWN_CHANCE = 0.2; // chance to drop on small asteroid kill
+let activePowerup = null;
+let powerupExpires = 0;
+
 function rand(min, max) { return Math.random() * (max - min) + min; }
 function degToRad(d) { return d * Math.PI / 180; }
 function dist(a, b) {
@@ -140,6 +165,43 @@ class ExplosionParticle {
     ctx.fill();
   }
 }
+/**
+ * Power-up items dropped by smallest asteroids
+ */
+class Powerup {
+  constructor(x, y, type) {
+    this.x = x; this.y = y;
+    this.type = type;            // 'shield','machine','power','missile'
+    this.r = 10;                 // visual radius
+    this.angle = 0;
+    this.life = 600;             // frames until auto-remove (10s)
+  }
+  update() {
+    this.angle += 0.05;
+    this.life--;
+  }
+  draw() {
+    ctx.save();
+    ctx.translate(this.x, this.y);
+    ctx.rotate(this.angle);
+    // color & label based on type
+    let color, label;
+    switch (this.type) {
+      case 'shield':    color = 'lime'; label = 'S'; break;
+      case 'machine':   color = 'magenta'; label = 'M'; break;
+      case 'power':     color = 'cyan'; label = 'P'; break;
+      case 'missile':   color = 'orange'; label = 'X'; break;
+    }
+    ctx.fillStyle = color;
+    ctx.beginPath(); ctx.arc(0, 0, this.r, 0, 2 * Math.PI); ctx.fill();
+    ctx.fillStyle = '#000';
+    ctx.font = '12px sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(label, 0, 0);
+    ctx.restore();
+  }
+}
+
 
 /* ---------- Game Objects ---------- */
 class Ship {
@@ -229,11 +291,13 @@ class Ship {
 class Bullet {
   constructor(x, y, angle) {
     this.x = x; this.y = y;
-    const speed = rand(8, 12);
+    // speed based on current power-up settings
+    const speed = rand(bulletSpeedMin, bulletSpeedMax);
     this.velX = speed * Math.cos(degToRad(angle));
     this.velY = speed * Math.sin(degToRad(angle));
-    this.lifetime = BULLET_LIFETIME;
-    this.r = 2;
+    // lifespan and size based on power-up settings
+    this.lifetime = bulletLife;
+    this.r = bulletSize;
   }
   update() {
     this.x += this.velX; this.y += this.velY;
@@ -243,6 +307,28 @@ class Bullet {
   draw() {
     ctx.fillStyle = '#ff0';
     ctx.beginPath(); ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI); ctx.fill();
+  }
+}
+/**
+ * Homing missile bullets
+ */
+class Missile extends Bullet {
+  update() {
+    // home towards nearest asteroid
+    if (game.asteroids.length) {
+      let closest = null, minD = Infinity;
+      for (const a of game.asteroids) {
+        const d = dist(this, a);
+        if (d < minD) { minD = d; closest = a; }
+      }
+      if (closest) {
+        const angle = Math.atan2(closest.y - this.y, closest.x - this.x);
+        const speed = Math.hypot(this.velX, this.velY) || (bulletSpeedMax + bulletSpeedMin)/2;
+        this.velX = speed * Math.cos(angle);
+        this.velY = speed * Math.sin(angle);
+      }
+    }
+    super.update();
   }
 }
 
@@ -290,6 +376,7 @@ const game = {
   bullets: [],
   asteroids: [],
   thrusters: [],
+  powerups: [],        // active power-up items on field
   score: 0,
   shield: 3,            // number of shield hits remaining: 3=green,2=yellow,1=red,0=none
   exploding: false,     // explosion in progress
@@ -330,6 +417,57 @@ function startExplosion() {
   hud.style.display = 'none';
 }
 
+/**
+ * Spawn a power-up of random type at (x,y)
+ */
+function spawnPowerup(x, y) {
+  const types = ['shield','machine','power','missile'];
+  const type = types[Math.floor(rand(0, types.length))];
+  game.powerups = game.powerups || [];
+  game.powerups.push(new Powerup(x, y, type));
+}
+
+/**
+ * Activate a collected power-up
+ */
+function applyPowerup(type) {
+  const now = performance.now();
+  switch (type) {
+    case 'shield':
+      game.shield = 3;
+      break;
+    case 'machine':
+      shotInterval = MACHINE_GUN_INTERVAL;
+      activePowerup = 'machine';
+      powerupExpires = now + POWERUP_DURATION;
+      break;
+    case 'power':
+      bulletSpeedMin = POWER_BULLET_SPEED_MIN;
+      bulletSpeedMax = POWER_BULLET_SPEED_MAX;
+      bulletSize = POWER_BULLET_SIZE;
+      bulletLife = POWER_BULLET_LIFE;
+      activePowerup = 'power';
+      powerupExpires = now + POWERUP_DURATION;
+      break;
+    case 'missile':
+      activePowerup = 'missile';
+      powerupExpires = now + POWERUP_DURATION;
+      break;
+  }
+}
+
+/**
+ * Revert to base weapon when power-up expires
+ */
+function expirePowerup() {
+  shotInterval = BASE_SHOT_INTERVAL;
+  bulletSpeedMin = BASE_BULLET_SPEED_MIN;
+  bulletSpeedMax = BASE_BULLET_SPEED_MAX;
+  bulletSize = BASE_BULLET_SIZE;
+  bulletLife = BASE_BULLET_LIFE;
+  activePowerup = null;
+}
+
 function resetGame() {
   game.ship.reset();
   game.bullets.length = 0;
@@ -337,9 +475,10 @@ function resetGame() {
   game.asteroids.length = 0;
   game.score = 0;
   game.shield = 3;
-  // clear any prior explosion state
+  // clear any prior explosion & power-up state
   game.exploding = false;
   game.explosionParticles.length = 0;
+  game.powerups.length = 0;
   document.getElementById('score').textContent = game.score;
   // shield is shown as a circle around the ship, no HUD element
 
@@ -371,6 +510,24 @@ window.addEventListener('keydown', e => {
 
 /* ---------- Game Loop ---------- */
 function update() {
+  // handle power-up expiration
+  const nowMs = performance.now();
+  if (activePowerup && nowMs > powerupExpires) {
+    expirePowerup();
+  }
+  // update power-ups (life & rotation) and check for collection
+  if (game.powerups) {
+    game.powerups.forEach(p => p.update());
+    for (let i = 0; i < game.powerups.length; i++) {
+      const p = game.powerups[i];
+      if (p.life <= 0) { game.powerups.splice(i, 1); i--; continue; }
+      if (dist(game.ship, p) < game.ship.r + p.r) {
+        applyPowerup(p.type);
+        game.powerups.splice(i, 1);
+        i--; continue;
+      }
+    }
+  }
   /* ----- Input ----- */
   if (keys['ArrowLeft']) game.ship.angle -= 3;
   if (keys['ArrowRight']) game.ship.angle += 3;
@@ -396,13 +553,17 @@ function update() {
 
   if (keys[' ']) {
     const now = Date.now();
-    if (now - game.ship.lastShot > 200) {
-      const b = new Bullet(
-        game.ship.x + Math.cos(degToRad(game.ship.angle)) * game.ship.r,
-        game.ship.y + Math.sin(degToRad(game.ship.angle)) * game.ship.r,
-        game.ship.angle
-      );
-      game.bullets.push(b);
+    if (now - game.ship.lastShot > shotInterval) {
+      // spawn projectile: normal bullet or homing missile
+      const spawnX = game.ship.x + Math.cos(degToRad(game.ship.angle)) * game.ship.r;
+      const spawnY = game.ship.y + Math.sin(degToRad(game.ship.angle)) * game.ship.r;
+      let proj;
+      if (activePowerup === 'missile') {
+        proj = new Missile(spawnX, spawnY, game.ship.angle);
+      } else {
+        proj = new Bullet(spawnX, spawnY, game.ship.angle);
+      }
+      game.bullets.push(proj);
       game.ship.lastShot = now;
     }
   }
@@ -486,6 +647,10 @@ function update() {
 
         // score +1 per asteroid hit
         game.score++; document.getElementById('score').textContent = game.score;
+        // possibly spawn a power-up when smallest asteroids are destroyed
+        if (a.size <= 25 && Math.random() < POWERUP_SPAWN_CHANCE) {
+          spawnPowerup(a.x, a.y);
+        }
         break;   // stop checking other asteroids for this bullet
 
       }
@@ -507,6 +672,8 @@ function render() {
   // draw bullets and asteroids
   game.bullets.forEach(b => b.draw());
   game.asteroids.forEach(a => a.draw());
+  // draw available power-ups
+  if (game.powerups) game.powerups.forEach(p => p.draw());
 }
 
 function loop() {
