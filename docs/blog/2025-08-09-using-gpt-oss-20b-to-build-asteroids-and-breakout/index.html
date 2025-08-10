@@ -31,7 +31,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "http://localhost:1313/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/"
-        },"genre": "post","wordcount":  544 ,
+        },"genre": "post","wordcount":  809 ,
         "url": "http://localhost:1313/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/","datePublished": "2025-08-09T12:00:00+00:00","dateModified": "2025-08-09T12:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "Gary Kenneally"},"author": {
@@ -827,8 +827,17 @@
 </div>
 <p>A quick polish pass added sound effects and level progression. The result is served from <code>static/games/breakout/</code> and is available at <a href="/games/breakout/" rel="">Breakout / Arkanoid</a>.</p>
 <h4 id="lessons-learned" class="headerLink">
-    <a href="#lessons-learned" class="header-mark"></a>Lessons Learned</h4><p>Local LLMs enable offline experimentation and greater control over data privacy. However, they still require significant compute resources (e.g., GPUs with tens of GBs of VRAM) and substantial startup time. In many cases, local models are not as accurate or powerful as the largest state-of-the-art models offered by cloud providers, especially on complex reasoning tasks. Even with local hosting, prompt engineering and manual adjustments remain critical for high-quality
-output.</p>
+    <a href="#lessons-learned" class="header-mark"></a>Lessons Learned</h4><p>So its really interesting to run a model on my macbook air with only 16gb of memory and still get good results (in terms of the quality of answers) and usable performance that didn&rsquo;t feel too sluggish.  As a test of the possible this was eye-opening and it shows that we likely will see smaller models in future with decent responses.</p>
+<p>However these smaller models are significantly smaller than the &lsquo;full&rsquo; models and that does come with a cost when working with them.  They can get things wrong, particularly anything related to calculations, and it will at times get lost by taking a silly direction and continuing down a rabbit-hole until it exhausts options or you stop it and redirect it.</p>
+<p>These games are in its sweet spot as they have been built thousands of times before and the code would be part of the training set.  I didnt get the sense it was stretched in any way as it added functions to perform transformations to objects via X and Y coordinates.</p>
+<p>The development loop I used was roughly:</p>
+<ol>
+<li>Write a short but clear description of a feature I want to add, paying careful mind to the models reduced context size.</li>
+<li>Review/Apply the supplied changes to the code files, either copy pasting from a chat window, or using opencode as an agent to make the edits for me.  This was mixed as copy/pasting is annoying but opencode (or lm studio) had some performance overhead at times that really slowed me down.</li>
+<li>Suggest improvements if needed to the model, the goal being to get to a point where the feature is working adequately.</li>
+<li>Commit the change to git.  Or if the LLM has screwed something up I reset back to where I was, clear the context and try again.</li>
+<li>Periodically get the LLM to summarise the current state, copy it and then paste it into a new session. This helps manage the context and seems to reduce the tangents the model could sometimes go down.</li>
+</ol>
 </div></div></main><footer class="footer">
         <div class="footer-container"><div class="footer-line">
                     Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer" title="Hugo 0.148.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href="https://github.com/HEIGE-PCloud/DoIt" target="_blank" rel="noopener noreferrer" title="DoIt 0.4.2"><svg class="icon"

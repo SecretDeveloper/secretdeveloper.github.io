@@ -116,6 +116,15 @@ A quick polish pass added sound effects and level progression. The result is ser
 
 #### Lessons Learned
 
-Local LLMs enable offline experimentation and greater control over data privacy. However, they still require significant compute resources (e.g., GPUs with tens of GBs of VRAM) and substantial startup time. In many cases, local models are not as accurate or powerful as the largest state-of-the-art models offered by cloud providers, especially on complex reasoning tasks. Even with local hosting, prompt engineering and manual adjustments remain critical for high-quality 
-output.
+So its really interesting to run a model on my macbook air with only 16gb of memory and still get good results (in terms of the quality of answers) and usable performance that didn't feel too sluggish.  As a test of the possible this was eye-opening and it shows that we likely will see smaller models in future with decent responses.
 
+However these smaller models are significantly smaller than the 'full' models and that does come with a cost when working with them.  They can get things wrong, particularly anything related to calculations, and it will at times get lost by taking a silly direction and continuing down a rabbit-hole until it exhausts options or you stop it and redirect it.
+
+These games are in its sweet spot as they have been built thousands of times before and the code would be part of the training set.  I didnt get the sense it was stretched in any way as it added functions to perform transformations to objects via X and Y coordinates.
+
+The development loop I used was roughly:
+1. Write a short but clear description of a feature I want to add, paying careful mind to the models reduced context size.
+2. Review/Apply the supplied changes to the code files, either copy pasting from a chat window, or using opencode as an agent to make the edits for me.  This was mixed as copy/pasting is annoying but opencode (or lm studio) had some performance overhead at times that really slowed me down.
+3. Suggest improvements if needed to the model, the goal being to get to a point where the feature is working adequately.
+4. Commit the change to git.  Or if the LLM has screwed something up I reset back to where I was, clear the context and try again.
+5. Periodically get the LLM to summarise the current state, copy it and then paste it into a new session. This helps manage the context and seems to reduce the tangents the model could sometimes go down.
