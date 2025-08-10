@@ -60,6 +60,110 @@ function dist(a, b) {
   const dy = a.y - b.y;
   return Math.hypot(dx, dy);
 }
+// ------- Web Audio setup & sound effects -------
+let audioCtx;
+function getAudioContext() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
+// Laser shot sound
+function playLaser() {
+  const ctx = getAudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(800, ctx.currentTime);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.2);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  osc.stop(ctx.currentTime + 0.3);
+}
+// Asteroid chunk hit sound
+function playChunk() {
+  const ctx = getAudioContext();
+  const bufferSize = ctx.sampleRate * 0.1;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+  const noise = ctx.createBufferSource();
+  const gain = ctx.createGain();
+  noise.buffer = buffer;
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+  noise.connect(gain).connect(ctx.destination);
+  noise.start();
+}
+// Shield clang sound
+function playShieldClang() {
+  const ctx = getAudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'triangle';
+  osc.frequency.setValueAtTime(200, ctx.currentTime);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.2);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+  osc.stop(ctx.currentTime + 0.3);
+}
+// Power-up pickup sound
+function playPowerupPickup() {
+  const ctx = getAudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(600, ctx.currentTime);
+  gain.gain.setValueAtTime(0.2, ctx.currentTime);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.3);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+  osc.stop(ctx.currentTime + 0.4);
+}
+// Ship explosion sound
+function playExplosionSound() {
+  const ctx = getAudioContext();
+  const bufferSize = ctx.sampleRate * 0.5;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+  const noise = ctx.createBufferSource();
+  const gain = ctx.createGain();
+  noise.buffer = buffer;
+  gain.gain.setValueAtTime(1, ctx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+  noise.connect(gain).connect(ctx.destination);
+  noise.start();
+}
+// Thrust loop: white-noise-based
+let thrustSource, thrustGain;
+function startThrustSound() {
+  if (thrustSource) return;
+  const ctx = getAudioContext();
+  const bufferSize = ctx.sampleRate * 1;
+  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+  thrustSource = ctx.createBufferSource();
+  thrustSource.buffer = buffer;
+  thrustSource.loop = true;
+  thrustGain = ctx.createGain();
+  thrustGain.gain.value = 0.05;
+  thrustSource.connect(thrustGain).connect(ctx.destination);
+  thrustSource.start();
+}
+function stopThrustSound() {
+  if (!thrustSource) return;
+  thrustGain.gain.setTargetAtTime(0, getAudioContext().currentTime, 0.1);
+  setTimeout(() => {
+    if (thrustSource) thrustSource.stop();
+    thrustSource = thrustGain = null;
+  }, 200);
+}
 
 /* ---------- Starfield background ---------- */
 let stars = [];
@@ -413,6 +517,8 @@ function startExplosion() {
       new ExplosionParticle(game.ship.x, game.ship.y)
     );
   }
+  // play explosion SFX
+  playExplosionSound();
   // hide HUD during explosion
   hud.style.display = 'none';
 }
@@ -432,6 +538,8 @@ function spawnPowerup(x, y) {
  */
 function applyPowerup(type) {
   const now = performance.now();
+  // play pickup SFX
+  playPowerupPickup();
   switch (type) {
     case 'shield':
       game.shield = 3;
@@ -490,6 +598,9 @@ function resetGame() {
 const keys = {};
 window.addEventListener('keydown', e => keys[e.key] = true);
 window.addEventListener('keyup', e => delete keys[e.key]);
+// Thrust audio controls
+window.addEventListener('keydown', e => { if (e.key === 'ArrowUp') startThrustSound(); });
+window.addEventListener('keyup',   e => { if (e.key === 'ArrowUp') stopThrustSound(); });
 
 /* ---------- Start screen handling ---------- */
 let startScreen = document.getElementById('startScreen');
@@ -563,6 +674,8 @@ function update() {
       } else {
         proj = new Bullet(spawnX, spawnY, game.ship.angle);
       }
+      // play firing SFX
+      playLaser();
       game.bullets.push(proj);
       game.ship.lastShot = now;
     }
@@ -591,6 +704,8 @@ function update() {
     const a = game.asteroids[i];
     const minDist = a.size + game.ship.r * 1.5;
     if (dist(game.ship, a) < minDist) {
+      // play shield hit SFX
+      playShieldClang();
       // compute collision normal (asteroid → ship)
       const dx = game.ship.x - a.x;
       const dy = game.ship.y - a.y;
@@ -637,6 +752,8 @@ function update() {
         game.asteroids.splice(ai, 1);
         ai--;
 
+        // play chunk SFX
+        playChunk();
         // split into smaller pieces if size is large enough
         if (a.size > 25) {
           for (let j = 0; j < 2; j++) {
