@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Ajax - Category - Blog</title>
-        <link>https://secretdeveloper.github.io/categories/ajax/</link>
+        <link>http://localhost:1313/categories/ajax/</link>
         <description>Ajax - Category - Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/ajax/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/ajax/" rel="self" type="application/rss+xml" /><item>
     <title>KnockoutJS demo using Google Books API</title>
-    <link>https://secretdeveloper.github.io/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</link>
+    <link>http://localhost:1313/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</link>
     <pubDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</guid>
+    </author><guid>http://localhost:1313/blog/2013-07-21-knockoutjs-demo-using-google-books-api/</guid>
     <description><![CDATA[<h1 id="knockoutjs" class="headerLink">
     <a href="#knockoutjs" class="header-mark"></a>Knockout.js</h1><h3 id="introduction" class="headerLink">
     <a href="#introduction" class="header-mark"></a>Introduction</h3><p>A quick and dirty demo to show off a very simple example of what you can do with some knockoutjs code and an AJAX call.  I use the google books API to provide a simple search form.</p>

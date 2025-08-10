@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Games - Category - Blog</title>
-        <link>https://secretdeveloper.github.io/categories/games/</link>
+        <link>http://localhost:1313/categories/games/</link>
         <description>Games - Category - Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 09 Aug 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/games/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 09 Aug 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/games/" rel="self" type="application/rss+xml" /><item>
     <title>Using gpt-oss-20b to Build Asteroids and Breakout</title>
-    <link>https://secretdeveloper.github.io/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/</link>
+    <link>http://localhost:1313/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/</link>
     <pubDate>Sat, 09 Aug 2025 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/</guid>
+    </author><guid>http://localhost:1313/blog/2025-08-09-using-gpt-oss-20b-to-build-asteroids-and-breakout/</guid>
     <description><![CDATA[<p>In this post I explore how to use <strong>gpt-oss-20b</strong>, an open source 20-billion parameter language model, to prototype two classic browser games: Asteroids and Breakout. By iterating on prompts and refining the output, I generated working HTML5 Canvas implementations in around an hour or so.</p>
 <h4 id="about-gpt-oss-20b" class="headerLink">
     <a href="#about-gpt-oss-20b" class="header-mark"></a>About gpt-oss-20b</h4><p>gpt-oss-20b is an open-source 20-billion parameter transformer-based language model released by OpenAI under the Apache 2.0 license. It is based on the GPT-4 architecture scaled to 20B parameters, trained on a diverse mix of web text, code, and documents.</p>]]></description>

@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Functional-Programming - Category - Blog</title>
-        <link>https://secretdeveloper.github.io/categories/functional-programming/</link>
+        <link>http://localhost:1313/categories/functional-programming/</link>
         <description>Functional-Programming - Category - Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 15:03:58 &#43;0100</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/functional-programming/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 15:03:58 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/functional-programming/" rel="self" type="application/rss+xml" /><item>
     <title>Functional javascript using underscore</title>
-    <link>https://secretdeveloper.github.io/blog/2013-07-21-functional-javascript-using-underscore/</link>
+    <link>http://localhost:1313/blog/2013-07-21-functional-javascript-using-underscore/</link>
     <pubDate>Sun, 21 Jul 2013 15:03:58 &#43;0100</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2013-07-21-functional-javascript-using-underscore/</guid>
+    </author><guid>http://localhost:1313/blog/2013-07-21-functional-javascript-using-underscore/</guid>
     <description><![CDATA[<h2 id="functional-javascript-using-underscore" class="headerLink">
     <a href="#functional-javascript-using-underscore" class="header-mark"></a>Functional javascript using underscore</h2><h3 id="why" class="headerLink">
     <a href="#why" class="header-mark"></a>Why?</h3><p>A little while ago I picked up <a href="http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=B00D624AQO&amp;linkCode=as2&amp;tag=secretdeveloper-20" target="_blank" rel="noopener noreferrer">Functional Javascript</a> by Michael Fogus.  I&rsquo;m only part way through it and to be honest I should probably have waited until I finished it before starting this post but&hellip;</p>

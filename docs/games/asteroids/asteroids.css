@@ -1,4 +1,9 @@
 /* ---------- Asteroids Page Styles ---------- */
+:root {
+  /* Define theme colors for game UI */
+  --border-gold: #fc0;
+  --text-light:  #fff;
+}
 body, html {
     margin: 0;
     height: 100vh;
@@ -6,13 +11,14 @@ body, html {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    font-family: 'Press Start 2P', monospace;
 }
 #game {
     position: relative;
-    width: 80vw;
-    height: 80vh;
-    max-width: 800px;
-    max-height: 600px;
+    /* make the game container fill the viewport */
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
     border: 3px solid var(--border-gold);
 }
 #game canvas {
@@ -32,7 +38,11 @@ body, html {
 }
 #startScreen {
     position: absolute;
-    inset: 0;
+    /* cover full container: explicit for broad browser support */
+    top:    0;
+    right:  0;
+    bottom: 0;
+    left:   0;
     display: flex;
     flex-direction: column;
     justify-content: center;

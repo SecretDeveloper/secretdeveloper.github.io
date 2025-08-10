@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "style.min.css",
-	"sourceRoot": "/Users/gary/dev/github/blog/secretdeveloper.github.io",
+	"sourceRoot": "/Users/gary/dev/github/secretdeveloper.github.io",
 	"sources": [
 		"themes/DoIt/assets/css/style.scss",
 		"themes/DoIt/assets/css/_variables.scss",

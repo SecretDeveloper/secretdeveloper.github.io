@@ -161,6 +161,9 @@ const game = {
   lives: 3
 };
 
+// HUD element: hide it until gameplay starts
+const hud = document.getElementById('hud');
+hud.style.display = 'none';
 document.getElementById('score').textContent = game.score;
 document.getElementById('lives').textContent = game.lives;
 
@@ -195,8 +198,16 @@ window.addEventListener('keyup', e => delete keys[e.key]);
 /* ---------- Start screen handling ---------- */
 let startScreen = document.getElementById('startScreen');
 window.addEventListener('keydown', e => {
-  if (!game.started && e.key === 'Enter') {
+  // normalize Enter / Return key for broad browser support
+  // detect Enter/Return from various browsers
+  const isEnter = e.key === 'Enter'
+               || e.key === 'Return'
+               || e.code === 'Enter'
+               || e.keyCode === 13;
+  if (!game.started && isEnter) {
+    // hide the start screen, show HUD, and begin the game
     startScreen.style.display = 'none';
+    hud.style.display = 'block';
     game.started = true;
   }
 });
@@ -269,6 +280,8 @@ function update() {
         game.started = false;
         startScreen.innerHTML = `<h1>Game Over</h1><p>Your score: ${game.score}</p><p>Press Enter to restart.</p>`;
         startScreen.style.display = 'flex';
+        // hide HUD during game-over screen
+        hud.style.display = 'none';
         resetGame();          // clear everything & respawn
       }
     }
