@@ -86,18 +86,64 @@ function playLaser() {
 // Asteroid chunk hit sound
 function playChunk() {
   const ctx = getAudioContext();
-  const bufferSize = ctx.sampleRate * 0.1;
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
-  const noise = ctx.createBufferSource();
-  const gain = ctx.createGain();
-  noise.buffer = buffer;
-  gain.gain.setValueAtTime(0.3, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
-  noise.connect(gain).connect(ctx.destination);
-  noise.start();
+  const now = ctx.currentTime;
+
+  // 1) Hammer-blow impact (short, low-pass noise)
+  const impactDur = 0.15;
+  const impactLen = Math.floor(ctx.sampleRate * impactDur);
+  const impactBuf = ctx.createBuffer(1, impactLen, ctx.sampleRate);
+  const impactData = impactBuf.getChannelData(0);
+  for (let i = 0; i < impactLen; i++) {
+    // decaying noise
+    impactData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impactLen, 2);
+  }
+  const impactSrc = ctx.createBufferSource();
+  impactSrc.buffer = impactBuf;
+  const impactGain = ctx.createGain();
+  impactGain.gain.setValueAtTime(1, now);
+  impactGain.gain.exponentialRampToValueAtTime(0.001, now + impactDur);
+  const impactFil = ctx.createBiquadFilter();
+  impactFil.type = 'lowpass';
+  impactFil.frequency.setValueAtTime(500, now);
+  // Connect impact source through filter and gain
+  impactSrc.connect(impactFil).connect(impactGain);
+  // Direct sound
+  impactGain.connect(ctx.destination);
+  // Echo effect: delayed, feedback loop for a dull echoing bang
+  const delay = ctx.createDelay();
+  delay.delayTime.setValueAtTime(0.25, now);
+  const feedbackGain = ctx.createGain();
+  feedbackGain.gain.setValueAtTime(0.5, now);
+  // feedback loop
+  delay.connect(feedbackGain).connect(delay);
+  // route impact through delay to destination
+  impactGain.connect(delay).connect(ctx.destination);
+  impactSrc.start(now);
+
+  // 2) Rock shard fragments (3 quick high-pass bursts)
+  const shards = 3;
+  for (let s = 0; s < shards; s++) {
+    const offset = 0.04 + Math.random() * 0.06;
+    const shardDur = 0.05;
+    const shardLen = Math.floor(ctx.sampleRate * shardDur);
+    const shardBuf = ctx.createBuffer(1, shardLen, ctx.sampleRate);
+    const shardData = shardBuf.getChannelData(0);
+    for (let j = 0; j < shardLen; j++) {
+      shardData[j] = (Math.random() * 2 - 1) * (1 - j / shardLen);
+    }
+    const shardSrc = ctx.createBufferSource();
+    shardSrc.buffer = shardBuf;
+    const shardGain = ctx.createGain();
+    shardGain.gain.setValueAtTime(0.6, now + offset);
+    shardGain.gain.exponentialRampToValueAtTime(0.001, now + offset + shardDur);
+    const shardFil = ctx.createBiquadFilter();
+    shardFil.type = 'highpass';
+    shardFil.frequency.setValueAtTime(1500 + Math.random() * 2000, now + offset);
+    shardSrc.connect(shardFil).connect(shardGain).connect(ctx.destination);
+    shardSrc.start(now + offset);
+  }
 }
+
 // Shield clang sound
 function playShieldClang() {
   const ctx = getAudioContext();
@@ -167,9 +213,13 @@ function stopThrustSound() {
   }, 200);
 }
 
+// Ship sprite image
+const shipImg = new Image();
+shipImg.src = 'ship.svg';
+
 /* ---------- Starfield background ---------- */
 let stars = [];
-const STAR_COUNT = 100;
+const STAR_COUNT = 200;
 const STAR_PARALLAX = 0.2;      // parallax factor versus ship speed
 
 function initStars() {
@@ -293,10 +343,10 @@ class Powerup {
     // color & label based on type
     let color, label;
     switch (this.type) {
-      case 'shield':    color = 'lime'; label = 'S'; break;
-      case 'machine':   color = 'magenta'; label = 'M'; break;
-      case 'power':     color = 'cyan'; label = 'P'; break;
-      case 'missile':   color = 'orange'; label = 'X'; break;
+      case 'shield': color = 'lime'; label = 'S'; break;
+      case 'machine': color = 'magenta'; label = 'M'; break;
+      case 'power': color = 'cyan'; label = 'P'; break;
+      case 'missile': color = 'orange'; label = 'X'; break;
     }
     ctx.fillStyle = color;
     ctx.beginPath(); ctx.arc(0, 0, this.r, 0, 2 * Math.PI); ctx.fill();
@@ -363,32 +413,11 @@ class Ship {
     // rotate ship body to its current angle
     ctx.rotate(degToRad(this.angle + 90));
 
-    // shiny gradient fill
-    const grad = ctx.createRadialGradient(
-      0, -this.r * 1.2, this.r * 0.2,
-      0, -this.r * 1.2, this.r * 1.2
-    );
-    grad.addColorStop(0, '#fff');
-    grad.addColorStop(1, '#08f');
-    ctx.fillStyle = grad;
-
-    // glow effect
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = 'rgba(0,150,255,0.7)';
-
-    // draw ship shape
-    ctx.beginPath();
-    ctx.moveTo(0, -this.r * 1.5);
-    ctx.lineTo(-this.r, this.r * 1.5);
-    ctx.lineTo(this.r, this.r * 1.5);
-    ctx.closePath();
-    ctx.fill();
-
-    // outline without glow
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = '#000';
-    ctx.lineWidth = 2;
-    ctx.stroke();
+    // draw ship sprite from SVG
+    if (shipImg.complete) {
+      const size = this.r * 3;
+      ctx.drawImage(shipImg, -size / 2, -size / 2, size, size);
+    }
 
     ctx.restore();
   }
@@ -429,7 +458,7 @@ class Missile extends Bullet {
       }
       if (closest) {
         const angle = Math.atan2(closest.y - this.y, closest.x - this.x);
-        const speed = Math.hypot(this.velX, this.velY) || (bulletSpeedMax + bulletSpeedMin)/2;
+        const speed = Math.hypot(this.velX, this.velY) || (bulletSpeedMax + bulletSpeedMin) / 2;
         this.velX = speed * Math.cos(angle);
         this.velY = speed * Math.sin(angle);
       }
@@ -529,7 +558,7 @@ function startExplosion() {
  * Spawn a power-up of random type at (x,y)
  */
 function spawnPowerup(x, y) {
-  const types = ['shield','machine','power','missile'];
+  const types = ['shield', 'machine', 'power', 'missile'];
   const type = types[Math.floor(rand(0, types.length))];
   game.powerups = game.powerups || [];
   game.powerups.push(new Powerup(x, y, type));
@@ -602,7 +631,7 @@ window.addEventListener('keydown', e => keys[e.key] = true);
 window.addEventListener('keyup', e => delete keys[e.key]);
 // Thrust audio controls
 window.addEventListener('keydown', e => { if (e.key === 'ArrowUp') startThrustSound(); });
-window.addEventListener('keyup',   e => { if (e.key === 'ArrowUp') stopThrustSound(); });
+window.addEventListener('keyup', e => { if (e.key === 'ArrowUp') stopThrustSound(); });
 
 /* ---------- Start screen handling ---------- */
 let startScreen = document.getElementById('startScreen');
@@ -610,9 +639,9 @@ window.addEventListener('keydown', e => {
   // normalize Enter / Return key for broad browser support
   // detect Enter/Return from various browsers
   const isEnter = e.key === 'Enter'
-               || e.key === 'Return'
-               || e.code === 'Enter'
-               || e.keyCode === 13;
+    || e.key === 'Return'
+    || e.code === 'Enter'
+    || e.keyCode === 13;
   if (!game.started && isEnter) {
     // hide the start screen, show HUD, and begin the game
     startScreen.style.display = 'none';
