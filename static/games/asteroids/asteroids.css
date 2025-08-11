@@ -1,7 +1,7 @@
 /* ---------- Asteroids Page Styles ---------- */
 :root {
   /* Define theme colors for game UI */
-  --border-gold: #fc0;
+  --border-title-color: magenta;
   --text-light:  #fff;
 }
 body, html {
@@ -55,17 +55,18 @@ body, html {
 #startScreen h1 {
     margin: 0 0 10px;
     font-size: 4rem;
-    color: var(--border-gold);
+    color: var(--border-title-color);
     letter-spacing: 4px;
     text-shadow:
-        0 0 5px var(--border-gold),
-        0 0 10px var(--border-gold),
-        0 0 20px var(--border-gold),
-        0 0 30px var(--border-gold);
+        0 0 5px var(--border-title-color),
+        0 0 7px var(--border-title-color),
+        0 0 25px var(--border-title-color),
+        0 0 90px var(--border-title-color);
 }
 #startScreen p {
     max-width: 600px;
     line-height: 1.4;
+    text-align:left;
 #}
 # Title image styling
 #startScreen #titleImage {

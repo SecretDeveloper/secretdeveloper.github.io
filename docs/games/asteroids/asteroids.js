@@ -218,7 +218,7 @@ const shipImg = new Image();
 shipImg.src = 'ship.svg';
 // Asteroid sprite images (variants)
 const asteroidImages = [];
-['asteroid.svg', 'asteroid2.svg', 'asteroid3.svg', 'asteroid4.svg'].forEach(src => {
+['asteroid1.svg', 'asteroid2.svg', 'asteroid3.svg', 'asteroid4.svg'].forEach(src => {
   const img = new Image();
   img.src = src;
   asteroidImages.push(img);
@@ -407,9 +407,9 @@ class Ship {
       const lineW = 3 + 3 * pulse;
       let color;
       switch (game.shield) {
-        case 3: color = 'rgba(0,255,0,0.8)'; break;   // bright green
-        case 2: color = 'rgba(255,255,0,0.8)'; break; // bright yellow
-        case 1: color = 'rgba(255,0,0,0.8)'; break;   // bright red
+        case 3: color = 'rgba(0,255,0,0.3)'; break;   // bright green
+        case 2: color = 'rgba(255,255,0,0.3)'; break; // bright yellow
+        case 1: color = 'rgba(255,0,0,0.3)'; break;   // bright red
       }
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, 2 * Math.PI);
@@ -860,7 +860,6 @@ function loop() {
     // after 2 seconds, show game-over screen
     if (performance.now() - game.explosionStart > 2000) {
       startScreen.innerHTML =
-        `<object data="title.svg" type="image/svg+xml" id="titleImage" aria-label="Asteroids"></object>` +
         `<h1>Game Over</h1>` +
         `<p>Your score: ${game.finalScore}</p>` +
         `<p>Press Enter to restart.</p>`;
