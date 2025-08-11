@@ -216,6 +216,13 @@ function stopThrustSound() {
 // Ship sprite image
 const shipImg = new Image();
 shipImg.src = 'ship.svg';
+// Asteroid sprite images (variants)
+const asteroidImages = [];
+['asteroid.svg', 'asteroid2.svg', 'asteroid3.svg', 'asteroid4.svg'].forEach(src => {
+  const img = new Image();
+  img.src = src;
+  asteroidImages.push(img);
+});
 
 /* ---------- Starfield background ---------- */
 let stars = [];
@@ -475,32 +482,41 @@ class Asteroid {
     const angle = rand(0, 360);
     this.velX = speed * Math.cos(degToRad(angle));
     this.velY = speed * Math.sin(degToRad(angle));
-    this.points = 7 + Math.floor(rand(0, 4));   // shape complexity
+    this.points = 7 + Math.floor(rand(0, 4));   // shape complexity (unused with SVG)
     this.color = `hsl(${rand(0, 360)},70%,60%)`;
+    // initial rotation and spin speed
+    this.rotation = rand(0, 360);
+    this.rotationSpeed = rand(-0.5, 0.5);
+    // pick a random asteroid variant image
+    this.img = asteroidImages[
+      Math.floor(Math.random() * asteroidImages.length)
+    ];
   }
   update() {
+    // move
     this.x += this.velX; this.y += this.velY;
-    if (this.x < 0) this.x += W; if (this.x > W) this.x -= W;
-    if (this.y < 0) this.y += H; if (this.y > H) this.y -= H;
+    // spin
+    this.rotation = (this.rotation + this.rotationSpeed + 360) % 360;
+    // screen wrap
+    if (this.x < 0) this.x += W; else if (this.x > W) this.x -= W;
+    if (this.y < 0) this.y += H; else if (this.y > H) this.y -= H;
   }
   draw() {
-    // asteroid outline and fill
-    ctx.strokeStyle = this.color;
-    ctx.fillStyle = this.color;
-    ctx.lineWidth = 2;
-    const angleStep = 360 / this.points;
-    ctx.beginPath();
-    for (let i = 0; i <= this.points; i++) {
-      const a = (i * angleStep + rand(0, 20)) * Math.PI / 180;
-      const r = this.size + rand(-5, 5);
-      const x = this.x + r * Math.cos(a);
-      const y = this.y + r * Math.sin(a);
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
+    // draw with chosen SVG variant if loaded
+    if (this.img && this.img.complete) {
+      ctx.save();
+      ctx.translate(this.x, this.y);
+      ctx.rotate(degToRad(this.rotation));
+      const sizePx = this.size * 2;
+      ctx.drawImage(this.img, -sizePx / 2, -sizePx / 2, sizePx, sizePx);
+      ctx.restore();
+    } else {
+      // fallback: simple circle
+      ctx.fillStyle = '#ccc';
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+      ctx.fill();
     }
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
   }
 }
 
@@ -844,7 +860,10 @@ function loop() {
     // after 2 seconds, show game-over screen
     if (performance.now() - game.explosionStart > 2000) {
       startScreen.innerHTML =
-        `<h1>Game Over</h1><p>Your score: ${game.finalScore}</p><p>Press Enter to restart.</p>`;
+        `<object data="title.svg" type="image/svg+xml" id="titleImage" aria-label="Asteroids"></object>` +
+        `<h1>Game Over</h1>` +
+        `<p>Your score: ${game.finalScore}</p>` +
+        `<p>Press Enter to restart.</p>`;
       startScreen.style.display = 'flex';
       // reset game state for next run
       resetGame();

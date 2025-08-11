@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Architecture - Category - SecretDeveloper</title>
-        <link>https://secretdeveloper.github.io/categories/architecture/</link>
+        <link>http://localhost:1313/categories/architecture/</link>
         <description>Architecture - Category - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Oct 2018 15:01:32 &#43;0100</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/architecture/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 05 Oct 2018 15:01:32 &#43;0100</lastBuildDate><atom:link href="http://localhost:1313/categories/architecture/" rel="self" type="application/rss+xml" /><item>
     <title>Software Architecture</title>
-    <link>https://secretdeveloper.github.io/blog/2018-10-05-software-architecture/</link>
+    <link>http://localhost:1313/blog/2018-10-05-software-architecture/</link>
     <pubDate>Fri, 05 Oct 2018 15:01:32 &#43;0100</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2018-10-05-software-architecture/</guid>
+    </author><guid>http://localhost:1313/blog/2018-10-05-software-architecture/</guid>
     <description><![CDATA[<h1 id="what-is-software-architecture" class="headerLink">
     <a href="#what-is-software-architecture" class="header-mark"></a>What is software architecture?</h1><p>It depends. Everyone in IT asks this question at some point and the answer they get is a mixed bag depending on who tries to answer it. So to deepen the general state of confusion I thought I would add yet another definition.</p>
 <h2 id="what-is-a-software-architect" class="headerLink">
@@ -16,10 +16,10 @@
 I think of Software architects as “Master builders”. They may not have the title &ldquo;Architect&rdquo; but they are doing most of the following:</p>]]></description>
 </item><item>
     <title>On the Design of Small Things</title>
-    <link>https://secretdeveloper.github.io/blog/2018-09-27-on-the-design-of-small-things/</link>
+    <link>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</link>
     <pubDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2018-09-27-on-the-design-of-small-things/</guid>
+    </author><guid>http://localhost:1313/blog/2018-09-27-on-the-design-of-small-things/</guid>
     <description><![CDATA[<blockquote>
   <p>Those who do not understand UNIX are condemned to reinvent it, poorly.<br />
 <em>Henry Spencer</em></p>

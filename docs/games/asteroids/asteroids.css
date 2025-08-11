@@ -19,7 +19,6 @@ body, html {
     width: 100vw;
     height: 100vh;
     box-sizing: border-box;
-    border: 3px solid var(--border-gold);
 }
 #game canvas {
     width: 100%;
@@ -55,8 +54,24 @@ body, html {
 }
 #startScreen h1 {
     margin: 0 0 10px;
+    font-size: 4rem;
+    color: var(--border-gold);
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 5px var(--border-gold),
+        0 0 10px var(--border-gold),
+        0 0 20px var(--border-gold),
+        0 0 30px var(--border-gold);
 }
 #startScreen p {
     max-width: 600px;
     line-height: 1.4;
+#}
+# Title image styling
+#startScreen #titleImage {
+    width: 80%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin-bottom: 20px;
 }
