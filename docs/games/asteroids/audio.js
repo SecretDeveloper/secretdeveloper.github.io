@@ -29,8 +29,8 @@ export function startBackgroundMusic() {
   if (bgGain) return; // already playing
   // gain for volume control
   bgGain = ctx.createGain();
-  // quieter pad
-  bgGain.gain.setValueAtTime(0.02, ctx.currentTime);
+  // quieter pad (half volume)
+  bgGain.gain.setValueAtTime(0.025, ctx.currentTime);
   bgGain.connect(ctx.destination);
   // lowpass filter for tonal shaping
   bgFilter = ctx.createBiquadFilter();
@@ -74,7 +74,8 @@ export function startBackgroundMusic() {
     const gain2 = ctx.createGain();
     osc2.type = 'square';
     osc2.frequency.setValueAtTime(freq, t);
-    gain2.gain.setValueAtTime(0.1, t);
+    // lower arpeggio volume by half
+    gain2.gain.setValueAtTime(0.05, t);
     gain2.gain.exponentialRampToValueAtTime(0.001, t + beatDur / 2);
     osc2.connect(gain2).connect(ctx.destination);
     osc2.start(t);
@@ -123,7 +124,8 @@ export function playKick(time) {
   osc.type = 'sine';
   osc.frequency.setValueAtTime(150, time);
   osc.frequency.exponentialRampToValueAtTime(0.001, time + 0.2);
-  gain.gain.setValueAtTime(1, time);
+  // lower kick volume by half
+  gain.gain.setValueAtTime(0.5, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
   osc.connect(gain).connect(ctx.destination);
   osc.start(time);
@@ -140,7 +142,8 @@ export function playSnare(time) {
   const filter = ctx.createBiquadFilter(); filter.type = 'bandpass';
   filter.frequency.setValueAtTime(1000, time);
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(1, time);
+  // lower snare volume by half
+  gain.gain.setValueAtTime(0.5, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
   noise.connect(filter).connect(gain).connect(ctx.destination);
   noise.start(time);
@@ -157,7 +160,8 @@ export function playHiHat(time) {
   const filter = ctx.createBiquadFilter(); filter.type = 'highpass';
   filter.frequency.setValueAtTime(5000, time);
   const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.3, time);
+  // lower hi-hat volume by half
+  gain.gain.setValueAtTime(0.15, time);
   gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
   noise.connect(filter).connect(gain).connect(ctx.destination);
   noise.start(time);

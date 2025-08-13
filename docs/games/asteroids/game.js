@@ -396,7 +396,8 @@ export class Game {
       // dynamic music intensity: volume ramps with asteroid count
       const count = this.asteroids.length;
       const max = 5; // maximum asteroids per wave
-      const baseVol = 0.05;
+      // dynamic music intensity: lower base volume for quieter mix
+      const baseVol = 0.025;
       const vol = baseVol + (count / max) * baseVol;
       audio.setMusicVolume(vol);
     }
