@@ -3,13 +3,166 @@
 import { KEY } from './constants.js';
 
 let audioCtx = null;
+// Background music nodes
+let bgOsc = null;
+let bgLfo = null;
+let bgGain = null;
+let bgFilter = null;
+// Drum and arpeggio intervals for beat and melody
+let drumInterval = null;
+let drumHiHatInterval = null;
+let arpeggioInterval = null;
+let drumIndex = 0;
+let arpeggioIndex = 0;
+// Arpeggio note frequencies (major triad + octave)
+const arpeggioNotes = [261.63, 329.63, 392.00, 523.25];
 function getAudioContext() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
+/**
+ * Start looping background synth pad music.
+ */
+export function startBackgroundMusic() {
+  const ctx = getAudioContext();
+  if (bgGain) return; // already playing
+  // gain for volume control
+  bgGain = ctx.createGain();
+  // quieter pad
+  bgGain.gain.setValueAtTime(0.02, ctx.currentTime);
+  bgGain.connect(ctx.destination);
+  // lowpass filter for tonal shaping
+  bgFilter = ctx.createBiquadFilter();
+  bgFilter.type = 'lowpass';
+  bgFilter.frequency.setValueAtTime(400, ctx.currentTime);
+  bgFilter.connect(bgGain);
+  // LFO to modulate filter cutoff
+  bgLfo = ctx.createOscillator();
+  bgLfo.frequency.setValueAtTime(0.1, ctx.currentTime);
+  const lfoGain = ctx.createGain();
+  lfoGain.gain.setValueAtTime(300, ctx.currentTime);
+  bgLfo.connect(lfoGain).connect(bgFilter.frequency);
+  bgLfo.start(ctx.currentTime);
+  // main oscillator (synth pad)
+  bgOsc = ctx.createOscillator();
+  bgOsc.type = 'sawtooth';
+  bgOsc.frequency.setValueAtTime(110, ctx.currentTime);
+  bgOsc.connect(bgFilter);
+  bgOsc.start(ctx.currentTime);
+  // start drum loop at 140 BPM for a more upbeat feel
+  const bpm = 140;
+  const beatDur = 60 / bpm;
+  // Kick/snare on quarter notes: 0 & 2 = kick, 1 & 3 = snare
+  drumIndex = 0;
+  drumInterval = setInterval(() => {
+    const t = ctx.currentTime;
+    if (drumIndex % 2 === 0) playKick(t);
+    else playSnare(t);
+    drumIndex = (drumIndex + 1) % 4;
+  }, beatDur * 1000);
+  // Hi-hat on eighth notes
+  drumHiHatInterval = setInterval(() => {
+    playHiHat(ctx.currentTime);
+  }, (beatDur * 1000) / 2);
+  // Arpeggio on eighth notes for melodic line
+  arpeggioIndex = 0;
+  arpeggioInterval = setInterval(() => {
+    const t = ctx.currentTime;
+    const freq = arpeggioNotes[arpeggioIndex % arpeggioNotes.length];
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = 'square';
+    osc2.frequency.setValueAtTime(freq, t);
+    gain2.gain.setValueAtTime(0.1, t);
+    gain2.gain.exponentialRampToValueAtTime(0.001, t + beatDur / 2);
+    osc2.connect(gain2).connect(ctx.destination);
+    osc2.start(t);
+    osc2.stop(t + beatDur / 2);
+    arpeggioIndex++;
+  }, (beatDur * 1000) / 2);
+}
+/**
+ * Stop background music with fade-out.
+ */
+export function stopBackgroundMusic() {
+  const ctx = getAudioContext();
+  if (!bgGain) return;
+  // fade out
+  bgGain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1);
+  // clean up after fade
+  setTimeout(() => {
+    if (bgOsc) { bgOsc.stop(); bgOsc.disconnect(); bgOsc = null; }
+    if (bgLfo) { bgLfo.stop(); bgLfo.disconnect(); bgLfo = null; }
+    if (bgFilter) { bgFilter.disconnect(); bgFilter = null; }
+    if (bgGain) { bgGain.disconnect(); bgGain = null; }
+    // stop drum and arpeggio loops
+    clearInterval(drumInterval);
+    clearInterval(drumHiHatInterval);
+    clearInterval(arpeggioInterval);
+  }, 1500);
+}
+/**
+ * Adjust background music volume (0.0 to 1.0).
+ */
+export function setMusicVolume(vol) {
+  const ctx = getAudioContext();
+  if (bgGain) {
+    bgGain.gain.setTargetAtTime(vol, ctx.currentTime, 0.1);
+  }
+}
 // Cached buffer for hammer-blow impact noise
 let impactBuffer = null;
+
+// --- Drum synth functions ---
+/** Play a short kick drum. */
+export function playKick(time) {
+  const ctx = getAudioContext();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150, time);
+  osc.frequency.exponentialRampToValueAtTime(0.001, time + 0.2);
+  gain.gain.setValueAtTime(1, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
+  osc.connect(gain).connect(ctx.destination);
+  osc.start(time);
+  osc.stop(time + 0.2);
+}
+/** Play a snare-like noise burst. */
+export function playSnare(time) {
+  const ctx = getAudioContext();
+  const bufSize = ctx.sampleRate * 0.2;
+  const buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource(); noise.buffer = buffer;
+  const filter = ctx.createBiquadFilter(); filter.type = 'bandpass';
+  filter.frequency.setValueAtTime(1000, time);
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(1, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
+  noise.connect(filter).connect(gain).connect(ctx.destination);
+  noise.start(time);
+  noise.stop(time + 0.2);
+}
+/** Play a hi-hat noise burst (short, high-pass). */
+export function playHiHat(time) {
+  const ctx = getAudioContext();
+  const bufSize = ctx.sampleRate * 0.05;
+  const buffer = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+  const noise = ctx.createBufferSource(); noise.buffer = buffer;
+  const filter = ctx.createBiquadFilter(); filter.type = 'highpass';
+  filter.frequency.setValueAtTime(5000, time);
+  const gain = ctx.createGain();
+  gain.gain.setValueAtTime(0.3, time);
+  gain.gain.exponentialRampToValueAtTime(0.001, time + 0.05);
+  noise.connect(filter).connect(gain).connect(ctx.destination);
+  noise.start(time);
+  noise.stop(time + 0.05);
+}
 
 /** Play laser shot sound. */
 export function playLaser() {
@@ -27,9 +180,18 @@ export function playLaser() {
 }
 
 /** Play asteroid chunk hit sound. */
-export function playChunk() {
+/**
+ * Play asteroid chunk hit SFX with positional panning and size-based variation.
+ * @param {number} pan - Stereo pan value (-1 left to +1 right).
+ * @param {number} size - Asteroid size to scale shard count.
+ */
+export function playChunk(pan = 0, size = 40) {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
+  // stereo panner for positional audio
+  const panner = ctx.createStereoPanner();
+  panner.pan.setValueAtTime(pan, now);
+  panner.connect(ctx.destination);
   // Hammer impact noise
   const impactDur = 0.15;
   // Generate and cache impact buffer once
@@ -50,18 +212,18 @@ export function playChunk() {
   impactFil.type = 'lowpass';
   impactFil.frequency.setValueAtTime(500, now);
   impactSrc.connect(impactFil).connect(impactGain);
-  impactGain.connect(ctx.destination);
+  impactGain.connect(panner);
   // Echo effect
   const delay = ctx.createDelay();
   delay.delayTime.setValueAtTime(0.25, now);
   const feedbackGain = ctx.createGain();
   feedbackGain.gain.setValueAtTime(0.5, now);
   delay.connect(feedbackGain).connect(delay);
-  impactGain.connect(delay).connect(ctx.destination);
+  impactGain.connect(delay).connect(panner);
   impactSrc.start(now);
-  // Rock fragment shards
-  const shards = 3;
-  for (let s = 0; s < shards; s++) {
+  // Rock fragment shards (count based on asteroid size)
+  const shardCount = Math.min(5, Math.max(1, Math.floor(size / 15)));
+  for (let s = 0; s < shardCount; s++) {
     const offset = 0.04 + Math.random() * 0.06;
     const shardDur = 0.05;
     const shardLen = Math.floor(ctx.sampleRate * shardDur);
@@ -78,7 +240,7 @@ export function playChunk() {
     const shardFil = ctx.createBiquadFilter();
     shardFil.type = 'highpass';
     shardFil.frequency.setValueAtTime(1500 + Math.random() * 2000, now + offset);
-    shardSrc.connect(shardFil).connect(shardGain).connect(ctx.destination);
+    shardSrc.connect(shardFil).connect(shardGain).connect(panner);
     shardSrc.start(now + offset);
   }
 }

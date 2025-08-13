@@ -47,6 +47,8 @@ export class Game {
         this.startScreenEl.style.display = 'none';
         this.hudEl.style.display = 'block';
         this.started = true;
+        // start background music
+        audio.startBackgroundMusic();
       }
     });
 
@@ -349,7 +351,9 @@ export class Game {
           // destroy
           this.bullets.splice(bi, 1); bi--;
           this.asteroids.splice(ai, 1); ai--;
-          audio.playChunk();
+          // play chunk SFX with positional pan based on asteroid x and dynamic shards
+          const pan = (a.x - this.W / 2) / (this.W / 2);
+          audio.playChunk(pan, a.size);
           if (a.size > 25) {
             for (let j = 0; j < 2; j++) {
               this.asteroids.push(new Asteroid(a.x, a.y, a.size / 2, this));
@@ -389,6 +393,12 @@ export class Game {
   loop(now) {
     if (this.started) {
       this.update(now);
+      // dynamic music intensity: volume ramps with asteroid count
+      const count = this.asteroids.length;
+      const max = 5; // maximum asteroids per wave
+      const baseVol = 0.05;
+      const vol = baseVol + (count / max) * baseVol;
+      audio.setMusicVolume(vol);
     }
     // background
     this.updateStars();
@@ -413,6 +423,8 @@ export class Game {
           `<p>Your score: ${this.finalScore}</p>` +
           `<p>Press Enter to restart.</p>`;
         this.startScreenEl.style.display = 'flex';
+        // stop background music on game over
+        audio.stopBackgroundMusic();
         this.resetGame();
       }
     }
