@@ -7,7 +7,9 @@ import * as audio from './audio.js';
 import { Ship } from './ship.js';
 import { Bullet, Missile } from './bullet.js';
 import { Asteroid } from './asteroid.js';
-import { ThrusterParticle, ExplosionParticle } from './particle.js';
+import { ThrusterParticle, ExplosionParticle,
+         createThrusterParticle, createExplosionParticle,
+         thrusterPool, explosionPool } from './particle.js';
 import { Powerup } from './powerup.js';
 
 /**
@@ -24,9 +26,14 @@ export class Game {
     this.W = 0;
     this.H = 0;
     this.resize();
+    // Debounced resize: update dimensions and starfield
+    let resizeTimer = null;
     window.addEventListener('resize', () => {
-      this.resize();
-      this.initStars();
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.resize();
+        this.initStars();
+      }, 200);
     });
 
     // starfield
@@ -140,8 +147,9 @@ export class Game {
     this.explosionStart = performance.now();
     this.explosionParticles = [];
     for (let i = 0; i < CONST.EXPLOSION_PARTICLES_COUNT; i++) {
+      // obtain explosion particle from pool or create new
       this.explosionParticles.push(
-        new ExplosionParticle(this.ship.x, this.ship.y)
+        createExplosionParticle(this.ship.x, this.ship.y)
       );
     }
     audio.playExplosionSound();
@@ -250,8 +258,13 @@ export class Game {
         const px = this.ship.x + offsetX;
         const py = this.ship.y + offsetY;
         const angle = this.ship.angle + 180 + rand(-10, 10);
-        this.thrusters.push(new ThrusterParticle(px, py, angle));
-        if (this.thrusters.length > CONST.MAX_THRUST_PARTS) this.thrusters.shift();
+        // obtain a particle from the pool or create a new one
+        this.thrusters.push(createThrusterParticle(px, py, angle));
+        // cap number of particles and recycle oldest
+        if (this.thrusters.length > CONST.MAX_THRUST_PARTS) {
+          const old = this.thrusters.shift();
+          thrusterPool.push(old);
+        }
       }
     }
     // shooting
@@ -282,7 +295,11 @@ export class Game {
     for (let i = 0; i < this.thrusters.length; i++) {
       const p = this.thrusters[i];
       p.update();
-      if (p.life <= 0) { this.thrusters.splice(i, 1); i--; }
+      if (p.life <= 0) {
+        this.thrusters.splice(i, 1);
+        thrusterPool.push(p);
+        i--;
+      }
     }
     // update asteroids
     this.asteroids.forEach(a => a.update());
@@ -381,9 +398,14 @@ export class Game {
     if (this.started) {
       this.render();
     } else if (this.exploding) {
-      // explosion
-      this.explosionParticles.forEach(p => p.update());
-      this.explosionParticles = this.explosionParticles.filter(p => p.life > 0);
+      // explosion with pooled particles
+      const alive = [];
+      for (const p of this.explosionParticles) {
+        p.update();
+        if (p.life > 0) alive.push(p);
+        else explosionPool.push(p);
+      }
+      this.explosionParticles = alive;
       this.explosionParticles.forEach(p => p.draw(this.ctx));
       if (now - this.explosionStart > CONST.EXPLOSION_DURATION) {
         this.startScreenEl.innerHTML =

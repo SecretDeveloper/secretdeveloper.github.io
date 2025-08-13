@@ -9,10 +9,15 @@ export function rand(min, max) {
 }
 
 /**
+ * Constant to convert degrees to radians.
+ */
+export const DEG_TO_RAD = Math.PI / 180;
+
+/**
  * Convert degrees to radians.
  */
 export function degToRad(deg) {
-  return deg * Math.PI / 180;
+  return deg * DEG_TO_RAD;
 }
 
 /**

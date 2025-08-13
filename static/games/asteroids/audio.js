@@ -8,6 +8,8 @@ function getAudioContext() {
   if (audioCtx.state === 'suspended') audioCtx.resume();
   return audioCtx;
 }
+// Cached buffer for hammer-blow impact noise
+let impactBuffer = null;
 
 /** Play laser shot sound. */
 export function playLaser() {
@@ -30,14 +32,17 @@ export function playChunk() {
   const now = ctx.currentTime;
   // Hammer impact noise
   const impactDur = 0.15;
-  const impactLen = Math.floor(ctx.sampleRate * impactDur);
-  const impactBuf = ctx.createBuffer(1, impactLen, ctx.sampleRate);
-  const impactData = impactBuf.getChannelData(0);
-  for (let i = 0; i < impactLen; i++) {
-    impactData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impactLen, 2);
+  // Generate and cache impact buffer once
+  if (!impactBuffer) {
+    const impactLen = Math.floor(ctx.sampleRate * impactDur);
+    impactBuffer = ctx.createBuffer(1, impactLen, ctx.sampleRate);
+    const impactData = impactBuffer.getChannelData(0);
+    for (let i = 0; i < impactLen; i++) {
+      impactData[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / impactLen, 2);
+    }
   }
   const impactSrc = ctx.createBufferSource();
-  impactSrc.buffer = impactBuf;
+  impactSrc.buffer = impactBuffer;
   const impactGain = ctx.createGain();
   impactGain.gain.setValueAtTime(1, now);
   impactGain.gain.exponentialRampToValueAtTime(0.001, now + impactDur);
