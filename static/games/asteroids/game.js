@@ -137,6 +137,9 @@ export class Game {
     this.asteroidExplosions = [];
     this.score = 0;
     this.shield = 3;
+    // overpowered shield state and timer (10s duration)
+    this.shieldOverpowered = false;
+    this.shieldOverpoweredExpiry = 0;
     this.started = false;
     this.exploding = false;
     this.explosionStart = 0;
@@ -301,7 +304,16 @@ export class Game {
     audio.playPowerupPickup();
     switch (type) {
       case CONST.POWERUP_TYPES.SHIELD:
-        this.shield = 3;
+        // if shield at full health or already overpowered, enter/reset overpowered mode
+        if (this.shieldOverpowered) {
+          this.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+        } else if (this.shield === 3) {
+          this.shieldOverpowered = true;
+          this.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+        } else {
+          // normal shield refill
+          this.shield = 3;
+        }
         break;
       case CONST.POWERUP_TYPES.MACHINE:
         // refill machine gun ammo and equip
@@ -403,6 +415,9 @@ export class Game {
     this.asteroids.length = 0;
     this.score = 0;
     this.shield = 3;
+    // overpowered shield state and timer (10s duration)
+    this.shieldOverpowered = false;
+    this.shieldOverpoweredExpiry = 0;
     this.exploding = false;
     this.explosionParticles.length = 0;
     this.powerups.length = 0;
@@ -432,6 +447,11 @@ export class Game {
 
   /** Update all game objects and handle logic. */
   update(now) {
+    // handle overpowered shield expiration
+    if (this.shieldOverpowered && now >= this.shieldOverpoweredExpiry) {
+      this.shieldOverpowered = false;
+      this.shield = 3; // restore to normal full shield
+    }
     // prune old ship trail positions
     this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
     // update power-ups
@@ -565,11 +585,17 @@ export class Game {
             this.asteroids.push(new Asteroid(a.x, a.y, a.size / 2, this));
           }
         }
-        this.shield--;
-        if (this.shield < 0) {
-          this.started = false;
-          this.finalScore = this.score;
-          this.startExplosion();
+        // shield collision handling: overpowered shields block damage and reset timer
+        if (this.shieldOverpowered && now < this.shieldOverpoweredExpiry) {
+          // reset overpowered timer
+          this.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+        } else {
+          this.shield--;
+          if (this.shield < 0) {
+            this.started = false;
+            this.finalScore = this.score;
+            this.startExplosion();
+          }
         }
         i--;
       }
@@ -628,6 +654,31 @@ export class Game {
     if (this.portalExitExpire && now - this.portalExitExpire >= CONST.PORTAL_EXIT_DURATION) {
       this.wormhole = null;
       this.portalExitExpire = null;
+    }
+    // update HUD shield bar
+    const shieldEl = document.getElementById('shield-fill');
+    if (shieldEl) {
+      // width proportional to shield strength (0-3)
+      const pct = Math.max(0, Math.min(1, this.shield / 3));
+      shieldEl.style.width = `${pct * 100}%`;
+      // color matches shield state
+      if (this.shieldOverpowered && now < this.shieldOverpoweredExpiry) {
+        // pulsing white-blue glow
+        const t2 = performance.now() / 300;
+        const pulse2 = (Math.sin(t2) * 0.5 + 0.5);
+        const hue = 200;
+        const light = 80 + pulse2 * 20;
+        shieldEl.style.background = `hsl(${hue},100%,${light}%)`;
+      } else {
+        let col;
+        switch (this.shield) {
+          case 3: col = 'rgb(0,255,0)'; break;
+          case 2: col = 'rgb(255,255,0)'; break;
+          case 1: col = 'rgb(255,0,0)'; break;
+          default: col = '#444'; break;
+        }
+        shieldEl.style.background = col;
+      }
     }
     // update HUD ammo bars
     // update HUD ammo bars, guard missing elements

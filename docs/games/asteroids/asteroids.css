@@ -57,6 +57,26 @@ body, html {
 .ammo-bar.missile .ammo-fill { background: #fff; }
 .ammo-bar.machine .ammo-fill { background: #0ff; }
 .ammo-bar.power   .ammo-fill { background: #00f; }
+/* Shield bar for shield health */
+#shieldHud {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 10;
+}
+.shield-bar {
+  width: 200px;
+  height: 8px;
+  background: #444;
+  margin: 4px 0;
+  border: 1px solid var(--text-light);
+  box-sizing: border-box;
+}
+.shield-fill {
+  width: 0;
+  height: 100%;
+  background: #0f0;
+}
 #startScreen {
     position: absolute;
     /* cover full container: explicit for broad browser support */

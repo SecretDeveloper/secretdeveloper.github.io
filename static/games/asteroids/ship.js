@@ -38,9 +38,26 @@ export class Ship {
   draw(ctx) {
     ctx.save();
     ctx.translate(this.x, this.y);
-    // draw shield ring if active
-    if (this.game.shield > 0) {
-      const t = performance.now() / 300;
+    // draw shield ring if active or overpowered
+    const now = performance.now();
+    if (this.game.shieldOverpowered && now < this.game.shieldOverpoweredExpiry) {
+      // overpowered pulsing white-blue shield (indestructible)
+      const t = now / 300;
+      const pulse = (Math.sin(t) * 0.5 + 0.5);
+      const baseR = this.r * 2;
+      const radius = baseR + (this.r * 0.6) * pulse;
+      const lineW = 4 + 4 * pulse;
+      const hue = 200; // blue hue
+      const light = 80 + pulse * 20; // lightness from 80% to 100%
+      const color = `hsl(${hue},100%,${light}%)`;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = lineW;
+      ctx.stroke();
+    } else if (this.game.shield > 0) {
+      // normal shield ring
+      const t = now / 300;
       const pulse = (Math.sin(t) * 0.5 + 0.5);
       const baseR = this.r * 2;
       const radius = baseR + (this.r * 0.4) * pulse;
