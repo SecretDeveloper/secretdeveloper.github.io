@@ -54,3 +54,5 @@ export const WORMHOLE_RADIUS = 30;
 export const WORMHOLE_COLOR  = 'cyan';
 // Duration (ms) to keep portal visible after exiting
 export const PORTAL_EXIT_DURATION = 2000;
+// Duration (ms) for the ship's blue light trail to fade
+export const TRAIL_DURATION       = 3000;

@@ -117,8 +117,12 @@ export class Game {
     this.bullets = [];
     this.asteroids = [];
     this.thrusters = [];
+    // Ship blue light trail (positions with timestamps)
+    this.shipTrail = [];
     this.powerups = [];
     this.explosionParticles = [];
+    // asteroid explosion particles
+    this.asteroidExplosions = [];
     this.score = 0;
     this.shield = 3;
     this.started = false;
@@ -403,6 +407,8 @@ export class Game {
 
   /** Update all game objects and handle logic. */
   update(now) {
+    // prune old ship trail positions
+    this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
     // power-up expiration
     if (this.activePowerup && now > this.powerupExpires) {
       this.expirePowerup();
@@ -421,28 +427,17 @@ export class Game {
     // input: rotation
     if (keys[CONST.KEY.LEFT]) this.ship.angle -= 3;
     if (keys[CONST.KEY.RIGHT]) this.ship.angle += 3;
-    // thrust
+    // thrust: apply acceleration and record light trail behind ship
     if (keys[CONST.KEY.UP]) {
       const ax = CONST.SHIP_ACCEL * Math.cos(degToRad(this.ship.angle));
       const ay = CONST.SHIP_ACCEL * Math.sin(degToRad(this.ship.angle));
       this.ship.velX += ax;
       this.ship.velY += ay;
-      // spawn thruster particles
-      for (let t = 0; t < CONST.THRUST_PARTICLES; t++) {
-        const backAngle = this.ship.angle + 180;
-        const offsetX = Math.cos(degToRad(backAngle)) * this.ship.r;
-        const offsetY = Math.sin(degToRad(backAngle)) * this.ship.r;
-        const px = this.ship.x + offsetX;
-        const py = this.ship.y + offsetY;
-        const angle = this.ship.angle + 180 + rand(-10, 10);
-        // obtain a particle from the pool or create a new one
-        this.thrusters.push(createThrusterParticle(px, py, angle));
-        // cap number of particles and recycle oldest
-        if (this.thrusters.length > CONST.MAX_THRUST_PARTS) {
-          const old = this.thrusters.shift();
-          thrusterPool.push(old);
-        }
-      }
+      // calculate trail start at rear of ship
+      const bx = this.ship.x - Math.cos(degToRad(this.ship.angle)) * this.ship.r;
+      const by = this.ship.y - Math.sin(degToRad(this.ship.angle)) * this.ship.r;
+      // record trail position with timestamp
+      this.shipTrail.push({ x: bx, y: by, t: now });
     }
     // shooting
     if (keys[CONST.KEY.FIRE]) {
@@ -523,8 +518,12 @@ export class Game {
       for (let ai = 0; ai < this.asteroids.length; ai++) {
         const a = this.asteroids[ai];
         if (dist(b, a) < a.size + b.r) {
-          // destroy
+          // destroy with explosion
           this.bullets.splice(bi, 1); bi--;
+          // spawn explosion particles at asteroid position
+          for (let k = 0; k < CONST.EXPLOSION_PARTICLES_COUNT; k++) {
+            this.asteroidExplosions.push(createExplosionParticle(a.x, a.y));
+          }
           this.asteroids.splice(ai, 1); ai--;
           // play chunk SFX with positional pan based on asteroid x and dynamic shards
           const pan = (a.x - this.W / 2) / (this.W / 2);
@@ -544,6 +543,12 @@ export class Game {
           break;
         }
       }
+    }
+    // update asteroid explosion particles
+    for (let i = 0; i < this.asteroidExplosions.length; i++) {
+      const p = this.asteroidExplosions[i];
+      p.update();
+      if (p.life <= 0) { this.asteroidExplosions.splice(i, 1); explosionPool.push(p); i--; }
     }
     // when all asteroids cleared, spawn a wormhole if not already
     if (this.asteroids.length === 0 && !this.wormhole && !this.exploding) {
@@ -569,13 +574,13 @@ export class Game {
     // draw wormhole portal if present
     if (this.wormhole) this.wormhole.draw(this.ctx);
     // (galaxy background drawn earlier)
-    // thrusters behind ship
-    this.thrusters.forEach(p => p.draw(this.ctx));
     // ship
     this.ship.draw(this.ctx);
     // bullets & asteroids
     this.bullets.forEach(b => b.draw(this.ctx));
     this.asteroids.forEach(a => a.draw(this.ctx));
+    // asteroid explosion particles
+    this.asteroidExplosions.forEach(p => p.draw(this.ctx));
     // power-ups
     this.powerups.forEach(p => p.draw(this.ctx));
   }
@@ -671,6 +676,22 @@ export class Game {
     }
     // draw stars
     this.renderStars();
+    // draw ship white-to-blue fading trail (20% ship width)
+    if (this.shipTrail && this.shipTrail.length) {
+      const r = this.ship.r * 0.2;
+      for (const tr of this.shipTrail) {
+        const age = now - tr.t;
+        const alpha = Math.max(1 - age / CONST.TRAIL_DURATION, 0);
+        // radial gradient from white center to blue edge
+        const grad = this.ctx.createRadialGradient(tr.x, tr.y, 0, tr.x, tr.y, r);
+        grad.addColorStop(0, `rgba(255,255,255,${alpha})`);
+        grad.addColorStop(1, `rgba(0,150,255,${alpha})`);
+        this.ctx.fillStyle = grad;
+        this.ctx.beginPath();
+        this.ctx.arc(tr.x, tr.y, r, 0, 2 * Math.PI);
+        this.ctx.fill();
+      }
+    }
     // foreground
     if (this.started) {
       this.render();
