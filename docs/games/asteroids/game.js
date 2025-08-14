@@ -1,6 +1,14 @@
 // game.js
 // Core game logic, state management, update & render loop
 import { rand, degToRad, dist } from './utils.js';
+// Sector background gradients
+const SECTOR_BG = [
+  ['#001f3f', '#000011'], // deep blue
+  ['#330033', '#110011'], // purple nebula
+  ['#003300', '#001100'], // green mist
+  ['#331100', '#110000'], // red dust
+  ['#203030', '#002020']  // teal haze
+];
 import * as CONST from './constants.js';
 import { keys, initInput } from './input.js';
 import * as audio from './audio.js';
@@ -37,8 +45,9 @@ export class Game {
       }, 200);
     });
 
-    // starfield
-    this.stars = [];
+    // starfield with two layers: far and near stars
+    this.starsFar = [];
+    this.starsNear = [];
     this.initStars();
 
     // input and pause handling
@@ -123,25 +132,46 @@ export class Game {
 
   /** Create initial starfield. */
   initStars() {
-    this.stars = [];
+    // far star layer: small, slow-moving
+    this.starsFar = [];
     for (let i = 0; i < CONST.STAR_COUNT; i++) {
-      this.stars.push({
-        x: rand(0, this.W),
-        y: rand(0, this.H),
-        r: rand(0.5, 1.5),
-        baseAlpha: rand(0.3, 0.8),
-        drift: rand(0.05, 0.2)
+      this.starsFar.push({
+        x: rand(0, this.W), y: rand(0, this.H),
+        r: rand(0.5, 1.2), baseAlpha: rand(0.2, 0.6),
+        drift: rand(0.02, 0.1)
+      });
+    }
+    // near star layer: larger, faster-moving
+    this.starsNear = [];
+    for (let i = 0; i < CONST.STAR_COUNT / 2; i++) {
+      this.starsNear.push({
+        x: rand(0, this.W), y: rand(0, this.H),
+        r: rand(1.5, 3), baseAlpha: rand(0.1, 0.4),
+        drift: rand(0.1, 0.3)
       });
     }
   }
 
   /** Update star positions for parallax effect. */
+  /** Update star positions for parallax effect. */
   updateStars() {
-    this.stars.forEach(s => {
-      const vx = this.ship.velX || 0;
-      const vy = this.ship.velY || 0;
+    const vx = this.ship.velX || 0;
+    const vy = this.ship.velY || 0;
+    // far stars
+    this.starsFar.forEach(s => {
       s.x -= vx * CONST.STAR_PARALLAX;
       s.y -= vy * CONST.STAR_PARALLAX;
+      s.y += s.drift;
+      if (s.x < 0) s.x += this.W;
+      else if (s.x > this.W) s.x -= this.W;
+      if (s.y > this.H) s.y = 0;
+      else if (s.y < 0) s.y = this.H;
+    });
+    // near stars: faster parallax and drift
+    const multi = CONST.STAR_PARALLAX * 1.5;
+    this.starsNear.forEach(s => {
+      s.x -= vx * multi;
+      s.y -= vy * multi;
       s.y += s.drift;
       if (s.x < 0) s.x += this.W;
       else if (s.x > this.W) s.x -= this.W;
@@ -152,8 +182,17 @@ export class Game {
 
   /** Draw the starfield background. */
   renderStars() {
-    this.stars.forEach(s => {
+    // draw far stars as white
+    this.starsFar.forEach(s => {
       this.ctx.fillStyle = `rgba(255,255,255,${s.baseAlpha})`;
+      this.ctx.beginPath();
+      this.ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+      this.ctx.fill();
+    });
+    // draw near stars tinted per sector
+    const hue = ((this.level - 1) * 60) % 360;
+    this.starsNear.forEach(s => {
+      this.ctx.fillStyle = `hsla(${hue},70%,${Math.round(s.baseAlpha * 100)}%,${s.baseAlpha})`;
       this.ctx.beginPath();
       this.ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
       this.ctx.fill();
@@ -478,9 +517,16 @@ export class Game {
       const vol = baseVol + (count / max) * baseVol;
       audio.setMusicVolume(vol);
     }
-    // background
+    // background: gradient + multi-layer starfield
     this.updateStars();
-    this.ctx.clearRect(0, 0, this.W, this.H);
+    // fill sector-specific gradient
+    const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
+    const bg = this.ctx.createLinearGradient(0, 0, 0, this.H);
+    bg.addColorStop(0, c1);
+    bg.addColorStop(1, c2);
+    this.ctx.fillStyle = bg;
+    this.ctx.fillRect(0, 0, this.W, this.H);
+    // draw stars
     this.renderStars();
     // foreground
     if (this.started) {

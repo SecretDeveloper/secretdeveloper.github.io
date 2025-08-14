@@ -39,11 +39,16 @@ export class Asteroid {
   draw(ctx) {
     if (this.img && this.img.complete) {
       ctx.save();
+      // apply sector-based hue shift for visual variety
+      const hueShift = ((this.game.level - 1) * 60) % 360;
+      ctx.filter = `hue-rotate(${hueShift}deg) saturate(1.2)`;
       ctx.translate(this.x, this.y);
       ctx.rotate(degToRad(this.rotation));
       const sizePx = this.size * 2;
       ctx.drawImage(this.img, -sizePx / 2, -sizePx / 2, sizePx, sizePx);
       ctx.restore();
+      // reset filter
+      ctx.filter = 'none';
     } else {
       ctx.fillStyle = '#ccc';
       ctx.beginPath();
