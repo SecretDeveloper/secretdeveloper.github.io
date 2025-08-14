@@ -15,12 +15,15 @@ import * as audio from './audio.js';
 import { Ship } from './ship.js';
 import { Bullet, Missile } from './bullet.js';
 import { Asteroid } from './asteroid.js';
-import { ThrusterParticle, ExplosionParticle,
-         createThrusterParticle, createExplosionParticle,
-         thrusterPool, explosionPool } from './particle.js';
+import {
+  ThrusterParticle, ExplosionParticle,
+  createThrusterParticle, createExplosionParticle,
+  thrusterPool, explosionPool
+} from './particle.js';
 import { Powerup } from './powerup.js';
 import nebulaImages from './nebula.js';
-import { Planet } from './planet.js';
+// Galaxy background replaces old Planet set-pieces
+// import { Planet } from './planet.js';
 import { Wormhole } from './wormhole.js';
 
 /**
@@ -64,8 +67,8 @@ export class Game {
     this.sectorEl.textContent = this.level;
     // nebula overlays per sector
     this.nebulaImages = nebulaImages;
-    // static set-pieces (planets) per sector
-    this.planets = [];
+    // galaxy background stars per sector
+    this.galaxyStars = [];
     this.initSector();
     // wormhole portal (when sector cleared)
     this.wormhole = null;
@@ -112,10 +115,10 @@ export class Game {
     // weapon & power-up state
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
     this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX;
-    this.bulletSize     = CONST.BASE_BULLET_SIZE;
-    this.bulletLife     = CONST.BASE_BULLET_LIFE;
-    this.shotInterval   = CONST.BASE_SHOT_INTERVAL;
-    this.activePowerup  = null;
+    this.bulletSize = CONST.BASE_BULLET_SIZE;
+    this.bulletLife = CONST.BASE_BULLET_LIFE;
+    this.shotInterval = CONST.BASE_SHOT_INTERVAL;
+    this.activePowerup = null;
     this.powerupExpires = 0;
 
     // initial asteroids
@@ -133,7 +136,7 @@ export class Game {
   /** Adjust canvas size to parent and store dimensions. */
   resize() {
     const rect = this.canvas.parentElement.getBoundingClientRect();
-    this.W = this.canvas.width  = rect.width;
+    this.W = this.canvas.width = rect.width;
     this.H = this.canvas.height = rect.height;
   }
 
@@ -185,6 +188,19 @@ export class Game {
       if (s.y > this.H) s.y = 0;
       else if (s.y < 0) s.y = this.H;
     });
+    // galaxy stars parallax (subtle movement for depth)
+    if (this.galaxyStars) {
+      // subtle parallax for very distant galaxy
+      const galPar = CONST.STAR_PARALLAX * 0.4;
+      this.galaxyStars.forEach(s => {
+        s.x -= vx * galPar;
+        s.y -= vy * galPar;
+        if (s.x < 0) s.x += this.W;
+        else if (s.x > this.W) s.x -= this.W;
+        if (s.y < 0) s.y += this.H;
+        else if (s.y > this.H) s.y -= this.H;
+      });
+    }
   }
 
   /** Draw the starfield background. */
@@ -254,8 +270,8 @@ export class Game {
       case CONST.POWERUP_TYPES.POWER:
         this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
         this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
-        this.bulletSize     = CONST.POWER_BULLET_SIZE;
-        this.bulletLife     = CONST.POWER_BULLET_LIFE;
+        this.bulletSize = CONST.POWER_BULLET_SIZE;
+        this.bulletLife = CONST.POWER_BULLET_LIFE;
         this.activePowerup = CONST.POWERUP_TYPES.POWER;
         this.powerupExpires = now + CONST.POWERUP_DURATION;
         break;
@@ -268,12 +284,12 @@ export class Game {
 
   /** Revert to base weapon settings when power-up expires. */
   expirePowerup() {
-    this.shotInterval   = CONST.BASE_SHOT_INTERVAL;
+    this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
     this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX;
-    this.bulletSize     = CONST.BASE_BULLET_SIZE;
-    this.bulletLife     = CONST.BASE_BULLET_LIFE;
-    this.activePowerup  = null;
+    this.bulletSize = CONST.BASE_BULLET_SIZE;
+    this.bulletLife = CONST.BASE_BULLET_LIFE;
+    this.activePowerup = null;
   }
   /**
    * Spawn a wormhole portal when sector is cleared.
@@ -294,6 +310,8 @@ export class Game {
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
+    // regenerate galaxy background for the new sector
+    this.initSector();
     // clear existing entities
     this.bullets.length = 0;
     this.thrusters.length = 0;
@@ -310,24 +328,44 @@ export class Game {
     audio.startDrumArp();
   }
   /**
-   * Initialize static planets for the current sector.
+   * Initialize galaxy star cluster for the current sector.
    */
   initSector() {
-    this.planets = [];
-    // create 1-2 planets
-    const num = 1 + Math.floor(Math.random() * 2);
-    const hue = ((this.level - 1) * 60) % 360;
-    for (let i = 0; i < num; i++) {
-      let px = rand(50, this.W - 50);
-      let py = rand(50, this.H - 50);
-      // avoid center around ship spawn
-      if (Math.hypot(px - this.W/2, py - this.H/2) < 100) {
-        px += 100;
-        py += 100;
+    this.galaxyStars = [];
+    const cx = this.W / 2 + rand(-this.W / 4, this.W / 4);
+    const cy = this.H / 2 + rand(-this.H / 4, this.H / 4);
+    // number of spiral arms, increasing with level but capped
+    const arms = Math.min(8, 4 + Math.floor(this.level / 2));
+    const maxRadius = Math.min(this.W, this.H) / 2;
+    // number of stars per spiral arm (increase for denser galaxy)
+    const starsPerArm = 600;
+    const twist = 3;
+    for (let a = 0; a < arms; a++) {
+      const armAngle = (a / arms) * Math.PI * 2;
+      for (let i = 0; i < starsPerArm; i++) {
+        const t = Math.random();
+        const r = Math.sqrt(t) * maxRadius;
+        const theta = armAngle + twist * (r / maxRadius) + rand(-0.2, 0.2);
+        const x = cx + r * Math.cos(theta);
+        const y = cy + r * Math.sin(theta);
+        // brighter stars with edge fade for galaxy background
+        const alpha = rand(0.3, 0.8) * (1 - r / maxRadius);
+        // star size in pixels
+        const size = rand(0.5, 1.2);
+        this.galaxyStars.push({ x, y, alpha, size });
       }
-      const pr = rand(20, 50);
-      const color = `hsl(${hue},50%,60%)`;
-      this.planets.push(new Planet(px, py, pr, color));
+    }
+    // add dense bright core cluster
+    const coreCount = Math.floor(starsPerArm * 0.5);
+    const coreRadius = maxRadius * 0.15;
+    for (let i = 0; i < coreCount; i++) {
+      const r = rand(0, coreRadius);
+      const theta = rand(0, 2 * Math.PI);
+      const x = cx + r * Math.cos(theta);
+      const y = cy + r * Math.sin(theta);
+      const alpha = rand(0.5, 1) * (1 - r / coreRadius);
+      const size = rand(0.8, 1.5);
+      this.galaxyStars.push({ x, y, alpha, size });
     }
   }
 
@@ -343,12 +381,12 @@ export class Game {
     this.explosionParticles.length = 0;
     this.powerups.length = 0;
     // reset weapon and power-up state
-    this.shotInterval   = CONST.BASE_SHOT_INTERVAL;
+    this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
     this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX;
-    this.bulletSize     = CONST.BASE_BULLET_SIZE;
-    this.bulletLife     = CONST.BASE_BULLET_LIFE;
-    this.activePowerup  = null;
+    this.bulletSize = CONST.BASE_BULLET_SIZE;
+    this.bulletLife = CONST.BASE_BULLET_LIFE;
+    this.activePowerup = null;
     this.powerupExpires = 0;
     this.scoreEl.textContent = this.score;
     // reset level/sector display
@@ -358,8 +396,7 @@ export class Game {
     this.wormhole = null;
     // spawn initial asteroids
     for (let i = 0; i < 5; i++) this.spawnAsteroid();
-    // initialize planets for sector 1
-    this.planets = [];
+    // initialize galaxy background for sector 1
     this.initSector();
   }
 
@@ -381,7 +418,7 @@ export class Game {
       }
     }
     // input: rotation
-    if (keys[CONST.KEY.LEFT])  this.ship.angle -= 3;
+    if (keys[CONST.KEY.LEFT]) this.ship.angle -= 3;
     if (keys[CONST.KEY.RIGHT]) this.ship.angle += 3;
     // thrust
     if (keys[CONST.KEY.UP]) {
@@ -511,8 +548,7 @@ export class Game {
     if (this.asteroids.length === 0 && !this.wormhole && !this.exploding) {
       this.spawnWormhole();
     }
-    // update planets rotation
-    this.planets.forEach(pl => pl.update());
+    // (galaxy background is static per sector)
     // update wormhole and check for sector transition
     if (this.wormhole) {
       this.wormhole.update();
@@ -526,8 +562,7 @@ export class Game {
   render() {
     // draw wormhole portal if present
     if (this.wormhole) this.wormhole.draw(this.ctx);
-    // draw static planets
-    this.planets.forEach(pl => pl.draw(this.ctx));
+    // (galaxy background drawn earlier)
     // thrusters behind ship
     this.thrusters.forEach(p => p.draw(this.ctx));
     // ship
@@ -561,6 +596,15 @@ export class Game {
     bg.addColorStop(1, c2);
     this.ctx.fillStyle = bg;
     this.ctx.fillRect(0, 0, this.W, this.H);
+    // draw galaxy star cluster behind nebula
+    if (this.galaxyStars) {
+      this.galaxyStars.forEach(s => {
+        this.ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+        this.ctx.beginPath();
+        this.ctx.arc(s.x, s.y, s.size, 0, 2 * Math.PI);
+        this.ctx.fill();
+      });
+    }
     // nebula overlay for sector
     const neb = this.nebulaImages[(this.level - 1) % this.nebulaImages.length];
     if (neb && neb.complete) {
