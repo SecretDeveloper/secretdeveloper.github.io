@@ -22,8 +22,8 @@ import {
 } from './particle.js';
 import { Powerup } from './powerup.js';
 import nebulaImages from './nebula.js';
+import { initGalaxy, drawGalaxy } from './galaxy.js';
 // Galaxy background replaces old Planet set-pieces
-// import { Planet } from './planet.js';
 import { Wormhole } from './wormhole.js';
 
 /**
@@ -55,6 +55,16 @@ export class Game {
     this.starsNear = [];
     this.initStars();
 
+    // galaxy background initialization
+    this.galaxyOffsetX = 0;
+    this.galaxyOffsetY = 0;
+    this.galaxyStars = initGalaxy(this.W, this.H, this.level);
+    // pre-render galaxy to offscreen canvas
+    this.galaxyCanvas = document.createElement('canvas');
+    this.galaxyCanvas.width = this.W;
+    this.galaxyCanvas.height = this.H;
+    this._renderGalaxyCanvas();
+
     // input and pause handling
     initInput();
     // pause overlay element
@@ -67,9 +77,6 @@ export class Game {
     this.sectorEl.textContent = this.level;
     // nebula overlays per sector
     this.nebulaImages = nebulaImages;
-    // galaxy background stars per sector
-    this.galaxyStars = [];
-    this.initSector();
     // wormhole portal (when sector cleared)
     this.wormhole = null;
     window.addEventListener('keydown', e => {
@@ -133,6 +140,15 @@ export class Game {
     requestAnimationFrame(this.loop);
   }
 
+  /**
+   * Render the current galaxyStars into the offscreen canvas.
+   */
+  _renderGalaxyCanvas() {
+    const ctx = this.galaxyCanvas.getContext('2d');
+    ctx.clearRect(0, 0, this.W, this.H);
+    drawGalaxy(ctx, this.galaxyStars);
+  }
+
   /** Adjust canvas size to parent and store dimensions. */
   resize() {
     const rect = this.canvas.parentElement.getBoundingClientRect();
@@ -188,19 +204,10 @@ export class Game {
       if (s.y > this.H) s.y = 0;
       else if (s.y < 0) s.y = this.H;
     });
-    // galaxy stars parallax (subtle movement for depth)
-    if (this.galaxyStars) {
-      // subtle parallax for very distant galaxy
-      const galPar = CONST.STAR_PARALLAX * 0.4;
-      this.galaxyStars.forEach(s => {
-        s.x -= vx * galPar;
-        s.y -= vy * galPar;
-        if (s.x < 0) s.x += this.W;
-        else if (s.x > this.W) s.x -= this.W;
-        if (s.y < 0) s.y += this.H;
-        else if (s.y > this.H) s.y -= this.H;
-      });
-    }
+    // galaxy background parallax offset (very distant)
+    const galPar = CONST.STAR_PARALLAX * 0.1;
+    this.galaxyOffsetX += vx * galPar;
+    this.galaxyOffsetY += vy * galPar;
   }
 
   /** Draw the starfield background. */
@@ -311,7 +318,10 @@ export class Game {
     this.level++;
     this.sectorEl.textContent = this.level;
     // regenerate galaxy background for the new sector
-    this.initSector();
+    this.galaxyStars = initGalaxy(this.W, this.H, this.level);
+    this.galaxyOffsetX = 0;
+    this.galaxyOffsetY = 0;
+    this._renderGalaxyCanvas();
     // clear existing entities
     this.bullets.length = 0;
     this.thrusters.length = 0;
@@ -326,47 +336,6 @@ export class Game {
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // resume background loops in case paused
     audio.startDrumArp();
-  }
-  /**
-   * Initialize galaxy star cluster for the current sector.
-   */
-  initSector() {
-    this.galaxyStars = [];
-    const cx = this.W / 2 + rand(-this.W / 4, this.W / 4);
-    const cy = this.H / 2 + rand(-this.H / 4, this.H / 4);
-    // number of spiral arms, increasing with level but capped
-    const arms = Math.min(8, 4 + Math.floor(this.level / 2));
-    const maxRadius = Math.min(this.W, this.H) / 2;
-    // number of stars per spiral arm (increase for denser galaxy)
-    const starsPerArm = 600;
-    const twist = 3;
-    for (let a = 0; a < arms; a++) {
-      const armAngle = (a / arms) * Math.PI * 2;
-      for (let i = 0; i < starsPerArm; i++) {
-        const t = Math.random();
-        const r = Math.sqrt(t) * maxRadius;
-        const theta = armAngle + twist * (r / maxRadius) + rand(-0.2, 0.2);
-        const x = cx + r * Math.cos(theta);
-        const y = cy + r * Math.sin(theta);
-        // brighter stars with edge fade for galaxy background
-        const alpha = rand(0.3, 0.8) * (1 - r / maxRadius);
-        // star size in pixels
-        const size = rand(0.5, 1.2);
-        this.galaxyStars.push({ x, y, alpha, size });
-      }
-    }
-    // add dense bright core cluster
-    const coreCount = Math.floor(starsPerArm * 0.5);
-    const coreRadius = maxRadius * 0.15;
-    for (let i = 0; i < coreCount; i++) {
-      const r = rand(0, coreRadius);
-      const theta = rand(0, 2 * Math.PI);
-      const x = cx + r * Math.cos(theta);
-      const y = cy + r * Math.sin(theta);
-      const alpha = rand(0.5, 1) * (1 - r / coreRadius);
-      const size = rand(0.8, 1.5);
-      this.galaxyStars.push({ x, y, alpha, size });
-    }
   }
 
   /** Reset game state for a new round. */
@@ -397,7 +366,10 @@ export class Game {
     // spawn initial asteroids
     for (let i = 0; i < 5; i++) this.spawnAsteroid();
     // initialize galaxy background for sector 1
-    this.initSector();
+    this.galaxyStars = initGalaxy(this.W, this.H, this.level);
+    this.galaxyOffsetX = 0;
+    this.galaxyOffsetY = 0;
+    this._renderGalaxyCanvas();
   }
 
   /** Update all game objects and handle logic. */
@@ -596,14 +568,20 @@ export class Game {
     bg.addColorStop(1, c2);
     this.ctx.fillStyle = bg;
     this.ctx.fillRect(0, 0, this.W, this.H);
-    // draw galaxy star cluster behind nebula
-    if (this.galaxyStars) {
-      this.galaxyStars.forEach(s => {
-        this.ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
-        this.ctx.beginPath();
-        this.ctx.arc(s.x, s.y, s.size, 0, 2 * Math.PI);
-        this.ctx.fill();
-      });
+    // draw pre-rendered galaxy background with subtle wrap
+    if (this.galaxyCanvas) {
+      const W = this.W, H = this.H;
+      // calculate tile offset (wrap around)
+      let ox = -this.galaxyOffsetX % W;
+      let oy = -this.galaxyOffsetY % H;
+      if (ox < 0) ox += W;
+      if (oy < 0) oy += H;
+      // draw 2x2 tiles to fill viewport
+      for (let dx = -W; dx <= 0; dx += W) {
+        for (let dy = -H; dy <= 0; dy += H) {
+          this.ctx.drawImage(this.galaxyCanvas, ox + dx, oy + dy, W, H);
+        }
+      }
     }
     // nebula overlay for sector
     const neb = this.nebulaImages[(this.level - 1) % this.nebulaImages.length];
