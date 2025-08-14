@@ -19,6 +19,8 @@ import { ThrusterParticle, ExplosionParticle,
          createThrusterParticle, createExplosionParticle,
          thrusterPool, explosionPool } from './particle.js';
 import { Powerup } from './powerup.js';
+import nebulaImages from './nebula.js';
+import { Planet } from './planet.js';
 import { Wormhole } from './wormhole.js';
 
 /**
@@ -60,6 +62,11 @@ export class Game {
     this.level = 1;
     this.sectorEl = document.getElementById('sector');
     this.sectorEl.textContent = this.level;
+    // nebula overlays per sector
+    this.nebulaImages = nebulaImages;
+    // static set-pieces (planets) per sector
+    this.planets = [];
+    this.initSector();
     // wormhole portal (when sector cleared)
     this.wormhole = null;
     window.addEventListener('keydown', e => {
@@ -302,6 +309,27 @@ export class Game {
     // resume background loops in case paused
     audio.startDrumArp();
   }
+  /**
+   * Initialize static planets for the current sector.
+   */
+  initSector() {
+    this.planets = [];
+    // create 1-2 planets
+    const num = 1 + Math.floor(Math.random() * 2);
+    const hue = ((this.level - 1) * 60) % 360;
+    for (let i = 0; i < num; i++) {
+      let px = rand(50, this.W - 50);
+      let py = rand(50, this.H - 50);
+      // avoid center around ship spawn
+      if (Math.hypot(px - this.W/2, py - this.H/2) < 100) {
+        px += 100;
+        py += 100;
+      }
+      const pr = rand(20, 50);
+      const color = `hsl(${hue},50%,60%)`;
+      this.planets.push(new Planet(px, py, pr, color));
+    }
+  }
 
   /** Reset game state for a new round. */
   resetGame() {
@@ -330,6 +358,9 @@ export class Game {
     this.wormhole = null;
     // spawn initial asteroids
     for (let i = 0; i < 5; i++) this.spawnAsteroid();
+    // initialize planets for sector 1
+    this.planets = [];
+    this.initSector();
   }
 
   /** Update all game objects and handle logic. */
@@ -480,6 +511,8 @@ export class Game {
     if (this.asteroids.length === 0 && !this.wormhole && !this.exploding) {
       this.spawnWormhole();
     }
+    // update planets rotation
+    this.planets.forEach(pl => pl.update());
     // update wormhole and check for sector transition
     if (this.wormhole) {
       this.wormhole.update();
@@ -493,6 +526,8 @@ export class Game {
   render() {
     // draw wormhole portal if present
     if (this.wormhole) this.wormhole.draw(this.ctx);
+    // draw static planets
+    this.planets.forEach(pl => pl.draw(this.ctx));
     // thrusters behind ship
     this.thrusters.forEach(p => p.draw(this.ctx));
     // ship
@@ -526,6 +561,13 @@ export class Game {
     bg.addColorStop(1, c2);
     this.ctx.fillStyle = bg;
     this.ctx.fillRect(0, 0, this.W, this.H);
+    // nebula overlay for sector
+    const neb = this.nebulaImages[(this.level - 1) % this.nebulaImages.length];
+    if (neb && neb.complete) {
+      this.ctx.globalAlpha = 0.3;
+      this.ctx.drawImage(neb, 0, 0, this.W, this.H);
+      this.ctx.globalAlpha = 1;
+    }
     // draw stars
     this.renderStars();
     // foreground
