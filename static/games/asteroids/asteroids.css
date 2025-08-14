@@ -52,6 +52,36 @@ body, html {
     text-align: center;
     z-index: 20;
 }
+/* Pause screen overlay */
+#pauseScreen {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    color: var(--text-light);
+    font-family: 'Press Start 2P', monospace;
+    text-align: center;
+    z-index: 20;
+}
+#pauseScreen h1 {
+    margin: 0 0 10px;
+    font-size: 4rem;
+    color: var(--border-title-color);
+    letter-spacing: 4px;
+    text-shadow:
+        0 0 5px var(--border-title-color),
+        0 0 7px var(--border-title-color),
+        0 0 25px var(--border-title-color),
+        0 0 90px var(--border-title-color);
+}
+#pauseScreen p {
+    max-width: 600px;
+    line-height: 1.4;
+    text-align: left;
+}
 #startScreen h1 {
     margin: 0 0 10px;
     font-size: 4rem;

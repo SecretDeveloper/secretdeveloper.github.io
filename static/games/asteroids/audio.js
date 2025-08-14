@@ -8,7 +8,7 @@ let bgOsc = null;
 let bgLfo = null;
 let bgGain = null;
 let bgFilter = null;
-// Drum and arpeggio intervals for beat and melody
+// Drum/arpeggio loop state
 let drumInterval = null;
 let drumHiHatInterval = null;
 let arpeggioInterval = null;
@@ -16,6 +16,9 @@ let drumIndex = 0;
 let arpeggioIndex = 0;
 // Arpeggio note frequencies (major triad + octave)
 const arpeggioNotes = [261.63, 329.63, 392.00, 523.25];
+// Drum tempo
+const DRUM_BPM = 140;
+const BEAT_DUR = 60 / DRUM_BPM;
 function getAudioContext() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -50,38 +53,8 @@ export function startBackgroundMusic() {
   bgOsc.frequency.setValueAtTime(110, ctx.currentTime);
   bgOsc.connect(bgFilter);
   bgOsc.start(ctx.currentTime);
-  // start drum loop at 140 BPM for a more upbeat feel
-  const bpm = 140;
-  const beatDur = 60 / bpm;
-  // Kick/snare on quarter notes: 0 & 2 = kick, 1 & 3 = snare
-  drumIndex = 0;
-  drumInterval = setInterval(() => {
-    const t = ctx.currentTime;
-    if (drumIndex % 2 === 0) playKick(t);
-    else playSnare(t);
-    drumIndex = (drumIndex + 1) % 4;
-  }, beatDur * 1000);
-  // Hi-hat on eighth notes
-  drumHiHatInterval = setInterval(() => {
-    playHiHat(ctx.currentTime);
-  }, (beatDur * 1000) / 2);
-  // Arpeggio on eighth notes for melodic line
-  arpeggioIndex = 0;
-  arpeggioInterval = setInterval(() => {
-    const t = ctx.currentTime;
-    const freq = arpeggioNotes[arpeggioIndex % arpeggioNotes.length];
-    const osc2 = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.type = 'square';
-    osc2.frequency.setValueAtTime(freq, t);
-    // lower arpeggio volume by half
-    gain2.gain.setValueAtTime(0.05, t);
-    gain2.gain.exponentialRampToValueAtTime(0.001, t + beatDur / 2);
-    osc2.connect(gain2).connect(ctx.destination);
-    osc2.start(t);
-    osc2.stop(t + beatDur / 2);
-    arpeggioIndex++;
-  }, (beatDur * 1000) / 2);
+  // start drum and arpeggio loops
+  startDrumArp();
 }
 /**
  * Stop background music with fade-out.
@@ -98,9 +71,7 @@ export function stopBackgroundMusic() {
     if (bgFilter) { bgFilter.disconnect(); bgFilter = null; }
     if (bgGain) { bgGain.disconnect(); bgGain = null; }
     // stop drum and arpeggio loops
-    clearInterval(drumInterval);
-    clearInterval(drumHiHatInterval);
-    clearInterval(arpeggioInterval);
+    stopDrumArp();
   }, 1500);
 }
 /**
@@ -114,6 +85,52 @@ export function setMusicVolume(vol) {
 }
 // Cached buffer for hammer-blow impact noise
 let impactBuffer = null;
+
+/**
+ * Start kick/snare/hi-hat and arpeggio loops.
+ */
+export function startDrumArp() {
+  if (drumInterval) return;
+  const ctx = getAudioContext();
+  // quarter-note kick/snare
+  drumIndex = 0;
+  drumInterval = setInterval(() => {
+    const t = ctx.currentTime;
+    if (drumIndex % 2 === 0) playKick(t);
+    else playSnare(t);
+    drumIndex = (drumIndex + 1) % 4;
+  }, BEAT_DUR * 1000);
+  // eighth-note hi-hat
+  drumHiHatInterval = setInterval(() => {
+    playHiHat(ctx.currentTime);
+  }, (BEAT_DUR * 1000) / 2);
+  // eighth-note arpeggio
+  arpeggioIndex = 0;
+  arpeggioInterval = setInterval(() => {
+    const t = ctx.currentTime;
+    const freq = arpeggioNotes[arpeggioIndex % arpeggioNotes.length];
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = 'square';
+    osc2.frequency.setValueAtTime(freq, t);
+    gain2.gain.setValueAtTime(0.05, t);
+    gain2.gain.exponentialRampToValueAtTime(0.001, t + BEAT_DUR / 2);
+    osc2.connect(gain2).connect(ctx.destination);
+    osc2.start(t);
+    osc2.stop(t + BEAT_DUR / 2);
+    arpeggioIndex++;
+  }, (BEAT_DUR * 1000) / 2);
+}
+
+/**
+ * Stop and clear all drum/arpeggio loops.
+ */
+export function stopDrumArp() {
+  clearInterval(drumInterval);
+  clearInterval(drumHiHatInterval);
+  clearInterval(arpeggioInterval);
+  drumInterval = drumHiHatInterval = arpeggioInterval = null;
+}
 
 // --- Drum synth functions ---
 /** Play a short kick drum. */
@@ -293,6 +310,22 @@ export function playExplosionSound() {
   gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
   noise.connect(gain).connect(ctx.destination);
   noise.start();
+}
+
+/**
+ * Suspend all audio (pause music and SFX).
+ */
+export function suspendAudio() {
+  const ctx = getAudioContext();
+  if (ctx.state === 'running') ctx.suspend();
+}
+
+/**
+ * Resume audio after suspension.
+ */
+export function resumeAudio() {
+  const ctx = getAudioContext();
+  if (ctx.state === 'suspended') ctx.resume();
 }
 
 let thrustSource = null;

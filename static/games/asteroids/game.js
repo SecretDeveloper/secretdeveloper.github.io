@@ -40,15 +40,35 @@ export class Game {
     this.stars = [];
     this.initStars();
 
-    // input
+    // input and pause handling
     initInput();
+    // pause overlay element
+    this.pauseScreenEl = document.getElementById('pauseScreen');
+    this.pauseScreenEl.style.display = 'none';
+    this.paused = false;
     window.addEventListener('keydown', e => {
+      // start game
       if (!this.started && e.key === CONST.KEY.ENTER) {
         this.startScreenEl.style.display = 'none';
         this.hudEl.style.display = 'block';
         this.started = true;
-        // start background music
         audio.startBackgroundMusic();
+      }
+      // pause game
+      else if (this.started && !this.paused && e.key === CONST.KEY.PAUSE) {
+        this.paused = true;
+        this.pauseScreenEl.style.display = 'flex';
+        // suspend audio context and stop loops
+        audio.suspendAudio();
+        audio.stopDrumArp();
+      }
+      // resume from pause
+      else if (this.started && this.paused && e.key === CONST.KEY.ENTER) {
+        this.paused = false;
+        this.pauseScreenEl.style.display = 'none';
+        // resume audio context and restart loops
+        audio.resumeAudio();
+        audio.startDrumArp();
       }
     });
 
@@ -391,7 +411,8 @@ export class Game {
 
   /** Main loop invoked via requestAnimationFrame. */
   loop(now) {
-    if (this.started) {
+    // only update game state and music when running and not paused
+    if (this.started && !this.paused) {
       this.update(now);
       // dynamic music intensity: volume ramps with asteroid count
       const count = this.asteroids.length;

@@ -46,5 +46,6 @@ export const KEY = {
   RIGHT: 'ArrowRight',
   UP:    'ArrowUp',
   FIRE:  ' ',       // Space key
-  ENTER: 'Enter'
+  ENTER: 'Enter',
+  PAUSE: 'Escape'
 };
