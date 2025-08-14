@@ -52,3 +52,5 @@ export const KEY = {
 // Wormhole settings
 export const WORMHOLE_RADIUS = 30;
 export const WORMHOLE_COLOR  = 'cyan';
+// Duration (ms) to keep portal visible after exiting
+export const PORTAL_EXIT_DURATION = 2000;

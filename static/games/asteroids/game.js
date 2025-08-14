@@ -84,6 +84,8 @@ export class Game {
     this.nebulaImages = nebulaImages;
     // wormhole portal (when sector cleared)
     this.wormhole = null;
+    // timestamp when portal should be removed after exit
+    this.portalExitExpire = null;
     window.addEventListener('keydown', e => {
       // start game
       if (!this.started && e.key === CONST.KEY.ENTER) {
@@ -331,6 +333,10 @@ export class Game {
    * Advance to the next sector (level) when ship enters wormhole.
    */
   nextLevel() {
+    // preserve ship velocity and angle for exit through portal
+    const exitVelX = this.ship.velX;
+    const exitVelY = this.ship.velY;
+    const exitAngle = this.ship.angle;
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
@@ -347,10 +353,15 @@ export class Game {
     // spawn asteroids for next sector
     const count = 5 + this.level;
     for (let i = 0; i < count; i++) this.spawnAsteroid();
-    // remove any existing wormhole
-    this.wormhole = null;
-    // start portal entry animation
-    this.startEntry();
+    // schedule portal removal after exit, keep portal visible for 2s
+    this.portalExitExpire = performance.now();
+    // immediate warp through portal: reposition ship to center
+    this.ship.x = this.W / 2;
+    this.ship.y = this.H / 2;
+    // restore previous velocity and direction
+    this.ship.velX = exitVelX;
+    this.ship.velY = exitVelY;
+    this.ship.angle = exitAngle;
     return;
   }
 
@@ -545,6 +556,11 @@ export class Game {
       if (dist(this.ship, this.wormhole) < this.ship.r + this.wormhole.r) {
         this.nextLevel();
       }
+    }
+    // remove portal after exit delay
+    if (this.portalExitExpire && now - this.portalExitExpire >= CONST.PORTAL_EXIT_DURATION) {
+      this.wormhole = null;
+      this.portalExitExpire = null;
     }
   }
 
