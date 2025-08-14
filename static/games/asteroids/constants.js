@@ -49,3 +49,6 @@ export const KEY = {
   ENTER: 'Enter',
   PAUSE: 'Escape'
 };
+// Wormhole settings
+export const WORMHOLE_RADIUS = 30;
+export const WORMHOLE_COLOR  = 'cyan';

@@ -11,6 +11,7 @@ import { ThrusterParticle, ExplosionParticle,
          createThrusterParticle, createExplosionParticle,
          thrusterPool, explosionPool } from './particle.js';
 import { Powerup } from './powerup.js';
+import { Wormhole } from './wormhole.js';
 
 /**
  * Main Game class encapsulating state and rendering.
@@ -46,6 +47,12 @@ export class Game {
     this.pauseScreenEl = document.getElementById('pauseScreen');
     this.pauseScreenEl.style.display = 'none';
     this.paused = false;
+    // sector / level tracking
+    this.level = 1;
+    this.sectorEl = document.getElementById('sector');
+    this.sectorEl.textContent = this.level;
+    // wormhole portal (when sector cleared)
+    this.wormhole = null;
     window.addEventListener('keydown', e => {
       // start game
       if (!this.started && e.key === CONST.KEY.ENTER) {
@@ -222,6 +229,40 @@ export class Game {
     this.bulletLife     = CONST.BASE_BULLET_LIFE;
     this.activePowerup  = null;
   }
+  /**
+   * Spawn a wormhole portal when sector is cleared.
+   */
+  spawnWormhole() {
+    // position portal away from ship
+    let x, y;
+    do {
+      x = Math.random() * this.W;
+      y = Math.random() * this.H;
+    } while (dist({ x, y }, this.ship) < 200);
+    this.wormhole = new Wormhole(x, y);
+  }
+  /**
+   * Advance to the next sector (level) when ship enters wormhole.
+   */
+  nextLevel() {
+    // increment level and update HUD
+    this.level++;
+    this.sectorEl.textContent = this.level;
+    // clear existing entities
+    this.bullets.length = 0;
+    this.thrusters.length = 0;
+    this.powerups.length = 0;
+    // reposition ship to center
+    this.ship.reset();
+    // remove wormhole
+    this.wormhole = null;
+    // spawn new asteroids for next sector (increase count by level)
+    this.asteroids.length = 0;
+    const count = 5 + this.level;
+    for (let i = 0; i < count; i++) this.spawnAsteroid();
+    // resume background loops in case paused
+    audio.startDrumArp();
+  }
 
   /** Reset game state for a new round. */
   resetGame() {
@@ -243,6 +284,12 @@ export class Game {
     this.activePowerup  = null;
     this.powerupExpires = 0;
     this.scoreEl.textContent = this.score;
+    // reset level/sector display
+    this.level = 1;
+    this.sectorEl.textContent = this.level;
+    // remove any existing wormhole
+    this.wormhole = null;
+    // spawn initial asteroids
     for (let i = 0; i < 5; i++) this.spawnAsteroid();
   }
 
@@ -390,14 +437,23 @@ export class Game {
         }
       }
     }
-    // respawn if none
-    if (this.asteroids.length === 0) {
-      for (let i = 0; i < 5; i++) this.spawnAsteroid();
+    // when all asteroids cleared, spawn a wormhole if not already
+    if (this.asteroids.length === 0 && !this.wormhole && !this.exploding) {
+      this.spawnWormhole();
+    }
+    // update wormhole and check for sector transition
+    if (this.wormhole) {
+      this.wormhole.update();
+      if (dist(this.ship, this.wormhole) < this.ship.r + this.wormhole.r) {
+        this.nextLevel();
+      }
     }
   }
 
   /** Draw all active game objects. */
   render() {
+    // draw wormhole portal if present
+    if (this.wormhole) this.wormhole.draw(this.ctx);
     // thrusters behind ship
     this.thrusters.forEach(p => p.draw(this.ctx));
     // ship
