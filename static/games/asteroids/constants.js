@@ -54,5 +54,11 @@ export const WORMHOLE_RADIUS = 30;
 export const WORMHOLE_COLOR  = 'cyan';
 // Duration (ms) to keep portal visible after exiting
 export const PORTAL_EXIT_DURATION = 2000;
+// Max ammo counts for weapons
+export const MAX_AMMO = {
+  [POWERUP_TYPES.MISSILE]: 30,
+  [POWERUP_TYPES.MACHINE]: 200,
+  [POWERUP_TYPES.POWER]: 100
+};
 // Duration (ms) for the ship's blue light trail to fade
 export const TRAIL_DURATION       = 3000;

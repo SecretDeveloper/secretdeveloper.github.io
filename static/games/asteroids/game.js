@@ -119,6 +119,18 @@ export class Game {
     this.thrusters = [];
     // Ship blue light trail (positions with timestamps)
     this.shipTrail = [];
+    // ammo state for weapons
+    this.ammo = {
+      [CONST.POWERUP_TYPES.MISSILE]: 0,
+      [CONST.POWERUP_TYPES.MACHINE]: 0,
+      [CONST.POWERUP_TYPES.POWER]:   0
+    };
+    // HUD ammo bar elements
+    this.ammoEls = {
+      [CONST.POWERUP_TYPES.MISSILE]: document.getElementById('ammo-missile'),
+      [CONST.POWERUP_TYPES.MACHINE]: document.getElementById('ammo-machine'),
+      [CONST.POWERUP_TYPES.POWER]:   document.getElementById('ammo-power')
+    };
     this.powerups = [];
     this.explosionParticles = [];
     // asteroid explosion particles
@@ -137,7 +149,6 @@ export class Game {
     this.bulletLife = CONST.BASE_BULLET_LIFE;
     this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.activePowerup = null;
-    this.powerupExpires = 0;
 
     // initial asteroids
     for (let i = 0; i < 5; i++) this.spawnAsteroid();
@@ -293,33 +304,42 @@ export class Game {
         this.shield = 3;
         break;
       case CONST.POWERUP_TYPES.MACHINE:
-        this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+        // refill machine gun ammo and equip
+        this.ammo[CONST.POWERUP_TYPES.MACHINE] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.MACHINE];
         this.activePowerup = CONST.POWERUP_TYPES.MACHINE;
-        this.powerupExpires = now + CONST.POWERUP_DURATION;
+        this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
         break;
       case CONST.POWERUP_TYPES.POWER:
+        // refill power shot ammo and equip
+        this.ammo[CONST.POWERUP_TYPES.POWER] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.POWER];
+        this.activePowerup = CONST.POWERUP_TYPES.POWER;
+        // adjust bullet properties for power shots
         this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
         this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
         this.bulletSize = CONST.POWER_BULLET_SIZE;
-        this.bulletLife = CONST.POWER_BULLET_LIFE;
-        this.activePowerup = CONST.POWERUP_TYPES.POWER;
-        this.powerupExpires = now + CONST.POWERUP_DURATION;
         break;
       case CONST.POWERUP_TYPES.MISSILE:
+        // refill missile ammo and equip
+        this.ammo[CONST.POWERUP_TYPES.MISSILE] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.MISSILE];
         this.activePowerup = CONST.POWERUP_TYPES.MISSILE;
-        this.powerupExpires = now + CONST.POWERUP_DURATION;
         break;
     }
   }
 
   /** Revert to base weapon settings when power-up expires. */
   expirePowerup() {
+    this.restoreBaseWeapon();
+    this.activePowerup = null;
+  }
+  /**
+   * Restore default weapon parameters.
+   */
+  restoreBaseWeapon() {
     this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
     this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX;
     this.bulletSize = CONST.BASE_BULLET_SIZE;
     this.bulletLife = CONST.BASE_BULLET_LIFE;
-    this.activePowerup = null;
   }
   /**
    * Spawn a wormhole portal when sector is cleared.
@@ -337,10 +357,12 @@ export class Game {
    * Advance to the next sector (level) when ship enters wormhole.
    */
   nextLevel() {
-    // preserve ship velocity and angle for exit through portal
+    // preserve ship velocity, angle, and portal position for exit
     const exitVelX = this.ship.velX;
     const exitVelY = this.ship.velY;
     const exitAngle = this.ship.angle;
+    const exitX = this.wormhole.x;
+    const exitY = this.wormhole.y;
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
@@ -359,9 +381,10 @@ export class Game {
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
-    // immediate warp through portal: reposition ship to center
-    this.ship.x = this.W / 2;
-    this.ship.y = this.H / 2;
+    // immediate warp through portal: reposition ship just outside portal rim
+    const distOut = this.wormhole.r + this.ship.r;
+    this.ship.x = exitX + Math.cos(degToRad(exitAngle)) * distOut;
+    this.ship.y = exitY + Math.sin(degToRad(exitAngle)) * distOut;
     // restore previous velocity and direction
     this.ship.velX = exitVelX;
     this.ship.velY = exitVelY;
@@ -387,7 +410,6 @@ export class Game {
     this.bulletSize = CONST.BASE_BULLET_SIZE;
     this.bulletLife = CONST.BASE_BULLET_LIFE;
     this.activePowerup = null;
-    this.powerupExpires = 0;
     this.scoreEl.textContent = this.score;
     // reset level/sector display
     this.level = 1;
@@ -409,10 +431,6 @@ export class Game {
   update(now) {
     // prune old ship trail positions
     this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
-    // power-up expiration
-    if (this.activePowerup && now > this.powerupExpires) {
-      this.expirePowerup();
-    }
     // update power-ups
     for (let i = 0; i < this.powerups.length; i++) {
       const p = this.powerups[i];
@@ -439,16 +457,35 @@ export class Game {
       // record trail position with timestamp
       this.shipTrail.push({ x: bx, y: by, t: now });
     }
-    // shooting
+    // shooting with ammo-based weapons
     if (keys[CONST.KEY.FIRE]) {
       if (now - this.ship.lastShot > this.shotInterval) {
         const spawnX = this.ship.x + Math.cos(degToRad(this.ship.angle)) * this.ship.r;
         const spawnY = this.ship.y + Math.sin(degToRad(this.ship.angle)) * this.ship.r;
         let proj;
-        if (this.activePowerup === CONST.POWERUP_TYPES.MISSILE) {
+        // missile
+        if (this.activePowerup === CONST.POWERUP_TYPES.MISSILE && this.ammo[CONST.POWERUP_TYPES.MISSILE] > 0) {
           proj = new Missile(spawnX, spawnY, this.ship.angle, this);
-        } else {
+          this.ammo[CONST.POWERUP_TYPES.MISSILE]--;
+        }
+        // machine gun
+        else if (this.activePowerup === CONST.POWERUP_TYPES.MACHINE && this.ammo[CONST.POWERUP_TYPES.MACHINE] > 0) {
           proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
+          this.ammo[CONST.POWERUP_TYPES.MACHINE]--;
+        }
+        // power shot
+        else if (this.activePowerup === CONST.POWERUP_TYPES.POWER && this.ammo[CONST.POWERUP_TYPES.POWER] > 0) {
+          proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
+          this.ammo[CONST.POWERUP_TYPES.POWER]--;
+        }
+        // default bullet
+        else {
+          proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
+        }
+        // if ammo exhausted for current weapon, revert
+        if (this.activePowerup && this.ammo[this.activePowerup] <= 0) {
+          this.restoreBaseWeapon();
+          this.activePowerup = null;
         }
         audio.playLaser();
         this.bullets.push(proj);
@@ -555,10 +592,10 @@ export class Game {
       this.spawnWormhole();
     }
     // (galaxy background is static per sector)
-    // update wormhole and check for sector transition
+    // update wormhole and check for sector transition (ignore during exit delay)
     if (this.wormhole) {
       this.wormhole.update();
-      if (dist(this.ship, this.wormhole) < this.ship.r + this.wormhole.r) {
+      if (!this.portalExitExpire && dist(this.ship, this.wormhole) < this.ship.r + this.wormhole.r) {
         this.nextLevel();
       }
     }
@@ -567,6 +604,16 @@ export class Game {
       this.wormhole = null;
       this.portalExitExpire = null;
     }
+    // update HUD ammo bars
+    // update HUD ammo bars, guard missing elements
+    Object.keys(this.ammoEls).forEach(type => {
+      const el = this.ammoEls[type];
+      if (!el) return;
+      const max = CONST.MAX_AMMO[type] || 1;
+      const cur = this.ammo[type] || 0;
+      const pct = Math.max(0, Math.min(1, cur / max));
+      el.style.width = `${pct * 100}%`;
+    });
   }
 
   /** Draw all active game objects. */
