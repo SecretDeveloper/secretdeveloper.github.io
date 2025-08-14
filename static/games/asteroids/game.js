@@ -381,10 +381,13 @@ export class Game {
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
-    // immediate warp through portal: reposition ship just outside portal rim
+    // immediate warp through portal: reposition ship just outside portal rim along velocity vector
     const distOut = this.wormhole.r + this.ship.r;
-    this.ship.x = exitX + Math.cos(degToRad(exitAngle)) * distOut;
-    this.ship.y = exitY + Math.sin(degToRad(exitAngle)) * distOut;
+    const vMag = Math.hypot(exitVelX, exitVelY) || 1;
+    const nx = exitVelX / vMag;
+    const ny = exitVelY / vMag;
+    this.ship.x = exitX + nx * distOut;
+    this.ship.y = exitY + ny * distOut;
     // restore previous velocity and direction
     this.ship.velX = exitVelX;
     this.ship.velY = exitVelY;
@@ -484,8 +487,30 @@ export class Game {
         }
         // if ammo exhausted for current weapon, revert
         if (this.activePowerup && this.ammo[this.activePowerup] <= 0) {
-          this.restoreBaseWeapon();
-          this.activePowerup = null;
+          // as one weapon's ammo is exhausted, switch to another weapon if available
+          const ammoTypes = [
+            CONST.POWERUP_TYPES.MISSILE,
+            CONST.POWERUP_TYPES.MACHINE,
+            CONST.POWERUP_TYPES.POWER
+          ];
+          const nextType = ammoTypes.find(type => this.ammo[type] > 0);
+          if (nextType) {
+            // revert to base settings then equip the next available weapon
+            this.restoreBaseWeapon();
+            this.activePowerup = nextType;
+            if (nextType === CONST.POWERUP_TYPES.MACHINE) {
+              this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+            } else if (nextType === CONST.POWERUP_TYPES.POWER) {
+              this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
+              this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
+              this.bulletSize = CONST.POWER_BULLET_SIZE;
+            }
+            // MISSILE uses default settings after restore
+          } else {
+            // no alternate ammo, revert to base weapon
+            this.restoreBaseWeapon();
+            this.activePowerup = null;
+          }
         }
         audio.playLaser();
         this.bullets.push(proj);
