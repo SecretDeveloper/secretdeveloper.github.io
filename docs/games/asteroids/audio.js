@@ -83,6 +83,18 @@ export function setMusicVolume(vol) {
     bgGain.gain.setTargetAtTime(vol, ctx.currentTime, 0.1);
   }
 }
+/**
+ * Immediately stop and disconnect background music and loops.
+ */
+export function stopBackgroundMusicImmediate() {
+  // stop and disconnect background pad
+  if (bgOsc) { bgOsc.stop(); bgOsc.disconnect(); bgOsc = null; }
+  if (bgLfo) { bgLfo.stop(); bgLfo.disconnect(); bgLfo = null; }
+  if (bgFilter) { bgFilter.disconnect(); bgFilter = null; }
+  if (bgGain) { bgGain.disconnect(); bgGain = null; }
+  // stop drum and arpeggio loops
+  stopDrumArp();
+}
 // Cached buffer for hammer-blow impact noise
 let impactBuffer = null;
 

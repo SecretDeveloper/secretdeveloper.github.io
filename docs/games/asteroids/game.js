@@ -501,8 +501,9 @@ export class Game {
           `<p>Your score: ${this.finalScore}</p>` +
           `<p>Press Enter to restart.</p>`;
         this.startScreenEl.style.display = 'flex';
-        // stop background music on game over
-        audio.stopBackgroundMusic();
+        // immediately kill background music and suspend audio
+        audio.stopBackgroundMusicImmediate();
+        audio.suspendAudio();
         this.resetGame();
       }
     }
