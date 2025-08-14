@@ -59,6 +59,11 @@ export class Game {
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
+    // sector entry portal state (ship emerges)
+    this.entryActive = false;
+    this.entryStartTime = 0;
+    this.entryDuration = 2000; // milliseconds
+    this.entryPortal = null;
     // pre-render galaxy to offscreen canvas
     this.galaxyCanvas = document.createElement('canvas');
     this.galaxyCanvas.width = this.W;
@@ -85,7 +90,7 @@ export class Game {
         this.startScreenEl.style.display = 'none';
         this.hudEl.style.display = 'block';
         this.started = true;
-        audio.startBackgroundMusic();
+        this.startEntry();
       }
       // pause game
       else if (this.started && !this.paused && e.key === CONST.KEY.PAUSE) {
@@ -147,6 +152,18 @@ export class Game {
     const ctx = this.galaxyCanvas.getContext('2d');
     ctx.clearRect(0, 0, this.W, this.H);
     drawGalaxy(ctx, this.galaxyStars);
+  }
+  /**
+   * Begin entry animation: portal opens at center and ship emerges.
+   */
+  startEntry() {
+    this.entryActive = true;
+    this.entryStartTime = performance.now();
+    this.entryPortal = new Wormhole(this.W/2, this.H/2);
+    // position ship at center and reset velocity
+    this.ship.reset();
+    // pre-render galaxy for potential flicker
+    this._renderGalaxyCanvas();
   }
 
   /** Adjust canvas size to parent and store dimensions. */
@@ -317,7 +334,7 @@ export class Game {
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
-    // regenerate galaxy background for the new sector
+    // regenerate galaxy background
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
@@ -326,16 +343,15 @@ export class Game {
     this.bullets.length = 0;
     this.thrusters.length = 0;
     this.powerups.length = 0;
-    // reposition ship to center
-    this.ship.reset();
-    // remove wormhole
-    this.wormhole = null;
-    // spawn new asteroids for next sector (increase count by level)
     this.asteroids.length = 0;
+    // spawn asteroids for next sector
     const count = 5 + this.level;
     for (let i = 0; i < count; i++) this.spawnAsteroid();
-    // resume background loops in case paused
-    audio.startDrumArp();
+    // remove any existing wormhole
+    this.wormhole = null;
+    // start portal entry animation
+    this.startEntry();
+    return;
   }
 
   /** Reset game state for a new round. */
@@ -370,6 +386,8 @@ export class Game {
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
     this._renderGalaxyCanvas();
+    // start entry portal for new game
+    this.startEntry();
   }
 
   /** Update all game objects and handle logic. */
@@ -548,6 +566,51 @@ export class Game {
 
   /** Main loop invoked via requestAnimationFrame. */
   loop(now) {
+    // handle entry portal animation
+    if (this.started && this.entryActive) {
+      const elapsed = now - this.entryStartTime;
+      // draw background layers
+      this.updateStars();
+      const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
+      const bg = this.ctx.createLinearGradient(0, 0, 0, this.H);
+      bg.addColorStop(0, c1);
+      bg.addColorStop(1, c2);
+      this.ctx.fillStyle = bg;
+      this.ctx.fillRect(0, 0, this.W, this.H);
+      // draw galaxy
+      if (this.galaxyCanvas) {
+        const W = this.W, H = this.H;
+        let ox = -this.galaxyOffsetX % W; if (ox < 0) ox += W;
+        let oy = -this.galaxyOffsetY % H; if (oy < 0) oy += H;
+        for (let dx = -W; dx <= 0; dx += W) {
+          for (let dy = -H; dy <= 0; dy += H) {
+            this.ctx.drawImage(this.galaxyCanvas, ox + dx, oy + dy, W, H);
+          }
+        }
+      }
+      // nebula overlay
+      const neb = this.nebulaImages[(this.level - 1) % this.nebulaImages.length];
+      if (neb && neb.complete) {
+        this.ctx.globalAlpha = 0.3;
+        this.ctx.drawImage(neb, 0, 0, this.W, this.H);
+        this.ctx.globalAlpha = 1;
+      }
+      this.renderStars();
+      // animate and draw entry portal
+      this.entryPortal.update();
+      this.entryPortal.draw(this.ctx);
+      // draw ship emerging at center
+      this.ship.draw(this.ctx);
+      // once entry duration elapsed, finish entry
+      if (elapsed >= this.entryDuration) {
+        this.entryActive = false;
+        this.entryPortal = null;
+        audio.startBackgroundMusic();
+        audio.startDrumArp();
+      }
+      requestAnimationFrame(this.loop);
+      return;
+    }
     // only update game state and music when running and not paused
     if (this.started && !this.paused) {
       this.update(now);
