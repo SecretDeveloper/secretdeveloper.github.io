@@ -11,16 +11,30 @@
   <canvas id="c"></canvas>
   <!-- HUD -->
   <div id="hud">
-    Sector: <span id="sector">1</span> |
-    Score: <span id="score">0</span>
+    <div class="hud-text">Sector: <span id="sector">1</span> | Score: <span id="score">0</span></div>
   <!-- Shield health bar -->
   <div id="shieldHud">
-    <div class="shield-bar"><div class="shield-fill" id="shield-fill"></div></div>
+    <div class="hud-item">
+      <span class="hud-label">Shield</span>
+      <div class="shield-bar">
+        <div class="shield-fill" id="shield-fill"></div>
+      </div>
+    </div>
   </div>
+  <!-- Ammo bars -->
   <div id="ammoHud">
-    <div class="ammo-bar missile"><div class="ammo-fill" id="ammo-missile"></div></div>
-    <div class="ammo-bar machine"><div class="ammo-fill" id="ammo-machine"></div></div>
-    <div class="ammo-bar power"><div class="ammo-fill" id="ammo-power"></div></div>
+    <div class="hud-item">
+      <span class="hud-label">Missile</span>
+      <div class="ammo-bar missile"><div class="ammo-fill" id="ammo-missile"></div></div>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">Machine</span>
+      <div class="ammo-bar machine"><div class="ammo-fill" id="ammo-machine"></div></div>
+    </div>
+    <div class="hud-item">
+      <span class="hud-label">Power</span>
+      <div class="ammo-bar power"><div class="ammo-fill" id="ammo-power"></div></div>
+    </div>
   </div>
   </div>
   <!-- Start screen -->

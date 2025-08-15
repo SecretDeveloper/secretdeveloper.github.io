@@ -4,6 +4,7 @@
   --border-title-color: magenta;
   --text-light:  #fff;
 }
+
 body, html {
     margin: 0;
     height: 100vh;
@@ -34,12 +35,13 @@ body, html {
     color: var(--text-light);
     pointer-events: none;
     z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 /* Ammo bars for weapons */
 #ammoHud {
-    position: absolute;
-    top: 30px;
-    left: 10px;
+    /* Positioned by flex layout in #hud */
     z-index: 10;
 }
 .ammo-bar {
@@ -57,11 +59,8 @@ body, html {
 .ammo-bar.missile .ammo-fill { background: #fff; }
 .ammo-bar.machine .ammo-fill { background: #0ff; }
 .ammo-bar.power   .ammo-fill { background: #00f; }
-/* Shield bar for shield health */
 #shieldHud {
-  position: absolute;
-  top: 50px;
-  left: 10px;
+  /* Positioned by flex layout in #hud */
   z-index: 10;
 }
 .shield-bar {
@@ -76,6 +75,19 @@ body, html {
   width: 0;
   height: 100%;
   background: #0f0;
+}
+/* HUD bar labels */
+.hud-item {
+  display: flex;
+  align-items: center;
+  margin: 2px 0;
+}
+.hud-label {
+  display: inline-block;
+  width: 88px; /* increased by 10% to give more space */
+  color: var(--text-light);
+  font-size: 0.8rem;
+  margin-right: 7px; /* increased gap to bar */
 }
 #startScreen {
     position: absolute;

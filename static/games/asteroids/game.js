@@ -466,10 +466,12 @@ export class Game {
       }
     }
     // input: rotation
-    if (keys[CONST.KEY.LEFT]) this.ship.angle -= 3;
-    if (keys[CONST.KEY.RIGHT]) this.ship.angle += 3;
+    // input: rotation (allow Arrow keys or A/D)
+    if (keys[CONST.KEY.LEFT] || keys['a'] || keys['A']) this.ship.angle -= 3;
+    if (keys[CONST.KEY.RIGHT] || keys['d'] || keys['D']) this.ship.angle += 3;
     // thrust: apply acceleration and record light trail behind ship
-    if (keys[CONST.KEY.UP]) {
+    // thrust: apply acceleration and record light trail (ArrowUp or W)
+    if (keys[CONST.KEY.UP] || keys['w'] || keys['W']) {
       const ax = CONST.SHIP_ACCEL * Math.cos(degToRad(this.ship.angle));
       const ay = CONST.SHIP_ACCEL * Math.sin(degToRad(this.ship.angle));
       this.ship.velX += ax;
