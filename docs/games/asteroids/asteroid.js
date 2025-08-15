@@ -8,6 +8,8 @@ const asteroidImages = [];
   img.src = src;
   asteroidImages.push(img);
 });
+// export images array for ECS factories
+export { asteroidImages };
 
 /**
  * Represents a drifting, spinning asteroid.

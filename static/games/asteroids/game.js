@@ -12,19 +12,22 @@ const SECTOR_BG = [
 import * as CONST from './constants.js';
 import { keys, initInput } from './input.js';
 import * as audio from './audio.js';
-import { Ship } from './ship.js';
-import { Bullet, Missile } from './bullet.js';
-import { Asteroid } from './asteroid.js';
-import {
-  ThrusterParticle, ExplosionParticle,
-  createThrusterParticle, createExplosionParticle,
-  thrusterPool, explosionPool
-} from './particle.js';
-import { Powerup } from './powerup.js';
+// Ship and Asteroid are now ECS-managed via factories
+import { createAsteroidEntity } from './asteroidFactory.js';
+import { createPowerupEntity } from './powerupFactory.js';
+// Particle effects are now ECS-managed via ParticleSystem and particleFactory
+import { createExplosionParticleEntity, createThrusterParticleEntity } from './particleFactory.js';
 import nebulaImages from './nebula.js';
 import { initGalaxy, drawGalaxy } from './galaxy.js';
 // Galaxy background replaces old Planet set-pieces
 import { Wormhole } from './wormhole.js';
+import { Starfield } from './starfield.js';
+import {
+  EntityManager, SystemManager, StarfieldSystem,
+  InputSystem, MovementSystem, FrictionSystem, RotationSystem, LifetimeSystem,
+  CollisionSystem, ShipCollisionSystem, PowerupSystem, PowerupPickupSystem, ParticleSystem, RenderSystem
+} from './ecs.js';
+import { createShipEntity } from './shipFactory.js';
 
 /**
  * Main Game class encapsulating state and rendering.
@@ -46,14 +49,34 @@ export class Game {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         this.resize();
-        this.initStars();
+        this.starfield.initStars();
       }, 200);
     });
 
-    // starfield with two layers: far and near stars
-    this.starsFar = [];
-    this.starsNear = [];
-    this.initStars();
+    // starfield with two layers
+    this.starfield = new Starfield(this);
+    // ECS core: register starfield system for update/render
+    this.em = new EntityManager();
+    this.sm = new SystemManager(this.em);
+    // Register ECS systems
+    this.sm.addSystem(new StarfieldSystem(this.starfield));
+    // user input drives ship
+    this.sm.addSystem(new InputSystem(this.em, this));
+    this.sm.addSystem(new MovementSystem(this.em, this));
+    this.sm.addSystem(new FrictionSystem(this.em));
+    this.sm.addSystem(new RotationSystem(this.em));
+    this.sm.addSystem(new LifetimeSystem(this.em));
+    // collisions between bullets and asteroids
+    this.sm.addSystem(new CollisionSystem(this.em, this));
+    // collisions between ship and asteroids
+    this.sm.addSystem(new ShipCollisionSystem(this.em, this));
+    // power-ups: rotate, expire, and pickup
+    this.sm.addSystem(new PowerupSystem(this.em));
+    this.sm.addSystem(new PowerupPickupSystem(this.em, this));
+    // particle effects: thrusters & explosions
+    this.sm.addSystem(new ParticleSystem(this.em));
+    // render ECS-managed entities (asteroids, bullets, power-ups)
+    this.sm.addSystem(new RenderSystem(this.em));
 
     // galaxy background initialization
     this.galaxyOffsetX = 0;
@@ -80,6 +103,8 @@ export class Game {
     this.level = 1;
     this.sectorEl = document.getElementById('sector');
     this.sectorEl.textContent = this.level;
+    // cache HUD shield fill element
+    this.shieldFillEl = document.getElementById('shield-fill');
     // nebula overlays per sector
     this.nebulaImages = nebulaImages;
     // wormhole portal (when sector cleared)
@@ -87,8 +112,8 @@ export class Game {
     // timestamp when portal should be removed after exit
     this.portalExitExpire = null;
     window.addEventListener('keydown', e => {
-      // start game
-      if (!this.started && e.key === CONST.KEY.ENTER) {
+      // start game (Enter key)
+      if (!this.started && (e.key === CONST.KEY.ENTER || e.keyCode === 13)) {
         // initialize/resume AudioContext on first user gesture
         audio.resumeAudio();
         this.startScreenEl.style.display = 'none';
@@ -96,16 +121,16 @@ export class Game {
         this.started = true;
         this.startEntry();
       }
-      // pause game
-      else if (this.started && !this.paused && e.key === CONST.KEY.PAUSE) {
+      // pause game (Escape key)
+      else if (this.started && !this.paused && (e.key === CONST.KEY.PAUSE || e.keyCode === 27)) {
         this.paused = true;
         this.pauseScreenEl.style.display = 'flex';
         // suspend audio context and stop loops
         audio.suspendAudio();
         audio.stopDrumArp();
       }
-      // resume from pause
-      else if (this.started && this.paused && e.key === CONST.KEY.ENTER) {
+      // resume from pause (Enter key)
+      else if (this.started && this.paused && (e.key === CONST.KEY.ENTER || e.keyCode === 13)) {
         this.paused = false;
         this.pauseScreenEl.style.display = 'none';
         // resume audio context and restart loops
@@ -115,28 +140,27 @@ export class Game {
     });
 
     // game state
-    this.ship = new Ship(this);
-    this.bullets = [];
-    this.asteroids = [];
-    this.thrusters = [];
-    // Ship blue light trail (positions with timestamps)
+    // Instantiate the player ship as an ECS entity
+    this.shipEntity = createShipEntity(this.em, this);
+    // track last shot time for ECS-based shooting
+    this.lastShot = 0;
+    // initialize ship trail array for visual effects
     this.shipTrail = [];
-    // ammo state for weapons
+    // ammo state for weapons (legacy HUD-driven)
     this.ammo = {
       [CONST.POWERUP_TYPES.MISSILE]: 0,
       [CONST.POWERUP_TYPES.MACHINE]: 0,
-      [CONST.POWERUP_TYPES.POWER]:   0
+      [CONST.POWERUP_TYPES.POWER]: 0
     };
     // HUD ammo bar elements
     this.ammoEls = {
       [CONST.POWERUP_TYPES.MISSILE]: document.getElementById('ammo-missile'),
       [CONST.POWERUP_TYPES.MACHINE]: document.getElementById('ammo-machine'),
-      [CONST.POWERUP_TYPES.POWER]:   document.getElementById('ammo-power')
+      [CONST.POWERUP_TYPES.POWER]: document.getElementById('ammo-power')
     };
-    this.powerups = [];
-    this.explosionParticles = [];
-    // asteroid explosion particles
-    this.asteroidExplosions = [];
+    // explosion particles are now ECS-managed
+    // this.explosionParticles = [];
+    // this.asteroidExplosions = [];
     this.score = 0;
     this.shield = 3;
     // overpowered shield state and timer (10s duration)
@@ -164,6 +188,8 @@ export class Game {
 
     // start loop
     this.loop = this.loop.bind(this);
+    // track time for ECS dt
+    this.lastTime = performance.now();
     requestAnimationFrame(this.loop);
   }
 
@@ -181,9 +207,14 @@ export class Game {
   startEntry() {
     this.entryActive = true;
     this.entryStartTime = performance.now();
-    this.entryPortal = new Wormhole(this.W/2, this.H/2);
-    // position ship at center and reset velocity
-    this.ship.reset();
+    this.entryPortal = new Wormhole(this.W / 2, this.H / 2);
+    // position ECS ship entity at center and reset velocity/rotation
+    const pos = this.em.getComponent(this.shipEntity, 'position');
+    const vel = this.em.getComponent(this.shipEntity, 'velocity');
+    const rot = this.em.getComponent(this.shipEntity, 'rotation');
+    pos.x = this.W / 2; pos.y = this.H / 2;
+    vel.x = 0; vel.y = 0;
+    rot.value = 0;
     // pre-render galaxy for potential flicker
     this._renderGalaxyCanvas();
     // play intro fanfare while ship is in the portal
@@ -197,99 +228,28 @@ export class Game {
     this.H = this.canvas.height = rect.height;
   }
 
-  /** Create initial starfield. */
-  initStars() {
-    // far star layer: small, slow-moving
-    this.starsFar = [];
-    for (let i = 0; i < CONST.STAR_COUNT; i++) {
-      this.starsFar.push({
-        x: rand(0, this.W), y: rand(0, this.H),
-        r: rand(0.5, 1.2), baseAlpha: rand(0.2, 0.6),
-        drift: rand(0.02, 0.1)
-      });
-    }
-    // near star layer: larger, faster-moving
-    this.starsNear = [];
-    for (let i = 0; i < CONST.STAR_COUNT / 2; i++) {
-      this.starsNear.push({
-        x: rand(0, this.W), y: rand(0, this.H),
-        r: rand(1.5, 3), baseAlpha: rand(0.1, 0.4),
-        drift: rand(0.1, 0.3)
-      });
-    }
-  }
-
-  /** Update star positions for parallax effect. */
-  /** Update star positions for parallax effect. */
-  updateStars() {
-    const vx = this.ship.velX || 0;
-    const vy = this.ship.velY || 0;
-    // far stars
-    this.starsFar.forEach(s => {
-      s.x -= vx * CONST.STAR_PARALLAX;
-      s.y -= vy * CONST.STAR_PARALLAX;
-      s.y += s.drift;
-      if (s.x < 0) s.x += this.W;
-      else if (s.x > this.W) s.x -= this.W;
-      if (s.y > this.H) s.y = 0;
-      else if (s.y < 0) s.y = this.H;
-    });
-    // near stars: faster parallax and drift
-    const multi = CONST.STAR_PARALLAX * 1.5;
-    this.starsNear.forEach(s => {
-      s.x -= vx * multi;
-      s.y -= vy * multi;
-      s.y += s.drift;
-      if (s.x < 0) s.x += this.W;
-      else if (s.x > this.W) s.x -= this.W;
-      if (s.y > this.H) s.y = 0;
-      else if (s.y < 0) s.y = this.H;
-    });
-    // galaxy background parallax offset (very distant)
-    const galPar = CONST.STAR_PARALLAX * 0.1;
-    this.galaxyOffsetX += vx * galPar;
-    this.galaxyOffsetY += vy * galPar;
-  }
-
-  /** Draw the starfield background. */
-  renderStars() {
-    // draw far stars as white
-    this.starsFar.forEach(s => {
-      this.ctx.fillStyle = `rgba(255,255,255,${s.baseAlpha})`;
-      this.ctx.beginPath();
-      this.ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
-      this.ctx.fill();
-    });
-    // draw near stars tinted per sector
-    const hue = ((this.level - 1) * 60) % 360;
-    this.starsNear.forEach(s => {
-      this.ctx.fillStyle = `hsla(${hue},70%,${Math.round(s.baseAlpha * 100)}%,${s.baseAlpha})`;
-      this.ctx.beginPath();
-      this.ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
-      this.ctx.fill();
-    });
-  }
-
   /** Spawn a new asteroid away from the ship. */
   spawnAsteroid() {
     let x, y;
+    // ensure we spawn away from the ship's current position
+    const shipPos = this.em.getComponent(this.shipEntity, 'position');
     do {
       x = rand(0, this.W);
       y = rand(0, this.H);
-    } while (dist({ x, y }, this.ship) < 200);
-    this.asteroids.push(new Asteroid(x, y, null, this));
+    } while (dist({ x, y }, shipPos) < 200);
+    // ECS-managed asteroid
+    createAsteroidEntity(this.em, this, x, y);
   }
 
   /** Begin ship explosion and particle effects. */
   startExplosion() {
     this.exploding = true;
     this.explosionStart = performance.now();
-    this.explosionParticles = [];
+    // spawn explosion particles via ECS
+    // spawn explosion particles via ECS at ship position
+    const posComp = this.em.getComponent(this.shipEntity, 'position');
     for (let i = 0; i < CONST.EXPLOSION_PARTICLES_COUNT; i++) {
-      // obtain explosion particle from pool or create new
-      this.explosionParticles.push(
-        createExplosionParticle(this.ship.x, this.ship.y)
-      );
+      createExplosionParticleEntity(this.em, posComp.x, posComp.y);
     }
     audio.playExplosionSound();
     this.hudEl.style.display = 'none';
@@ -299,7 +259,7 @@ export class Game {
   spawnPowerup(x, y) {
     const types = Object.values(CONST.POWERUP_TYPES);
     const type = types[Math.floor(rand(0, types.length))];
-    this.powerups.push(new Powerup(x, y, type));
+    createPowerupEntity(this.em, this, x, y, type);
   }
 
   /** Apply collected power-up effects. */
@@ -347,6 +307,7 @@ export class Game {
     this.restoreBaseWeapon();
     this.activePowerup = null;
   }
+
   /**
    * Restore default weapon parameters.
    */
@@ -374,11 +335,15 @@ export class Game {
    */
   nextLevel() {
     // preserve ship velocity, angle, and portal position for exit
-    const exitVelX = this.ship.velX;
-    const exitVelY = this.ship.velY;
-    const exitAngle = this.ship.angle;
-    const exitX = this.wormhole.x;
-    const exitY = this.wormhole.y;
+    // read ECS ship components for exit state
+    const velComp = this.em.getComponent(this.shipEntity, 'velocity');
+    const rotComp = this.em.getComponent(this.shipEntity, 'rotation');
+    const posComp = this.em.getComponent(this.shipEntity, 'position');
+    const exitVelX = velComp.x;
+    const exitVelY = velComp.y;
+    const exitAngle = rotComp.value;
+    const exitX = posComp.x;
+    const exitY = posComp.y;
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
@@ -387,44 +352,51 @@ export class Game {
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
     this._renderGalaxyCanvas();
-    // clear existing entities
-    this.bullets.length = 0;
-    this.thrusters.length = 0;
-    this.powerups.length = 0;
-    this.asteroids.length = 0;
+    // clear existing ECS-managed entities (bullets, etc.)
+    // (ECS will handle cleanup via LifetimeSystem and removeEntity)
+    // ECS-managed particles (thrusters, explosions) cleaned by ParticleSystem
+    // ECS-managed power-ups and asteroids cleaned via systems
+    // legacy arrays (powerups, asteroids) are no longer used
     // spawn asteroids for next sector
     const count = 5 + this.level;
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
     // immediate warp through portal: reposition ship just outside portal rim along velocity vector
-    const distOut = this.wormhole.r + this.ship.r;
+    // reposition ECS ship entity just outside portal rim
+    const shipComp = this.em.getComponent(this.shipEntity, 'ship');
+    const distOut = this.wormhole.r + shipComp.r;
     const vMag = Math.hypot(exitVelX, exitVelY) || 1;
     const nx = exitVelX / vMag;
     const ny = exitVelY / vMag;
-    this.ship.x = exitX + nx * distOut;
-    this.ship.y = exitY + ny * distOut;
-    // restore previous velocity and direction
-    this.ship.velX = exitVelX;
-    this.ship.velY = exitVelY;
-    this.ship.angle = exitAngle;
+    const pos = this.em.getComponent(this.shipEntity, 'position');
+    const vel = this.em.getComponent(this.shipEntity, 'velocity');
+    const rot = this.em.getComponent(this.shipEntity, 'rotation');
+    pos.x = exitX + nx * distOut;
+    pos.y = exitY + ny * distOut;
+    vel.x = exitVelX; vel.y = exitVelY;
+    rot.value = exitAngle;
     return;
   }
 
   /** Reset game state for a new round. */
   resetGame() {
-    this.ship.reset();
-    this.bullets.length = 0;
-    this.thrusters.length = 0;
-    this.asteroids.length = 0;
+    // reset ECS ship entity position, velocity, rotation
+    const pos = this.em.getComponent(this.shipEntity, 'position');
+    const vel = this.em.getComponent(this.shipEntity, 'velocity');
+    const rot = this.em.getComponent(this.shipEntity, 'rotation');
+    pos.x = this.W / 2; pos.y = this.H / 2;
+    vel.x = 0; vel.y = 0;
+    rot.value = 0;
+    // ECS-managed entities (bullets, asteroids, particles) cleaned by LifetimeSystem / removeEntity
+    // reset ship state only
     this.score = 0;
     this.shield = 3;
     // overpowered shield state and timer (10s duration)
     this.shieldOverpowered = false;
     this.shieldOverpoweredExpiry = 0;
     this.exploding = false;
-    this.explosionParticles.length = 0;
-    this.powerups.length = 0;
+    // ECS-managed particles handle explosion effects
     // reset weapon and power-up state
     this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
@@ -458,17 +430,6 @@ export class Game {
     }
     // prune old ship trail positions
     this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
-    // update power-ups
-    for (let i = 0; i < this.powerups.length; i++) {
-      const p = this.powerups[i];
-      p.update();
-      if (p.life <= 0) { this.powerups.splice(i, 1); i--; continue; }
-      if (dist(this.ship, p) < this.ship.r + p.r) {
-        this.applyPowerup(p.type);
-        this.powerups.splice(i, 1);
-        i--;
-      }
-    }
     // input: rotation
     // input: rotation (allow Arrow keys or A/D)
     if (keys[CONST.KEY.LEFT] || keys['a'] || keys['A']) this.ship.angle -= 3;
@@ -543,117 +504,23 @@ export class Game {
         this.ship.lastShot = now;
       }
     }
-    // update ship
-    this.ship.update();
-    // update bullets
-    for (let i = 0; i < this.bullets.length; i++) {
-      const b = this.bullets[i];
-      b.update();
-      if (b.lifetime <= 0) { this.bullets.splice(i, 1); i--; }
-    }
-    // update thrusters
-    for (let i = 0; i < this.thrusters.length; i++) {
-      const p = this.thrusters[i];
-      p.update();
-      if (p.life <= 0) {
-        this.thrusters.splice(i, 1);
-        thrusterPool.push(p);
-        i--;
-      }
-    }
-    // update asteroids
-    this.asteroids.forEach(a => a.update());
-    // collisions: ship vs asteroid
-    for (let i = 0; i < this.asteroids.length; i++) {
-      const a = this.asteroids[i];
-      const minDist = a.size + this.ship.r * 1.5;
-      if (dist(this.ship, a) < minDist) {
-        audio.playShieldClang();
-        // bounce ship
-        const dx = this.ship.x - a.x;
-        const dy = this.ship.y - a.y;
-        const d = Math.hypot(dx, dy) || 1;
-        const nx = dx / d;
-        const ny = dy / d;
-        const relVX = this.ship.velX - a.velX;
-        const relVY = this.ship.velY - a.velY;
-        const dot = relVX * nx + relVY * ny;
-        if (dot < 0) {
-          const reflVX = relVX - 2 * dot * nx;
-          const reflVY = relVY - 2 * dot * ny;
-          this.ship.velX = reflVX + a.velX;
-          this.ship.velY = reflVY + a.velY;
-        }
-        // split asteroid
-        this.asteroids.splice(i, 1);
-        if (a.size > 25) {
-          for (let j = 0; j < 2; j++) {
-            this.asteroids.push(new Asteroid(a.x, a.y, a.size / 2, this));
-          }
-        }
-        // shield collision handling: overpowered shields block damage and reset timer
-        if (this.shieldOverpowered && now < this.shieldOverpoweredExpiry) {
-          // reset overpowered timer
-          this.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
-        } else {
-          this.shield--;
-          if (this.shield < 0) {
-            this.started = false;
-            this.finalScore = this.score;
-            this.startExplosion();
-          }
-        }
-        i--;
-      }
-    }
-    // collisions: bullets vs asteroid
-    for (let bi = 0; bi < this.bullets.length; bi++) {
-      const b = this.bullets[bi];
-      for (let ai = 0; ai < this.asteroids.length; ai++) {
-        const a = this.asteroids[ai];
-        if (dist(b, a) < a.size + b.r) {
-          // destroy with explosion
-          this.bullets.splice(bi, 1); bi--;
-          // spawn explosion particles at asteroid position
-          for (let k = 0; k < CONST.EXPLOSION_PARTICLES_COUNT; k++) {
-            this.asteroidExplosions.push(createExplosionParticle(a.x, a.y));
-          }
-          this.asteroids.splice(ai, 1); ai--;
-          // play chunk SFX with positional pan based on asteroid x and dynamic shards
-          const pan = (a.x - this.W / 2) / (this.W / 2);
-          audio.playChunk(pan, a.size);
-          if (a.size > 25) {
-            for (let j = 0; j < 2; j++) {
-              this.asteroids.push(new Asteroid(a.x, a.y, a.size / 2, this));
-            }
-          }
-          // scoring
-          this.score++;
-          this.scoreEl.textContent = this.score;
-          // power-up drop
-          if (a.size <= 25 && Math.random() < CONST.POWERUP_SPAWN_CHANCE) {
-            this.spawnPowerup(a.x, a.y);
-          }
-          break;
-        }
-      }
-    }
-    // update asteroid explosion particles
-    for (let i = 0; i < this.asteroidExplosions.length; i++) {
-      const p = this.asteroidExplosions[i];
-      p.update();
-      if (p.life <= 0) { this.asteroidExplosions.splice(i, 1); explosionPool.push(p); i--; }
-    }
+    // ECS-managed bullets, asteroids, thruster & collision logic handled by systems
     // when all asteroids cleared, spawn a wormhole if not already
-    if (this.asteroids.length === 0 && !this.wormhole && !this.exploding) {
+    // ECS-managed asteroids: spawn portal when none remain
+    const asteroidCount = this.em.query('asteroid').length;
+    if (asteroidCount === 0 && !this.wormhole && !this.exploding) {
       this.spawnWormhole();
     }
     // (galaxy background is static per sector)
     // update wormhole and check for sector transition (ignore during exit delay)
     if (this.wormhole) {
       this.wormhole.update();
-      if (!this.portalExitExpire && dist(this.ship, this.wormhole) < this.ship.r + this.wormhole.r) {
-        this.nextLevel();
+      if (!this.portalExitExpire) {
+        const shipPos = this.em.getComponent(this.shipEntity, 'position');
+        const shipComp = this.em.getComponent(this.shipEntity, 'ship');
+        if (dist(shipPos, this.wormhole) < shipComp.r + this.wormhole.r) {
+          this.nextLevel();
+        }
       }
     }
     // remove portal after exit delay
@@ -662,7 +529,7 @@ export class Game {
       this.portalExitExpire = null;
     }
     // update HUD shield bar
-    const shieldEl = document.getElementById('shield-fill');
+    const shieldEl = this.shieldFillEl;
     if (shieldEl) {
       // width proportional to shield strength (0-3)
       const pct = Math.max(0, Math.min(1, this.shield / 3));
@@ -703,15 +570,7 @@ export class Game {
     // draw wormhole portal if present
     if (this.wormhole) this.wormhole.draw(this.ctx);
     // (galaxy background drawn earlier)
-    // ship
-    this.ship.draw(this.ctx);
-    // bullets & asteroids
-    this.bullets.forEach(b => b.draw(this.ctx));
-    this.asteroids.forEach(a => a.draw(this.ctx));
-    // asteroid explosion particles
-    this.asteroidExplosions.forEach(p => p.draw(this.ctx));
-    // power-ups
-    this.powerups.forEach(p => p.draw(this.ctx));
+    // bullets are now ECS-managed via RenderSystem
   }
 
   /** Main loop invoked via requestAnimationFrame. */
@@ -720,7 +579,7 @@ export class Game {
     if (this.started && this.entryActive) {
       const elapsed = now - this.entryStartTime;
       // draw background layers
-      this.updateStars();
+      this.starfield.update();
       const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
       const bg = this.ctx.createLinearGradient(0, 0, 0, this.H);
       bg.addColorStop(0, c1);
@@ -745,12 +604,10 @@ export class Game {
         this.ctx.drawImage(neb, 0, 0, this.W, this.H);
         this.ctx.globalAlpha = 1;
       }
-      this.renderStars();
+      this.starfield.draw(this.ctx);
       // animate and draw entry portal
       this.entryPortal.update();
       this.entryPortal.draw(this.ctx);
-      // draw ship emerging at center
-      this.ship.draw(this.ctx);
       // once entry duration elapsed, finish entry
       if (elapsed >= this.entryDuration) {
         this.entryActive = false;
@@ -761,19 +618,19 @@ export class Game {
       requestAnimationFrame(this.loop);
       return;
     }
-    // only update game state and music when running and not paused
+    // only update game state and ECS systems when running and not paused
     if (this.started && !this.paused) {
-      this.update(now);
-      // dynamic music intensity: volume ramps with asteroid count
-      const count = this.asteroids.length;
-      const max = 5; // maximum asteroids per wave
-      // dynamic music intensity: lower base volume for quieter mix
+      // compute delta time
+      const dt = now - this.lastTime;
+      this.lastTime = now;
+      // run ECS update (includes input, movement, collisions, particles, etc.)
+      this.sm.update(dt, now);
+      // dynamic music intensity based on remaining asteroids in ECS
+      const count = this.em.query('asteroid').length;
+      const max = 5;
       const baseVol = 0.025;
-      const vol = baseVol + (count / max) * baseVol;
-      audio.setMusicVolume(vol);
+      audio.setMusicVolume(baseVol + (count / max) * baseVol);
     }
-    // background: gradient + multi-layer starfield
-    this.updateStars();
     // fill sector-specific gradient
     const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
     const bg = this.ctx.createLinearGradient(0, 0, 0, this.H);
@@ -803,8 +660,8 @@ export class Game {
       this.ctx.drawImage(neb, 0, 0, this.W, this.H);
       this.ctx.globalAlpha = 1;
     }
-    // draw stars
-    this.renderStars();
+    // run ECS render
+    this.sm.render(this.ctx);
     // draw ship white-to-blue fading trail (20% ship width)
     if (this.shipTrail && this.shipTrail.length) {
       const r = this.ship.r * 0.2;
@@ -825,22 +682,13 @@ export class Game {
     if (this.started) {
       this.render();
     } else if (this.exploding) {
-      // explosion with pooled particles
-      const alive = [];
-      for (const p of this.explosionParticles) {
-        p.update();
-        if (p.life > 0) alive.push(p);
-        else explosionPool.push(p);
-      }
-      this.explosionParticles = alive;
-      this.explosionParticles.forEach(p => p.draw(this.ctx));
+      // explosion in progress: ECS ParticleSystem will render remaining particles
       if (now - this.explosionStart > CONST.EXPLOSION_DURATION) {
         this.startScreenEl.innerHTML =
           `<h1>Game Over</h1>` +
           `<p>Your score: ${this.finalScore}</p>` +
           `<p>Press Enter to restart.</p>`;
         this.startScreenEl.style.display = 'flex';
-        // immediately kill background music and suspend audio
         audio.stopBackgroundMusicImmediate();
         audio.suspendAudio();
         this.resetGame();
