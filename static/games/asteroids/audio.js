@@ -9,16 +9,57 @@ let bgLfo = null;
 let bgGain = null;
 let bgFilter = null;
 // Drum/arpeggio loop state
-let drumInterval = null;
-let drumHiHatInterval = null;
-let arpeggioInterval = null;
+// Drum/arpeggio loop state (legacy setInterval vars removed)
 let drumIndex = 0;
 let arpeggioIndex = 0;
+// Scheduler state for sample-accurate drum and arpeggio loops
+let nextQuarterTime = 0;
+let nextEighthTime = 0;
+let quarterTimerID = null;
+let eighthTimerID = null;
+// Scheduling parameters
+const scheduleAheadTime = 0.1; // seconds
+const lookahead = 25.0;        // milliseconds
 // Arpeggio note frequencies (major triad + octave)
 const arpeggioNotes = [261.63, 329.63, 392.00, 523.25];
 // Drum tempo
 const DRUM_BPM = 140;
 const BEAT_DUR = 60 / DRUM_BPM;
+
+/**
+ * Scheduler code for sample-accurate drum & arpeggio loops.
+ * Scheduled events will be played at precise AudioContext times.
+ */
+function quarterScheduler() {
+  const ctx = getAudioContext();
+  while (nextQuarterTime < ctx.currentTime + scheduleAheadTime) {
+    if (drumIndex % 2 === 0) playKick(nextQuarterTime);
+    else playSnare(nextQuarterTime);
+    drumIndex = (drumIndex + 1) % 4;
+    nextQuarterTime += BEAT_DUR;
+  }
+  quarterTimerID = setTimeout(quarterScheduler, lookahead);
+}
+
+function eighthScheduler() {
+  const ctx = getAudioContext();
+  while (nextEighthTime < ctx.currentTime + scheduleAheadTime) {
+    playHiHat(nextEighthTime);
+    const freq = arpeggioNotes[arpeggioIndex % arpeggioNotes.length];
+    const osc2 = ctx.createOscillator();
+    const gain2 = ctx.createGain();
+    osc2.type = 'square';
+    osc2.frequency.setValueAtTime(freq, nextEighthTime);
+    gain2.gain.setValueAtTime(0.05, nextEighthTime);
+    gain2.gain.exponentialRampToValueAtTime(0.001, nextEighthTime + BEAT_DUR / 2);
+    osc2.connect(gain2).connect(ctx.destination);
+    osc2.start(nextEighthTime);
+    osc2.stop(nextEighthTime + BEAT_DUR / 2);
+    arpeggioIndex++;
+    nextEighthTime += BEAT_DUR / 2;
+  }
+  eighthTimerID = setTimeout(eighthScheduler, lookahead);
+}
 function getAudioContext() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -93,55 +134,60 @@ export function stopBackgroundMusicImmediate() {
   if (bgFilter) { bgFilter.disconnect(); bgFilter = null; }
   if (bgGain) { bgGain.disconnect(); bgGain = null; }
   // stop drum and arpeggio loops
-  stopDrumArp();
+stopDrumArp();
+}
+/**
+ * Play a short intro fanfare when the game begins (before background music).
+ * Uses the arpeggioNotes sequence to play a rising fanfare.
+ */
+export function startIntroFanfare() {
+  const ctx = getAudioContext();
+  const now = ctx.currentTime;
+  const noteDur = 0.25;
+  arpeggioNotes.forEach((freq, i) => {
+    const t = now + i * noteDur;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(freq, t);
+    gain.gain.setValueAtTime(0.001, t);
+    gain.gain.exponentialRampToValueAtTime(0.3, t + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, t + noteDur);
+    osc.connect(gain).connect(ctx.destination);
+    osc.start(t);
+    osc.stop(t + noteDur);
+  });
 }
 // Cached buffer for hammer-blow impact noise
 let impactBuffer = null;
 
 /**
- * Start kick/snare/hi-hat and arpeggio loops.
+ * Start sample-accurate drum (kick/snare) and arpeggio loops.
  */
 export function startDrumArp() {
-  if (drumInterval) return;
+  if (quarterTimerID || eighthTimerID) return; // already running
   const ctx = getAudioContext();
-  // quarter-note kick/snare
   drumIndex = 0;
-  drumInterval = setInterval(() => {
-    const t = ctx.currentTime;
-    if (drumIndex % 2 === 0) playKick(t);
-    else playSnare(t);
-    drumIndex = (drumIndex + 1) % 4;
-  }, BEAT_DUR * 1000);
-  // eighth-note hi-hat
-  drumHiHatInterval = setInterval(() => {
-    playHiHat(ctx.currentTime);
-  }, (BEAT_DUR * 1000) / 2);
-  // eighth-note arpeggio
   arpeggioIndex = 0;
-  arpeggioInterval = setInterval(() => {
-    const t = ctx.currentTime;
-    const freq = arpeggioNotes[arpeggioIndex % arpeggioNotes.length];
-    const osc2 = ctx.createOscillator();
-    const gain2 = ctx.createGain();
-    osc2.type = 'square';
-    osc2.frequency.setValueAtTime(freq, t);
-    gain2.gain.setValueAtTime(0.05, t);
-    gain2.gain.exponentialRampToValueAtTime(0.001, t + BEAT_DUR / 2);
-    osc2.connect(gain2).connect(ctx.destination);
-    osc2.start(t);
-    osc2.stop(t + BEAT_DUR / 2);
-    arpeggioIndex++;
-  }, (BEAT_DUR * 1000) / 2);
+  // schedule start slightly in the future for smooth playback
+  nextQuarterTime = ctx.currentTime + 0.05;
+  nextEighthTime  = ctx.currentTime + 0.05;
+  quarterScheduler();
+  eighthScheduler();
 }
 
 /**
- * Stop and clear all drum/arpeggio loops.
+ * Stop drum and arpeggio loops.
  */
 export function stopDrumArp() {
-  clearInterval(drumInterval);
-  clearInterval(drumHiHatInterval);
-  clearInterval(arpeggioInterval);
-  drumInterval = drumHiHatInterval = arpeggioInterval = null;
+  if (quarterTimerID) {
+    clearTimeout(quarterTimerID);
+    quarterTimerID = null;
+  }
+  if (eighthTimerID) {
+    clearTimeout(eighthTimerID);
+    eighthTimerID = null;
+  }
 }
 
 // --- Drum synth functions ---

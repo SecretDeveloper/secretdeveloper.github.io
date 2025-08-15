@@ -89,6 +89,8 @@ export class Game {
     window.addEventListener('keydown', e => {
       // start game
       if (!this.started && e.key === CONST.KEY.ENTER) {
+        // initialize/resume AudioContext on first user gesture
+        audio.resumeAudio();
         this.startScreenEl.style.display = 'none';
         this.hudEl.style.display = 'block';
         this.started = true;
@@ -184,6 +186,8 @@ export class Game {
     this.ship.reset();
     // pre-render galaxy for potential flicker
     this._renderGalaxyCanvas();
+    // play intro fanfare while ship is in the portal
+    audio.startIntroFanfare();
   }
 
   /** Adjust canvas size to parent and store dimensions. */
