@@ -25,7 +25,7 @@ import { Starfield } from './starfield.js';
 import {
   EntityManager, SystemManager, StarfieldSystem,
   InputSystem, MovementSystem, FrictionSystem, RotationSystem, LifetimeSystem,
-  CollisionSystem, ShipCollisionSystem, PowerupSystem, PowerupPickupSystem, ParticleSystem, RenderSystem
+  CollisionSystem, ShipCollisionSystem, PowerupSystem, PowerupPickupSystem, ParticleSystem, RenderSystem, MissileSystem
 } from './ecs.js';
 import { createShipEntity } from './shipFactory.js';
 
@@ -77,6 +77,8 @@ export class Game {
     this.sm.addSystem(new ParticleSystem(this.em));
     // render ECS-managed entities (asteroids, bullets, power-ups)
     this.sm.addSystem(new RenderSystem(this.em));
+    // homing behavior for missiles
+    this.sm.addSystem(new MissileSystem(this.em));
 
     // galaxy background initialization
     this.galaxyOffsetX = 0;
@@ -144,7 +146,7 @@ export class Game {
     this.shipEntity = createShipEntity(this.em, this);
     // track last shot time for ECS-based shooting
     this.lastShot = 0;
-    // initialize ship trail array for visual effects
+    // light trail positions behind ship (for visual effect)
     this.shipTrail = [];
     // ammo state for weapons (legacy HUD-driven)
     this.ammo = {
@@ -324,10 +326,11 @@ export class Game {
   spawnWormhole() {
     // position portal away from ship
     let x, y;
+    const shipPos = this.em.getComponent(this.shipEntity, 'position');
     do {
       x = Math.random() * this.W;
       y = Math.random() * this.H;
-    } while (dist({ x, y }, this.ship) < 200);
+    } while (shipPos && dist({ x, y }, shipPos) < 200);
     this.wormhole = new Wormhole(x, y);
   }
   /**
@@ -421,149 +424,7 @@ export class Game {
     this.startEntry();
   }
 
-  /** Update all game objects and handle logic. */
-  update(now) {
-    // handle overpowered shield expiration
-    if (this.shieldOverpowered && now >= this.shieldOverpoweredExpiry) {
-      this.shieldOverpowered = false;
-      this.shield = 3; // restore to normal full shield
-    }
-    // prune old ship trail positions
-    this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
-    // input: rotation
-    // input: rotation (allow Arrow keys or A/D)
-    if (keys[CONST.KEY.LEFT] || keys['a'] || keys['A']) this.ship.angle -= 3;
-    if (keys[CONST.KEY.RIGHT] || keys['d'] || keys['D']) this.ship.angle += 3;
-    // thrust: apply acceleration and record light trail behind ship
-    // thrust: apply acceleration and record light trail (ArrowUp or W)
-    if (keys[CONST.KEY.UP] || keys['w'] || keys['W']) {
-      const ax = CONST.SHIP_ACCEL * Math.cos(degToRad(this.ship.angle));
-      const ay = CONST.SHIP_ACCEL * Math.sin(degToRad(this.ship.angle));
-      this.ship.velX += ax;
-      this.ship.velY += ay;
-      // calculate trail start at rear of ship
-      const bx = this.ship.x - Math.cos(degToRad(this.ship.angle)) * this.ship.r;
-      const by = this.ship.y - Math.sin(degToRad(this.ship.angle)) * this.ship.r;
-      // record trail position with timestamp
-      this.shipTrail.push({ x: bx, y: by, t: now });
-    }
-    // shooting with ammo-based weapons
-    if (keys[CONST.KEY.FIRE]) {
-      if (now - this.ship.lastShot > this.shotInterval) {
-        const spawnX = this.ship.x + Math.cos(degToRad(this.ship.angle)) * this.ship.r;
-        const spawnY = this.ship.y + Math.sin(degToRad(this.ship.angle)) * this.ship.r;
-        let proj;
-        // missile
-        if (this.activePowerup === CONST.POWERUP_TYPES.MISSILE && this.ammo[CONST.POWERUP_TYPES.MISSILE] > 0) {
-          proj = new Missile(spawnX, spawnY, this.ship.angle, this);
-          this.ammo[CONST.POWERUP_TYPES.MISSILE]--;
-        }
-        // machine gun
-        else if (this.activePowerup === CONST.POWERUP_TYPES.MACHINE && this.ammo[CONST.POWERUP_TYPES.MACHINE] > 0) {
-          proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
-          this.ammo[CONST.POWERUP_TYPES.MACHINE]--;
-        }
-        // power shot
-        else if (this.activePowerup === CONST.POWERUP_TYPES.POWER && this.ammo[CONST.POWERUP_TYPES.POWER] > 0) {
-          proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
-          this.ammo[CONST.POWERUP_TYPES.POWER]--;
-        }
-        // default bullet
-        else {
-          proj = new Bullet(spawnX, spawnY, this.ship.angle, this);
-        }
-        // if ammo exhausted for current weapon, revert
-        if (this.activePowerup && this.ammo[this.activePowerup] <= 0) {
-          // as one weapon's ammo is exhausted, switch to another weapon if available
-          const ammoTypes = [
-            CONST.POWERUP_TYPES.MISSILE,
-            CONST.POWERUP_TYPES.MACHINE,
-            CONST.POWERUP_TYPES.POWER
-          ];
-          const nextType = ammoTypes.find(type => this.ammo[type] > 0);
-          if (nextType) {
-            // revert to base settings then equip the next available weapon
-            this.restoreBaseWeapon();
-            this.activePowerup = nextType;
-            if (nextType === CONST.POWERUP_TYPES.MACHINE) {
-              this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
-            } else if (nextType === CONST.POWERUP_TYPES.POWER) {
-              this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
-              this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
-              this.bulletSize = CONST.POWER_BULLET_SIZE;
-            }
-            // MISSILE uses default settings after restore
-          } else {
-            // no alternate ammo, revert to base weapon
-            this.restoreBaseWeapon();
-            this.activePowerup = null;
-          }
-        }
-        audio.playLaser();
-        this.bullets.push(proj);
-        this.ship.lastShot = now;
-      }
-    }
-    // ECS-managed bullets, asteroids, thruster & collision logic handled by systems
-    // when all asteroids cleared, spawn a wormhole if not already
-    // ECS-managed asteroids: spawn portal when none remain
-    const asteroidCount = this.em.query('asteroid').length;
-    if (asteroidCount === 0 && !this.wormhole && !this.exploding) {
-      this.spawnWormhole();
-    }
-    // (galaxy background is static per sector)
-    // update wormhole and check for sector transition (ignore during exit delay)
-    if (this.wormhole) {
-      this.wormhole.update();
-      if (!this.portalExitExpire) {
-        const shipPos = this.em.getComponent(this.shipEntity, 'position');
-        const shipComp = this.em.getComponent(this.shipEntity, 'ship');
-        if (dist(shipPos, this.wormhole) < shipComp.r + this.wormhole.r) {
-          this.nextLevel();
-        }
-      }
-    }
-    // remove portal after exit delay
-    if (this.portalExitExpire && now - this.portalExitExpire >= CONST.PORTAL_EXIT_DURATION) {
-      this.wormhole = null;
-      this.portalExitExpire = null;
-    }
-    // update HUD shield bar
-    const shieldEl = this.shieldFillEl;
-    if (shieldEl) {
-      // width proportional to shield strength (0-3)
-      const pct = Math.max(0, Math.min(1, this.shield / 3));
-      shieldEl.style.width = `${pct * 100}%`;
-      // color matches shield state
-      if (this.shieldOverpowered && now < this.shieldOverpoweredExpiry) {
-        // pulsing white-blue glow
-        const t2 = performance.now() / 300;
-        const pulse2 = (Math.sin(t2) * 0.5 + 0.5);
-        const hue = 200;
-        const light = 80 + pulse2 * 20;
-        shieldEl.style.background = `hsl(${hue},100%,${light}%)`;
-      } else {
-        let col;
-        switch (this.shield) {
-          case 3: col = 'rgb(0,255,0)'; break;
-          case 2: col = 'rgb(255,255,0)'; break;
-          case 1: col = 'rgb(255,0,0)'; break;
-          default: col = '#444'; break;
-        }
-        shieldEl.style.background = col;
-      }
-    }
-    // update HUD ammo bars
-    // update HUD ammo bars, guard missing elements
-    Object.keys(this.ammoEls).forEach(type => {
-      const el = this.ammoEls[type];
-      if (!el) return;
-      const max = CONST.MAX_AMMO[type] || 1;
-      const cur = this.ammo[type] || 0;
-      const pct = Math.max(0, Math.min(1, cur / max));
-      el.style.width = `${pct * 100}%`;
-    });
-  }
+  // Legacy update() removed; ECS systems handle input, movement, collisions, particles, and portal checks.
 
   /** Draw all active game objects. */
   render() {
@@ -630,6 +491,62 @@ export class Game {
       const max = 5;
       const baseVol = 0.025;
       audio.setMusicVolume(baseVol + (count / max) * baseVol);
+      // spawn wormhole when sector is cleared
+      if (count === 0 && !this.wormhole && !this.exploding) {
+        this.spawnWormhole();
+      }
+      // update wormhole and check for sector transition (ignore during exit delay)
+      if (this.wormhole) {
+        this.wormhole.update();
+        if (!this.portalExitExpire) {
+          const shipPos = this.em.getComponent(this.shipEntity, 'position');
+          const shipComp = this.em.getComponent(this.shipEntity, 'ship');
+          if (shipPos && shipComp && dist(shipPos, this.wormhole) < shipComp.r + this.wormhole.r) {
+            this.nextLevel();
+          }
+        }
+      }
+      // remove portal after exit delay
+      if (this.portalExitExpire && now - this.portalExitExpire >= CONST.PORTAL_EXIT_DURATION) {
+        this.wormhole = null;
+        this.portalExitExpire = null;
+      }
+      // handle overpowered shield expiration
+      if (this.shieldOverpowered && now >= this.shieldOverpoweredExpiry) {
+        this.shieldOverpowered = false;
+        this.shield = 3;
+      }
+      // update HUD shield bar
+      const shieldEl = this.shieldFillEl;
+      if (shieldEl) {
+        const pct = Math.max(0, Math.min(1, this.shield / 3));
+        shieldEl.style.width = `${pct * 100}%`;
+        if (this.shieldOverpowered && now < this.shieldOverpoweredExpiry) {
+          const t2 = now / 300;
+          const pulse2 = (Math.sin(t2) * 0.5 + 0.5);
+          const hue = 200;
+          const light = 80 + pulse2 * 20;
+          shieldEl.style.background = `hsl(${hue},100%,${light}%)`;
+        } else {
+          let col;
+          switch (this.shield) {
+            case 3: col = 'rgb(0,255,0)'; break;
+            case 2: col = 'rgb(255,255,0)'; break;
+            case 1: col = 'rgb(255,0,0)'; break;
+            default: col = '#444'; break;
+          }
+          shieldEl.style.background = col;
+        }
+      }
+      // update HUD ammo bars
+      Object.keys(this.ammoEls).forEach(type => {
+        const el = this.ammoEls[type];
+        if (!el) return;
+        const maxAmmo = CONST.MAX_AMMO[type] || 1;
+        const cur = this.ammo[type] || 0;
+        const pct = Math.max(0, Math.min(1, cur / maxAmmo));
+        el.style.width = `${pct * 100}%`;
+      });
     }
     // fill sector-specific gradient
     const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
@@ -660,11 +577,14 @@ export class Game {
       this.ctx.drawImage(neb, 0, 0, this.W, this.H);
       this.ctx.globalAlpha = 1;
     }
+    // prune old ship trail positions
+    this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
     // run ECS render
     this.sm.render(this.ctx);
     // draw ship white-to-blue fading trail (20% ship width)
     if (this.shipTrail && this.shipTrail.length) {
-      const r = this.ship.r * 0.2;
+      const shipComp = this.em.getComponent(this.shipEntity, 'ship');
+      const r = (shipComp?.r || 10) * 0.2;
       for (const tr of this.shipTrail) {
         const age = now - tr.t;
         const alpha = Math.max(1 - age / CONST.TRAIL_DURATION, 0);

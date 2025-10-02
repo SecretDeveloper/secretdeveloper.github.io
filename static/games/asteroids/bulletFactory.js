@@ -21,12 +21,15 @@ export function createBulletEntity(em, game, x, y, angle) {
   const rad = degToRad(angle);
   const speed = game.bulletSpeedMin + Math.random() * (game.bulletSpeedMax - game.bulletSpeedMin);
   em.addComponent(id, 'velocity', { x: Math.cos(rad) * speed, y: Math.sin(rad) * speed });
-  // lifetime
-  em.addComponent(id, 'lifetime', { value: game.bulletLife });
+  // lifetime (doubled)
+  em.addComponent(id, 'lifetime', { value: Math.round(game.bulletLife * 2) });
   // rotation (for potential render)
   em.addComponent(id, 'rotation', { value: angle });
   // collider radius
   em.addComponent(id, 'collider', { r: game.bulletSize });
+  // damage delivered per hit (power shots hit harder)
+  const dmg = (game.activePowerup === CONST.POWERUP_TYPES.POWER) ? 2 : 1;
+  em.addComponent(id, 'damage_delivered', { value: dmg });
   // renderable
   em.addComponent(id, 'renderable', {
     draw(ctx) {

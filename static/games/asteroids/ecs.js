@@ -6,6 +6,7 @@ import { createAsteroidEntity } from './asteroidFactory.js';
 import * as audio from './audio.js';
 import { keys } from './input.js';
 import { createBulletEntity } from './bulletFactory.js';
+import { createMissileEntity } from './missileFactory.js';
 import { createPowerupEntity } from './powerupFactory.js';
 import { createThrusterParticleEntity, createExplosionParticleEntity } from './particleFactory.js';
 import { thrusterPool, explosionPool } from './particle.js';
@@ -154,27 +155,30 @@ export class CollisionSystem {
         if (!posA || !colA) continue;
         const d = dist(posA, posB);
         if (d < colA.r + colB.r) {
-          // read asteroid size before removing
+          // on hit: apply projectile damage, always remove the projectile
+          const dmgComp = this.em.getComponent(b, 'damage_delivered');
+          const dmg = dmgComp?.value ?? 1;
+          this.em.removeEntity(b);
+          const health = this.em.getComponent(a, 'health');
+          if (health) {
+            health.value -= dmg;
+            if (health.value > 0) {
+              break; // asteroid survives this hit
+            }
+          }
+          // asteroid destroyed: split and award score
           const sizeData = this.em.getComponent(a, 'asteroid') || { size: colA.r };
           const size = sizeData.size;
-          // remove bullet and asteroid entities
-          this.em.removeEntity(b);
           this.em.removeEntity(a);
-          // spawn explosion fragments
-          // split large asteroids
           if (size > 25) {
-            // split into two smaller asteroids
             for (let i = 0; i < 2; i++) {
               createAsteroidEntity(this.em, this.game, posA.x, posA.y, size / 2);
             }
           }
-          // scoring
           this.game.score++;
           this.game.scoreEl.textContent = this.game.score;
-          // play chunk SFX with positional pan
           const pan = (posA.x - this.game.W / 2) / (this.game.W / 2);
           audio.playChunk(pan, size);
-          // possibly spawn power-up from smallest asteroids
           if (size <= 25 && Math.random() < CONST.POWERUP_SPAWN_CHANCE) {
             this.game.spawnPowerup(posA.x, posA.y);
           }
@@ -314,6 +318,48 @@ export class ParticleSystem {
   }
 }
 
+/** MissileSystem: steer missiles toward nearest asteroid. */
+export class MissileSystem {
+  constructor(em) {
+    this.em = em;
+    this.turnRate = 4; // degrees per frame
+  }
+  update(dt) {
+    const missiles = this.em.query('missile', 'position', 'velocity', 'rotation');
+    if (missiles.length === 0) return;
+    const asteroids = this.em.query('asteroid', 'position');
+    if (asteroids.length === 0) return;
+    for (const mid of missiles) {
+      const pos = this.em.getComponent(mid, 'position');
+      const vel = this.em.getComponent(mid, 'velocity');
+      const rot = this.em.getComponent(mid, 'rotation');
+      // find nearest asteroid
+      let best = null, bestD2 = Infinity;
+      for (const aid of asteroids) {
+        const ap = this.em.getComponent(aid, 'position');
+        const dx = ap.x - pos.x, dy = ap.y - pos.y;
+        const d2 = dx*dx + dy*dy;
+        if (d2 < bestD2) { bestD2 = d2; best = ap; }
+      }
+      if (!best) continue;
+      // current and target angles
+      const cur = rot.value;
+      const target = Math.atan2(best.y - pos.y, best.x - pos.x) * 180 / Math.PI;
+      // shortest angle delta
+      let delta = ((target - cur + 540) % 360) - 180;
+      // clamp turn
+      const step = Math.max(-this.turnRate, Math.min(this.turnRate, delta));
+      const next = (cur + step + 360) % 360;
+      rot.value = next;
+      // keep speed magnitude, rotate velocity toward heading
+      const speed = Math.hypot(vel.x, vel.y);
+      const nr = next * Math.PI / 180;
+      vel.x = Math.cos(nr) * speed;
+      vel.y = Math.sin(nr) * speed;
+    }
+  }
+}
+
 /** MovementSystem: updates position based on velocity and wraps edges. */
 export class MovementSystem {
   constructor(em, game) {
@@ -349,7 +395,8 @@ export class RenderSystem {
       const rot = this.em.getComponent(id, 'rotation');
       ctx.save();
       ctx.translate(pos.x, pos.y);
-      ctx.rotate(degToRad(rot));
+      // rotation component stores degrees
+      ctx.rotate(degToRad(rot.value));
       rend.draw(ctx);
       ctx.restore();
       ctx.filter = 'none';
@@ -388,15 +435,64 @@ export class InputSystem {
         const py = pos.y - Math.sin(rad) * shipComp.r;
         // create thruster effect
         createThrusterParticleEntity(this.em, px, py, rot.value + 180);
+        // record trail position with timestamp for light trail effect
+        if (this.game.shipTrail) {
+          this.game.shipTrail.push({ x: px, y: py, t: now });
+        }
       }
       // shooting
       if (keys[CONST.KEY.FIRE] && now - this.game.lastShot > this.game.shotInterval) {
         const rad2 = degToRad(rot.value);
         const spawnX = pos.x + Math.cos(rad2) * shipComp.r;
         const spawnY = pos.y + Math.sin(rad2) * shipComp.r;
-        createBulletEntity(this.em, this.game, spawnX, spawnY, rot.value);
-        audio.playLaser();
-        this.game.lastShot = now;
+        const g = this.game;
+        let fired = false;
+        // Missiles
+        if (g.activePowerup === CONST.POWERUP_TYPES.MISSILE && (g.ammo[CONST.POWERUP_TYPES.MISSILE] || 0) > 0) {
+          createMissileEntity(this.em, g, spawnX, spawnY, rot.value);
+          g.ammo[CONST.POWERUP_TYPES.MISSILE]--;
+          fired = true;
+        }
+        // Machine gun
+        else if (g.activePowerup === CONST.POWERUP_TYPES.MACHINE && (g.ammo[CONST.POWERUP_TYPES.MACHINE] || 0) > 0) {
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          g.ammo[CONST.POWERUP_TYPES.MACHINE]--;
+          fired = true;
+        }
+        // Power shot
+        else if (g.activePowerup === CONST.POWERUP_TYPES.POWER && (g.ammo[CONST.POWERUP_TYPES.POWER] || 0) > 0) {
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          g.ammo[CONST.POWERUP_TYPES.POWER]--;
+          fired = true;
+        }
+        // Default bullet
+        else {
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          fired = true;
+        }
+
+        if (fired) {
+          audio.playLaser();
+          g.lastShot = now;
+          // If current weapon ran out, auto-switch or revert
+          if (g.activePowerup && (g.ammo[g.activePowerup] || 0) <= 0) {
+            const ammoTypes = [
+              CONST.POWERUP_TYPES.MISSILE,
+              CONST.POWERUP_TYPES.MACHINE,
+              CONST.POWERUP_TYPES.POWER
+            ];
+            const nextType = ammoTypes.find(t => (g.ammo[t] || 0) > 0);
+            g.restoreBaseWeapon();
+            g.activePowerup = nextType || null;
+            if (g.activePowerup === CONST.POWERUP_TYPES.MACHINE) {
+              g.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+            } else if (g.activePowerup === CONST.POWERUP_TYPES.POWER) {
+              g.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
+              g.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
+              g.bulletSize = CONST.POWER_BULLET_SIZE;
+            }
+          }
+        }
       }
     }
   }

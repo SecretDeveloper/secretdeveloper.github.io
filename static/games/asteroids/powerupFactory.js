@@ -17,22 +17,19 @@ export function createPowerupEntity(em, game, x, y, type) {
   em.addComponent(id, 'position', { x, y });
   // collider radius
   em.addComponent(id, 'collider', { r: POWERUP_RADIUS });
-  // rotation and spin
-  em.addComponent(id, 'rotation', { value: rand(0, 2 * Math.PI) });
-  // rotation speed (rad per ms)
-  const rotSpeed = 0.05 / (1000 / 60); // ~0.003125 rad per ms
+  // rotation and spin (degrees)
+  em.addComponent(id, 'rotation', { value: rand(0, 360) });
+  // rotation speed in degrees per frame (RotationSystem multiplies by dt frames)
+  const rotSpeed = rand(-1, 1); // gentle spin
   em.addComponent(id, 'rotationSpeed', { value: rotSpeed });
-  // lifetime (in frames)
-  const lifeFrames = Math.round(POWERUP_DURATION * FPS / 1000);
+  // lifetime (in frames) — doubled to keep items around longer
+  const lifeFrames = Math.round(POWERUP_DURATION * FPS / 1000) * 2;
   em.addComponent(id, 'lifetime', { value: lifeFrames });
   // powerup tag + type
   em.addComponent(id, 'powerup', { type });
-  // renderable: circle with label
+  // renderable: circle with label. RenderSystem handles translate/rotate.
   em.addComponent(id, 'renderable', {
     draw(ctx) {
-      const rot = em.getComponent(id, 'rotation');
-      ctx.save();
-      ctx.rotate(rot.value);
       let color, label;
       switch (type) {
         case POWERUP_TYPES.SHIELD:  color = 'lime';   label = 'S'; break;
@@ -49,7 +46,6 @@ export function createPowerupEntity(em, game, x, y, type) {
       ctx.font = '12px sans-serif';
       ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
       ctx.fillText(label, 0, 0);
-      ctx.restore();
     }
   });
   return id;
