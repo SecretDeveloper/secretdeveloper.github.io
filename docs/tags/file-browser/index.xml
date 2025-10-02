@@ -1,0 +1,40 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>File-Browser - Tag - SecretDeveloper</title>
+        <link>http://localhost:1313/tags/file-browser/</link>
+        <description>File-Browser - Tag - SecretDeveloper</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/file-browser/" rel="self" type="application/rss+xml" /><item>
+    <title>lsv: a Lua powered terminal file browser</title>
+    <link>http://localhost:1313/blog/2025-10-01-lsv-a-lua-powered-terminal-file-browser/</link>
+    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2025-10-01-lsv-a-lua-powered-terminal-file-browser/</guid>
+    <description><![CDATA[<p>I finally snapped after one too many trips through modern file browsers on macOS and Windows. Click. Wait. Tiny target. Modal dialog. Repeat. I spend most of my day in a terminal anyway, so I built something that fits how I actually work.</p>
+<img src="./lsv.png" alt="lsv" width="800">
+<p>Say hello to <a href="https://github.com/SecretDeveloper/lsv" target="_blank" rel="noopener noreferrer">lsv</a>.</p>
+<ul>
+<li>GitHub: <a href="https://github.com/SecretDeveloper/lsv" target="_blank" rel="noopener noreferrer">https://github.com/SecretDeveloper/lsv</a></li>
+<li>Crates.io: <a href="https://crates.io/crates/lsv" target="_blank" rel="noopener noreferrer">https://crates.io/crates/lsv</a></li>
+</ul>
+<h2 id="what-i-wanted" class="headerLink">
+    <a href="#what-i-wanted" class="header-mark"></a>What I wanted</h2><ul>
+<li>Fly through directories with the keyboard</li>
+<li>See a preview of the thing I have selected</li>
+<li>Hit a key to run a command I chose</li>
+<li>Keep the config in plain text so I can version it and move it across machines</li>
+</ul>
+<h2 id="what-lsv-is" class="headerLink">
+    <a href="#what-lsv-is" class="header-mark"></a>What lsv is</h2><ul>
+<li>A small terminal file browser written in Rust, scripted with Lua</li>
+<li>Think of it like a fast directory lister that speaks key bindings and previews</li>
+<li>Inspired by the excellent <code>lf</code>, but with a setup that matches how I like to glue tools together</li>
+</ul>
+<h2 id="why-rust-and-lua" class="headerLink">
+    <a href="#why-rust-and-lua" class="header-mark"></a>Why Rust and Lua</h2><ul>
+<li>I have been learning Rust for a few years and have built some small apps and tools with it, I like the language and it promises increased memory safety which is nice but the real reason is i like the tooling the language comes with, how it manages dependencies, and the cargo system along with crates.io for distribution.</li>
+<li>Lua keeps the configuration simple and flexible without writing a plugin system</li>
+</ul>
+<h2 id="how-i-use-lsv" class="headerLink">
+    <a href="#how-i-use-lsv" class="header-mark"></a>How I use lsv</h2><p>You can bind keys to run shell command. <code>e</code> for example might launch the selected file in your <code>$EDITOR</code> or i use <code>t</code> to launch a new tmux pane for the current directory, or <code>gs</code> which is bound to <code>lsv.os_run(&quot;git status -C {current_dir}&quot;)</code> to see the results in a results window.</p>]]></description>
+</item></channel>
+</rss>

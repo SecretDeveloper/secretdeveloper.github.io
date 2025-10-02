@@ -1,0 +1,22 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Codex - Category - SecretDeveloper</title>
+        <link>http://localhost:1313/categories/codex/</link>
+        <description>Codex - Category - SecretDeveloper</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/categories/codex/" rel="self" type="application/rss+xml" /><item>
+    <title>Porting Asteroids to an ECS with Codex</title>
+    <link>http://localhost:1313/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>http://localhost:1313/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</guid>
+    <description><![CDATA[<p>Quick version: I rewired my <a href="/games/asteroids/" rel="">Asteroids</a> clone from a pile of classes to an Entity‑Component‑System (ECS). Codex (the CLI agent) did the heavy lifting while I poked, prodded, and occasionally muttered at my screen. The end result is cleaner, easier to extend, and less brittle when I add toys like missiles and sparkly shields.</p>
+<p>Why bother with ECS?</p>
+<ul>
+<li>I was done fighting class hierarchies. I just want to slap “has a shield,” “spins,” or “is a missile” onto things without negotiating with a base class.</li>
+<li>Data is data, behavior is behavior. Components hold state; systems do the work over sets of components.</li>
+<li>(maybe) Performance as a side effect: tight loops over similar data are fast, but honestly the clarity is what sold me.</li>
+<li>New features become “add a component, tweak a system,” not surgery across five files.</li>
+</ul>
+<p>Where I started (a.k.a. the creaky bits)</p>]]></description>
+</item></channel>
+</rss>

@@ -1,6 +1,6 @@
 +++
-date = "2025-10-02T12:15:00+00:00"
-title = "lsv: a Lua powered terminal file browser"
+date = "2025-10-01T12:45:00+00:00"
+title = "lsv: a Rust powered terminal file browser"
 description = "Why I built lsv in Rust with Lua bindings for fast directory navigation, previews, and custom commands"
 categories = ["software", "tools", "rust", "lua"]
 tags = ["terminal", "productivity", "cli", "file-browser"]
@@ -8,7 +8,7 @@ tags = ["terminal", "productivity", "cli", "file-browser"]
 
 I finally snapped after one too many trips through modern file browsers on macOS and Windows. Click. Wait. Tiny target. Modal dialog. Repeat. I spend most of my day in a terminal anyway, so I built something that fits how I actually work.
 
-<img src="./lsv.png" alt="lsv" width="800">
+![lsv](/lsv.png)
 
 Say hello to [lsv](https://github.com/SecretDeveloper/lsv).
 - GitHub: https://github.com/SecretDeveloper/lsv

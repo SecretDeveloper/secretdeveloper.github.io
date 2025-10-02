@@ -1,5 +1,5 @@
 +++
-date = "2025-10-02T12:00:00+00:00"
+date = "2025-10-01T12:00:00+00:00"
 title = "Porting Asteroids to an ECS with Codex"
 description = "How I used Codex to migrate a classic Asteroids implementation to a data‑driven Entity‑Component‑System architecture"
 categories = ["software", "games", "ecs", "codex"]
