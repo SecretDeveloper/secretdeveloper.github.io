@@ -18,6 +18,13 @@ export function createAsteroidEntity(em, game, x, y, size) {
   em.addComponent(id, 'position', { x: x, y: y });
   // asteroid tag + size
   em.addComponent(id, 'asteroid', { size: s });
+  // health scaled by size and level
+  let baseHealth = 1; // small
+  if (s > 40) baseHealth = 3; // large
+  else if (s > 25) baseHealth = 2; // medium
+  const scale = 1 + Math.max(0, (game.level - 1)) * 0.2; // +20% per level
+  const health = Math.max(1, Math.round(baseHealth * scale));
+  em.addComponent(id, 'health', { value: health });
   // collider radius
   em.addComponent(id, 'collider', { r: s });
   // velocity

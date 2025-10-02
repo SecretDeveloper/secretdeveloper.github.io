@@ -1,4 +1,4 @@
-++
++++
 date = "2025-10-02T12:15:00+00:00"
 title = "lsv: a Lua powered terminal file browser"
 description = "Why I built lsv in Rust with Lua bindings for fast directory navigation, previews, and custom commands"
