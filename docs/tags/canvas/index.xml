@@ -1,14 +1,14 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Canvas - Tag - SecretDeveloper</title>
-        <link>http://localhost:1313/tags/canvas/</link>
+        <link>https://secretdeveloper.github.io/tags/canvas/</link>
         <description>Canvas - Tag - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/canvas/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/canvas/" rel="self" type="application/rss+xml" /><item>
     <title>Porting Asteroids to an ECS with Codex</title>
-    <link>http://localhost:1313/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</link>
+    <link>https://secretdeveloper.github.io/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</link>
     <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>http://localhost:1313/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</guid>
+    </author><guid>https://secretdeveloper.github.io/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</guid>
     <description><![CDATA[<p>Quick version: I rewired my <a href="/games/asteroids/" rel="">Asteroids</a> clone from a pile of classes to an Entity‑Component‑System (ECS). Codex (the CLI agent) did the heavy lifting while I poked, prodded, and occasionally muttered at my screen. The end result is cleaner, easier to extend, and less brittle when I add toys like missiles and sparkly shields.</p>
 <p>Why bother with ECS?</p>
 <ul>

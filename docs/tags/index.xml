@@ -1,7 +1,63 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>Tags - Tag - SecretDeveloper</title>
-        <link>http://localhost:1313/tags/</link>
+        <link>https://secretdeveloper.github.io/tags/</link>
         <description>Tags - Tag - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /></channel>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Cli</title>
+    <link>https://secretdeveloper.github.io/tags/cli/</link>
+    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/cli/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>File-Browser</title>
+    <link>https://secretdeveloper.github.io/tags/file-browser/</link>
+    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/file-browser/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Productivity</title>
+    <link>https://secretdeveloper.github.io/tags/productivity/</link>
+    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/productivity/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Terminal</title>
+    <link>https://secretdeveloper.github.io/tags/terminal/</link>
+    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/terminal/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Canvas</title>
+    <link>https://secretdeveloper.github.io/tags/canvas/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/canvas/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Game-Dev</title>
+    <link>https://secretdeveloper.github.io/tags/game-dev/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/game-dev/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Javascript</title>
+    <link>https://secretdeveloper.github.io/tags/javascript/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/javascript/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Refactor</title>
+    <link>https://secretdeveloper.github.io/tags/refactor/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/tags/refactor/</guid>
+    <description><![CDATA[]]></description>
+</item></channel>
 </rss>

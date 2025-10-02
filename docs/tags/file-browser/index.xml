@@ -1,16 +1,16 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
         <title>File-Browser - Tag - SecretDeveloper</title>
-        <link>http://localhost:1313/tags/file-browser/</link>
+        <link>https://secretdeveloper.github.io/tags/file-browser/</link>
         <description>File-Browser - Tag - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/file-browser/" rel="self" type="application/rss+xml" /><item>
-    <title>lsv: a Lua powered terminal file browser</title>
-    <link>http://localhost:1313/blog/2025-10-01-lsv-a-lua-powered-terminal-file-browser/</link>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/file-browser/" rel="self" type="application/rss+xml" /><item>
+    <title>lsv: a Rust powered terminal file browser</title>
+    <link>https://secretdeveloper.github.io/blog/2025-10-01-lsv-a-rust-powered-terminal-file-browser/</link>
     <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>http://localhost:1313/blog/2025-10-01-lsv-a-lua-powered-terminal-file-browser/</guid>
+    </author><guid>https://secretdeveloper.github.io/blog/2025-10-01-lsv-a-rust-powered-terminal-file-browser/</guid>
     <description><![CDATA[<p>I finally snapped after one too many trips through modern file browsers on macOS and Windows. Click. Wait. Tiny target. Modal dialog. Repeat. I spend most of my day in a terminal anyway, so I built something that fits how I actually work.</p>
-<img src="./lsv.png" alt="lsv" width="800">
+<p><img class="tw-inline" loading="lazy" src='/lsv.png'   alt="lsv"  ></p>
 <p>Say hello to <a href="https://github.com/SecretDeveloper/lsv" target="_blank" rel="noopener noreferrer">lsv</a>.</p>
 <ul>
 <li>GitHub: <a href="https://github.com/SecretDeveloper/lsv" target="_blank" rel="noopener noreferrer">https://github.com/SecretDeveloper/lsv</a></li>
