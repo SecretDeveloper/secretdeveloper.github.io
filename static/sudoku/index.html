@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sudoku Solver</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero__text">
+        <h1>Sudoku Solver</h1>
+      </div>
+    </header>
+    <div id="status" class="sr-only" aria-live="polite"></div>
+
+    <section class="workspace">
+      <div class="left-column">
+        <div class="board" aria-label="Sudoku board">
+          <div class="utility-row" aria-label="Quick actions">
+            <div class="utility-row__group">
+              <button class="btn btn--small" id="clearBtn">New</button>
+              <button class="btn btn--small" id="copyBtn">Copy</button>
+              <button class="btn btn--small" id="loadBtn">Load</button>
+              <button class="btn btn--small" id="resetBtn">Reset</button>
+              <button class="btn btn--small" id="undoBtn">Undo</button>
+            </div>
+            <div class="utility-row__group">
+              <label class="difficulty">
+                <span>Difficulty</span>
+                <select id="difficultySelect" class="select select--small">
+                  <option value="easy">Easy</option>
+                  <option value="medium" selected>Medium</option>
+                  <option value="hard">Hard</option>
+                </select>
+              </label>
+              <button class="btn btn--small btn--accent" id="generateBtn">Generate</button>
+            </div>
+          </div>
+          <div class="grid" id="grid"></div>
+          <div class="control-bar">
+            <div class="segmented" role="group" aria-label="Edit mode">
+              <label class="segmented__option">
+                <input type="radio" name="editMode" value="number" checked />
+                <span>Number</span>
+              </label>
+              <label class="segmented__option">
+                <input type="radio" name="editMode" value="candidate" />
+                <span>Candidate</span>
+              </label>
+            </div>
+            <label class="toggle-inline">
+              <input type="checkbox" id="candidatesToggle" />
+              <span>Show candidates</span>
+            </label>
+          </div>
+          <div class="keypad" aria-label="Number pad">
+            <button class="btn btn--small keypad__btn" data-num="1">1</button>
+            <button class="btn btn--small keypad__btn" data-num="2">2</button>
+            <button class="btn btn--small keypad__btn" data-num="3">3</button>
+            <button class="btn btn--small keypad__btn" data-num="4">4</button>
+            <button class="btn btn--small keypad__btn" data-num="5">5</button>
+            <button class="btn btn--small keypad__btn" data-num="6">6</button>
+            <button class="btn btn--small keypad__btn" data-num="7">7</button>
+            <button class="btn btn--small keypad__btn" data-num="8">8</button>
+            <button class="btn btn--small keypad__btn" data-num="9">9</button>
+          </div>
+        </div>
+        <section class="tactics" aria-label="Sudoku tactics">
+          <h2>Solving tactics</h2>
+          <div class="tactic" id="tactic-naked-single">
+            <h3>Naked single</h3>
+            <p>
+              A cell has only one possible value after eliminating numbers already
+              present in its row, column, and 3×3 box. That value must be placed.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-hidden-single">
+            <h3>Hidden single</h3>
+            <p>
+              In a row, column, or 3×3 box, a candidate appears in only one cell’s
+              candidate list. That cell must take the candidate even if it has other
+              options.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-naked-set">
+            <h3>Naked pair / triple / quad</h3>
+            <p>
+              In a row, column, or box, if exactly N cells contain the same N
+              candidates, those candidates can be removed from all other cells in
+              the unit.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-hidden-set">
+            <h3>Hidden pair / triple / quad</h3>
+            <p>
+              In a unit, if N candidates appear only in the same N cells, those
+              cells must contain those candidates and all other candidates can be
+              removed from them.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-pointing-pair">
+            <h3>Pointing pair / triple</h3>
+            <p>
+              If a candidate in a 3×3 box is confined to one row or column, that
+              candidate can be removed from the rest of that row or column outside
+              the box.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-claiming-pair">
+            <h3>Claiming pair / triple</h3>
+            <p>
+              If a candidate in a row or column is confined to a single 3×3 box,
+              that candidate can be removed from the other cells of that box.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-xwing">
+            <h3>X-Wing</h3>
+            <p>
+              A candidate appears in exactly two cells in two rows (or columns),
+              aligned to the same columns (or rows). Remove that candidate from
+              other cells in those columns (or rows).
+            </p>
+          </div>
+          <div class="tactic" id="tactic-swordfish">
+            <h3>Swordfish</h3>
+            <p>
+              A candidate appears in 2–3 cells across three rows (or columns),
+              aligned to the same three columns (or rows). Remove the candidate
+              from other cells in those columns (or rows).
+            </p>
+          </div>
+          <div class="tactic" id="tactic-jellyfish">
+            <h3>Jellyfish</h3>
+            <p>
+              A candidate appears in 2–4 cells across four rows (or columns),
+              aligned to the same four columns (or rows). Remove the candidate
+              from other cells in those columns (or rows).
+            </p>
+          </div>
+          <div class="tactic" id="tactic-xywing">
+            <h3>XY-Wing</h3>
+            <p>
+              A pivot with candidates {X,Y} sees two wings {X,Z} and {Y,Z}. Any cell
+              that sees both wings cannot contain Z.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-xyzwing">
+            <h3>XYZ-Wing</h3>
+            <p>
+              A pivot with {X,Y,Z} sees two wings {X,Z} and {Y,Z}. Any cell that
+              sees the pivot and both wings cannot contain Z.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-wwing">
+            <h3>W-Wing</h3>
+            <p>
+              Two bivalue cells share {X,Y} and are linked by a strong link on X.
+              Any cell that sees both cannot contain Y.
+            </p>
+          </div>
+          <div class="tactic" id="tactic-skyscraper">
+            <h3>Skyscraper</h3>
+            <p>
+              A candidate appears twice in two rows (or columns), sharing one
+              column (or row). Cells that see both “roof” positions cannot contain
+              the candidate.
+            </p>
+          </div>
+        </section>
+      </div>
+      <aside class="hero__panel" aria-label="Controls">
+        <div class="panel__section"></div>
+        <div class="solve-panel" aria-label="Step solve">
+          <div class="solve-panel__title">Step Solver</div>
+          <div class="solve-panel__actions">
+            <button class="btn btn--primary" id="solveBtn">Solve</button>
+            <button class="btn" id="stepBtn">Step forward</button>
+            <button class="btn" id="hintBtn">Show hint</button>
+          </div>
+          <div class="solve-panel__hint" id="hintText"></div>
+          <ol class="solve-panel__log" id="stepLog" aria-live="polite"></ol>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

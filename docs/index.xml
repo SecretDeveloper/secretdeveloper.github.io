@@ -102,6 +102,7 @@ I think of Software architects as “Master builders”. They may not have the t
     <description><![CDATA[<blockquote>
   <p>Those who do not understand UNIX are condemned to reinvent it, poorly.<br />
 <em>Henry Spencer</em></p>
+
 </blockquote><p>The following is from the wikipedia article on <a href="https://en.wikipedia.org/wiki/Unix_philosophy" target="_blank" rel="noopener noreferrer">Unix Philosophy</a>.  It is interesting to apply these rules when designing Microservices, there is significant overlap.  Unix did it first.</p>
 <p>In his book, The Art of Unix Programming that was first published in 2003, Eric S. Raymond, an American programmer and open source advocate, summarizes the Unix philosophy as KISS Principle of &ldquo;Keep it Simple, Stupid.&rdquo; He provides a series of design rules:</p>]]></description>
 </item><item>
