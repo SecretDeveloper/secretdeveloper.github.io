@@ -4,11 +4,21 @@
         <link>https://secretdeveloper.github.io/categories/software/</link>
         <description>Software - Category - SecretDeveloper</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/software/" rel="self" type="application/rss+xml" /><item>
-    <title>Building a Sudoku Editor with GPT-5.2</title>
-    <link>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</link>
+    <title>Rogue in Rust with ECS &#43; WebAssembly</title>
+    <link>https://secretdeveloper.github.io/blog/2026-02-06-rogue-in-rust-with-ecs--webassembly/</link>
     <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</guid>
+    </author><guid>https://secretdeveloper.github.io/blog/2026-02-06-rogue-in-rust-with-ecs--webassembly/</guid>
+    <description><![CDATA[<p>I have been following the Rust Roguelike Tutorial to build a little Rogue-like with an ECS core. I only got partway through, but it was a fun, focused project and I now have a playable build running in the browser.</p>
+<p>Try it here: <a href="/games/rogue/" rel="">Rogue</a>.</p>
+<h4 id="what-i-built-so-far" class="headerLink">
+    <a href="#what-i-built-so-far" class="header-mark"></a>What I built so far</h4><p>It is a classic tile-based dungeon crawl with keyboard controls (arrow keys, vi keys, and numpad). The Rust core uses <code>specs</code> for ECS and <code>bracket-lib</code> for the terminal style rendering model. I bridged it to the browser with <code>wasm-bindgen</code>, so it runs as a WebGL canvas.</p>]]></description>
+</item><item>
+    <title>Building a Sudoku Editor with GPT-5.2</title>
+    <link>https://secretdeveloper.github.io/blog/2026-02-05-building-a-sudoku-editor-with-gpt-5.2/</link>
+    <pubDate>Thu, 05 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/blog/2026-02-05-building-a-sudoku-editor-with-gpt-5.2/</guid>
     <description><![CDATA[<p>I wanted a Sudoku editor that feels like a quiet desk: place numbers, track candidates, get nudges, and keep the board readable. So I built one with GPT-5.2 helping me iterate the UI and logic.</p>
 <p>You can try it here: <a href="/games/sudoku/" rel="">Sudoku Editor</a>.</p>
 <h4 id="what-it-does" class="headerLink">

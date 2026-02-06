@@ -1,5 +1,5 @@
 +++
-date = "2026-02-06T12:00:00+00:00"
+date = "2026-02-05T12:00:00+00:00"
 title = "Building a Sudoku Editor with GPT-5.2"
 description = "A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop"
 categories = ["software", "games", "sudoku", "gpt-5.2"]
