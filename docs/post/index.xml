@@ -3,7 +3,31 @@
         <title>Posts -  - SecretDeveloper</title>
         <link>https://secretdeveloper.github.io/post/</link>
         <description>Posts -  - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/post/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/post/" rel="self" type="application/rss+xml" /><item>
+    <title>Building a Sudoku Editor with GPT-5.2</title>
+    <link>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</link>
+    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</guid>
+    <description><![CDATA[<p>I wanted a Sudoku editor that feels like a quiet desk: place numbers, track candidates, get nudges, and keep the board readable. So I built one with GPT-5.2 helping me iterate the UI and logic.</p>
+<p>You can try it here: <a href="/games/sudoku/" rel="">Sudoku Editor</a>.</p>
+<h4 id="what-it-does" class="headerLink">
+    <a href="#what-it-does" class="header-mark"></a>What it does</h4><ul>
+<li>9x9 editor with keyboard navigation, input validation, and clear visual feedback.</li>
+<li>Candidate mode with a manual pencil-mark layer, plus optional auto-candidates.</li>
+<li>Generator with difficulty targets (easy/medium/hard) and uniqueness checks.</li>
+<li>Step solver with hints and a log that explains the tactic used.</li>
+<li>Quality-of-life actions: New, Reset, Undo, Copy, Load.</li>
+</ul>
+<h4 id="the-bits-i-like" class="headerLink">
+    <a href="#the-bits-i-like" class="header-mark"></a>The bits I like</h4><ul>
+<li>The board reacts quickly. It highlights row/column/box, matches values, and invalid cells without feeling noisy.</li>
+<li>The candidate system has two layers: manual marks you place and auto-candidates the solver derives. You can flip between them without losing your notes.</li>
+<li>The step solver does not just fill cells; it shows the reasoning and keeps a trail so you can walk back through the tactics.</li>
+</ul>
+<h4 id="how-the-solver-thinks" class="headerLink">
+    <a href="#how-the-solver-thinks" class="header-mark"></a>How the solver thinks</h4><p>The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.</p>]]></description>
+</item><item>
     <title>lsv: a Rust powered terminal file browser</title>
     <link>https://secretdeveloper.github.io/blog/2025-10-01-lsv-a-rust-powered-terminal-file-browser/</link>
     <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
@@ -133,24 +157,5 @@ I think of Software architects as “Master builders”. They may not have the t
 <p>Rows are the left side operand and columns are the right.</p>
 <p><a href="https://jsfiddle.net/SecretDeveloper/1zywbpLL/" target="_blank" rel="noopener noreferrer">Source code on jsfiddle</a></p>
 <img src="/blog/2015-02-17-javascript-equality-operator-grids/js_equality.png" title="JS equality operator grids" />]]></description>
-</item><item>
-    <title>Directed Graph of hubski users created with D3</title>
-    <link>https://secretdeveloper.github.io/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/</link>
-    <pubDate>Tue, 16 Dec 2014 22:34:47 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2014-12-16-directed-graph-of-hubski-users-created-with-d3/</guid>
-    <description><![CDATA[<p>Using some c# code to scrape hubski.com I was able to produce a pretty basic directed graph showing users follower connections.</p>
-<p><a href="https://github.com/SecretDeveloper/SocialGraph" target="_blank" rel="noopener noreferrer">Source code on github</a></p>
-<p><a href="../../projects/hubski-socialgraph/hubski_graph.html" rel="">Demo version</a></p>
-<p><a href="../../projects/hubski-socialgraph/hubski_graph_advanced.html" rel="">Advanced Demo version</a></p>
-<p><a href="../../projects/hubski-socialgraph/hubski_graph.html" rel="">Hubski Social Graph</a></p>
-<p>I started off by scanning a users profile and recording various pieces of information such as:</p>
-<ul>
-<li>Age in days</li>
-<li>Number of followers</li>
-<li>Number of people followed</li>
-<li>Number of badges received.</li>
-</ul>
-<p>I then looped over each of that users followers and recorded the same information,  and then their followers, and then their followers&hellip;  you get the idea.</p>]]></description>
 </item></channel>
 </rss>

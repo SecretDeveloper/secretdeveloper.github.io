@@ -1,9 +1,9 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Javascript - Tag - SecretDeveloper</title>
-        <link>https://secretdeveloper.github.io/tags/javascript/</link>
-        <description>Javascript - Tag - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/javascript/" rel="self" type="application/rss+xml" /><item>
+        <title>Puzzle - Tag - SecretDeveloper</title>
+        <link>https://secretdeveloper.github.io/tags/puzzle/</link>
+        <description>Puzzle - Tag - SecretDeveloper</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/puzzle/" rel="self" type="application/rss+xml" /><item>
     <title>Building a Sudoku Editor with GPT-5.2</title>
     <link>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</link>
     <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
@@ -27,20 +27,5 @@
 </ul>
 <h4 id="how-the-solver-thinks" class="headerLink">
     <a href="#how-the-solver-thinks" class="header-mark"></a>How the solver thinks</h4><p>The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.</p>]]></description>
-</item><item>
-    <title>Porting Asteroids to an ECS with Codex</title>
-    <link>https://secretdeveloper.github.io/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</link>
-    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</guid>
-    <description><![CDATA[<p>Quick version: I rewired my <a href="/games/asteroids/" rel="">Asteroids</a> clone from a pile of classes to an Entity‑Component‑System (ECS). Codex (the CLI agent) did the heavy lifting while I poked, prodded, and occasionally muttered at my screen. The end result is cleaner, easier to extend, and less brittle when I add toys like missiles and sparkly shields.</p>
-<p>Why bother with ECS?</p>
-<ul>
-<li>I was done fighting class hierarchies. I just want to slap “has a shield,” “spins,” or “is a missile” onto things without negotiating with a base class.</li>
-<li>Data is data, behavior is behavior. Components hold state; systems do the work over sets of components.</li>
-<li>(maybe) Performance as a side effect: tight loops over similar data are fast, but honestly the clarity is what sold me.</li>
-<li>New features become “add a component, tweak a system,” not surgery across five files.</li>
-</ul>
-<p>Where I started (a.k.a. the creaky bits)</p>]]></description>
 </item></channel>
 </rss>

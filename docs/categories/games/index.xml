@@ -3,7 +3,31 @@
         <title>Games - Category - SecretDeveloper</title>
         <link>https://secretdeveloper.github.io/categories/games/</link>
         <description>Games - Category - SecretDeveloper</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/games/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/games/" rel="self" type="application/rss+xml" /><item>
+    <title>Building a Sudoku Editor with GPT-5.2</title>
+    <link>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</link>
+    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/blog/2026-02-06-building-a-sudoku-editor-with-gpt-5.2/</guid>
+    <description><![CDATA[<p>I wanted a Sudoku editor that feels like a quiet desk: place numbers, track candidates, get nudges, and keep the board readable. So I built one with GPT-5.2 helping me iterate the UI and logic.</p>
+<p>You can try it here: <a href="/games/sudoku/" rel="">Sudoku Editor</a>.</p>
+<h4 id="what-it-does" class="headerLink">
+    <a href="#what-it-does" class="header-mark"></a>What it does</h4><ul>
+<li>9x9 editor with keyboard navigation, input validation, and clear visual feedback.</li>
+<li>Candidate mode with a manual pencil-mark layer, plus optional auto-candidates.</li>
+<li>Generator with difficulty targets (easy/medium/hard) and uniqueness checks.</li>
+<li>Step solver with hints and a log that explains the tactic used.</li>
+<li>Quality-of-life actions: New, Reset, Undo, Copy, Load.</li>
+</ul>
+<h4 id="the-bits-i-like" class="headerLink">
+    <a href="#the-bits-i-like" class="header-mark"></a>The bits I like</h4><ul>
+<li>The board reacts quickly. It highlights row/column/box, matches values, and invalid cells without feeling noisy.</li>
+<li>The candidate system has two layers: manual marks you place and auto-candidates the solver derives. You can flip between them without losing your notes.</li>
+<li>The step solver does not just fill cells; it shows the reasoning and keeps a trail so you can walk back through the tactics.</li>
+</ul>
+<h4 id="how-the-solver-thinks" class="headerLink">
+    <a href="#how-the-solver-thinks" class="header-mark"></a>How the solver thinks</h4><p>The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.</p>]]></description>
+</item><item>
     <title>Porting Asteroids to an ECS with Codex</title>
     <link>https://secretdeveloper.github.io/blog/2025-10-01-porting-asteroids-to-an-ecs-with-codex/</link>
     <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
