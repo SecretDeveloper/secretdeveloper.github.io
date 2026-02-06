@@ -64,7 +64,7 @@
     #main {
       flex: 1;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      grid-template-columns: minmax(0, 50%) minmax(0, 50%);
       gap: 20px;
       padding: 12px 24px 22px;
       align-items: stretch;
@@ -125,6 +125,66 @@
       gap: 14px;
       min-height: 0;
     }
+    #info-column .panel {
+      height: 100%;
+    }
+    .tabs {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 12px;
+      height: 100%;
+    }
+    .tab-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .tab-button {
+      border: 1px solid rgba(255, 255, 0, 0.25);
+      background: rgba(0, 0, 0, 0.45);
+      color: var(--ink);
+      font-family: "Cinzel", "Trajan Pro", serif;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .tab-button[aria-selected="true"] {
+      border-color: rgba(255, 165, 0, 0.8);
+      box-shadow: 0 0 14px rgba(255, 165, 0, 0.2);
+      transform: translateY(-1px);
+    }
+    .tab-button:focus-visible {
+      outline: 2px solid rgba(255, 165, 0, 0.8);
+      outline-offset: 2px;
+    }
+    .tab-panels {
+      position: relative;
+      min-height: 0;
+    }
+    .tab-panel {
+      display: none;
+      animation: tabFade 0.2s ease;
+    }
+    .tab-panel[aria-hidden="false"] {
+      display: block;
+    }
+    .tab-panel p + p {
+      margin-top: 10px;
+    }
+    @keyframes tabFade {
+      from {
+        opacity: 0.7;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     .panel {
       padding: 14px 16px;
       background: var(--panel);
@@ -154,7 +214,26 @@
     #controls li {
       margin-bottom: 6px;
     }
-    #controls code {
+    .controls-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+      color: var(--ink-dim);
+    }
+    .controls-table th,
+    .controls-table td {
+      padding: 6px 8px;
+      vertical-align: top;
+      border-bottom: 1px solid rgba(255, 255, 0, 0.15);
+    }
+    .controls-table th {
+      text-align: left;
+      font-weight: 600;
+      color: var(--ink);
+      width: 42%;
+      letter-spacing: 0.3px;
+    }
+    .controls-table code {
       font-family: "JetBrains Mono", "Menlo", monospace;
       font-size: 0.9em;
       color: var(--ink);
@@ -187,6 +266,9 @@
       #info-column {
         grid-template-rows: auto auto auto;
       }
+      .tab-list {
+        grid-template-columns: 1fr;
+      }
     }
     @media (max-width: 680px) {
       header {
@@ -215,40 +297,95 @@
       </div>
     </div>
     <div id="info-column">
-      <div id="description" class="panel">
-        <h2>About the Descent</h2>
-        <p>
-          Explore a procedurally generated labyrinth, carve through monsters, and climb for relics.
-          This build follows the
-          <a href="https://bfnightly.bracketproductions.com/" target="_blank" rel="noopener">Rust Roguelike Tutorial</a>
-          and runs fully in the browser.
-        </p>
-      </div>
-      <div id="controls" class="panel">
-        <h2>Controls</h2>
-        <p>Use any one of these movement sets (cardinal + diagonal):</p>
-        <ul>
-          <li><strong>Arrow keys</strong> for cardinal movement (no diagonals)</li>
-          <li><strong>Numpad</strong> 7 8 9 / 4 5 6 / 1 2 3 (5 = wait)</li>
-          <li><strong>Vi keys</strong> H J K L for cardinal + Y U B N for diagonals</li>
-        </ul>
-        <p>Actions:</p>
-        <ul>
-          <li><strong>Pick up item:</strong> G (while standing over it)</li>
-          <li><strong>Inventory:</strong> I (arrows to select, Enter to use/equip, Esc to cancel)</li>
-          <li><strong>Drop item:</strong> D</li>
-          <li><strong>Unequip item:</strong> R</li>
-          <li><strong>Descend stairs:</strong> <code>.</code> (period, while on stairs)</li>
-          <li><strong>Wait a turn:</strong> Space or Numpad 5</li>
-          <li><strong>Save &amp; exit:</strong> Esc</li>
-        </ul>
-      </div>
       <div class="panel">
-        <h2>Shortcut Notes</h2>
-        <p>
-          If a browser or extension steals a key, click the game to refocus. Dedicated profiles or disabled
-          shortcuts help keep inputs clean.
-        </p>
+        <div class="tabs" role="tablist" aria-label="Rogue info tabs">
+          <div class="tab-list">
+            <button class="tab-button" type="button" role="tab" aria-selected="true" aria-controls="tab-story" id="tab-story-button" data-tab="tab-story">Story</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-controls" id="tab-controls-button" data-tab="tab-controls">Controls</button>
+            <button class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="tab-about" id="tab-about-button" data-tab="tab-about">About</button>
+          </div>
+          <div class="tab-panels">
+            <section class="tab-panel" role="tabpanel" id="tab-story" aria-labelledby="tab-story-button" aria-hidden="false">
+              <h2>Story</h2>
+              <p>
+                Beneath the iron hills of Enterprisia, the caverns wait like a patient tide. You descend with a lantern
+                of stubborn flame, hearing dripstone and distant chains, and you map each bend in the dark by memory and
+                grit. The dungeon is never quite the same twice; its corridors migrate, its doors forget, and the air grows
+                colder the deeper you go.
+              </p>
+              <p>
+                Rogue follows a lone adventurer who trades daylight for relics and hard-won knowledge. Hunger, wounds, and
+                fear are as real as steel. Monsters stalk by scent and sound, and the safest path is rarely the straight one.
+                Choose your fights. Guard your supplies. When the stairs appear, decide whether you climb back to the surface
+                or press downward in pursuit of what the caverns keep hidden.
+              </p>
+              <p>
+                This is a story of patience as much as bravery. The walls remember your footsteps, but not your name. Leave
+                the caverns richer than you entered, or leave nothing at all.
+              </p>
+            </section>
+            <section class="tab-panel" role="tabpanel" id="tab-controls" aria-labelledby="tab-controls-button" aria-hidden="true">
+              <h2>Controls</h2>
+              <table class="controls-table">
+                <tbody>
+                  <tr>
+                    <th>Move</th>
+                    <td>Arrow keys (cardinal)</td>
+                  </tr>
+                  <tr>
+                    <th>Move + Diagonal</th>
+                    <td>Numpad 7 8 9 / 4 5 6 / 1 2 3</td>
+                  </tr>
+                  <tr>
+                    <th>Vi Movement</th>
+                    <td>H J K L (cardinal) + Y U B N (diagonal)</td>
+                  </tr>
+                  <tr>
+                    <th>Wait</th>
+                    <td>Space or Numpad 5</td>
+                  </tr>
+                  <tr>
+                    <th>Pick Up</th>
+                    <td>G (on an item)</td>
+                  </tr>
+                  <tr>
+                    <th>Inventory</th>
+                    <td>I (arrows to select, Enter to use/equip, Esc to cancel)</td>
+                  </tr>
+                  <tr>
+                    <th>Drop</th>
+                    <td>D</td>
+                  </tr>
+                  <tr>
+                    <th>Unequip</th>
+                    <td>R</td>
+                  </tr>
+                  <tr>
+                    <th>Descend</th>
+                    <td><code>.</code> on stairs</td>
+                  </tr>
+                  <tr>
+                    <th>Save &amp; Exit</th>
+                    <td>Esc</td>
+                  </tr>
+                </tbody>
+              </table>
+            </section>
+            <section class="tab-panel" role="tabpanel" id="tab-about" aria-labelledby="tab-about-button" aria-hidden="true">
+              <h2>About</h2>
+              <p>
+                Rogue is written in Rust using the <code>rltk</code> / <code>bracket-lib</code> terminal stack, with
+                <code>specs</code> for ECS and <code>wasm-bindgen</code> for the WebAssembly bridge. Rendering is done
+                in the browser via WebGL.
+              </p>
+              <p>
+                The game follows the
+                <a href="https://bfnightly.bracketproductions.com/" target="_blank" rel="noopener">Rust Roguelike Tutorial</a>.
+                To explore the code, check the repository you’re running this build from.
+              </p>
+            </section>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -314,6 +451,22 @@
         if (isGameKey(e)) {
           e.preventDefault();
         }
+      });
+
+      const tabButtons = Array.from(document.querySelectorAll(".tab-button"));
+      const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-tab");
+          tabButtons.forEach((btn) => {
+            const isActive = btn === button;
+            btn.setAttribute("aria-selected", isActive ? "true" : "false");
+          });
+          tabPanels.forEach((panel) => {
+            const isActive = panel.id === targetId;
+            panel.setAttribute("aria-hidden", isActive ? "false" : "true");
+          });
+        });
       });
     });
   </script>
