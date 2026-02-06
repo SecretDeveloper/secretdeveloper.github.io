@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Rogue - WebAssembly</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Spectral:wght@400;500&family=JetBrains+Mono:wght@400;600&display=swap");
+  </style>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f5deb3;
+      --ink-dim: #bebebe;
+      --ember: #ffa500;
+      --ember-soft: #ff0000;
+      --panel: rgba(0, 0, 0, 0.82);
+      --panel-strong: rgba(0, 0, 0, 0.92);
+      --frame: rgba(255, 255, 0, 0.35);
+      --glow: rgba(255, 0, 255, 0.35);
+      --shadow: rgba(0, 0, 0, 0.6);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    body {
+      background:
+        radial-gradient(900px 700px at 18% 12%, rgba(0, 0, 255, 0.18), transparent 70%),
+        radial-gradient(700px 600px at 85% 10%, rgba(0, 255, 255, 0.16), transparent 65%),
+        radial-gradient(500px 420px at 70% 80%, rgba(255, 0, 255, 0.14), transparent 70%),
+        linear-gradient(140deg, #000000 0%, #0a0a0a 50%, #000000 100%);
+      color: var(--ink);
+      font-family: "Spectral", "Georgia", serif;
+      display: flex;
+      flex-direction: column;
+      letter-spacing: 0.2px;
+    }
+    header {
+      padding: 18px 28px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 24px;
+    }
+    header h1 {
+      margin: 0;
+      font-family: "Cinzel", "Trajan Pro", serif;
+      font-weight: 700;
+      font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-shadow: 0 0 18px rgba(255, 165, 0, 0.25);
+    }
+    header .subtitle {
+      font-size: 0.95rem;
+      color: var(--ink-dim);
+    }
+    #main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: 20px;
+      padding: 12px 24px 22px;
+      align-items: stretch;
+      min-height: 0;
+    }
+    #game-column {
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 12px;
+      min-height: 0;
+    }
+    #game-shell {
+      background: var(--panel-strong);
+      border: 1px solid var(--frame);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: 0 20px 60px var(--shadow), inset 0 0 0 1px rgba(255, 255, 0, 0.08);
+      position: relative;
+      min-height: 0;
+    }
+    #game-shell::after {
+      content: "";
+      position: absolute;
+      inset: 6px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 0, 0.1);
+      pointer-events: none;
+    }
+    #game-container {
+      display: grid;
+      place-items: center;
+      min-height: 0;
+    }
+    canvas {
+      border: 2px solid rgba(255, 255, 0, 0.55);
+      background: #000;
+      image-rendering: pixelated;
+      width: auto;
+      height: auto;
+      max-width: none;
+      max-height: none;
+      box-shadow: 0 0 24px rgba(0, 0, 0, 0.5), 0 0 30px rgba(255, 165, 0, 0.15);
+    }
+    #focus-hint {
+      font-size: 0.9rem;
+      color: var(--ink-dim);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    #focus-hint span {
+      color: var(--ember);
+      font-weight: 600;
+    }
+    #info-column {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 14px;
+      min-height: 0;
+    }
+    .panel {
+      padding: 14px 16px;
+      background: var(--panel);
+      border: 1px solid rgba(255, 255, 0, 0.25);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(6px);
+    }
+    .panel h2 {
+      margin: 0 0 8px;
+      font-family: "Cinzel", "Trajan Pro", serif;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .panel p {
+      margin: 0;
+      color: var(--ink-dim);
+      line-height: 1.45;
+    }
+    #controls ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink-dim);
+    }
+    #controls li {
+      margin-bottom: 6px;
+    }
+    #controls code {
+      font-family: "JetBrains Mono", "Menlo", monospace;
+      font-size: 0.9em;
+      color: var(--ink);
+    }
+    #status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--ink-dim);
+    }
+    #status-bar strong {
+      color: var(--ember);
+      letter-spacing: 0.5px;
+    }
+    a {
+      color: #ffff00;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 0, 0.35);
+    }
+    a:hover {
+      color: #ffa500;
+      border-color: rgba(255, 165, 0, 0.7);
+    }
+    @media (max-width: 1080px) {
+      #main {
+        grid-template-columns: 1fr;
+        padding: 8px 16px 16px;
+      }
+      #info-column {
+        grid-template-rows: auto auto auto;
+      }
+    }
+    @media (max-width: 680px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #status-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Rogue</h1>
+    <div class="subtitle">A hand-forged dungeon crawl in Rust + WebAssembly</div>
+  </header>
+  <div id="main">
+    <div id="game-column">
+      <div id="game-shell">
+        <div id="game-container">
+          <canvas id="canvas" width="640" height="480" tabindex="0"></canvas>
+        </div>
+      </div>
+    </div>
+    <div id="info-column">
+      <div id="description" class="panel">
+        <h2>About the Descent</h2>
+        <p>
+          Explore a procedurally generated labyrinth, carve through monsters, and climb for relics.
+          This build follows the
+          <a href="https://bfnightly.bracketproductions.com/" target="_blank" rel="noopener">Rust Roguelike Tutorial</a>
+          and runs fully in the browser.
+        </p>
+      </div>
+      <div id="controls" class="panel">
+        <h2>Controls</h2>
+        <p>Use any one of these movement sets (cardinal + diagonal):</p>
+        <ul>
+          <li><strong>Arrow keys</strong> for cardinal movement (no diagonals)</li>
+          <li><strong>Numpad</strong> 7 8 9 / 4 5 6 / 1 2 3 (5 = wait)</li>
+          <li><strong>Vi keys</strong> H J K L for cardinal + Y U B N for diagonals</li>
+        </ul>
+        <p>Actions:</p>
+        <ul>
+          <li><strong>Pick up item:</strong> G (while standing over it)</li>
+          <li><strong>Inventory:</strong> I (arrows to select, Enter to use/equip, Esc to cancel)</li>
+          <li><strong>Drop item:</strong> D</li>
+          <li><strong>Unequip item:</strong> R</li>
+          <li><strong>Descend stairs:</strong> <code>.</code> (period, while on stairs)</li>
+          <li><strong>Wait a turn:</strong> Space or Numpad 5</li>
+          <li><strong>Save &amp; exit:</strong> Esc</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h2>Shortcut Notes</h2>
+        <p>
+          If a browser or extension steals a key, click the game to refocus. Dedicated profiles or disabled
+          shortcuts help keep inputs clean.
+        </p>
+      </div>
+    </div>
+  </div>
+  <script src="./rogue.js"></script>
+  <script>
+    window.addEventListener("load", async () => {
+      await wasm_bindgen("./rogue_bg.wasm");
+      const canvas = document.getElementById("canvas");
+      if (!canvas) return;
+      // Make canvas focusable
+      canvas.tabIndex = 0;
+      canvas.focus({ preventScroll: true });
+      // Clicking on canvas gives it focus
+      canvas.addEventListener("mousedown", () => canvas.focus());
+      // Clicking outside canvas removes focus
+      document.addEventListener("mousedown", (e) => {
+        if (e.target !== canvas && document.activeElement === canvas) {
+          canvas.blur();
+        }
+      });
+
+      const gameKeySet = new Set([
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        " ",
+        "Escape",
+        "g",
+        "i",
+        "d",
+        "r",
+        ".",
+      ]);
+      const gameNumpadCodes = new Set([
+        "Numpad1",
+        "Numpad2",
+        "Numpad3",
+        "Numpad4",
+        "Numpad5",
+        "Numpad6",
+        "Numpad7",
+        "Numpad8",
+        "Numpad9",
+      ]);
+
+      function isGameKey(e) {
+        const key = e.key || "";
+        if (gameKeySet.has(key) || gameKeySet.has(key.toLowerCase())) return true;
+        if (gameNumpadCodes.has(e.code)) return true;
+        return false;
+      }
+
+      function isTypingTarget(target) {
+        return target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA");
+      }
+
+      window.addEventListener("keydown", (e) => {
+        if (isTypingTarget(e.target)) return;
+        if (e.key === "f" || e.key === "F") {
+          canvas.focus({ preventScroll: true });
+        }
+        if (isGameKey(e)) {
+          e.preventDefault();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

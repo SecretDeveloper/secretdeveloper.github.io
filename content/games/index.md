@@ -12,3 +12,4 @@ Here are some simple browser based games i created with the help of different La
 - [Breakout / Arkanoid](/games/breakout/)
 - [Pacman](/games/pacman/)
 - [Sudoku Editor](/games/sudoku/)
+- [Rogue](/games/rogue/)
