@@ -13,7 +13,6 @@ const difficultySelect = document.getElementById("difficultySelect");
 const hintBtn = document.getElementById("hintBtn");
 const hintText = document.getElementById("hintText");
 const candidatesToggle = document.getElementById("candidatesToggle");
-const modeInputs = document.querySelectorAll('input[name="editMode"]');
 
 const SIZE = 9;
 const state = {
@@ -965,6 +964,7 @@ function buildGrid() {
       const input = document.createElement("input");
       input.setAttribute("inputmode", "numeric");
       input.setAttribute("maxlength", "1");
+      input.setAttribute("readonly", "readonly");
       input.dataset.row = row;
       input.dataset.col = col;
 
@@ -1239,6 +1239,10 @@ function restoreManualCandidates(data) {
 function handleInput(event) {
   if (state.editMode === "candidate") {
     const value = event.target.value.replace(/[^1-9]/g, "");
+    if (event.target.dataset.wasFilled === "1") {
+      event.target.value = "";
+      return;
+    }
     if (value) {
       pushUndo();
       toggleManualCandidate(event.target, Number(value));
@@ -1255,6 +1259,7 @@ function handleInput(event) {
   event.target.parentElement.classList.remove("invalid");
   event.target.parentElement.classList.remove("step-solved");
   event.target.parentElement.classList.toggle("user-filled", value !== "");
+  event.target.dataset.wasFilled = value !== "" ? "1" : "0";
   clearAutoEliminations();
   clearManualCandidates(event.target);
   resetStepHistory();
@@ -1267,6 +1272,7 @@ function handleFocus(event) {
   highlightForInput(event.target);
   setSelected(event.target);
   state.activeInput = event.target;
+  event.target.dataset.wasFilled = event.target.value !== "" ? "1" : "0";
 }
 
 function handleKeydown(event) {
@@ -1293,11 +1299,43 @@ function handleKeydown(event) {
 function handleKeypadClick(event) {
   const button = event.target.closest(".keypad__btn");
   if (!button) return;
+  const action = button.dataset.action;
   const num = Number(button.dataset.num);
-  if (!num || Number.isNaN(num)) return;
   const input = state.activeInput;
   if (!input) return;
+
   input.focus();
+  if (action === "clear-candidates") {
+    pushUndo();
+    clearManualCandidates(input);
+    clearHint();
+    refreshUI({ validate: false, highlight: false });
+    return;
+  }
+  if (action === "clear-value") {
+    pushUndo();
+    input.value = "";
+    input.parentElement.classList.remove("step-solved");
+    input.parentElement.classList.toggle("user-filled", false);
+    input.dataset.wasFilled = "0";
+    clearAutoEliminations();
+    clearManualCandidates(input);
+    resetStepHistory();
+    clearCandidateChanges();
+    clearHint();
+    refreshUI();
+    return;
+  }
+  if (!num || Number.isNaN(num)) return;
+  if (button.classList.contains("keypad__btn--candidate")) {
+    if (input.value !== "") return;
+    pushUndo();
+    toggleManualCandidate(input, num);
+    clearHint();
+    refreshUI({ validate: false, highlight: false });
+    return;
+  }
+  state.editMode = "number";
   input.value = String(num);
   handleInput({ target: input });
 }
@@ -1387,7 +1425,6 @@ function clearManualCandidates(input) {
 }
 
 function toggleManualCandidate(input, num) {
-  if (input.value) return;
   const manual = state.manualCandidates.get(input);
   if (!manual) return;
   if (manual.has(num)) {
@@ -1882,15 +1919,4 @@ candidatesToggle.closest(".board").addEventListener("click", handleKeypadClick);
 candidatesToggle.addEventListener("change", () => {
   gridEl.classList.toggle("show-candidates", candidatesToggle.checked);
   refreshUI({ validate: false, highlight: false });
-});
-
-modeInputs.forEach((input) => {
-  input.addEventListener("change", (event) => {
-    state.editMode = event.target.value;
-    if (state.editMode === "candidate") {
-      statusEl.textContent = "Candidate mode: add or remove notes.";
-    } else {
-      statusEl.textContent = "Number mode: fill a cell.";
-    }
-  });
 });
