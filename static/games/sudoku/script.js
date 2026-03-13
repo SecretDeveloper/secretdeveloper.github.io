@@ -15,6 +15,7 @@ const hintText = document.getElementById("hintText");
 const candidatesToggle = document.getElementById("candidatesToggle");
 
 const SIZE = 9;
+const STORAGE_KEY = "sudoku-app-state";
 const state = {
   inputs: [],
   cellGrid: [],
@@ -29,6 +30,76 @@ const state = {
   pendingHint: null,
   activeInput: null,
 };
+
+function isBrowserStorageAvailable() {
+  try {
+    return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+  } catch {
+    return false;
+  }
+}
+
+function snapshotAppState() {
+  return {
+    puzzle: snapshotFullState(),
+    undoStack: state.undoStack.map((entry) => cloneFullSnapshot(entry)),
+    ui: {
+      difficulty: difficultySelect.value,
+      showCandidates: candidatesToggle.checked,
+    },
+  };
+}
+
+function cloneFullSnapshot(snapshot) {
+  return {
+    board: snapshot.board.map((row) => row.slice()),
+    autoEliminations: snapshot.autoEliminations.map(([key, nums]) => [key, nums.slice()]),
+    manualCandidates: snapshot.manualCandidates.map(([key, nums]) => [key, nums.slice()]),
+    prefilled: snapshot.prefilled.slice(),
+    baseStepSnapshot: snapshot.baseStepSnapshot
+      ? cloneSnapshot(snapshot.baseStepSnapshot)
+      : null,
+    stepHistory: snapshot.stepHistory.map((entry) => ({
+      tactic: entry.tactic,
+      evidence: entry.evidence,
+      snapshot: cloneSnapshot(entry.snapshot),
+    })),
+  };
+}
+
+function persistAppState() {
+  if (!isBrowserStorageAvailable()) return;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshotAppState()));
+  } catch {
+    // Ignore storage failures so the game remains usable in restricted browsers.
+  }
+}
+
+function restorePersistedState() {
+  if (!isBrowserStorageAvailable()) return false;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (!raw) return false;
+    const parsed = JSON.parse(raw);
+    if (!parsed || !parsed.puzzle) return false;
+    restoreFullState(parsed.puzzle);
+    state.undoStack = Array.isArray(parsed.undoStack)
+      ? parsed.undoStack.map((entry) => cloneFullSnapshot(entry))
+      : [];
+    if (parsed.ui?.difficulty) {
+      difficultySelect.value = parsed.ui.difficulty;
+    }
+    candidatesToggle.checked = Boolean(parsed.ui?.showCandidates);
+    gridEl.classList.toggle("show-candidates", candidatesToggle.checked);
+    refreshUI({ validate: false, highlight: false });
+    statusEl.textContent = "Restored saved puzzle.";
+    return true;
+  } catch {
+    window.localStorage.removeItem(STORAGE_KEY);
+    return false;
+  }
+}
 
 
 const solver = {
@@ -962,17 +1033,17 @@ function buildGrid() {
       cell.style.animationDelay = `${delay}ms`;
 
       const input = document.createElement("input");
-      input.setAttribute("inputmode", "numeric");
+      input.setAttribute("inputmode", "none");
+      input.setAttribute("virtualkeyboardpolicy", "manual");
       input.setAttribute("maxlength", "1");
       input.setAttribute("readonly", "readonly");
+      input.setAttribute("tabindex", "-1");
       input.dataset.row = row;
       input.dataset.col = col;
 
-      input.addEventListener("input", handleInput);
+      input.addEventListener("pointerdown", handleCellPointerDown);
       input.addEventListener("blur", validateGrid);
-      input.addEventListener("focus", handleFocus);
       input.addEventListener("blur", clearHighlights);
-      input.addEventListener("keydown", handleKeydown);
 
       const candidates = document.createElement("div");
       candidates.className = "candidates";
@@ -1211,6 +1282,7 @@ function handleUndo() {
   if (state.undoStack.length === 0) return;
   const snapshot = state.undoStack.pop();
   restoreFullState(snapshot);
+  persistAppState();
 }
 
 function serializeManualCandidates() {
@@ -1250,6 +1322,7 @@ function handleInput(event) {
     event.target.value = "";
     clearHint();
     refreshUI({ validate: false, highlight: false });
+    persistAppState();
     return;
   }
 
@@ -1266,34 +1339,20 @@ function handleInput(event) {
   clearCandidateChanges();
   clearHint();
   refreshUI();
+  persistAppState();
 }
 
-function handleFocus(event) {
-  highlightForInput(event.target);
-  setSelected(event.target);
-  state.activeInput = event.target;
-  event.target.dataset.wasFilled = event.target.value !== "" ? "1" : "0";
-}
-
-function handleKeydown(event) {
-  if (handleArrowNavigation(event)) return;
-  if (state.editMode !== "candidate") return;
-  const key = event.key;
-  if (key >= "1" && key <= "9") {
-    event.preventDefault();
-    pushUndo();
-    toggleManualCandidate(event.target, Number(key));
-    clearHint();
-    refreshUI({ validate: false, highlight: false });
-    return;
+function handleCellPointerDown(event) {
+  event.preventDefault();
+  const input = event.currentTarget;
+  if (!input) return;
+  if (document.activeElement instanceof HTMLElement) {
+    document.activeElement.blur();
   }
-  if (key === "Backspace" || key === "Delete") {
-    event.preventDefault();
-    pushUndo();
-    clearManualCandidates(event.target);
-    clearHint();
-    refreshUI({ validate: false, highlight: false });
-  }
+  highlightForInput(input);
+  setSelected(input);
+  state.activeInput = input;
+  input.dataset.wasFilled = input.value !== "" ? "1" : "0";
 }
 
 function handleKeypadClick(event) {
@@ -1304,12 +1363,12 @@ function handleKeypadClick(event) {
   const input = state.activeInput;
   if (!input) return;
 
-  input.focus();
   if (action === "clear-candidates") {
     pushUndo();
     clearManualCandidates(input);
     clearHint();
     refreshUI({ validate: false, highlight: false });
+    persistAppState();
     return;
   }
   if (action === "clear-value") {
@@ -1324,6 +1383,7 @@ function handleKeypadClick(event) {
     clearCandidateChanges();
     clearHint();
     refreshUI();
+    persistAppState();
     return;
   }
   if (!num || Number.isNaN(num)) return;
@@ -1333,6 +1393,7 @@ function handleKeypadClick(event) {
     toggleManualCandidate(input, num);
     clearHint();
     refreshUI({ validate: false, highlight: false });
+    persistAppState();
     return;
   }
   state.editMode = "number";
@@ -1394,29 +1455,6 @@ function resetUndoHistory() {
 function setSelected(input) {
   state.inputs.forEach((cell) => cell.parentElement.classList.remove("selected"));
   input.parentElement.classList.add("selected");
-}
-
-function handleArrowNavigation(event) {
-  const arrows = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
-  if (!arrows.includes(event.key)) return false;
-
-  event.preventDefault();
-  const row = Number(event.target.dataset.row);
-  const col = Number(event.target.dataset.col);
-  if (Number.isNaN(row) || Number.isNaN(col)) return false;
-
-  let nextRow = row;
-  let nextCol = col;
-  if (event.key === "ArrowUp") nextRow -= 1;
-  if (event.key === "ArrowDown") nextRow += 1;
-  if (event.key === "ArrowLeft") nextCol -= 1;
-  if (event.key === "ArrowRight") nextCol += 1;
-
-  if (nextRow < 0 || nextRow >= SIZE || nextCol < 0 || nextCol >= SIZE) return true;
-
-  const nextInput = state.cellGrid[nextRow][nextCol];
-  if (nextInput) nextInput.focus();
-  return true;
 }
 
 function clearManualCandidates(input) {
@@ -1567,6 +1605,7 @@ function handleSolve() {
   refreshUI({ validate: false, highlight: false });
   resetStepHistory();
   clearCandidateChanges();
+  persistAppState();
 }
 
 function handleGenerate() {
@@ -1587,6 +1626,7 @@ function handleGenerate() {
     clearCandidateChanges();
     refreshUI({ validate: false, highlight: false });
     statusEl.textContent = `Generated ${difficulty} puzzle.`;
+    persistAppState();
   }, 20);
 }
 
@@ -1611,6 +1651,7 @@ function handleClear() {
   statusEl.textContent = "Cleared.";
   resetStepHistory();
   clearCandidateChanges();
+  persistAppState();
 }
 
 function handleReset() {
@@ -1632,6 +1673,7 @@ function handleReset() {
   clearCandidateChanges();
   refreshUI({ validate: false, highlight: false });
   statusEl.textContent = "Reset to starting clues.";
+  persistAppState();
 }
 
 
@@ -1686,6 +1728,7 @@ function handleLoad() {
   statusEl.textContent = "Puzzle loaded.";
   resetStepHistory();
   clearCandidateChanges();
+  persistAppState();
 }
 
 function handleStep() {
@@ -1728,6 +1771,7 @@ function handleStep() {
     snapshot: snapshotState(getBoard()),
   });
   renderStepLog();
+  persistAppState();
 }
 
 function applyHint(step) {
@@ -1752,6 +1796,7 @@ function applyHint(step) {
     snapshot: snapshotState(getBoard()),
   });
   renderStepLog();
+  persistAppState();
 }
 
 function showHint(step) {
@@ -1902,9 +1947,10 @@ function applyEliminations(eliminations) {
   });
 }
 
-
 buildGrid();
-refreshUI({ validate: false, highlight: false });
+if (!restorePersistedState()) {
+  refreshUI({ validate: false, highlight: false });
+}
 
 solveBtn.addEventListener("click", handleSolve);
 clearBtn.addEventListener("click", handleClear);
@@ -1919,4 +1965,7 @@ candidatesToggle.closest(".board").addEventListener("click", handleKeypadClick);
 candidatesToggle.addEventListener("change", () => {
   gridEl.classList.toggle("show-candidates", candidatesToggle.checked);
   refreshUI({ validate: false, highlight: false });
+  persistAppState();
 });
+difficultySelect.addEventListener("change", persistAppState);
+window.addEventListener("beforeunload", persistAppState);
