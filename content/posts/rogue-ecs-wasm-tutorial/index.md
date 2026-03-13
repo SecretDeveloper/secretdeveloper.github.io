@@ -10,19 +10,19 @@ I have been following the Rust Roguelike Tutorial to build a little Rogue-like w
 
 Try it here: [Rogue](/games/rogue/).
 
-#### What I built so far
+## What I built so far
 
 It is a classic tile-based dungeon crawl with keyboard controls (arrow keys, vi keys, and numpad). The Rust core uses `specs` for ECS and `bracket-lib` for the terminal style rendering model. I bridged it to the browser with `wasm-bindgen`, so it runs as a WebGL canvas.
 
-#### The tutorial I followed
+## The tutorial I followed
 
 The build tracks the [Rust Roguelike Tutorial](https://bfnightly.bracketproductions.com/), which walks through the ECS architecture and step-by-step game features. The core loop is clean and incremental: get a map, place a player, add movement, add monsters, then keep layering systems.
 
-#### Why this was fun
+## Why this was fun
 
 ECS fits this style of game really well. It keeps the entities small and the systems honest. Rust makes you think about ownership and data layout early, which pairs nicely with ECS. Getting it into WebAssembly means I can share a build instantly without bundling a native binary.
 
-#### What is missing (for now)
+## What is missing (for now)
 
 The tutorial is only partially complete, so there are plenty of features still to add. I want to keep following it to finish inventory, skills, and a deeper progression loop.
 

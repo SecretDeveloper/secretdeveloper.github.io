@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noodp" /><title>Javascript Equality Operator Grids - SecretDeveloper</title><meta name="Description" content="== vs === vs &lt; vs &gt; vs != vs !== vs &lt;= vs &gt;="><meta property="og:url" content="https://secretdeveloper.github.io/posts/javascript-equality-operator-grids/">
-  <meta property="og:site_name" content="SecretDeveloper">
+    <meta name="robots" content="noodp" /><title>Javascript Equality Operator Grids - Gary Kenneally</title><meta name="Description" content="== vs === vs &lt; vs &gt; vs != vs !== vs &lt;= vs &gt;="><meta property="og:url" content="https://secretdeveloper.github.io/posts/javascript-equality-operator-grids/">
+  <meta property="og:site_name" content="Gary Kenneally">
   <meta property="og:title" content="Javascript Equality Operator Grids">
   <meta property="og:description" content="== vs === vs &lt; vs &gt; vs != vs !== vs &lt;= vs &gt;=">
   <meta property="og:locale" content="en_us">
@@ -17,8 +17,8 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Javascript Equality Operator Grids">
   <meta name="twitter:description" content="== vs === vs &lt; vs &gt; vs != vs !== vs &lt;= vs &gt;=">
-<meta name="application-name" content="SecretDeveloper">
-<meta name="apple-mobile-web-app-title" content="SecretDeveloper">
+<meta name="application-name" content="Gary Kenneally">
+<meta name="apple-mobile-web-app-title" content="Gary Kenneally">
 
 <meta name="theme-color" content="#f8f8f8"><link rel="icon" href="/favicon.svg"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 
@@ -78,7 +78,7 @@
     <div id="mask"></div><header class="desktop print:!tw-hidden" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
-            <a href="/" title="SecretDeveloper">SecretDeveloper</a>
+            <a href="/" title="Gary Kenneally">Gary Kenneally</a>
         </div>
         <div class="menu">
             <div class="menu-inner"><a class="menu-item"
@@ -98,7 +98,7 @@
     <div class="header-container">
         <div class="header-wrapper">
             <div class="header-title">
-                <a href="/" title="SecretDeveloper">SecretDeveloper</a>
+                <a href="/" title="Gary Kenneally">Gary Kenneally</a>
             </div>
             <div class="menu-toggle" id="menu-toggle-mobile">
                 <span></span><span></span><span></span>
@@ -115,12 +115,15 @@
 </div>
 <div class="search-dropdown mobile">
     <div id="search-dropdown-mobile"></div>
-</div><main class="tw-mx-4 tw-flex-1"><dialog id="toc-dialog" class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16">
+</div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id="toc-auto">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-auto"><nav id="TableOfContents"></nav></div>
+    </div><dialog id="toc-dialog" class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16">
         <div class="toc tw-mx-4 tw-max-w-full">
             <h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">Contents</h2>
             <div class="toc-content"><nav id="TableOfContents"></nav></div>
         </div>
-    </dialog><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class="single-title" data-pagefind-meta="date:2015-02-17" data-pagefind-body>Javascript Equality Operator Grids</h1><div class="post-meta">
+    </dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class="single-title" data-pagefind-meta="date:2015-02-17" data-pagefind-body>Javascript Equality Operator Grids</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><svg class="icon"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm0 96c48.6 0 88 39.4 88 88s-39.4 88-88 88-88-39.4-88-88 39.4-88 88-88zm0 344c-58.7 0-111.3-26.6-146.5-68.2 18.8-35.4 55.6-59.8 98.5-59.8 2.4 0 4.8.4 7.1 1.1 13 4.2 26.6 6.9 40.9 6.9 14.3 0 28-2.7 40.9-6.9 2.3-.7 4.7-1.1 7.1-1.1 42.9 0 79.7 24.4 98.5 59.8C359.3 421.4 306.7 448 248 448z"/></svg><a href="/" title="Author" rel=" author" class="author">Gary Kenneally</a>
@@ -134,7 +137,14 @@
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;47 words&nbsp;
                     <svg class="icon"
     xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5 0-200-89.5-200-200S145.5 56 256 56s200 89.5 200 200-89.5 200-200 200zm61.8-104.4l-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;One minute&nbsp;</div>
-        </div><div class="content" id="content" data-pagefind-body><p>Javascript gets some bad press these days especially over how its comparison operators work.</p>
+        </div><div class="details toc print:!tw-block" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
+            </div><div class="content" id="content" data-pagefind-body><p>Javascript gets some bad press these days especially over how its comparison operators work.</p>
 <p>I decided to extend <a href="http://strilanc.com/visualization/2014/03/27/Better-JS-Equality-Table.html" target="_blank" rel="noopener noreferrer">Craig Gidneys</a> example and added ===, !=, !== &lt;, &lt;=, &gt; and .= comparisons.</p>
 <p>Rows are the left side operand and columns are the right.</p>
 <p><a href="https://jsfiddle.net/SecretDeveloper/1zywbpLL/" target="_blank" rel="noopener noreferrer">Source code on jsfiddle</a></p>

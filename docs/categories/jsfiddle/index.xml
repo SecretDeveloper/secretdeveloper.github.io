@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Jsfiddle - Category - SecretDeveloper</title>
+        <title>Jsfiddle - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/jsfiddle/</link>
-        <description>Jsfiddle - Category - SecretDeveloper</description>
+        <description>Jsfiddle - Category - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 17 Feb 2015 12:52:32 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/jsfiddle/" rel="self" type="application/rss+xml" /><item>
     <title>Javascript Equality Operator Grids</title>
     <link>https://secretdeveloper.github.io/posts/javascript-equality-operator-grids/</link>

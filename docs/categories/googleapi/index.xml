@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Googleapi - Category - SecretDeveloper</title>
+        <title>Googleapi - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/googleapi/</link>
-        <description>Googleapi - Category - SecretDeveloper</description>
+        <description>Googleapi - Category - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 21 Jul 2013 17:03:58 &#43;0100</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/googleapi/" rel="self" type="application/rss+xml" /><item>
     <title>KnockoutJS demo using Google Books API</title>
     <link>https://secretdeveloper.github.io/posts/knockoutjs-demo-using-google-books-api/</link>

@@ -7,11 +7,11 @@ categories = ["software", "games", "gpt-oss-20b"]
 
 In this post I explore how to use **gpt-oss-20b**, an open source 20-billion parameter language model, to prototype two classic browser games: Asteroids and Breakout. By iterating on prompts and refining the output, I generated working HTML5 Canvas implementations in around an hour or so.
 
-#### About gpt-oss-20b
+## About gpt-oss-20b
 
 gpt-oss-20b is an open-source 20-billion parameter transformer-based language model released by OpenAI under the Apache 2.0 license. It is based on the GPT-4 architecture scaled to 20B parameters, trained on a diverse mix of web text, code, and documents. 
 
-#### Setup
+## Setup
 
 To host **gpt-oss-20b** locally, I used **LM Studio**:
 
@@ -52,7 +52,7 @@ With this in place when you run `opencode` it will allow you to select gpt-oss-2
 <img src="./gpt-oss-20b-nvim-opencode.jpg" alt="gpt-oss-20b with opencode and nvim">
 
 
-#### Generating the Asteroids Game
+## Generating the Asteroids Game
 
 I prompted the model:
 
@@ -90,7 +90,7 @@ class Ship {
 
 I fine-tuned the physics parameters and added a simple scoring HUD. The final files live under `static/games/asteroids/` and can be tried live at [Asteroids](/games/asteroids/).
 
-#### Generating the Breakout Game
+## Generating the Breakout Game
 
 Next, I asked:
 
@@ -114,7 +114,7 @@ for (let row = 0; row < rowCount; row++) {
 
 A quick polish pass added sound effects and level progression. The result is served from `static/games/breakout/` and is available at [Breakout / Arkanoid](/games/breakout/).
 
-#### Lessons Learned
+## Lessons Learned
 
 So its really interesting to run a model on my macbook air with only 16gb of memory and still get good results (in terms of the quality of answers) and usable performance that didn't feel too sluggish.  As a test of the possible this was eye-opening and it shows that we likely will see smaller models in future with decent responses.
 

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Game-Dev - Tag - SecretDeveloper</title>
+        <title>Game-Dev - Tag - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/tags/game-dev/</link>
-        <description>Game-Dev - Tag - SecretDeveloper</description>
+        <description>Game-Dev - Tag - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/game-dev/" rel="self" type="application/rss+xml" /><item>
     <title>Porting Asteroids to an ECS with Codex</title>
     <link>https://secretdeveloper.github.io/posts/porting-asteroids-to-ecs-with-codex/</link>

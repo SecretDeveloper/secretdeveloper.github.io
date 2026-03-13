@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Microservices - Category - SecretDeveloper</title>
+        <title>Microservices - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/microservices/</link>
-        <description>Microservices - Category - SecretDeveloper</description>
+        <description>Microservices - Category - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 27 Sep 2018 14:32:02 &#43;0100</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/microservices/" rel="self" type="application/rss+xml" /><item>
     <title>On the Design of Small Things</title>
     <link>https://secretdeveloper.github.io/posts/on-the-design-of-small-things/</link>

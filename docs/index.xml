@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>SecretDeveloper</title>
+        <title>Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/</link>
-        <description>SecretDeveloper</description>
+        <description>Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://secretdeveloper.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
@@ -13,8 +13,8 @@
     </author><guid>https://secretdeveloper.github.io/posts/rogue-ecs-wasm-tutorial/</guid>
     <description><![CDATA[<p>I have been following the Rust Roguelike Tutorial to build a little Rogue-like with an ECS core. I only got partway through, but it was a fun, focused project and I now have a playable build running in the browser.</p>
 <p>Try it here: <a href="/games/rogue/" rel="">Rogue</a>.</p>
-<h4 id="what-i-built-so-far" class="headerLink">
-    <a href="#what-i-built-so-far" class="header-mark"></a>What I built so far</h4><p>It is a classic tile-based dungeon crawl with keyboard controls (arrow keys, vi keys, and numpad). The Rust core uses <code>specs</code> for ECS and <code>bracket-lib</code> for the terminal style rendering model. I bridged it to the browser with <code>wasm-bindgen</code>, so it runs as a WebGL canvas.</p>]]></description>
+<h2 id="what-i-built-so-far" class="headerLink">
+    <a href="#what-i-built-so-far" class="header-mark"></a>What I built so far</h2><p>It is a classic tile-based dungeon crawl with keyboard controls (arrow keys, vi keys, and numpad). The Rust core uses <code>specs</code> for ECS and <code>bracket-lib</code> for the terminal style rendering model. I bridged it to the browser with <code>wasm-bindgen</code>, so it runs as a WebGL canvas.</p>]]></description>
 </item><item>
     <title>Building a Sudoku Editor with GPT-5.2</title>
     <link>https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/</link>
@@ -23,22 +23,22 @@
     </author><guid>https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/</guid>
     <description><![CDATA[<p>I wanted a Sudoku editor that feels like a quiet desk: place numbers, track candidates, get nudges, and keep the board readable. So I built one with GPT-5.2 helping me iterate the UI and logic.</p>
 <p>You can try it here: <a href="/games/sudoku/" rel="">Sudoku Editor</a>.</p>
-<h4 id="what-it-does" class="headerLink">
-    <a href="#what-it-does" class="header-mark"></a>What it does</h4><ul>
+<h2 id="what-it-does" class="headerLink">
+    <a href="#what-it-does" class="header-mark"></a>What it does</h2><ul>
 <li>9x9 editor with keyboard navigation, input validation, and clear visual feedback.</li>
 <li>Candidate mode with a manual pencil-mark layer, plus optional auto-candidates.</li>
 <li>Generator with difficulty targets (easy/medium/hard) and uniqueness checks.</li>
 <li>Step solver with hints and a log that explains the tactic used.</li>
 <li>Quality-of-life actions: New, Reset, Undo, Copy, Load.</li>
 </ul>
-<h4 id="the-bits-i-like" class="headerLink">
-    <a href="#the-bits-i-like" class="header-mark"></a>The bits I like</h4><ul>
+<h2 id="the-bits-i-like" class="headerLink">
+    <a href="#the-bits-i-like" class="header-mark"></a>The bits I like</h2><ul>
 <li>The board reacts quickly. It highlights row/column/box, matches values, and invalid cells without feeling noisy.</li>
 <li>The candidate system has two layers: manual marks you place and auto-candidates the solver derives. You can flip between them without losing your notes.</li>
 <li>The step solver does not just fill cells; it shows the reasoning and keeps a trail so you can walk back through the tactics.</li>
 </ul>
-<h4 id="how-the-solver-thinks" class="headerLink">
-    <a href="#how-the-solver-thinks" class="header-mark"></a>How the solver thinks</h4><p>The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.</p>]]></description>
+<h2 id="how-the-solver-thinks" class="headerLink">
+    <a href="#how-the-solver-thinks" class="header-mark"></a>How the solver thinks</h2><p>The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.</p>]]></description>
 </item><item>
     <title>lsv: a Rust powered terminal file browser</title>
     <link>https://secretdeveloper.github.io/posts/lsv-a-lua-powered-terminal-file-browser/</link>
@@ -94,8 +94,8 @@
         <name>Gary Kenneally</name>
     </author><guid>https://secretdeveloper.github.io/posts/using-gpt-oss-20b-to-build-asteroids-and-breakout/</guid>
     <description><![CDATA[<p>In this post I explore how to use <strong>gpt-oss-20b</strong>, an open source 20-billion parameter language model, to prototype two classic browser games: Asteroids and Breakout. By iterating on prompts and refining the output, I generated working HTML5 Canvas implementations in around an hour or so.</p>
-<h4 id="about-gpt-oss-20b" class="headerLink">
-    <a href="#about-gpt-oss-20b" class="header-mark"></a>About gpt-oss-20b</h4><p>gpt-oss-20b is an open-source 20-billion parameter transformer-based language model released by OpenAI under the Apache 2.0 license. It is based on the GPT-4 architecture scaled to 20B parameters, trained on a diverse mix of web text, code, and documents.</p>]]></description>
+<h2 id="about-gpt-oss-20b" class="headerLink">
+    <a href="#about-gpt-oss-20b" class="header-mark"></a>About gpt-oss-20b</h2><p>gpt-oss-20b is an open-source 20-billion parameter transformer-based language model released by OpenAI under the Apache 2.0 license. It is based on the GPT-4 architecture scaled to 20B parameters, trained on a diverse mix of web text, code, and documents.</p>]]></description>
 </item><item>
     <title>Memento Mori</title>
     <link>https://secretdeveloper.github.io/posts/memento-mori/</link>

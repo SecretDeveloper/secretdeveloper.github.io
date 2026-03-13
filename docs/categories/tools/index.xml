@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tools - Category - SecretDeveloper</title>
+        <title>Tools - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/tools/</link>
-        <description>Tools - Category - SecretDeveloper</description>
+        <description>Tools - Category - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/tools/" rel="self" type="application/rss+xml" /><item>
     <title>lsv: a Rust powered terminal file browser</title>
     <link>https://secretdeveloper.github.io/posts/lsv-a-lua-powered-terminal-file-browser/</link>

@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Roundup - Category - SecretDeveloper</title>
+        <title>Roundup - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/roundup/</link>
-        <description>Roundup - Category - SecretDeveloper</description>
+        <description>Roundup - Category - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 22 Dec 2016 12:56:02 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/roundup/" rel="self" type="application/rss+xml" /><item>
     <title>2016 Round-Up</title>
     <link>https://secretdeveloper.github.io/posts/2016-roundup/</link>

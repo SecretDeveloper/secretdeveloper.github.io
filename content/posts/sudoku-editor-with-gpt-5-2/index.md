@@ -10,7 +10,7 @@ I wanted a Sudoku editor that feels like a quiet desk: place numbers, track cand
 
 You can try it here: [Sudoku Editor](/games/sudoku/).
 
-#### What it does
+## What it does
 
 - 9x9 editor with keyboard navigation, input validation, and clear visual feedback.
 - Candidate mode with a manual pencil-mark layer, plus optional auto-candidates.
@@ -18,21 +18,21 @@ You can try it here: [Sudoku Editor](/games/sudoku/).
 - Step solver with hints and a log that explains the tactic used.
 - Quality-of-life actions: New, Reset, Undo, Copy, Load.
 
-#### The bits I like
+## The bits I like
 
 - The board reacts quickly. It highlights row/column/box, matches values, and invalid cells without feeling noisy.
 - The candidate system has two layers: manual marks you place and auto-candidates the solver derives. You can flip between them without losing your notes.
 - The step solver does not just fill cells; it shows the reasoning and keeps a trail so you can walk back through the tactics.
 
-#### How the solver thinks
+## How the solver thinks
 
 The solver starts with the basics (naked and hidden singles), then escalates through sets, pointing/claiming, fish, and wing tactics. I wanted the hints to be helpful rather than magical, so each step reports the evidence in plain language.
 
-#### GPT-5.2 in the loop
+## GPT-5.2 in the loop
 
 I used GPT-5.2 to help shape the workflow and edge cases: syncing UI state, tracking undo history, and keeping the candidate display honest. It was especially useful for turning Sudoku tactics into deterministic code paths, then tightening the wording so hints stayed readable.
 
-#### What I would still like to add
+## What I would still like to add
 
 - A few curated puzzles that demonstrate specific tactics.
 - A way to export/share a puzzle without copy-pasting a long string.

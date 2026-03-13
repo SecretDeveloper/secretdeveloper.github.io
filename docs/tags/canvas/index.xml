@@ -1,8 +1,8 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Canvas - Tag - SecretDeveloper</title>
+        <title>Canvas - Tag - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/tags/canvas/</link>
-        <description>Canvas - Tag - SecretDeveloper</description>
+        <description>Canvas - Tag - Gary Kenneally</description>
         <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/tags/canvas/" rel="self" type="application/rss+xml" /><item>
     <title>Porting Asteroids to an ECS with Codex</title>
     <link>https://secretdeveloper.github.io/posts/porting-asteroids-to-ecs-with-codex/</link>

@@ -7,7 +7,7 @@ categories= ["underscore","data-models","composition","validation"]
 
 While I am working my way through the [Functional Javascript](http://www.amazon.com/gp/product/B00D624AQO/ref=as_li_ss_tl?ie=UTF8&camp=1789&creative=390957&creativeASIN=B00D624AQO&linkCode=as2&tag=secretdeveloper-20) book I came across something that could be really useful, especially when dealing with AJAX requests.
 
-#### Functional Composition
+## Functional Composition
 In a nutshell you start with simple functions that do a single job and then chain them up to perform some larger task.  In this example we want to validate that the json being returned from an AJAX call contains the properties we require.  To do that we start with the following function:
 
     function validator(message, fun){
@@ -36,7 +36,7 @@ Next we need a 'driver' function:
 
 that should be called with a list of validators as its arguments. It loads these into an array and returns a function which uses this array to validate the object 'obj'. It will loop over each of the validators in the array and checks to see if the obj object passes each of them.  If the check fails then it appends the validators 'message' to the list it will return. If all validators pass then the array returned will be empty.
 
-#### Putting it all together
+## Putting it all together
 I can use my checker and validator functions to create a validation function like the following:
 
     function isValidResourceItem(){
@@ -59,10 +59,10 @@ I can use my checker and validator functions to create a validation function lik
 
 which will help to ensure the data was returned in a format I expect and cut down on those 'undefined' errors you would get without something like this.
 
-#### Example
+## Example
 I reused an example from an earlier jsFiddle to test the idea out, I want to be sure the search results json object contains the properties I need to produce a results list. 
 
 <iframe width="100%" height="300" src="http://jsfiddle.net/SecretDeveloper/8PqEG/5/embedded/" allowfullscreen="allowfullscreen" frameborder="0"> </iframe>
 
-#### Whats the point?
+## Whats the point?
 Well I guess it shows an easy way to take pieces of functionality, place them into small reusable functions and build upon them into a pretty powerful set of tools.  

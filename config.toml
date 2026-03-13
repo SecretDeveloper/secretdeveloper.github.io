@@ -2,7 +2,7 @@ publishDir = "docs"
 cleanDestinationDir = true
 baseurl = "https://secretdeveloper.github.io/"
 languageCode = "en-us"
-title = "SecretDeveloper"
+title = "Gary Kenneally"
 disqusShortname = "secretdevelopernet"
 googleAnalytics = "UA-6023272-11"
 theme = "DoIt"
@@ -26,8 +26,8 @@ post = "/blog/:year-:month-:day-:title/" # change the post URL to look like the 
 [markup]
 # Default is startLevel 2 and endLevel 3, we want to render every heading
 [markup.tableOfContents]
-endLevel = 8
-startLevel = 1
+endLevel = 4
+startLevel = 2
 # set the Chroma highlighting options
 # https://gohugo.io/getting-started/configuration-markup/#highlight
 [markup.highlight]
@@ -131,7 +131,12 @@ generateTaxonomyList = true
 # Hack to get DoIt theme to work as it needs this value
 [params.Author]
 name = "Gary Kenneally"
-  
+
+[params.page.toc]
+enable = true
+keepStatic = false
+auto = true
+
 # SVG favicon (black 'SD' on white background)
 [params.app]
 svgFavicon = "/favicon.svg"
