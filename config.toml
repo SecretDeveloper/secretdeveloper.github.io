@@ -158,6 +158,10 @@ Name = "Tags"
 URL = "/tags/"
 weight = 3
 [[menu.main]]
+Name = "Series"
+URL = "/series/"
+weight = 4
+[[menu.main]]
 Name = "About"
 URL = "/about/"
 weight = 60

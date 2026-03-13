@@ -12,6 +12,12 @@ I have shipped plenty of software inside teams and companies, but publishing a s
 
 `lsv` is a three-pane terminal file browser I built in Rust with Lua configuration. By the time I started thinking seriously about crates.io, the core idea already worked. I could move around, preview files, run commands, wire up custom actions, and generally use it for real. I had convinced myself the software existed.
 
+If you want to look at the actual project, it is here:
+
+- GitHub: [SecretDeveloper/lsv](https://github.com/SecretDeveloper/lsv)
+- Crates.io: [lsv](https://crates.io/crates/lsv)
+- Docs: [docs.rs/lsv](https://docs.rs/lsv)
+
 ## Names matter
 
 The tool originally started life as `lv`, which felt fine for about five minutes and then promptly ran into reality. One of the September commits is literally `renamed lv to lsv due to conflict with existing tools`, which is not a glamorous milestone but probably one of the most important ones in the whole repo.

@@ -26,9 +26,8 @@ Use this as the default tone for future drafts in this series.
 - [x] 2026-03-07T16:30:00+00:00 Fixing Cross-Terminal Preview Rendering in a Rust TUI
 - [x] 2026-02-24T11:00:00+00:00 From Solver to Product: Evolving a Sudoku Tool into a Better UI
 - [x] 2026-02-03T15:00:00+00:00 Adding Tactics to a Sudoku Solver Without Turning It Into a Mess
-- [ ] 2026-02-06T18:00:00+00:00 Making a Rust Roguelike Work in the Browser
-- [ ] 2026-02-06T20:00:00+00:00 Patching an Old Rust Dependency to Keep a Web Build Alive
-- [ ] 2025-09-09T13:30:00+01:00 Designing a Queue by Removing Features: Building sqew with SQLite and Axum
+- [x] 2026-02-06T18:00:00+00:00 Making a Rust Roguelike Work in the Browser
+- [x] 2025-09-09T13:30:00+01:00 Designing a Queue by Removing Features: Building sqew with SQLite and Axum
 - [ ] 2025-09-10T09:30:00+01:00 Stress Testing a Tiny SQLite Queue
 - [ ] 2025-09-10T16:00:00+01:00 Multi-Arch Containers for a Small Rust Service
 - [ ] 2026-02-25T19:00:00+00:00 Building a Personal Read-Later Archive with Fastify, SQLite, and Playwright

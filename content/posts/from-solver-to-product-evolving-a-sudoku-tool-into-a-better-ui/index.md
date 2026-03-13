@@ -20,6 +20,12 @@ That got me over the line into “there is a thing on the screen and it sort of 
 
 The rest of the work was mostly product work disguised as bug fixing and polish.
 
+The project is here if you want to look at it:
+
+- Repo: [SecretDeveloper/sudoku](https://github.com/SecretDeveloper/sudoku)
+- Live version on this site: [Sudoku Editor](/games/sudoku/)
+- Earlier overview post: [Building a Sudoku Editor with GPT-5.2](/posts/sudoku-editor-with-gpt-5-2/)
+
 ## The solver was only half the job
 
 By the end of that first day the app could step through a solve and it could handle puzzles up to New York Times hard. The commits around that are straightforward:

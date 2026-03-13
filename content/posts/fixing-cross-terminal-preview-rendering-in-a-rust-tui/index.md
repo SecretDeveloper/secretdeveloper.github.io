@@ -14,6 +14,13 @@ One of the stranger bugs I have hit recently came from a nice reminder that term
 
 Then I got a bug report for WezTerm not displaying images in the preview panel.
 
+Relevant bits:
+
+- Repo: [SecretDeveloper/lsv](https://github.com/SecretDeveloper/lsv)
+- Terminal: [WezTerm](https://wezterm.org/)
+- Image preview tool: [atanunq/viu](https://github.com/atanunq/viu)
+- The issue was fixed in the `wezterm preview fix` work in the `lsv` repo
+
 ## The actual problem
 
 `lsv` is a text-rendered previewer. It captures command output, keeps ANSI colour, and draws text into a pane. That works fine for tools that emit ordinary text and SGR colour sequences.

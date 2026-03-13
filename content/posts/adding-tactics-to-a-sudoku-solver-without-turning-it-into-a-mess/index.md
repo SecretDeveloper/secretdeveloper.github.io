@@ -14,6 +14,12 @@ The first steps are easy. Naked singles and hidden singles are not much trouble.
 
 But then you need to add the trickier tactics.
 
+The code and the playable version are here:
+
+- Repo: [SecretDeveloper/sudoku](https://github.com/SecretDeveloper/sudoku)
+- Live version on this site: [Sudoku Editor](/games/sudoku/)
+- Related post: [Building a Sudoku Editor with GPT-5.2](/posts/sudoku-editor-with-gpt-5-2/)
+
 ## I wanted one shape for a solving step
 
 The main thing that kept this manageable was forcing every tactic through the same output shape.
