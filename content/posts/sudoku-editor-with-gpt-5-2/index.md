@@ -1,9 +1,9 @@
 +++
 date = "2026-02-05T12:00:00+00:00"
 title = "Building a Sudoku Editor with GPT-5.2"
-description = "A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop"
+description = "A browser-based Sudoku editor, generator, and step solver built with careful UI iteration and GPT-5.2-assisted implementation"
 categories = ["software", "games", "sudoku", "gpt-5.2"]
-tags = ["javascript", "puzzle", "ui", "tooling"]
+tags = ["javascript", "puzzle", "ui", "tooling", "ai-assisted-development"]
 +++
 
 I wanted a Sudoku editor that feels like a quiet desk: place numbers, track candidates, get nudges, and keep the board readable. So I built one with GPT-5.2 helping me iterate the UI and logic.

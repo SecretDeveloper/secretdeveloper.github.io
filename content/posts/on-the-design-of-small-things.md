@@ -2,8 +2,9 @@
 title: "On the Design of Small Things"
 date: 2018-09-27T14:32:02+01:00
 draft: false
-description: "Unix did Microservices first."
-categories: ["Unix","Microservices","Architecture","Engineering"]
+description: "Applying the Unix philosophy to software design, modular systems, and the shape of maintainable services."
+categories: ["architecture","engineering"]
+tags: ["unix", "microservices", "design", "maintainability"]
 ---
 
 > Those who do not understand UNIX are condemned to reinvent it, poorly.  

@@ -13,5 +13,20 @@
 <p>Try it here: <a href="/games/rogue/" rel="">Rogue</a>.</p>
 <h2 id="what-i-built-so-far" class="headerLink">
     <a href="#what-i-built-so-far" class="header-mark"></a>What I built so far</h2><p>It is a classic tile-based dungeon crawl with keyboard controls (arrow keys, vi keys, and numpad). The Rust core uses <code>specs</code> for ECS and <code>bracket-lib</code> for the terminal style rendering model. I bridged it to the browser with <code>wasm-bindgen</code>, so it runs as a WebGL canvas.</p>]]></description>
+</item><item>
+    <title>Porting Asteroids to an ECS with Codex</title>
+    <link>https://secretdeveloper.github.io/posts/porting-asteroids-to-ecs-with-codex/</link>
+    <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/posts/porting-asteroids-to-ecs-with-codex/</guid>
+    <description><![CDATA[<p>Quick version: I rewired my <a href="/games/asteroids/" rel="">Asteroids</a> clone from a pile of classes to an Entity‑Component‑System (ECS). Codex (the CLI agent) did the heavy lifting while I poked, prodded, and occasionally muttered at my screen. The end result is cleaner, easier to extend, and less brittle when I add toys like missiles and sparkly shields.</p>
+<p>Why bother with ECS?</p>
+<ul>
+<li>I was done fighting class hierarchies. I just want to slap “has a shield,” “spins,” or “is a missile” onto things without negotiating with a base class.</li>
+<li>Data is data, behavior is behavior. Components hold state; systems do the work over sets of components.</li>
+<li>(maybe) Performance as a side effect: tight loops over similar data are fast, but honestly the clarity is what sold me.</li>
+<li>New features become “add a component, tweak a system,” not surgery across five files.</li>
+</ul>
+<p>Where I started (a.k.a. the creaky bits)</p>]]></description>
 </item></channel>
 </rss>

@@ -1,8 +1,9 @@
 +++
 date = "2025-08-09T12:00:00+00:00"
 title = "Using gpt-oss-20b to Build Asteroids and Breakout"
-description = "Leveraging the open source 20B GPT model to generate two classic browser games"
-categories = ["software", "games", "gpt-oss-20b"]
+description = "Notes on using a local open-weight model to prototype browser games, and where small-model assisted development works well"
+categories = ["software", "games", "ai"]
+tags = ["javascript", "canvas", "game-dev", "llm", "local-models", "ai-assisted-development"]
 +++
 
 In this post I explore how to use **gpt-oss-20b**, an open source 20-billion parameter language model, to prototype two classic browser games: Asteroids and Breakout. By iterating on prompts and refining the output, I generated working HTML5 Canvas implementations in around an hour or so.

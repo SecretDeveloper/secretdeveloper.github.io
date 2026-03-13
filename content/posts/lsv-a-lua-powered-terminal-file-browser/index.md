@@ -1,9 +1,9 @@
 +++
 date = "2025-10-01T12:45:00+00:00"
 title = "lsv: a Rust powered terminal file browser"
-description = "Why I built lsv in Rust with Lua bindings for fast directory navigation, previews, and custom commands"
-categories = ["software", "tools", "rust", "lua"]
-tags = ["terminal", "productivity", "cli", "file-browser"]
+description = "Design notes on building a fast terminal file browser in Rust with Lua for previews, custom commands, and keyboard-first navigation"
+categories = ["software", "tools", "rust"]
+tags = ["terminal", "productivity", "cli", "file-browser", "developer-tools", "lua"]
 +++
 
 I finally snapped after one too many trips through modern file browsers on macOS and Windows. Click. Wait. Tiny target. Modal dialog. Repeat. I spend most of my day in a terminal anyway, so I built something that fits how I actually work.
@@ -56,4 +56,3 @@ lf is great. I borrowed a few ideas and then went in a direction that fit my pre
 - Edit init.lua previews and key_actions as you wish.
 
 If you try it and it makes your day a little smoother, that is a win. If something feels rough, open an issue and tell me what got in your way.
-

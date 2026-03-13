@@ -1,9 +1,9 @@
 +++
 date = "2026-02-06T12:00:00+00:00"
 title = "Rogue in Rust with ECS + WebAssembly"
-description = "Notes from following the Rust Roguelike Tutorial and wiring the build to run in the browser"
-categories = ["software", "games", "roguelike", "rust", "wasm"]
-tags = ["ecs", "bracket-lib", "specs", "webgl", "tutorial"]
+description = "Build notes on wiring a Rust ECS roguelike into the browser with WebAssembly and a terminal-style rendering model"
+categories = ["software", "games", "rust"]
+tags = ["ecs", "wasm", "webgl", "game-dev", "bracket-lib", "specs"]
 +++
 
 I have been following the Rust Roguelike Tutorial to build a little Rogue-like with an ECS core. I only got partway through, but it was a fun, focused project and I now have a playable build running in the browser.

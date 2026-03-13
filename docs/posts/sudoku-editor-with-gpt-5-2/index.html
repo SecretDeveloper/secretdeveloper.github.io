@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noodp" /><title>Building a Sudoku Editor with GPT-5.2 - Gary Kenneally</title><meta name="Description" content="A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop"><meta property="og:url" content="https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/">
+    <meta name="robots" content="noodp" /><title>Building a Sudoku Editor with GPT-5.2 - Gary Kenneally</title><meta name="Description" content="A browser-based Sudoku editor, generator, and step solver built with careful UI iteration and GPT-5.2-assisted implementation"><meta property="og:url" content="https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/">
   <meta property="og:site_name" content="Gary Kenneally">
   <meta property="og:title" content="Building a Sudoku Editor with GPT-5.2">
-  <meta property="og:description" content="A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop">
+  <meta property="og:description" content="A browser-based Sudoku editor, generator, and step solver built with careful UI iteration and GPT-5.2-assisted implementation">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -17,10 +17,11 @@
     <meta property="article:tag" content="Puzzle">
     <meta property="article:tag" content="Ui">
     <meta property="article:tag" content="Tooling">
+    <meta property="article:tag" content="Ai-Assisted-Development">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Building a Sudoku Editor with GPT-5.2">
-  <meta name="twitter:description" content="A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop">
+  <meta name="twitter:description" content="A browser-based Sudoku editor, generator, and step solver built with careful UI iteration and GPT-5.2-assisted implementation">
 <meta name="application-name" content="Gary Kenneally">
 <meta name="apple-mobile-web-app-title" content="Gary Kenneally">
 
@@ -33,14 +34,14 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/"
-        },"genre": "posts","keywords":["javascript","puzzle","ui","tooling"],"wordcount":  302 ,
+        },"genre": "posts","keywords":["javascript","puzzle","ui","tooling","ai-assisted-development"],"wordcount":  302 ,
         "url": "https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/","datePublished": "2026-02-05T12:00:00+00:00","dateModified": "2026-02-05T12:00:00+00:00","publisher": {
             "@type": "Organization",
             "name": "Gary Kenneally"},"author": {
                 "@type": "Person",
                 "name": "Gary Kenneally",
                 "url": "/"
-            },"description": "A Sudoku editor, generator, and step solver built with GPT-5.2 in the loop"
+            },"description": "A browser-based Sudoku editor, generator, and step solver built with careful UI iteration and GPT-5.2-assisted implementation"
     }</script></head>
 
 
@@ -218,7 +219,7 @@
 
     <div class="post-info-more">
         <section class="post-tags"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg>&nbsp;<a href="/tags/javascript/">Javascript</a>,&nbsp;<a href="/tags/puzzle/">Puzzle</a>,&nbsp;<a href="/tags/ui/">Ui</a>,&nbsp;<a href="/tags/tooling/">Tooling</a></section>
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M497.941 225.941L286.059 14.059A48 48 0 0 0 252.118 0H48C21.49 0 0 21.49 0 48v204.118a48 48 0 0 0 14.059 33.941l211.882 211.882c18.744 18.745 49.136 18.746 67.882 0l204.118-204.118c18.745-18.745 18.745-49.137 0-67.882zM112 160c-26.51 0-48-21.49-48-48s21.49-48 48-48 48 21.49 48 48-21.49 48-48 48zm513.941 133.823L421.823 497.941c-18.745 18.745-49.137 18.745-67.882 0l-.36-.36L527.64 323.522c16.999-16.999 26.36-39.6 26.36-63.64s-9.362-46.641-26.36-63.64L331.397 0h48.721a48 48 0 0 1 33.941 14.059l211.882 211.882c18.745 18.745 18.745 49.137 0 67.882z"/></svg>&nbsp;<a href="/tags/javascript/">Javascript</a>,&nbsp;<a href="/tags/puzzle/">Puzzle</a>,&nbsp;<a href="/tags/ui/">Ui</a>,&nbsp;<a href="/tags/tooling/">Tooling</a>,&nbsp;<a href="/tags/ai-assisted-development/">Ai-Assisted-Development</a></section>
         <section class="print:!tw-hidden">
             <span><button class="tw-text-fgColor-link-muted hover:tw-text-fgColor-link-muted-hover" onclick="window.history.back();">Back</button></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>

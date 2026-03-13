@@ -11,13 +11,6 @@
     </author><guid>https://secretdeveloper.github.io/categories/games/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>Roguelike</title>
-    <link>https://secretdeveloper.github.io/categories/roguelike/</link>
-    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/roguelike/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
     <title>Rust</title>
     <link>https://secretdeveloper.github.io/categories/rust/</link>
     <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
@@ -30,13 +23,6 @@
     <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
     </author><guid>https://secretdeveloper.github.io/categories/software/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>Wasm</title>
-    <link>https://secretdeveloper.github.io/categories/wasm/</link>
-    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/wasm/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Gpt-5.2</title>
@@ -53,13 +39,6 @@
     </author><guid>https://secretdeveloper.github.io/categories/sudoku/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>Lua</title>
-    <link>https://secretdeveloper.github.io/categories/lua/</link>
-    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/lua/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
     <title>Tools</title>
     <link>https://secretdeveloper.github.io/categories/tools/</link>
     <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
@@ -67,11 +46,32 @@
     </author><guid>https://secretdeveloper.github.io/categories/tools/</guid>
     <description><![CDATA[]]></description>
 </item><item>
-    <title>Codex</title>
-    <link>https://secretdeveloper.github.io/categories/codex/</link>
+    <title>Architecture</title>
+    <link>https://secretdeveloper.github.io/categories/architecture/</link>
     <pubDate>Wed, 01 Oct 2025 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/codex/</guid>
+    </author><guid>https://secretdeveloper.github.io/categories/architecture/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Ai</title>
+    <link>https://secretdeveloper.github.io/categories/ai/</link>
+    <pubDate>Sat, 09 Aug 2025 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/categories/ai/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Life</title>
+    <link>https://secretdeveloper.github.io/categories/life/</link>
+    <pubDate>Thu, 26 Nov 2020 10:17:14 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/categories/life/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Philosophy</title>
+    <link>https://secretdeveloper.github.io/categories/philosophy/</link>
+    <pubDate>Thu, 26 Nov 2020 10:17:14 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/categories/philosophy/</guid>
     <description><![CDATA[]]></description>
 </item></channel>
 </rss>

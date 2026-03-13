@@ -1,9 +1,9 @@
 +++
 date = "2025-10-01T12:00:00+00:00"
 title = "Porting Asteroids to an ECS with Codex"
-description = "How I used Codex to migrate a classic Asteroids implementation to a data‑driven Entity‑Component‑System architecture"
-categories = ["software", "games", "ecs", "codex"]
-tags = ["javascript", "canvas", "game-dev", "refactor"]
+description = "A refactor diary on moving a browser game from class-heavy JavaScript to a cleaner ECS design with AI-assisted iteration"
+categories = ["software", "games", "architecture"]
+tags = ["javascript", "canvas", "game-dev", "refactor", "ecs", "ai-assisted-development"]
 +++
 
 Quick version: I rewired my [Asteroids](/games/asteroids/) clone from a pile of classes to an Entity‑Component‑System (ECS). Codex (the CLI agent) did the heavy lifting while I poked, prodded, and occasionally muttered at my screen. The end result is cleaner, easier to extend, and less brittle when I add toys like missiles and sparkly shields.

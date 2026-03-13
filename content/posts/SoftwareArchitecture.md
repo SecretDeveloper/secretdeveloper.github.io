@@ -1,7 +1,9 @@
 ---
 title: "Software Architecture"
 date: 2018-10-05T15:01:32+01:00
-categories: ["Software","Architecture"]
+description: "A practical view of software architecture as technical leadership, constraint management, and long-term system design."
+categories: ["architecture","engineering"]
+tags: ["technical-leadership", "system-design", "software-architecture"]
 ---
 # What is software architecture?   
 
@@ -42,5 +44,4 @@ It depends. There are TONS of applications being built where an architect is not
 
 ## You say "it depends" a lot, is that a joke?
 Well it depends, do you find it funny?
-
 
