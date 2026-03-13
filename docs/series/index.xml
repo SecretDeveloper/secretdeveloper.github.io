@@ -1,0 +1,14 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Series - Series - Gary Kenneally</title>
+        <link>https://secretdeveloper.github.io/series/</link>
+        <description>Series - Series - Gary Kenneally</description>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/series/" rel="self" type="application/rss+xml" /><item>
+    <title>Working with AI</title>
+    <link>https://secretdeveloper.github.io/series/working-with-ai/</link>
+    <pubDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/series/working-with-ai/</guid>
+    <description><![CDATA[<p>This series collects posts about using AI tools as part of real software work: prototyping, refactoring, tool-building, debugging, and figuring out where the help is real versus where it falls apart.</p>]]></description>
+</item></channel>
+</rss>

@@ -3,9 +3,17 @@
         <title>Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/</link>
         <description>Gary Kenneally</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://secretdeveloper.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>What I Learned Shipping lsv to Crates.io</title>
+    <link>https://secretdeveloper.github.io/posts/what-i-learned-shipping-lsv-to-crates-io/</link>
+    <pubDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/posts/what-i-learned-shipping-lsv-to-crates-io/</guid>
+    <description><![CDATA[<p>I have shipped plenty of software inside teams and companies, but publishing a small tool to crates.io has a different feel to it.</p>
+<p><code>lsv</code> is a three-pane terminal file browser I built in Rust with Lua configuration. By the time I started thinking seriously about crates.io, the core idea already worked. I could move around, preview files, run commands, wire up custom actions, and generally use it for real. I had convinced myself the software existed.</p>]]></description>
+</item><item>
     <title>Rogue in Rust with ECS &#43; WebAssembly</title>
     <link>https://secretdeveloper.github.io/posts/rogue-ecs-wasm-tutorial/</link>
     <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
@@ -149,14 +157,5 @@ I think of Software architects as “Master builders”. They may not have the t
 <h2 id="books" class="headerLink">
     <a href="#books" class="header-mark"></a>Books</h2><h3 id="technical" class="headerLink">
     <a href="#technical" class="header-mark"></a>Technical</h3><p>Over the last few years I consume less technical books purely because the content to be found online can be of great quality and books can rarely keep track with the rate of change in tech.  Usually if I am reading a tech book its of a more abstract or fundamental topic rather than specific to a language and is therefore a longer living.</p>]]></description>
-</item><item>
-    <title>Software, Estimation and the Planning Fallacy</title>
-    <link>https://secretdeveloper.github.io/posts/software-estimation-and-planning-fallacy/</link>
-    <pubDate>Fri, 14 Oct 2016 12:54:47 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/posts/software-estimation-and-planning-fallacy/</guid>
-    <description><![CDATA[<p>My flight is delayed for 3 hours so I&rsquo;m taking the rare opportunity to put together some thoughts on how software project estimation can trip companies, teams and individuals up.</p>
-<h2 id="waterfall" class="headerLink">
-    <a href="#waterfall" class="header-mark"></a>Waterfall</h2><p>Remember way back when everyone thought the Waterfall model was great?  Well actually no, for the most part they didnt. The Waterfall model was put forward by Winston Royce back in the early 70&rsquo;s as an example of a <em>broken</em> SDLC model.  Unfortunately this little note was lost in the scramble to adopt it as the de-facto model to use.  Now what is interesting to me is its original creator could see that the waterall model contained flaws, but thousands  of people could either not see those same flaws, or were unable to cease its adoption even if they tried; I&rsquo;m not sure which of those is worse.  30 years later you would be hard pressed to find any organizations still working under a Waterfall model, which is good.  The real problem however is not that a mistake was made, its that it took a generation before we acknowledged there was a problem.</p>]]></description>
 </item></channel>
 </rss>

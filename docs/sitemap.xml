@@ -2,21 +2,30 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
+            <loc>https://secretdeveloper.github.io/tags/ai-assisted-development/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/categories/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/cli/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/crates-io/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/developer-tools/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/posts/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/release-engineering/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/categories/rust/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/series/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/categories/software/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/tags/terminal/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/categories/tools/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/posts/what-i-learned-shipping-lsv-to-crates-io/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
+            <loc>https://secretdeveloper.github.io/series/working-with-ai/</loc><lastmod>2026-03-07T14:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/bracket-lib/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/categories/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/ecs/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/game-dev/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/categories/games/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/posts/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/posts/rogue-ecs-wasm-tutorial/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/categories/rust/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/categories/software/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/specs/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/tags/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/wasm/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/webgl/</loc><lastmod>2026-02-06T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/tags/ai-assisted-development/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/posts/sudoku-editor-with-gpt-5-2/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/categories/gpt-5.2/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/javascript/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
@@ -24,14 +33,10 @@
             <loc>https://secretdeveloper.github.io/categories/sudoku/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/tooling/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/ui/</loc><lastmod>2026-02-05T12:00:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/tags/cli/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/tags/developer-tools/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/file-browser/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/posts/lsv-a-lua-powered-terminal-file-browser/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/lua/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/productivity/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/tags/terminal/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
-            <loc>https://secretdeveloper.github.io/categories/tools/</loc><lastmod>2025-10-01T12:45:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/categories/architecture/</loc><lastmod>2025-10-01T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/tags/canvas/</loc><lastmod>2025-10-01T12:00:00&#43;00:00</lastmod></url><url>
             <loc>https://secretdeveloper.github.io/posts/porting-asteroids-to-ecs-with-codex/</loc><lastmod>2025-10-01T12:00:00&#43;00:00</lastmod></url><url>

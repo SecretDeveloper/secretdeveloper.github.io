@@ -15,6 +15,7 @@ category = "categories"
 [taxonomies]
 category = "categories"
 tag = "tags"
+series = "series"
 
 
 disablePathToLower = false

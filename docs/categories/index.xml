@@ -3,26 +3,33 @@
         <title>Categories - Category - Gary Kenneally</title>
         <link>https://secretdeveloper.github.io/categories/</link>
         <description>Categories - Category - Gary Kenneally</description>
-        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/" rel="self" type="application/rss+xml" /><item>
-    <title>Games</title>
-    <link>https://secretdeveloper.github.io/categories/games/</link>
-    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/games/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
+        <generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</lastBuildDate><atom:link href="https://secretdeveloper.github.io/categories/" rel="self" type="application/rss+xml" /><item>
     <title>Rust</title>
     <link>https://secretdeveloper.github.io/categories/rust/</link>
-    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+    <pubDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
     </author><guid>https://secretdeveloper.github.io/categories/rust/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Software</title>
     <link>https://secretdeveloper.github.io/categories/software/</link>
-    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+    <pubDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
     </author><guid>https://secretdeveloper.github.io/categories/software/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Tools</title>
+    <link>https://secretdeveloper.github.io/categories/tools/</link>
+    <pubDate>Sat, 07 Mar 2026 14:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/categories/tools/</guid>
+    <description><![CDATA[]]></description>
+</item><item>
+    <title>Games</title>
+    <link>https://secretdeveloper.github.io/categories/games/</link>
+    <pubDate>Fri, 06 Feb 2026 12:00:00 &#43;0000</pubDate><author>
+        <name>Gary Kenneally</name>
+    </author><guid>https://secretdeveloper.github.io/categories/games/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Gpt-5.2</title>
@@ -37,13 +44,6 @@
     <pubDate>Thu, 05 Feb 2026 12:00:00 &#43;0000</pubDate><author>
         <name>Gary Kenneally</name>
     </author><guid>https://secretdeveloper.github.io/categories/sudoku/</guid>
-    <description><![CDATA[]]></description>
-</item><item>
-    <title>Tools</title>
-    <link>https://secretdeveloper.github.io/categories/tools/</link>
-    <pubDate>Wed, 01 Oct 2025 12:45:00 &#43;0000</pubDate><author>
-        <name>Gary Kenneally</name>
-    </author><guid>https://secretdeveloper.github.io/categories/tools/</guid>
     <description><![CDATA[]]></description>
 </item><item>
     <title>Architecture</title>
