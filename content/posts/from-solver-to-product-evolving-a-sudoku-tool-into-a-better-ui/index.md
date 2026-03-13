@@ -2,7 +2,7 @@
 date = "2026-02-24T11:00:00+00:00"
 title = "From Solver to Product: Evolving a Sudoku Tool into a Better UI"
 description = "The Sudoku project started as a solver that worked. The more interesting work was turning it into something clearer, faster to use, and less annoying to live with."
-draft = true
+draft = false
 categories = ["software", "games", "sudoku"]
 tags = ["javascript", "ui", "product", "puzzle", "ai-assisted-development"]
 series = ["Working with AI"]

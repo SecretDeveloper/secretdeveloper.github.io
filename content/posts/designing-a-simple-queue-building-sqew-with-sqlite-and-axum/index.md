@@ -2,7 +2,7 @@
 date = "2025-09-09T13:30:00+01:00"
 title = "Designing a simple Queue: Building sqew with SQLite and Axum"
 description = "Sqew is a small experimental attempt to build a full queue service using Rust, SQLite, Axum, and core interfaces."
-draft = true
+draft = false
 categories = ["software", "tools", "rust"]
 tags = ["sqlite", "axum", "queue", "backend", "systems", "ai-assisted-development"]
 series = ["Working with AI"]
@@ -13,6 +13,30 @@ The basic idea was simple enough. I wanted a small message queue service with HT
 The repo is here if you want to look at it:
 
 - [SecretDeveloper/sqew](https://github.com/SecretDeveloper/sqew)
+
+## Tech stack
+
+```plantuml {title="sqew tech stack" format="svg"}
+@startuml
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+actor User
+
+rectangle "sqew CLI" as CLI
+rectangle "sqew HTTP API\n(axum)" as API
+rectangle "Core queue logic\n(queue.rs)" as CORE
+database "SQLite" as DB
+
+User --> CLI
+User --> API
+CLI --> CORE
+API --> CORE
+CORE --> DB
+@enduml
+```
 
 ## Technology
 

@@ -2,7 +2,7 @@
 date = "2026-02-03T15:00:00+00:00"
 title = "Adding Tactics to a Sudoku Solver Without Turning It Into a Mess"
 description = "The Sudoku solver got more useful once it moved past singles, but the hard part was adding tactics in a way that still produced understandable steps and evidence."
-draft = true
+draft = false
 categories = ["software", "games", "sudoku"]
 tags = ["javascript", "solver", "algorithms", "puzzle", "ai-assisted-development"]
 series = ["Working with AI"]

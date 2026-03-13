@@ -2,7 +2,7 @@
 date = "2026-03-07T16:30:00+00:00"
 title = "Fixing Cross-Terminal Preview Rendering in a Rust TUI"
 description = "A small but revealing bug in lsv: image preview behaved differently under WezTerm because a text-based preview pipeline was accidentally swallowing terminal graphics control sequences."
-draft = true
+draft = false
 categories = ["software", "tools", "rust"]
 tags = ["terminal", "cli", "developer-tools", "wezterm", "ansi", "debugging", "ai-assisted-development"]
 series = ["Working with AI"]

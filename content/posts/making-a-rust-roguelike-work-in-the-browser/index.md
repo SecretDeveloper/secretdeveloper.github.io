@@ -2,7 +2,7 @@
 date = "2026-02-06T18:00:00+00:00"
 title = "Making a Rust Roguelike Work in the Browser"
 description = "The roguelike already ran on desktop. The browser version took a different kind of work: dependency pinning, wasm-bindgen, a patched windowing crate, and a better shell around the canvas."
-draft = true
+draft = false
 categories = ["software", "games", "rust"]
 tags = ["wasm", "webassembly", "game-dev", "roguelike", "browser", "ai-assisted-development"]
 series = ["Working with AI"]
@@ -20,6 +20,31 @@ You can see the code and the working game, and the original tutorial which is re
 - Playable browser version on this site: [Rogue](/games/rogue/)
 - Tutorial the project follows: [Rust Roguelike Tutorial](https://bfnightly.bracketproductions.com/)
 - Earlier overview post: [Rogue in Rust with ECS + WebAssembly](/posts/rogue-ecs-wasm-tutorial/)
+
+## Build path
+
+```plantuml {title="rogue browser build path" format="svg"}
+@startuml
+skinparam backgroundColor transparent
+skinparam shadowing false
+skinparam packageStyle rectangle
+skinparam defaultTextAlignment center
+
+rectangle "Rust game code\n(rltk + specs)" as CORE
+rectangle "Patched winit\n(local vendored crate)" as PATCH
+rectangle "cargo build\nwasm32-unknown-unknown" as BUILD
+rectangle "wasm-bindgen" as BINDGEN
+rectangle "www/index.html\n+ rogue.js + rogue_bg.wasm" as WEB
+actor Player
+
+CORE ..> PATCH : older dependency chain
+CORE --> BUILD
+PATCH --> BUILD
+BUILD --> BINDGEN
+BINDGEN --> WEB
+Player --> WEB
+@enduml
+```
 
 ## The game was already there
 
