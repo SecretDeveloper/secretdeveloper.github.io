@@ -4,7 +4,7 @@ baseurl = "https://secretdeveloper.github.io/"
 languageCode = "en-us"
 title = "Gary Kenneally"
 disqusShortname = "secretdevelopernet"
-googleAnalytics = "UA-6023272-11"
+googleAnalytics = "G-SKCXC1DQNM"
 theme = "DoIt"
 
 ignoreLogs = ['warning-goldmark-raw-html']
