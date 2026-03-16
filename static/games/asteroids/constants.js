@@ -62,3 +62,15 @@ export const MAX_AMMO = {
 };
 // Duration (ms) for the ship's blue light trail to fade
 export const TRAIL_DURATION       = 3000;
+
+export const ASTEROID_VARIANTS = {
+  STANDARD: 'standard',
+  SWIFT: 'swift',
+  HEAVY: 'heavy'
+};
+
+export function getSectorAsteroidCount(level) {
+  const base = 5 + level;
+  const bonus = Math.floor(Math.max(0, level - 2) / 2);
+  return base + bonus;
+}

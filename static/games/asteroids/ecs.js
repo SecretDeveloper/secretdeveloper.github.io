@@ -38,6 +38,14 @@ export class EntityManager {
   getComponent(entity, name) {
     return this.components.get(name)?.get(entity);
   }
+  /** Return every entity currently known to the ECS. */
+  getAllEntities() {
+    const entities = new Set();
+    for (const compMap of this.components.values()) {
+      for (const entity of compMap.keys()) entities.add(entity);
+    }
+    return [...entities];
+  }
   /** Return entities having all specified components */
   query(...names) {
     if (names.length === 0) return [];
@@ -169,13 +177,17 @@ export class CollisionSystem {
           // asteroid destroyed: split and award score
           const sizeData = this.em.getComponent(a, 'asteroid') || { size: colA.r };
           const size = sizeData.size;
+          const splitCount = sizeData.splitCount ?? 2;
+          const variant = sizeData.variant ?? CONST.ASTEROID_VARIANTS.STANDARD;
+          const scoreValue = sizeData.scoreValue ?? 1;
           this.em.removeEntity(a);
           if (size > 25) {
-            for (let i = 0; i < 2; i++) {
-              createAsteroidEntity(this.em, this.game, posA.x, posA.y, size / 2);
+            for (let i = 0; i < splitCount; i++) {
+              const fragmentVariant = size / 2 <= 25 ? CONST.ASTEROID_VARIANTS.SWIFT : variant;
+              createAsteroidEntity(this.em, this.game, posA.x, posA.y, size / 2, fragmentVariant);
             }
           }
-          this.game.score++;
+          this.game.score += scoreValue;
           this.game.scoreEl.textContent = this.game.score;
           const pan = (posA.x - this.game.W / 2) / (this.game.W / 2);
           audio.playChunk(pan, size);
@@ -232,7 +244,6 @@ export class ShipCollisionSystem {
         } else {
           this.game.shield--;
           if (this.game.shield < 0) {
-            this.game.started = false;
             this.game.finalScore = this.game.score;
             this.game.startExplosion();
           }
