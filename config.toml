@@ -4,7 +4,6 @@ baseurl = "https://secretdeveloper.github.io/"
 languageCode = "en-us"
 title = "Gary Kenneally"
 disqusShortname = "secretdevelopernet"
-googleAnalytics = "G-SKCXC1DQNM"
 theme = "DoIt"
 
 ignoreLogs = ['warning-goldmark-raw-html']
@@ -137,6 +136,13 @@ name = "Gary Kenneally"
 enable = true
 keepStatic = false
 auto = true
+
+[params.analytics]
+enable = true
+
+[params.analytics.google]
+id = "G-SKCXC1DQNM"
+anonymizeIP = false
 
 # SVG favicon (black 'SD' on white background)
 [params.app]
