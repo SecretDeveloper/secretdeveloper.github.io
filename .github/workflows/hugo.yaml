@@ -53,6 +53,9 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Inject analytics into standalone pages
+        run: node scripts/inject-analytics.mjs
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
