@@ -80,7 +80,7 @@ export class Game {
     // collisions between ship and asteroids
     this.sm.addSystem(new ShipCollisionSystem(this.em, this));
     // power-ups: rotate, expire, and pickup
-    this.sm.addSystem(new PowerupSystem(this.em));
+    this.sm.addSystem(new PowerupSystem(this.em, this));
     this.sm.addSystem(new PowerupPickupSystem(this.em, this));
     // particle effects: thrusters & explosions
     this.sm.addSystem(new ParticleSystem(this.em));
@@ -111,6 +111,7 @@ export class Game {
     this.level = 1;
     this.sectorEl = document.getElementById('sector');
     this.sectorEl.textContent = this.level;
+    this.modifierEl = document.getElementById('modifier');
     // cache HUD shield fill element
     this.shieldFillEl = document.getElementById('shield-fill');
     // nebula overlays per sector
@@ -172,6 +173,13 @@ export class Game {
     this.shieldOverpoweredExpiry = 0;
     this.explosionStart = 0;
     this.finalScore = 0;
+    this.currentSectorModifier = CONST.getSectorModifier(this.level);
+    if (this.modifierEl) this.modifierEl.textContent = this.currentSectorModifier.name;
+    this.shipInvulnerableUntil = 0;
+    this.shakeUntil = 0;
+    this.shakeMagnitude = 0;
+    this.flashAlpha = 0;
+    this.flashColor = '255,255,255';
 
     // weapon & power-up state
     this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
@@ -182,7 +190,7 @@ export class Game {
     this.activePowerup = null;
 
     // initial asteroids
-    for (let i = 0; i < 5; i++) this.spawnAsteroid();
+    for (let i = 0; i < this.getSectorAsteroidCount(); i++) this.spawnAsteroid();
 
     this.scoreEl.textContent = this.score;
 
@@ -219,6 +227,75 @@ export class Game {
       `<p>Press Enter to restart.</p>`;
     this.startScreenEl.style.display = 'flex';
     this.setState(GAME_STATE.GAME_OVER);
+  }
+
+  updateSectorModifier() {
+    this.currentSectorModifier = CONST.getSectorModifier(this.level);
+    if (this.modifierEl) this.modifierEl.textContent = this.currentSectorModifier.name;
+    this.syncWeaponStats();
+  }
+
+  getPowerupSpawnChance() {
+    return Math.min(0.9, CONST.POWERUP_SPAWN_CHANCE * (this.currentSectorModifier?.powerupChanceMult || 1));
+  }
+
+  getSectorAsteroidCount() {
+    const baseCount = CONST.getSectorAsteroidCount(this.level);
+    return Math.max(3, Math.round(baseCount * (this.currentSectorModifier?.asteroidCountMult || 1)));
+  }
+
+  isShipInvulnerable(now = performance.now()) {
+    return now < this.shipInvulnerableUntil;
+  }
+
+  startShipInvulnerability(now = performance.now(), duration = CONST.SHIP_INVULNERABLE_DURATION) {
+    this.shipInvulnerableUntil = now + duration;
+  }
+
+  triggerScreenShake(intensity, duration = 120) {
+    const now = performance.now();
+    this.shakeUntil = Math.max(this.shakeUntil, now + duration);
+    this.shakeMagnitude = Math.max(this.shakeMagnitude, intensity);
+  }
+
+  triggerFlash(color = '255,255,255', alpha = 0.18) {
+    this.flashColor = color;
+    this.flashAlpha = Math.max(this.flashAlpha, alpha);
+  }
+
+  spawnImpactBurst(x, y, count = 10) {
+    for (let i = 0; i < count; i++) {
+      createExplosionParticleEntity(this.em, x, y);
+    }
+  }
+
+  triggerImpactFeedback({ x, y, shake = 4, flashAlpha = 0.12, flashColor = '255,255,255', particles = 10 } = {}) {
+    this.triggerScreenShake(shake);
+    this.triggerFlash(flashColor, flashAlpha);
+    if (typeof x === 'number' && typeof y === 'number' && particles > 0) {
+      this.spawnImpactBurst(x, y, particles);
+    }
+  }
+
+  applyScreenShake(now) {
+    if (now < this.shakeUntil) {
+      const decay = Math.max((this.shakeUntil - now) / 180, 0.2);
+      const mag = this.shakeMagnitude * decay;
+      const ox = rand(-mag, mag);
+      const oy = rand(-mag, mag);
+      this.canvas.style.transform = `translate(${ox}px, ${oy}px)`;
+    } else if (this.canvas.style.transform) {
+      this.canvas.style.transform = '';
+      this.shakeMagnitude = 0;
+    }
+  }
+
+  renderFlashOverlay() {
+    if (this.flashAlpha <= 0.001) return;
+    this.ctx.fillStyle = `rgba(${this.flashColor},${this.flashAlpha})`;
+    this.ctx.fillRect(0, 0, this.W, this.H);
+    this.flashAlpha *= 0.88;
+    if (this.flashAlpha < 0.01) this.flashAlpha = 0;
   }
 
   /**
@@ -271,8 +348,11 @@ export class Game {
 
   pickAsteroidVariant() {
     const roll = Math.random();
-    if (this.level >= 5 && roll < 0.2) return CONST.ASTEROID_VARIANTS.HEAVY;
-    if (this.level >= 3 && roll < 0.45) return CONST.ASTEROID_VARIANTS.SWIFT;
+    const modifier = this.currentSectorModifier || CONST.getSectorModifier(this.level);
+    const heavyThreshold = (this.level >= 5 ? 0.2 : 0) + (modifier.heavyBias || 0);
+    if (roll < heavyThreshold) return CONST.ASTEROID_VARIANTS.HEAVY;
+    const swiftThreshold = heavyThreshold + (this.level >= 3 ? 0.25 : 0) + (modifier.swiftBias || 0);
+    if (roll < swiftThreshold) return CONST.ASTEROID_VARIANTS.SWIFT;
     return CONST.ASTEROID_VARIANTS.STANDARD;
   }
 
@@ -286,6 +366,14 @@ export class Game {
     for (let i = 0; i < CONST.EXPLOSION_PARTICLES_COUNT; i++) {
       createExplosionParticleEntity(this.em, posComp.x, posComp.y);
     }
+    this.triggerImpactFeedback({
+      x: posComp.x,
+      y: posComp.y,
+      shake: 10,
+      flashAlpha: 0.28,
+      flashColor: '255,120,80',
+      particles: 24
+    });
     audio.playExplosionSound();
   }
 
@@ -317,21 +405,19 @@ export class Game {
         // refill machine gun ammo and equip
         this.ammo[CONST.POWERUP_TYPES.MACHINE] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.MACHINE];
         this.activePowerup = CONST.POWERUP_TYPES.MACHINE;
-        this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+        this.syncWeaponStats();
         break;
       case CONST.POWERUP_TYPES.POWER:
         // refill power shot ammo and equip
         this.ammo[CONST.POWERUP_TYPES.POWER] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.POWER];
         this.activePowerup = CONST.POWERUP_TYPES.POWER;
-        // adjust bullet properties for power shots
-        this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
-        this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
-        this.bulletSize = CONST.POWER_BULLET_SIZE;
+        this.syncWeaponStats();
         break;
       case CONST.POWERUP_TYPES.MISSILE:
         // refill missile ammo and equip
         this.ammo[CONST.POWERUP_TYPES.MISSILE] = CONST.MAX_AMMO[CONST.POWERUP_TYPES.MISSILE];
         this.activePowerup = CONST.POWERUP_TYPES.MISSILE;
+        this.syncWeaponStats();
         break;
     }
   }
@@ -346,11 +432,24 @@ export class Game {
    * Restore default weapon parameters.
    */
   restoreBaseWeapon() {
+    const bulletSpeedMult = this.currentSectorModifier?.bulletSpeedMult || 1;
     this.shotInterval = CONST.BASE_SHOT_INTERVAL;
-    this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN;
-    this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX;
+    this.bulletSpeedMin = CONST.BASE_BULLET_SPEED_MIN * bulletSpeedMult;
+    this.bulletSpeedMax = CONST.BASE_BULLET_SPEED_MAX * bulletSpeedMult;
     this.bulletSize = CONST.BASE_BULLET_SIZE;
     this.bulletLife = CONST.BASE_BULLET_LIFE;
+  }
+
+  syncWeaponStats() {
+    const bulletSpeedMult = this.currentSectorModifier?.bulletSpeedMult || 1;
+    this.restoreBaseWeapon();
+    if (this.activePowerup === CONST.POWERUP_TYPES.MACHINE) {
+      this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+    } else if (this.activePowerup === CONST.POWERUP_TYPES.POWER) {
+      this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN * bulletSpeedMult;
+      this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX * bulletSpeedMult;
+      this.bulletSize = CONST.POWER_BULLET_SIZE;
+    }
   }
   /**
    * Spawn a wormhole portal when sector is cleared.
@@ -364,11 +463,13 @@ export class Game {
       y = Math.random() * this.H;
     } while (shipPos && dist({ x, y }, shipPos) < 200);
     this.wormhole = new Wormhole(x, y);
+    audio.playWormholeStinger();
   }
   /**
    * Advance to the next sector (level) when ship enters wormhole.
    */
   nextLevel() {
+    audio.playSectorAdvanceStinger();
     // preserve ship velocity, angle, and portal position for exit
     // read ECS ship components for exit state
     const velComp = this.em.getComponent(this.shipEntity, 'velocity');
@@ -382,6 +483,7 @@ export class Game {
     // increment level and update HUD
     this.level++;
     this.sectorEl.textContent = this.level;
+    this.updateSectorModifier();
     // regenerate galaxy background
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
     this.galaxyOffsetX = 0;
@@ -393,7 +495,7 @@ export class Game {
     // ECS-managed power-ups and asteroids cleaned via systems
     // legacy arrays (powerups, asteroids) are no longer used
     // spawn asteroids for next sector
-    const count = CONST.getSectorAsteroidCount(this.level);
+    const count = this.getSectorAsteroidCount();
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
@@ -425,14 +527,17 @@ export class Game {
     const pos = this.em.getComponent(this.shipEntity, 'position');
     const vel = this.em.getComponent(this.shipEntity, 'velocity');
     const rot = this.em.getComponent(this.shipEntity, 'rotation');
+    const rotSpeed = this.em.getComponent(this.shipEntity, 'rotationSpeed');
     pos.x = this.W / 2; pos.y = this.H / 2;
     vel.x = 0; vel.y = 0;
     rot.value = 0;
+    rotSpeed.value = 0;
     this.score = 0;
     this.shield = 3;
     // overpowered shield state and timer (10s duration)
     this.shieldOverpowered = false;
     this.shieldOverpoweredExpiry = 0;
+    this.shipInvulnerableUntil = 0;
     this.shipTrail = [];
     this.ammo = {
       [CONST.POWERUP_TYPES.MISSILE]: 0,
@@ -450,6 +555,7 @@ export class Game {
     // reset level/sector display
     this.level = 1;
     this.sectorEl.textContent = this.level;
+    this.updateSectorModifier();
     // remove any existing wormhole
     this.wormhole = null;
     this.portalExitExpire = null;
@@ -458,7 +564,7 @@ export class Game {
     this.startScreenEl.style.display = 'flex';
     this.setState(GAME_STATE.START);
     // spawn initial asteroids
-    const count = CONST.getSectorAsteroidCount(this.level);
+    const count = this.getSectorAsteroidCount();
     for (let i = 0; i < count; i++) this.spawnAsteroid();
     // initialize galaxy background for sector 1
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
@@ -479,6 +585,7 @@ export class Game {
 
   /** Main loop invoked via requestAnimationFrame. */
   loop(now) {
+    this.applyScreenShake(now);
     // handle entry portal animation
     if (this.isState(GAME_STATE.ENTRY)) {
       const elapsed = now - this.entryStartTime;
@@ -517,10 +624,16 @@ export class Game {
       // once entry duration elapsed, finish entry
       if (elapsed >= this.entryDuration) {
         this.entryPortal = null;
+        audio.setMusicContext({
+          modifierId: this.currentSectorModifier?.id,
+          asteroidCount: this.em.query('asteroid').length,
+          shield: this.shield
+        });
         this.setState(GAME_STATE.PLAYING);
         audio.startBackgroundMusic();
         audio.startDrumArp();
       }
+      this.renderFlashOverlay();
       requestAnimationFrame(this.loop);
       return;
     }
@@ -536,6 +649,11 @@ export class Game {
       const max = 5;
       const baseVol = 0.025;
       audio.setMusicVolume(baseVol + (count / max) * baseVol);
+      audio.setMusicContext({
+        modifierId: this.currentSectorModifier?.id,
+        asteroidCount: count,
+        shield: this.shield
+      });
       // spawn wormhole when sector is cleared
       if (count === 0 && !this.wormhole) {
         this.spawnWormhole();
@@ -655,6 +773,7 @@ export class Game {
     } else if (!this.isState(GAME_STATE.START, GAME_STATE.GAME_OVER)) {
       this.render();
     }
+    this.renderFlashOverlay();
     requestAnimationFrame(this.loop);
   }
 }

@@ -171,6 +171,14 @@ export class CollisionSystem {
           if (health) {
             health.value -= dmg;
             if (health.value > 0) {
+              this.game.triggerImpactFeedback({
+                x: posA.x,
+                y: posA.y,
+                shake: 2.5,
+                flashAlpha: 0.08,
+                flashColor: '255,255,255',
+                particles: 4 + dmg * 2
+              });
               break; // asteroid survives this hit
             }
           }
@@ -189,9 +197,17 @@ export class CollisionSystem {
           }
           this.game.score += scoreValue;
           this.game.scoreEl.textContent = this.game.score;
+          this.game.triggerImpactFeedback({
+            x: posA.x,
+            y: posA.y,
+            shake: Math.min(8, 3 + size / 12),
+            flashAlpha: Math.min(0.22, 0.08 + size / 240),
+            flashColor: '255,210,140',
+            particles: Math.min(18, 6 + Math.round(size / 8))
+          });
           const pan = (posA.x - this.game.W / 2) / (this.game.W / 2);
           audio.playChunk(pan, size);
-          if (size <= 25 && Math.random() < CONST.POWERUP_SPAWN_CHANCE) {
+          if (size <= 25 && Math.random() < this.game.getPowerupSpawnChance()) {
             this.game.spawnPowerup(posA.x, posA.y);
           }
           break;
@@ -228,6 +244,7 @@ export class ShipCollisionSystem {
       // minimum collision distance: asteroid radius + ship radius * 1.5
       const minDist = aCol.r + shipCol.r * 1.5;
       if (d < minDist) {
+        if (this.game.isShipInvulnerable(now)) continue;
         // bounce ship off asteroid
         const nx = dx / d;
         const ny = dy / d;
@@ -238,10 +255,22 @@ export class ShipCollisionSystem {
         }
         // remove asteroid
         this.em.removeEntity(id);
+        this.game.triggerImpactFeedback({
+          x: aPos.x,
+          y: aPos.y,
+          shake: Math.min(10, 5 + aCol.r / 10),
+          flashAlpha: 0.2,
+          flashColor: '255,80,80',
+          particles: Math.min(20, 8 + Math.round(aCol.r / 6))
+        });
         // shield handling
         if (this.game.shieldOverpowered && now < this.game.shieldOverpoweredExpiry) {
           this.game.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+          audio.playShieldClang();
+          this.game.startShipInvulnerability(now);
         } else {
+          audio.playShieldClang();
+          this.game.startShipInvulnerability(now);
           this.game.shield--;
           if (this.game.shield < 0) {
             this.game.finalScore = this.game.score;
@@ -256,16 +285,32 @@ export class ShipCollisionSystem {
  * PowerupSystem: rotates power-ups and expires them when lifetime runs out.
  */
 export class PowerupSystem {
-  constructor(em) {
+  constructor(em, game) {
     this.em = em;
+    this.game = game;
   }
   update(dt) {
-    const ents = this.em.query('powerup', 'lifetime', 'rotation', 'rotationSpeed');
+    const ents = this.em.query('powerup', 'lifetime', 'rotation', 'rotationSpeed', 'position');
+    const shipId = this.game.shipEntity;
+    const shipPos = this.em.getComponent(shipId, 'position');
     for (const id of ents) {
       const rot = this.em.getComponent(id, 'rotation');
       const rs = this.em.getComponent(id, 'rotationSpeed');
       const life = this.em.getComponent(id, 'lifetime');
+      const pos = this.em.getComponent(id, 'position');
       rot.value += rs.value * dt;
+      if (shipPos && pos) {
+        const dx = shipPos.x - pos.x;
+        const dy = shipPos.y - pos.y;
+        const d = Math.hypot(dx, dy) || 1;
+        if (d < CONST.POWERUP_ATTRACT_RADIUS) {
+          const strength = 1 - d / CONST.POWERUP_ATTRACT_RADIUS;
+          const snapStrength = strength * strength;
+          const pull = CONST.POWERUP_ATTRACT_SPEED * dt * (1 + snapStrength * CONST.POWERUP_ATTRACT_SNAP_MULT);
+          pos.x += (dx / d) * pull;
+          pos.y += (dy / d) * pull;
+        }
+      }
       life.value -= dt;
       if (life.value <= 0) {
         this.em.removeEntity(id);
@@ -367,6 +412,9 @@ export class MissileSystem {
       const nr = next * Math.PI / 180;
       vel.x = Math.cos(nr) * speed;
       vel.y = Math.sin(nr) * speed;
+      const exhaustX = pos.x - Math.cos(nr) * 8;
+      const exhaustY = pos.y - Math.sin(nr) * 8;
+      createThrusterParticleEntity(this.em, exhaustX, exhaustY, next + 180);
     }
   }
 }
@@ -425,20 +473,37 @@ export class InputSystem {
   }
   /** @param {number} dt delta time in ms, @param {number} now timestamp */
   update(dt, now) {
-    const ships = this.em.query('ship', 'velocity', 'rotation', 'position');
+    const ships = this.em.query('ship', 'velocity', 'rotation', 'rotationSpeed', 'position');
     for (const id of ships) {
       const rot = this.em.getComponent(id, 'rotation');
+      const rotationSpeed = this.em.getComponent(id, 'rotationSpeed');
       const vel = this.em.getComponent(id, 'velocity');
       const pos = this.em.getComponent(id, 'position');
       const shipComp = this.em.getComponent(id, 'ship');
       // rotate
-      if (keys[CONST.KEY.LEFT] || keys['a'] || keys['A']) rot.value -= 3;
-      if (keys[CONST.KEY.RIGHT] || keys['d'] || keys['D']) rot.value += 3;
+      const turningLeft = keys[CONST.KEY.LEFT] || keys['a'] || keys['A'];
+      const turningRight = keys[CONST.KEY.RIGHT] || keys['d'] || keys['D'];
+      if (turningLeft && !turningRight) {
+        rotationSpeed.value -= CONST.SHIP_TURN_ACCEL * dt;
+      } else if (turningRight && !turningLeft) {
+        rotationSpeed.value += CONST.SHIP_TURN_ACCEL * dt;
+      } else {
+        rotationSpeed.value *= Math.pow(CONST.SHIP_TURN_DAMPING, dt);
+      }
+      rotationSpeed.value = Math.max(-CONST.SHIP_MAX_TURN_SPEED, Math.min(CONST.SHIP_MAX_TURN_SPEED, rotationSpeed.value));
       // thrust
       if (keys[CONST.KEY.UP] || keys['w'] || keys['W']) {
         const rad = degToRad(rot.value);
-        vel.x += CONST.SHIP_ACCEL * Math.cos(rad);
-        vel.y += CONST.SHIP_ACCEL * Math.sin(rad);
+        const currentSpeed = Math.hypot(vel.x, vel.y);
+        const accelBoost = currentSpeed < CONST.SHIP_MAX_SPEED * 0.6 ? CONST.SHIP_THRUST_BOOST : 1;
+        vel.x += CONST.SHIP_ACCEL * accelBoost * Math.cos(rad);
+        vel.y += CONST.SHIP_ACCEL * accelBoost * Math.sin(rad);
+        const boostedSpeed = Math.hypot(vel.x, vel.y);
+        if (boostedSpeed > CONST.SHIP_MAX_SPEED) {
+          const scale = CONST.SHIP_MAX_SPEED / boostedSpeed;
+          vel.x *= scale;
+          vel.y *= scale;
+        }
         // spawn thruster particle at rear of ship
         const pos = this.em.getComponent(id, 'position');
         const shipComp = this.em.getComponent(id, 'ship');
@@ -450,6 +515,13 @@ export class InputSystem {
         if (this.game.shipTrail) {
           this.game.shipTrail.push({ x: px, y: py, t: now });
         }
+      } else {
+        const speed = Math.hypot(vel.x, vel.y);
+        if (speed > CONST.SHIP_MAX_SPEED) {
+          const scale = CONST.SHIP_MAX_SPEED / speed;
+          vel.x *= scale;
+          vel.y *= scale;
+        }
       }
       // shooting
       if (keys[CONST.KEY.FIRE] && now - this.game.lastShot > this.game.shotInterval) {
@@ -457,33 +529,45 @@ export class InputSystem {
         const spawnX = pos.x + Math.cos(rad2) * shipComp.r;
         const spawnY = pos.y + Math.sin(rad2) * shipComp.r;
         const g = this.game;
+        let fireType = 'default';
         let fired = false;
         // Missiles
         if (g.activePowerup === CONST.POWERUP_TYPES.MISSILE && (g.ammo[CONST.POWERUP_TYPES.MISSILE] || 0) > 0) {
           createMissileEntity(this.em, g, spawnX, spawnY, rot.value);
           g.ammo[CONST.POWERUP_TYPES.MISSILE]--;
+          fireType = 'missile';
+          vel.x -= Math.cos(rad2) * 0.12;
+          vel.y -= Math.sin(rad2) * 0.12;
           fired = true;
         }
         // Machine gun
         else if (g.activePowerup === CONST.POWERUP_TYPES.MACHINE && (g.ammo[CONST.POWERUP_TYPES.MACHINE] || 0) > 0) {
-          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value + (Math.random() * 6 - 3), 'machine');
           g.ammo[CONST.POWERUP_TYPES.MACHINE]--;
+          fireType = 'machine';
+          vel.x -= Math.cos(rad2) * 0.03;
+          vel.y -= Math.sin(rad2) * 0.03;
           fired = true;
         }
         // Power shot
         else if (g.activePowerup === CONST.POWERUP_TYPES.POWER && (g.ammo[CONST.POWERUP_TYPES.POWER] || 0) > 0) {
-          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value, 'power');
           g.ammo[CONST.POWERUP_TYPES.POWER]--;
+          fireType = 'power';
+          vel.x -= Math.cos(rad2) * 0.18;
+          vel.y -= Math.sin(rad2) * 0.18;
           fired = true;
         }
         // Default bullet
         else {
-          createBulletEntity(this.em, g, spawnX, spawnY, rot.value);
+          createBulletEntity(this.em, g, spawnX, spawnY, rot.value, 'default');
+          vel.x -= Math.cos(rad2) * 0.05;
+          vel.y -= Math.sin(rad2) * 0.05;
           fired = true;
         }
 
         if (fired) {
-          audio.playLaser();
+          audio.playLaser(fireType);
           g.lastShot = now;
           // If current weapon ran out, auto-switch or revert
           if (g.activePowerup && (g.ammo[g.activePowerup] || 0) <= 0) {
@@ -493,15 +577,8 @@ export class InputSystem {
               CONST.POWERUP_TYPES.POWER
             ];
             const nextType = ammoTypes.find(t => (g.ammo[t] || 0) > 0);
-            g.restoreBaseWeapon();
             g.activePowerup = nextType || null;
-            if (g.activePowerup === CONST.POWERUP_TYPES.MACHINE) {
-              g.shotInterval = CONST.MACHINE_GUN_INTERVAL;
-            } else if (g.activePowerup === CONST.POWERUP_TYPES.POWER) {
-              g.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN;
-              g.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX;
-              g.bulletSize = CONST.POWER_BULLET_SIZE;
-            }
+            g.syncWeaponStats();
           }
         }
       }

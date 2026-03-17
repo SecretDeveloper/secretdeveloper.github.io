@@ -39,6 +39,10 @@ body, html {
     flex-direction: column;
     gap: 6px;
 }
+.hud-modifier {
+    font-size: 0.8rem;
+    color: #7df9ff;
+}
 /* Ammo bars for weapons */
 #ammoHud {
     /* Positioned by flex layout in #hud */

@@ -15,6 +15,7 @@ import { asteroidImages } from './asteroid.js';
  */
 export function createAsteroidEntity(em, game, x, y, size, variant = CONST.ASTEROID_VARIANTS.STANDARD) {
   const id = em.createEntity();
+  const modifier = game.currentSectorModifier || CONST.getSectorModifier(game.level);
   const variantDefaults = {
     [CONST.ASTEROID_VARIANTS.STANDARD]: { minSize: 20, maxSize: 60, speedMult: 1, spinMult: 1, healthBonus: 0, splitCount: 2, scoreValue: 1, saturation: 1.2, brightness: 1 },
     [CONST.ASTEROID_VARIANTS.SWIFT]: { minSize: 18, maxSize: 40, speedMult: 1.8, spinMult: 1.8, healthBonus: -1, splitCount: 2, scoreValue: 2, saturation: 1.6, brightness: 1.15 },
@@ -36,13 +37,13 @@ export function createAsteroidEntity(em, game, x, y, size, variant = CONST.ASTER
   if (s > 40) baseHealth = 3; // large
   else if (s > 25) baseHealth = 2; // medium
   const scale = 1 + Math.max(0, (game.level - 1)) * 0.2; // +20% per level
-  const health = Math.max(1, Math.round(baseHealth * scale) + profile.healthBonus);
+  const health = Math.max(1, Math.round(baseHealth * scale) + profile.healthBonus + (modifier.asteroidHealthBonus || 0));
   em.addComponent(id, 'health', { value: health });
   // collider radius
   em.addComponent(id, 'collider', { r: s });
   // velocity
   const sectorSpeedScale = 1 + Math.max(0, game.level - 1) * 0.08;
-  const speed = ((rand(1, 3) / s) * 30) * profile.speedMult * sectorSpeedScale;
+  const speed = ((rand(1, 3) / s) * 30) * profile.speedMult * sectorSpeedScale * (modifier.asteroidSpeedMult || 1);
   const ang = rand(0, 360);
   em.addComponent(id, 'velocity', {
     x: speed * Math.cos(degToRad(ang)),

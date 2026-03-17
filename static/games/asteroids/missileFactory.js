@@ -18,7 +18,7 @@ export function createMissileEntity(em, game, x, y, angle) {
   em.addComponent(id, 'position', { x, y });
   // tag as missile AND bullet for collision compatibility
   em.addComponent(id, 'missile', {});
-  em.addComponent(id, 'bullet', {});
+  em.addComponent(id, 'bullet', { weaponType: 'missile' });
   // velocity based on angle and current game bullet speed
   const rad = degToRad(angle);
   const base = (game.bulletSpeedMax + game.bulletSpeedMin) / 2;
@@ -37,6 +37,8 @@ export function createMissileEntity(em, game, x, y, angle) {
   em.addComponent(id, 'renderable', {
     draw(ctx) {
       ctx.fillStyle = 'orange';
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(255,165,0,0.8)';
       ctx.beginPath();
       const s = r * 2.2; // missile length
       // draw triangle pointing along +X
@@ -44,6 +46,10 @@ export function createMissileEntity(em, game, x, y, angle) {
       ctx.lineTo(-s/2, r/1.5);
       ctx.lineTo(-s/2, -r/1.5);
       ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,230,160,0.9)';
+      ctx.beginPath();
+      ctx.arc(s / 3, 0, Math.max(1, r / 3), 0, 2 * Math.PI);
       ctx.fill();
     }
   });

@@ -19,6 +19,7 @@ export function createShipEntity(em, game) {
   em.addComponent(id, 'velocity', { x: 0, y: 0 });
   // rotation angle
   em.addComponent(id, 'rotation', { value: 0 });
+  em.addComponent(id, 'rotationSpeed', { value: 0 });
   // ship marker + radius for collider and spawn offsets (half of drawn size)
   const drawSize = SHIP_RADIUS * 3;
   const shipRadius = drawSize / 2;
@@ -32,6 +33,7 @@ export function createShipEntity(em, game) {
       // Draw shield ring(s) based on game state, then ship image.
       const shipComp = em.getComponent(id, 'ship');
       const now = performance.now();
+      const invulnerable = game.isShipInvulnerable(now);
       if (game.shieldOverpowered && now < game.shieldOverpoweredExpiry) {
         // overpowered pulsing white-blue shield
         const t = now / 300;
@@ -62,12 +64,22 @@ export function createShipEntity(em, game) {
         ctx.strokeStyle = color;
         ctx.lineWidth = lineW;
         ctx.stroke();
+      } else if (invulnerable) {
+        const t = now / 120;
+        const pulse = (Math.sin(t) * 0.5 + 0.5);
+        const radius = shipComp.r * (1.8 + pulse * 0.35);
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, 2 * Math.PI);
+        ctx.strokeStyle = `rgba(255,255,255,${0.35 + pulse * 0.45})`;
+        ctx.lineWidth = 2 + pulse * 2;
+        ctx.stroke();
       }
       // Ship art points up; add +90° so 0° faces right like movement.
       if (shipImg.complete) {
         const size = SHIP_RADIUS * 3;
         const half = size / 2;
         ctx.rotate(degToRad(90));
+        if (invulnerable && Math.floor(now / 80) % 2 === 0) ctx.globalAlpha = 0.35;
         ctx.drawImage(shipImg, -half, -half, size, size);
       }
     }

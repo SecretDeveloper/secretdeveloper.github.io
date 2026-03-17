@@ -5,14 +5,14 @@
 - [x] Fix restart/reset logic in `game.js` so a new run clears all ECS entities before respawning ship, asteroids, particles, bullets, and power-ups.
 - [x] Replace the current mix of flags with explicit game states such as `start`, `playing`, `paused`, `exploding`, `gameover`, and `sector-transition`.
 - [x] Improve difficulty scaling so later sectors change more than asteroid count and health.
-- [ ] Add more gameplay variety with faster asteroid classes, hazards, elite enemies, or sector-specific modifiers.
+- [x] Add more gameplay variety with faster asteroid classes, hazards, elite enemies, or sector-specific modifiers.
 
 ## Game Feel
 
-- [ ] Add stronger hit feedback with screen shake, impact flash, and more satisfying destruction effects.
-- [ ] Differentiate weapons more clearly with distinct visuals, recoil, sound, and hit behavior.
-- [ ] Add temporary invulnerability after ship collisions to reduce cheap repeated damage.
-- [ ] Tune thrust and turning to feel more responsive and deliberate.
+- [x] Add stronger hit feedback with screen shake, impact flash, and more satisfying destruction effects.
+- [x] Differentiate weapons more clearly with distinct visuals, recoil, sound, and hit behavior.
+- [x] Add temporary invulnerability after ship collisions to reduce cheap repeated damage.
+- [x] Tune thrust and turning to feel more responsive and deliberate.
 
 ## Progression
 
