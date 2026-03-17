@@ -77,8 +77,12 @@ export const TRAIL_DURATION       = 3000;
 export const ASTEROID_VARIANTS = {
   STANDARD: 'standard',
   SWIFT: 'swift',
-  HEAVY: 'heavy'
+  HEAVY: 'heavy',
+  BOSS: 'boss'
 };
+
+export const MINIBOSS_EVERY_SECTORS = 4;
+export const MINIBOSS_SUPPORT_COUNT = 4;
 
 export const SECTOR_MODIFIERS = [
   {

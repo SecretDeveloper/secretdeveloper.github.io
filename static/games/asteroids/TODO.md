@@ -19,7 +19,7 @@
 - [x] Add score multipliers, combos, or sector-clear bonuses.
 - [x] Make power-up drops more strategic instead of purely random.
 - [x] Add sector themes that change gameplay, visuals, or audio beyond color shifts.
-- [ ] Add a boss or mini-boss every few sectors.
+- [x] Add a boss or mini-boss every few sectors.
 
 ## UX
 

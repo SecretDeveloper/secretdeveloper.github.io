@@ -188,10 +188,13 @@ export class CollisionSystem {
           const splitCount = sizeData.splitCount ?? 2;
           const variant = sizeData.variant ?? CONST.ASTEROID_VARIANTS.STANDARD;
           const scoreValue = sizeData.scoreValue ?? 1;
+          const guaranteedPowerup = sizeData.guaranteedPowerup === true;
           this.em.removeEntity(a);
           if (size > 25) {
             for (let i = 0; i < splitCount; i++) {
-              const fragmentVariant = size / 2 <= 25 ? CONST.ASTEROID_VARIANTS.SWIFT : variant;
+              const fragmentVariant = variant === CONST.ASTEROID_VARIANTS.BOSS
+                ? (i % 2 === 0 ? CONST.ASTEROID_VARIANTS.HEAVY : CONST.ASTEROID_VARIANTS.SWIFT)
+                : (size / 2 <= 25 ? CONST.ASTEROID_VARIANTS.SWIFT : variant);
               createAsteroidEntity(this.em, this.game, posA.x, posA.y, size / 2, fragmentVariant);
             }
           }
@@ -199,14 +202,17 @@ export class CollisionSystem {
           this.game.triggerImpactFeedback({
             x: posA.x,
             y: posA.y,
-            shake: Math.min(8, 3 + size / 12),
-            flashAlpha: Math.min(0.22, 0.08 + size / 240),
-            flashColor: '255,210,140',
-            particles: Math.min(18, 6 + Math.round(size / 8))
+            shake: Math.min(14, 3 + size / 10),
+            flashAlpha: Math.min(0.3, 0.08 + size / 200),
+            flashColor: variant === CONST.ASTEROID_VARIANTS.BOSS ? '255,150,90' : '255,210,140',
+            particles: Math.min(28, 6 + Math.round(size / 6))
           });
           const pan = (posA.x - this.game.W / 2) / (this.game.W / 2);
           audio.playChunk(pan, size);
-          if (size <= 25 && Math.random() < this.game.getPowerupSpawnChance()) {
+          if (guaranteedPowerup) {
+            this.game.spawnPowerup(posA.x, posA.y);
+            if (Math.random() < 0.5) this.game.spawnPowerup(posA.x + 24, posA.y - 16);
+          } else if (size <= 25 && Math.random() < this.game.getPowerupSpawnChance()) {
             this.game.spawnPowerup(posA.x, posA.y);
           }
           break;

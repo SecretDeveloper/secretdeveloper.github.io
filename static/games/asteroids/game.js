@@ -198,8 +198,7 @@ export class Game {
     this.shotInterval = CONST.BASE_SHOT_INTERVAL;
     this.activePowerup = null;
 
-    // initial asteroids
-    for (let i = 0; i < this.getSectorAsteroidCount(); i++) this.spawnAsteroid();
+    this.spawnSectorEncounter();
 
     this.scoreEl.textContent = this.score;
 
@@ -588,6 +587,22 @@ export class Game {
     return CONST.ASTEROID_VARIANTS.STANDARD;
   }
 
+  isMiniBossSector() {
+    return this.level > 1 && this.level % CONST.MINIBOSS_EVERY_SECTORS === 0;
+  }
+
+  spawnSectorEncounter() {
+    if (this.isMiniBossSector()) {
+      this.spawnAsteroid(rand(88, 104), CONST.ASTEROID_VARIANTS.BOSS);
+      for (let i = 0; i < CONST.MINIBOSS_SUPPORT_COUNT; i++) {
+        const supportVariant = i % 2 === 0 ? CONST.ASTEROID_VARIANTS.HEAVY : CONST.ASTEROID_VARIANTS.SWIFT;
+        this.spawnAsteroid(undefined, supportVariant);
+      }
+      return;
+    }
+    for (let i = 0; i < this.getSectorAsteroidCount(); i++) this.spawnAsteroid();
+  }
+
   /** Begin ship explosion and particle effects. */
   startExplosion() {
     this.clearExplosionPulseTimeouts();
@@ -811,8 +826,7 @@ export class Game {
     // ECS-managed power-ups and asteroids cleaned via systems
     // legacy arrays (powerups, asteroids) are no longer used
     // spawn asteroids for next sector
-    const count = this.getSectorAsteroidCount();
-    for (let i = 0; i < count; i++) this.spawnAsteroid();
+    this.spawnSectorEncounter();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
     // immediate warp through portal: reposition ship just outside portal rim along velocity vector
@@ -887,8 +901,7 @@ export class Game {
     this.startScreenEl.style.display = 'flex';
     this.setState(GAME_STATE.START);
     // spawn initial asteroids
-    const count = this.getSectorAsteroidCount();
-    for (let i = 0; i < count; i++) this.spawnAsteroid();
+    this.spawnSectorEncounter();
     // initialize galaxy background for sector 1
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
     this.galaxyOffsetX = 0;
