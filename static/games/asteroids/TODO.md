@@ -1,5 +1,14 @@
 # Asteroids TODO
 
+## Combat Pivot
+
+- [x] Reframe the game loop around defending the home planet by clearing enemy ships staging inside asteroid fields.
+- [x] Add a basic enemy fighter ECS entity with movement, targeting, collision, health, and rendering.
+- [x] Change sector clear conditions so hostile ships are the primary objective while asteroids remain environmental hazards.
+- [x] Add enemy weapon fire and damage interactions for ship-vs-ship combat inside asteroid fields.
+- [x] Replace asteroid miniboss encounters with enemy command ships or carriers plus escorts.
+- [x] Update start screen, HUD, and game-over messaging to reflect the defense mission premise and sector threat level.
+
 ## High Impact
 
 - [x] Fix restart/reset logic in `game.js` so a new run clears all ECS entities before respawning ship, asteroids, particles, bullets, and power-ups.
@@ -23,10 +32,9 @@
 
 ## UX
 
-- [ ] Update the start screen so it mentions `WASD` support as well as arrow keys.
-- [ ] Add a visible current-weapon indicator and low-ammo warning.
-- [ ] Improve the game-over flow so it does not immediately reset behind the scenes.
-- [ ] Decide whether to support touch controls or explicitly message that the game is desktop-first.
+- [x] Update the start screen so it mentions `WASD` support as well as arrow keys.
+- [x] Update the start screen to explain the purpose of the game and mission to protect your home planet and defeat the alien invasion.
+- [x] Add a visible current-weapon indicator and low-ammo warning.
 
 ## Code Quality
 

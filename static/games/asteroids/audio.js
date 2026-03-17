@@ -550,6 +550,36 @@ export function playLaser(weaponType = 'default') {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
   const bus = musicBus(ctx);
+  if (weaponType === 'enemy') {
+    const shotTime = quantizeToGrid(now + 0.015, BEAT_DUR / 2);
+    const shotFreq = arpNoteAtTime(shotTime) * 0.9;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const noiseLen = Math.floor(ctx.sampleRate * 0.045);
+    const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    for (let i = 0; i < noiseLen; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / noiseLen);
+    const noise = ctx.createBufferSource();
+    const filter = ctx.createBiquadFilter();
+    const noiseGain = ctx.createGain();
+    osc.type = 'sawtooth';
+    osc.frequency.setValueAtTime(shotFreq * 1.6, now);
+    osc.frequency.exponentialRampToValueAtTime(shotFreq * 0.9, now + 0.08);
+    gain.gain.setValueAtTime(0.012, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    noise.buffer = noiseBuf;
+    filter.type = 'bandpass';
+    filter.frequency.setValueAtTime(1400, now);
+    noiseGain.gain.setValueAtTime(0.01, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+    osc.connect(gain).connect(bus);
+    noise.connect(filter).connect(noiseGain).connect(bus);
+    osc.start(now);
+    noise.start(now);
+    osc.stop(now + 0.11);
+    noise.stop(now + 0.06);
+    return;
+  }
   if (weaponType === 'machine') {
     const grooveTime = quantizeToGrid(now + 0.01, BEAT_DUR / 4);
     const grooveFreq = arpNoteAtTime(grooveTime) * 2;

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="commandHull" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffd9d3"/>
+      <stop offset="100%" stop-color="#ff624f"/>
+    </linearGradient>
+  </defs>
+  <path d="M64 10 94 26 114 54 102 92 64 118 26 92 14 54 34 26Z" fill="url(#commandHull)" stroke="#fff1ee" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M34 40h60l12 18-12 20H34L22 58Z" fill="#6c1915" stroke="#ffb1a8" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M64 24 78 46 64 70 50 46Z" fill="#4e100d" stroke="#ffd0ca" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M42 78h12l10 18 10-18h12" fill="#ff9b8b" stroke="#fff1ee" stroke-width="4" stroke-linejoin="round"/>
+  <circle cx="64" cy="52" r="8" fill="#9ff8ff"/>
+  <path d="M22 58h-8M114 58h-8" stroke="#fff1ee" stroke-width="5" stroke-linecap="round"/>
+</svg>

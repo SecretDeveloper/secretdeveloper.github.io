@@ -43,6 +43,20 @@ body, html {
     font-size: 0.8rem;
     color: #7df9ff;
 }
+.hud-threat {
+    font-size: 0.8rem;
+    color: #ffb27d;
+}
+.hud-weapon {
+    font-size: 0.8rem;
+    color: #c8d8ff;
+}
+.weapon-warning {
+    display: none;
+    margin-left: 10px;
+    color: #ff7d7d;
+    text-shadow: 0 0 6px rgba(255, 80, 80, 0.55);
+}
 .hud-combo {
     font-size: 0.8rem;
     color: #ffd36b;
@@ -167,4 +181,115 @@ body, html {
     height: auto;
     display: block;
     margin-bottom: 20px;
+}
+.briefing-copy {
+    margin-bottom: 18px;
+}
+.start-actions {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+.start-button {
+    border: 2px solid #7df9ff;
+    background: rgba(11, 22, 39, 0.75);
+    color: #fff;
+    padding: 12px 18px;
+    font: inherit;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.start-button.is-active {
+    border-color: #ffd36b;
+    background: rgba(38, 31, 12, 0.88);
+    box-shadow: 0 0 14px rgba(255, 211, 107, 0.3);
+}
+.start-button:hover,
+.start-button:focus-visible {
+    outline: none;
+    border-color: #ffd36b;
+    box-shadow: 0 0 12px rgba(125, 249, 255, 0.45);
+}
+.start-panel {
+    display: none;
+    width: min(860px, 86vw);
+    height: 55vh;
+    overflow: auto;
+    padding: 18px 22px;
+    border: 2px solid rgba(125, 249, 255, 0.75);
+    background: rgba(6, 12, 24, 0.86);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.35);
+    box-sizing: border-box;
+}
+.start-panel.is-active {
+    display: block;
+}
+.start-panel h2 {
+    margin: 0 0 16px;
+    font-size: 1.1rem;
+    color: #7df9ff;
+    text-align: left;
+}
+#startScreen .panel-copy {
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+}
+.info-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.info-table td {
+    padding: 6px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: middle;
+    text-align: left;
+}
+.info-icon {
+    width: 43px;
+}
+.info-icon img {
+    width: 33px;
+    height: 33px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+.info-name {
+    width: 132px;
+    color: #ffd36b;
+    font-size: 0.73rem;
+}
+.info-desc {
+    font-size: 0.66rem;
+    line-height: 1.4;
+}
+@media (max-width: 600px) {
+    .start-actions {
+        flex-direction: column;
+        width: min(320px, 90vw);
+    }
+    .start-panel {
+        width: 90vw;
+        height: 62vh;
+        padding: 16px;
+    }
+    .info-table td {
+        padding: 6px 7px;
+    }
+    .info-icon {
+        width: 38px;
+    }
+    .info-icon img {
+        width: 28px;
+        height: 28px;
+    }
+    .info-name {
+        width: 92px;
+        font-size: 0.61rem;
+    }
+    .info-desc {
+        font-size: 0.55rem;
+    }
 }

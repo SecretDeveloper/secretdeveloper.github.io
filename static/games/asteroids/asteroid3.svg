@@ -1,11 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Variant 3: jagged asteroid with scattered craters -->
 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
-  <path d="M52,2 L75,8 L95,25 L99,45 L90,65 L82,85 L60,98 L40,95 L20,85 L10,65 L5,45 L10,25 L20,10 Z"
-        fill="#ccc"/>
-  <circle cx="40" cy="30" r="5" fill="#bbb"/>
-  <circle cx="65" cy="20" r="6" fill="#bbb"/>
-  <circle cx="80" cy="60" r="7" fill="#bbb"/>
-  <circle cx="55" cy="75" r="5" fill="#bbb"/>
-  <circle cx="30" cy="65" r="4" fill="#bbb"/>
+  <defs>
+    <linearGradient id="rockC" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f0e8de"/>
+      <stop offset="100%" stop-color="#7f5f56"/>
+    </linearGradient>
+  </defs>
+  <path d="M52 2 75 8 95 25 99 45 90 65 82 85 60 98 40 95 20 85 10 65 5 45 10 25 20 10Z" fill="url(#rockC)" stroke="#4a342f" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M52 8 71 13 87 27 91 44 84 62 76 79 58 89 41 87 24 78 16 63 11 45 15 28 24 16Z" fill="none" stroke="#d6c1b7" stroke-width="3" stroke-linejoin="round" opacity=".7"/>
+  <path d="M22 26 44 31 39 50 18 46Z" fill="#956e63" opacity=".72"/>
+  <path d="M56 14 83 24 81 45 61 40Z" fill="#b48b7f" opacity=".7"/>
+  <path d="M29 61 58 57 72 81 45 87Z" fill="#6e4f47" opacity=".82"/>
+  <path d="M46 18 54 37 67 46 60 70 41 79" fill="none" stroke="#5d433c" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="40" cy="30" r="6" fill="#8d675d" stroke="#5f453f" stroke-width="2"/>
+  <circle cx="65" cy="20" r="7" fill="#a1766a" stroke="#6d5049" stroke-width="2"/>
+  <circle cx="80" cy="60" r="8" fill="#875f55" stroke="#5a403a" stroke-width="2"/>
+  <circle cx="55" cy="75" r="6" fill="#9a7267" stroke="#664b44" stroke-width="2"/>
+  <circle cx="30" cy="65" r="5" fill="#74534b" stroke="#523b36" stroke-width="2"/>
 </svg>

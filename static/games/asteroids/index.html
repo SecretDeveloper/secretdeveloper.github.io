@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Asteroids</title>
+<title>Planetfall Defense</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./asteroids.css">
 </head>
@@ -11,8 +11,10 @@
   <canvas id="c"></canvas>
   <!-- HUD -->
   <div id="hud">
-    <div class="hud-text">Sector: <span id="sector">1</span> | Score: <span id="score">0</span></div>
-    <div class="hud-text hud-modifier">Modifier: <span id="modifier">Calm Space</span></div>
+    <div class="hud-text">Staging Sector: <span id="sector">1</span> | Threat Score: <span id="score">0</span></div>
+    <div class="hud-text hud-modifier">Field Condition: <span id="modifier">Calm Space</span></div>
+    <div class="hud-text hud-threat">Hostiles: <span id="hostiles">0</span> | Threat Level: <span id="threatLevel">Contained</span></div>
+    <div class="hud-text hud-weapon">Weapon: <span id="weaponName">Standard</span> <span id="weaponWarning" class="weapon-warning">LOW AMMO</span></div>
     <div class="hud-text hud-combo" id="comboHud">Combo x1</div>
   <!-- Shield health bar -->
   <div id="shieldHud">
@@ -26,7 +28,7 @@
   <!-- Ammo bars -->
   <div id="ammoHud">
     <div class="hud-item">
-      <span class="hud-label">Missile</span>
+      <span class="hud-label">Targeting Missile</span>
       <div class="ammo-bar missile"><div class="ammo-fill" id="ammo-missile"></div></div>
     </div>
     <div class="hud-item">
@@ -41,21 +43,77 @@
   </div>
   <!-- Start screen -->
   <div id="startScreen">
-    <!-- Game Title -->
-    <h1>Asteroids</h1>
-    <p>
-      • Use the left and right arrow keys to steer.<br>
-      • Up arrow accelerates the ship.<br>
-      • Space fires weapons.<br>
-      • Destroy asteroids for points.<br>
-      • Smaller asteroids earn more points.<br><br>
-      Press <strong>Enter</strong> to start.
-    </p>
+    <h1>Planetfall Defense</h1>
+    <div class="start-actions">
+      <button type="button" class="start-button is-active" data-panel-target="gamePanel">Game</button>
+      <button type="button" class="start-button" data-panel-target="infoPanel">Information</button>
+      <button type="button" class="start-button" data-panel-target="controlsPanel">Controls</button>
+    </div>
+    <div class="start-panel is-active" id="gamePanel">
+      <h2>Game</h2>
+      <p class="panel-copy briefing-copy">
+        Alien strike groups are massing inside the asteroid belt for a direct assault on your home planet.<br><br>
+        Your mission is to break each staging force before it can launch, push through the belt sector by sector, and stop the invasion before it reaches orbit.<br><br>
+        Press <strong>Enter</strong> to launch immediately, or review the field guide and controls first.
+      </p>
+    </div>
+    <div class="start-panel" id="infoPanel">
+      <h2>Information</h2>
+      <table class="info-table">
+        <tbody>
+          <tr>
+            <td class="info-icon"><img src="./ship.svg" alt="Player ship icon"></td>
+            <td class="info-name">Strike Fighter</td>
+            <td class="info-desc">Your interceptor. Push into each staging zone, break the alien formation, and escape before reinforcements arrive.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./powerup-machine.svg" alt="Machine gun icon"></td>
+            <td class="info-name">Machine Gun</td>
+            <td class="info-desc">High-rate tracer fire for shredding fighters and finishing weakened targets.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./powerup-power.svg" alt="Nukes icon"></td>
+            <td class="info-name">Nukes</td>
+            <td class="info-desc">Heavy strike rockets that deliver oversized blast damage to command ships and clustered threats.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./powerup-missile.svg" alt="Targeting missile icon"></td>
+            <td class="info-name">Targeting Missile</td>
+            <td class="info-desc">Guided ordnance that locks onto priority targets weaving through debris fields.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./powerup-shield.svg" alt="Shield icon"></td>
+            <td class="info-name">Shield Recharge</td>
+            <td class="info-desc">Restores your defensive envelope and can overcharge it when picked up at full strength.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./enemy-fighter.svg" alt="Enemy fighter icon"></td>
+            <td class="info-name">Enemy Fighter</td>
+            <td class="info-desc">Fast attack craft that circle and fire into the asteroid field. Clearing them opens the warp route.</td>
+          </tr>
+          <tr>
+            <td class="info-icon"><img src="./enemy-command-ship.svg" alt="Enemy command ship icon"></td>
+            <td class="info-name">Enemy Command Ship</td>
+            <td class="info-desc">Sector commander with escorts. Destroying it collapses the alien hold on miniboss sectors.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="start-panel" id="controlsPanel">
+      <h2>Controls</h2>
+      <p class="panel-copy">
+        • Left/Right Arrow or A/D steers your fighter.<br>
+        • Up Arrow or W engages thrust.<br>
+        • Space fires the active weapon.<br>
+        • Enter launches, resumes, or restarts the run.<br>
+        • Enemy ships are the objective; asteroids are lethal environmental hazards.
+      </p>
+    </div>
   </div>
   <!-- Pause screen -->
   <div id="pauseScreen" style="display:none;">
     <h1>Paused</h1>
-    <p>Press <strong>Enter</strong> to resume.</p>
+    <p>Press <strong>Enter</strong> to resume the defense run.</p>
   </div>
 </div>
 

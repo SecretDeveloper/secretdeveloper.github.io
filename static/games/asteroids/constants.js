@@ -42,6 +42,7 @@ export const EXPLOSION_PARTICLES_COUNT = 40;
 export const EXPLOSION_DURATION   = 2000;
 export const FPS_INTERVAL         = 500;
 export const SHIP_INVULNERABLE_DURATION = 1200;
+export const SHIP_PORTAL_INVULNERABLE_DURATION = 2500;
 
 // Enumerations for power-up types
 export const POWERUP_TYPES = {
@@ -83,6 +84,8 @@ export const ASTEROID_VARIANTS = {
 
 export const MINIBOSS_EVERY_SECTORS = 4;
 export const MINIBOSS_SUPPORT_COUNT = 4;
+export const BASE_ENEMY_COUNT      = 1;
+export const MAX_ENEMY_COUNT       = 5;
 
 export const SECTOR_MODIFIERS = [
   {
@@ -154,7 +157,7 @@ export function getSectorModifier(level) {
 }
 
 export function getSectorAsteroidCount(level) {
-  const base = 5 + level;
+  const base = 3 + level;
   const bonus = Math.floor(Math.max(0, level - 2) / 2);
   return base + bonus;
 }

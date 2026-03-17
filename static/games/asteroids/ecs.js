@@ -153,10 +153,64 @@ export class CollisionSystem {
   update() {
     const bullets = this.em.query('bullet', 'position', 'collider');
     const asteroids = this.em.query('asteroid', 'position', 'collider');
+    const enemies = this.em.query('enemy', 'position', 'collider', 'health');
     for (const b of bullets) {
       const posB = this.em.getComponent(b, 'position');
       const colB = this.em.getComponent(b, 'collider');
+      const bulletData = this.em.getComponent(b, 'bullet');
       if (!posB || !colB) continue;
+      if (bulletData?.owner === 'enemy') {
+        for (const a of asteroids) {
+          const posA = this.em.getComponent(a, 'position');
+          const colA = this.em.getComponent(a, 'collider');
+          if (!posA || !colA) continue;
+          if (dist(posA, posB) < colA.r + colB.r) {
+            this.em.removeEntity(b);
+            break;
+          }
+        }
+        continue;
+      }
+      let hitResolved = false;
+      for (const e of enemies) {
+        const posE = this.em.getComponent(e, 'position');
+        const colE = this.em.getComponent(e, 'collider');
+        if (!posE || !colE) continue;
+        if (dist(posE, posB) >= colE.r + colB.r) continue;
+        const dmgComp = this.em.getComponent(b, 'damage_delivered');
+        const dmg = dmgComp?.value ?? 1;
+        this.em.removeEntity(b);
+        const health = this.em.getComponent(e, 'health');
+        health.value -= dmg;
+        if (health.value > 0) {
+          this.game.triggerImpactFeedback({
+            x: posE.x,
+            y: posE.y,
+            shake: 3.5,
+            flashAlpha: 0.1,
+            flashColor: '255,120,120',
+            particles: 6 + dmg * 2
+          });
+        } else {
+          const enemyData = this.em.getComponent(e, 'enemy') || {};
+          this.em.removeEntity(e);
+          this.game.awardScore(enemyData.scoreValue ?? 4, performance.now());
+          this.game.triggerImpactFeedback({
+            x: posE.x,
+            y: posE.y,
+            shake: 8,
+            flashAlpha: 0.18,
+            flashColor: '255,110,90',
+            particles: 18
+          });
+          if (Math.random() < this.game.getPowerupSpawnChance() * 0.6) {
+            this.game.spawnPowerup(posE.x, posE.y);
+          }
+        }
+        hitResolved = true;
+        break;
+      }
+      if (hitResolved) continue;
       for (const a of asteroids) {
         const posA = this.em.getComponent(a, 'position');
         const colA = this.em.getComponent(a, 'collider');
@@ -284,6 +338,149 @@ export class ShipCollisionSystem {
         }
       }
     }
+    const enemies = this.em.query('enemy', 'position', 'collider');
+    for (const id of enemies) {
+      const ePos = this.em.getComponent(id, 'position');
+      const eCol = this.em.getComponent(id, 'collider');
+      if (!ePos || !eCol) continue;
+      const dx = posComp.x - ePos.x;
+      const dy = posComp.y - ePos.y;
+      const d = Math.hypot(dx, dy) || 1;
+      if (d >= eCol.r + shipCol.r * 1.35) continue;
+      if (this.game.isShipInvulnerable(now)) continue;
+      this.em.removeEntity(id);
+      this.game.triggerImpactFeedback({
+        x: ePos.x,
+        y: ePos.y,
+        shake: 9,
+        flashAlpha: 0.22,
+        flashColor: '255,90,90',
+        particles: 18
+      });
+      if (this.game.shieldOverpowered && now < this.game.shieldOverpoweredExpiry) {
+        this.game.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+        audio.playShieldClang();
+        this.game.startShipInvulnerability(now);
+      } else {
+        audio.playShieldClang();
+        this.game.startShipInvulnerability(now);
+        this.game.shield--;
+        if (this.game.shield < 0) {
+          this.game.finalScore = this.game.score;
+          this.game.startExplosion();
+        }
+      }
+      break;
+    }
+    const enemyBullets = this.em.query('bullet', 'position', 'collider', 'bullet');
+    for (const id of enemyBullets) {
+      const bullet = this.em.getComponent(id, 'bullet');
+      if (bullet?.owner !== 'enemy') continue;
+      const bPos = this.em.getComponent(id, 'position');
+      const bCol = this.em.getComponent(id, 'collider');
+      if (!bPos || !bCol) continue;
+      if (dist(posComp, bPos) >= shipCol.r + bCol.r) continue;
+      if (this.game.isShipInvulnerable(now)) {
+        this.em.removeEntity(id);
+        continue;
+      }
+      this.em.removeEntity(id);
+      this.game.triggerImpactFeedback({
+        x: bPos.x,
+        y: bPos.y,
+        shake: 5,
+        flashAlpha: 0.14,
+        flashColor: '255,100,90',
+        particles: 10
+      });
+      if (this.game.shieldOverpowered && now < this.game.shieldOverpoweredExpiry) {
+        this.game.shieldOverpoweredExpiry = now + CONST.POWERUP_DURATION;
+        audio.playShieldClang();
+        this.game.startShipInvulnerability(now, 450);
+      } else {
+        audio.playShieldClang();
+        this.game.startShipInvulnerability(now, 700);
+        this.game.shield--;
+        if (this.game.shield < 0) {
+          this.game.finalScore = this.game.score;
+          this.game.startExplosion();
+        }
+      }
+      break;
+    }
+  }
+}
+
+export class EnemySystem {
+  constructor(em, game) {
+    this.em = em;
+    this.game = game;
+  }
+  update(dt, now) {
+    const shipId = this.game.shipEntity;
+    const shipPos = this.em.getComponent(shipId, 'position');
+    if (!shipPos) return;
+    const enemies = this.em.query('enemy', 'position', 'velocity', 'rotation');
+    const asteroids = this.em.query('asteroid', 'position', 'collider');
+    for (const id of enemies) {
+      const enemy = this.em.getComponent(id, 'enemy');
+      const pos = this.em.getComponent(id, 'position');
+      const vel = this.em.getComponent(id, 'velocity');
+      const rot = this.em.getComponent(id, 'rotation');
+      const dx = shipPos.x - pos.x;
+      const dy = shipPos.y - pos.y;
+      const d = Math.hypot(dx, dy) || 1;
+      const desired = Math.atan2(dy, dx) * 180 / Math.PI;
+      const orbitBias = Math.sin(now / 500 + id) * 28;
+      const targetAngle = desired + (d < enemy.preferredDistance ? 150 : orbitBias);
+      let delta = ((targetAngle - rot.value + 540) % 360) - 180;
+      rot.value = (rot.value + Math.max(-3.2, Math.min(3.2, delta)) * dt * 0.35 + 360) % 360;
+      const rad = degToRad(rot.value);
+      const thrust = d > enemy.preferredDistance * 0.8 ? enemy.accel : enemy.accel * 0.35;
+      vel.x += Math.cos(rad) * thrust * dt;
+      vel.y += Math.sin(rad) * thrust * dt;
+
+      for (const aid of asteroids) {
+        const ap = this.em.getComponent(aid, 'position');
+        const ac = this.em.getComponent(aid, 'collider');
+        const adx = pos.x - ap.x;
+        const ady = pos.y - ap.y;
+        const ad = Math.hypot(adx, ady) || 1;
+        const avoidRadius = ac.r + 58;
+        if (ad < avoidRadius) {
+          const repel = (1 - ad / avoidRadius) * 0.18 * dt;
+          vel.x += (adx / ad) * repel;
+          vel.y += (ady / ad) * repel;
+        }
+      }
+
+      const speed = Math.hypot(vel.x, vel.y);
+      if (speed > enemy.maxSpeed) {
+        const scale = enemy.maxSpeed / speed;
+        vel.x *= scale;
+        vel.y *= scale;
+      }
+      vel.x *= 0.992;
+      vel.y *= 0.992;
+
+      if (Math.floor(now / 120) % 2 === 0) {
+        const exhaustX = pos.x - Math.cos(rad) * 13;
+        const exhaustY = pos.y - Math.sin(rad) * 13;
+        createThrusterParticleEntity(this.em, exhaustX, exhaustY, rot.value + 180);
+      }
+
+      const fireWindow = Math.abs((((desired - rot.value + 540) % 360) - 180));
+      if (d < enemy.preferredDistance * 1.5 && fireWindow < 14) {
+        enemy.lastShotAt ??= now - enemy.fireInterval;
+        if (now - enemy.lastShotAt >= enemy.fireInterval) {
+          const muzzleX = pos.x + Math.cos(rad) * 18;
+          const muzzleY = pos.y + Math.sin(rad) * 18;
+          createBulletEntity(this.em, this.game, muzzleX, muzzleY, rot.value, enemy.projectileType || 'enemy', 'enemy');
+          audio.playLaser('enemy');
+          enemy.lastShotAt = now;
+        }
+      }
+    }
   }
 }
 /**
@@ -389,14 +586,16 @@ export class MissileSystem {
     const missiles = this.em.query('missile', 'position', 'velocity', 'rotation');
     if (missiles.length === 0) return;
     const asteroids = this.em.query('asteroid', 'position');
-    if (asteroids.length === 0) return;
+    const enemies = this.em.query('enemy', 'position');
+    const targets = [...asteroids, ...enemies];
+    if (targets.length === 0) return;
     for (const mid of missiles) {
       const pos = this.em.getComponent(mid, 'position');
       const vel = this.em.getComponent(mid, 'velocity');
       const rot = this.em.getComponent(mid, 'rotation');
       // find nearest asteroid
       let best = null, bestD2 = Infinity;
-      for (const aid of asteroids) {
+      for (const aid of targets) {
         const ap = this.em.getComponent(aid, 'position');
         const dx = ap.x - pos.x, dy = ap.y - pos.y;
         const d2 = dx*dx + dy*dy;

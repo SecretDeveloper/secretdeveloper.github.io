@@ -10,9 +10,10 @@ import * as CONST from './constants.js';
  * @param {number} y
  * @param {number} angle in degrees
  * @param {string} [weaponType]
+ * @param {string} [owner]
  * @returns {number} entity id
  */
-export function createBulletEntity(em, game, x, y, angle, weaponType = 'default') {
+export function createBulletEntity(em, game, x, y, angle, weaponType = 'default', owner = 'player') {
   const id = em.createEntity();
   const profiles = {
     default: {
@@ -44,13 +45,23 @@ export function createBulletEntity(em, game, x, y, angle, weaponType = 'default'
       color: '120,220,255',
       glow: 'rgba(120,220,255,0.8)',
       length: Math.max(10, game.bulletSize * 4.5)
+    },
+    enemy: {
+      speedMin: 6.5,
+      speedMax: 8.2,
+      life: Math.round(game.bulletLife * 1.8),
+      radius: Math.max(2, game.bulletSize * 1.05),
+      damage: 1,
+      color: '255,120,90',
+      glow: 'rgba(255,120,90,0.7)',
+      length: Math.max(8, game.bulletSize * 3.5)
     }
   };
   const profile = profiles[weaponType] || profiles.default;
   // position
   em.addComponent(id, 'position', { x, y });
   // bullet tag
-  em.addComponent(id, 'bullet', { weaponType });
+  em.addComponent(id, 'bullet', { weaponType, owner });
   // velocity
   const rad = degToRad(angle);
   const speed = profile.speedMin + Math.random() * (profile.speedMax - profile.speedMin);
@@ -64,7 +75,7 @@ export function createBulletEntity(em, game, x, y, angle, weaponType = 'default'
   // renderable
   em.addComponent(id, 'renderable', {
     draw(ctx) {
-      if (weaponType === 'machine') {
+      if (weaponType === 'machine' || weaponType === 'enemy') {
         ctx.fillStyle = `rgb(${profile.color})`;
         ctx.shadowBlur = 8;
         ctx.shadowColor = profile.glow;

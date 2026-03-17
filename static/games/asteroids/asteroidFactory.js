@@ -45,7 +45,7 @@ export function createAsteroidEntity(em, game, x, y, size, variant = CONST.ASTER
   em.addComponent(id, 'collider', { r: s });
   // velocity
   const sectorSpeedScale = 1 + Math.max(0, game.level - 1) * 0.08;
-  const speed = ((rand(1, 3) / s) * 30) * profile.speedMult * sectorSpeedScale * (modifier.asteroidSpeedMult || 1);
+  const speed = ((rand(1, 1.5) / s) * 30) * profile.speedMult * sectorSpeedScale * (modifier.asteroidSpeedMult || 1);
   const ang = rand(0, 360);
   em.addComponent(id, 'velocity', {
     x: speed * Math.cos(degToRad(ang)),

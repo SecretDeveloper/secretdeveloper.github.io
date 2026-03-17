@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="plasma" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#d8ffff"/>
-      <stop offset="100%" stop-color="#45d7ff"/>
-    </linearGradient>
-  </defs>
-  <circle cx="32" cy="32" r="20" fill="url(#plasma)" stroke="#effdff" stroke-width="3"/>
-  <path d="M35 11 21 35h10l-2 18 14-24H33z" fill="#007ea1" stroke="#effdff" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M10 32 22 21h18l12 11-12 11H22Z" fill="#d8fff1" stroke="#b2ffe0" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M40 21 56 32 40 43" fill="#87f4bc" stroke="#b2ffe0" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M21 24 14 18v10zM21 40l-7 6V36z" fill="#1da469" stroke="#b2ffe0" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M18 32h20" stroke="#16714a" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="44" cy="32" r="4" fill="#fbff72"/>
+  <path d="M10 32 3 26v12z" fill="#ffb347"/>
+  <path d="M6 28 1 32l5 4z" fill="#fff2a6"/>
 </svg>

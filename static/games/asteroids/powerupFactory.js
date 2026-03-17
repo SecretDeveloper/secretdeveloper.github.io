@@ -17,15 +17,15 @@ powerupIcons[POWERUP_TYPES.MISSILE].src = new URL('./powerup-missile.svg', impor
 
 const powerupColors = {
   [POWERUP_TYPES.SHIELD]: '#54ff9f',
-  [POWERUP_TYPES.MACHINE]: '#ff6de3',
-  [POWERUP_TYPES.POWER]: '#45d7ff',
+  [POWERUP_TYPES.MACHINE]: '#7fe6ff',
+  [POWERUP_TYPES.POWER]: '#87f4bc',
   [POWERUP_TYPES.MISSILE]: '#ffb14a'
 };
 
 const powerupColorRgb = {
   [POWERUP_TYPES.SHIELD]: '84,255,159',
-  [POWERUP_TYPES.MACHINE]: '255,109,227',
-  [POWERUP_TYPES.POWER]: '69,215,255',
+  [POWERUP_TYPES.MACHINE]: '127,230,255',
+  [POWERUP_TYPES.POWER]: '135,244,188',
   [POWERUP_TYPES.MISSILE]: '255,177,74'
 };
 

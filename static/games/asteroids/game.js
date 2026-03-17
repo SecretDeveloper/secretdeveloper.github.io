@@ -23,6 +23,7 @@ import * as audio from './audio.js';
 // Ship and Asteroid are now ECS-managed via factories
 import { createAsteroidEntity } from './asteroidFactory.js';
 import { createPowerupEntity } from './powerupFactory.js';
+import { createEnemyFighterEntity, createEnemyCommandShipEntity } from './enemyFactory.js';
 // Particle effects are now ECS-managed via ParticleSystem and particleFactory
 import { createExplosionParticleEntity, createThrusterParticleEntity } from './particleFactory.js';
 import nebulaImages from './nebula.js';
@@ -33,7 +34,7 @@ import { Starfield } from './starfield.js';
 import {
   EntityManager, SystemManager, StarfieldSystem,
   InputSystem, MovementSystem, FrictionSystem, RotationSystem, LifetimeSystem,
-  CollisionSystem, ShipCollisionSystem, PowerupSystem, PowerupPickupSystem, ParticleSystem, RenderSystem, MissileSystem
+  CollisionSystem, ShipCollisionSystem, PowerupSystem, PowerupPickupSystem, ParticleSystem, RenderSystem, MissileSystem, EnemySystem
 } from './ecs.js';
 import { createShipEntity } from './shipFactory.js';
 
@@ -48,6 +49,7 @@ export class Game {
     this.scoreEl = scoreEl;
     this.startScreenEl = startScreenEl;
     this.defaultStartScreenHTML = startScreenEl.innerHTML;
+    this.bindStartScreenPanels();
     // dimensions
     this.W = 0;
     this.H = 0;
@@ -79,6 +81,7 @@ export class Game {
     this.sm.addSystem(new CollisionSystem(this.em, this));
     // collisions between ship and asteroids
     this.sm.addSystem(new ShipCollisionSystem(this.em, this));
+    this.sm.addSystem(new EnemySystem(this.em, this));
     // power-ups: rotate, expire, and pickup
     this.sm.addSystem(new PowerupSystem(this.em, this));
     this.sm.addSystem(new PowerupPickupSystem(this.em, this));
@@ -112,6 +115,10 @@ export class Game {
     this.sectorEl = document.getElementById('sector');
     this.sectorEl.textContent = this.level;
     this.modifierEl = document.getElementById('modifier');
+    this.hostilesEl = document.getElementById('hostiles');
+    this.threatLevelEl = document.getElementById('threatLevel');
+    this.weaponNameEl = document.getElementById('weaponName');
+    this.weaponWarningEl = document.getElementById('weaponWarning');
     this.comboHudEl = document.getElementById('comboHud');
     // cache HUD shield fill element
     this.shieldFillEl = document.getElementById('shield-fill');
@@ -199,6 +206,8 @@ export class Game {
     this.activePowerup = null;
 
     this.spawnSectorEncounter();
+    this.updateThreatHud();
+    this.updateWeaponHud();
 
     this.scoreEl.textContent = this.score;
 
@@ -222,6 +231,22 @@ export class Game {
     }
   }
 
+  bindStartScreenPanels() {
+    const buttons = this.startScreenEl.querySelectorAll('[data-panel-target]');
+    const panels = this.startScreenEl.querySelectorAll('.start-panel');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-panel-target');
+        buttons.forEach(control => {
+          control.classList.toggle('is-active', control === button);
+        });
+        panels.forEach(panel => {
+          panel.classList.toggle('is-active', panel.id === targetId);
+        });
+      });
+    });
+  }
+
   startRun() {
     this.startScreenEl.style.display = 'none';
     this.lastTime = performance.now();
@@ -230,9 +255,10 @@ export class Game {
 
   showGameOverScreen() {
     this.startScreenEl.innerHTML =
-      `<h1>Game Over</h1>` +
-      `<p>Your score: ${this.finalScore}</p>` +
-      `<p>Press Enter to restart.</p>`;
+      `<h1>Defense Failed</h1>` +
+      `<p>Your threat score: ${this.finalScore}</p>` +
+      `<p>The staging fleet broke through the belt.</p>` +
+      `<p>Press Enter to launch another defense run.</p>`;
     this.startScreenEl.style.display = 'flex';
     this.setState(GAME_STATE.GAME_OVER);
   }
@@ -244,6 +270,50 @@ export class Game {
     this.comboHudEl.style.display = comboActive ? 'block' : 'none';
     if (comboActive) {
       this.comboHudEl.textContent = `Combo x${this.comboMultiplier}`;
+    }
+  }
+
+  updateThreatHud(enemyCount = this.em.query('enemy').length) {
+    if (this.hostilesEl) this.hostilesEl.textContent = enemyCount;
+    if (!this.threatLevelEl) return;
+    let label = 'Contained';
+    let color = '#9dffb1';
+    if (enemyCount >= 5) {
+      label = 'Critical';
+      color = '#ff7d7d';
+    } else if (enemyCount >= 3) {
+      label = 'High';
+      color = '#ffb27d';
+    } else if (enemyCount >= 1) {
+      label = 'Active';
+      color = '#ffe27d';
+    }
+    this.threatLevelEl.textContent = label;
+    this.threatLevelEl.style.color = color;
+  }
+
+  updateWeaponHud() {
+    if (this.weaponNameEl) {
+      const weaponLabels = {
+        [CONST.POWERUP_TYPES.MISSILE]: 'Targeting Missile',
+        [CONST.POWERUP_TYPES.MACHINE]: 'Machine Gun',
+        [CONST.POWERUP_TYPES.POWER]: 'Nukes'
+      };
+      this.weaponNameEl.textContent = weaponLabels[this.activePowerup] || 'Standard';
+    }
+    if (!this.weaponWarningEl) return;
+    if (!this.activePowerup) {
+      this.weaponWarningEl.style.display = 'none';
+      return;
+    }
+    const maxAmmo = CONST.MAX_AMMO[this.activePowerup] || 1;
+    const currentAmmo = this.ammo[this.activePowerup] || 0;
+    const ratio = currentAmmo / maxAmmo;
+    const lowAmmo = currentAmmo > 0 && ratio <= 0.2;
+    this.weaponWarningEl.style.display = lowAmmo ? 'inline' : 'none';
+    if (lowAmmo) {
+      const pulse = Math.sin(performance.now() / 110) * 0.5 + 0.5;
+      this.weaponWarningEl.style.opacity = `${0.45 + pulse * 0.55}`;
     }
   }
 
@@ -448,6 +518,10 @@ export class Game {
     return Math.max(3, Math.round(baseCount * (this.currentSectorModifier?.asteroidCountMult || 1)));
   }
 
+  getSectorEnemyCount() {
+    return Math.min(CONST.MAX_ENEMY_COUNT, CONST.BASE_ENEMY_COUNT + Math.floor((this.level - 1) / 2));
+  }
+
   isShipInvulnerable(now = performance.now()) {
     return now < this.shipInvulnerableUntil;
   }
@@ -577,6 +651,26 @@ export class Game {
     createAsteroidEntity(this.em, this, x, y, size, variant);
   }
 
+  spawnEnemyFighter() {
+    let x, y;
+    const shipPos = this.em.getComponent(this.shipEntity, 'position');
+    do {
+      x = rand(0, this.W);
+      y = rand(0, this.H);
+    } while (dist({ x, y }, shipPos) < 240);
+    createEnemyFighterEntity(this.em, this, x, y);
+  }
+
+  spawnEnemyCommandShip() {
+    let x, y;
+    const shipPos = this.em.getComponent(this.shipEntity, 'position');
+    do {
+      x = rand(0, this.W);
+      y = rand(0, this.H);
+    } while (dist({ x, y }, shipPos) < 280);
+    createEnemyCommandShipEntity(this.em, this, x, y);
+  }
+
   pickAsteroidVariant() {
     const roll = Math.random();
     const modifier = this.currentSectorModifier || CONST.getSectorModifier(this.level);
@@ -593,14 +687,23 @@ export class Game {
 
   spawnSectorEncounter() {
     if (this.isMiniBossSector()) {
-      this.spawnAsteroid(rand(88, 104), CONST.ASTEROID_VARIANTS.BOSS);
-      for (let i = 0; i < CONST.MINIBOSS_SUPPORT_COUNT; i++) {
-        const supportVariant = i % 2 === 0 ? CONST.ASTEROID_VARIANTS.HEAVY : CONST.ASTEROID_VARIANTS.SWIFT;
+      this.spawnEnemyCommandShip();
+      for (let i = 0; i < Math.max(2, Math.ceil(this.getSectorAsteroidCount() / 2)); i++) {
+        const supportVariant = i % 2 === 0 ? CONST.ASTEROID_VARIANTS.HEAVY : this.pickAsteroidVariant();
         this.spawnAsteroid(undefined, supportVariant);
       }
+      for (let i = 0; i < CONST.MINIBOSS_SUPPORT_COUNT + 1; i++) this.spawnEnemyFighter();
       return;
     }
     for (let i = 0; i < this.getSectorAsteroidCount(); i++) this.spawnAsteroid();
+    for (let i = 0; i < this.getSectorEnemyCount(); i++) this.spawnEnemyFighter();
+  }
+
+  clearSectorEntities() {
+    for (const entity of this.em.getAllEntities()) {
+      if (entity === this.shipEntity) continue;
+      this.em.removeEntity(entity);
+    }
   }
 
   /** Begin ship explosion and particle effects. */
@@ -820,13 +923,11 @@ export class Game {
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
     this._renderGalaxyCanvas();
-    // clear existing ECS-managed entities (bullets, etc.)
-    // (ECS will handle cleanup via LifetimeSystem and removeEntity)
-    // ECS-managed particles (thrusters, explosions) cleaned by ParticleSystem
-    // ECS-managed power-ups and asteroids cleaned via systems
-    // legacy arrays (powerups, asteroids) are no longer used
-    // spawn asteroids for next sector
+    // remove all old-sector ECS entities so asteroids, enemies, bullets,
+    // power-ups, and particles cannot persist through the warp.
+    this.clearSectorEntities();
     this.spawnSectorEncounter();
+    this.updateThreatHud();
     // schedule portal removal after exit, keep portal visible for 2s
     this.portalExitExpire = performance.now();
     // immediate warp through portal: reposition ship just outside portal rim along velocity vector
@@ -843,6 +944,8 @@ export class Game {
     pos.y = exitY + ny * distOut;
     vel.x = exitVelX; vel.y = exitVelY;
     rot.value = exitAngle;
+    this.shipTrail = [];
+    this.startShipInvulnerability(performance.now(), CONST.SHIP_PORTAL_INVULNERABLE_DURATION);
     return;
   }
 
@@ -889,6 +992,7 @@ export class Game {
     this.activePowerup = null;
     this.lastShot = 0;
     this.updateScoreHud();
+    this.updateWeaponHud();
     // reset level/sector display
     this.level = 1;
     this.sectorEl.textContent = this.level;
@@ -899,6 +1003,7 @@ export class Game {
     this.entryPortal = null;
     this.startScreenEl.innerHTML = this.defaultStartScreenHTML;
     this.startScreenEl.style.display = 'flex';
+    this.bindStartScreenPanels();
     this.setState(GAME_STATE.START);
     // spawn initial asteroids
     this.spawnSectorEncounter();
@@ -907,6 +1012,8 @@ export class Game {
     this.galaxyOffsetX = 0;
     this.galaxyOffsetY = 0;
     this._renderGalaxyCanvas();
+    this.updateThreatHud(0);
+    this.updateWeaponHud();
   }
 
   // Legacy update() removed; ECS systems handle input, movement, collisions, particles, and portal checks.
@@ -1028,8 +1135,11 @@ export class Game {
       this.updateSectorTheme(now);
       // run ECS update (includes input, movement, collisions, particles, etc.)
       this.sm.update(dt, now);
-      // dynamic music intensity based on remaining asteroids in ECS
-      const count = this.em.query('asteroid').length;
+      // dynamic music intensity based on remaining threats in ECS
+      const asteroidCount = this.em.query('asteroid').length;
+      const enemyCount = this.em.query('enemy').length;
+      this.updateThreatHud(enemyCount);
+      const count = asteroidCount + enemyCount;
       const max = 5;
       const baseVol = 0.025;
       audio.setMusicVolume(baseVol + (count / max) * baseVol);
@@ -1039,8 +1149,8 @@ export class Game {
         shield: this.shield
       });
       this.expireCombo(now);
-      // spawn wormhole when sector is cleared
-      if (count === 0 && !this.wormhole) {
+      // spawn wormhole when enemy staging force is cleared
+      if (enemyCount === 0 && !this.wormhole) {
         this.spawnWormhole();
       }
       // update wormhole and check for sector transition (ignore during exit delay)
@@ -1095,6 +1205,7 @@ export class Game {
         const pct = Math.max(0, Math.min(1, cur / maxAmmo));
         el.style.width = `${pct * 100}%`;
       });
+      this.updateWeaponHud();
     }
     // fill sector-specific gradient
     const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
