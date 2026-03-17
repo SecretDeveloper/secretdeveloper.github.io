@@ -16,15 +16,23 @@ export const SHIP_THRUST_BOOST    = 1.2;
 
 export const BASE_BULLET_SPEED_MIN = 8;
 export const BASE_BULLET_SPEED_MAX = 12;
-export const POWER_BULLET_SPEED_MIN = 12;
-export const POWER_BULLET_SPEED_MAX = 18;
+export const POWER_BULLET_SPEED_MIN = 10;
+export const POWER_BULLET_SPEED_MAX = 14;
 export const BASE_BULLET_SIZE     = 2;
 export const POWER_BULLET_SIZE    = 4;
 export const BASE_BULLET_LIFE     = 60;
 export const POWER_BULLET_LIFE    = 100;
+export const MACHINE_BULLET_LIFE  = 72;
+export const NUKE_BULLET_LIFE     = 140;
+export const NUKE_DAMAGE          = 5;
+export const MISSILE_LIFETIME     = 140;
+export const MISSILE_DAMAGE       = 4;
+export const MISSILE_SPEED_MULT   = 1.1;
 
 export const BASE_SHOT_INTERVAL   = 200;
 export const MACHINE_GUN_INTERVAL = 50;
+export const POWER_SHOT_INTERVAL  = 500;
+export const MISSILE_SHOT_INTERVAL = 320;
 
 export const POWERUP_DURATION     = 10000;
 export const POWERUP_SPAWN_CHANCE = 0.2;
@@ -68,9 +76,9 @@ export const WORMHOLE_COLOR  = 'cyan';
 export const PORTAL_EXIT_DURATION = 2000;
 // Max ammo counts for weapons
 export const MAX_AMMO = {
-  [POWERUP_TYPES.MISSILE]: 30,
-  [POWERUP_TYPES.MACHINE]: 200,
-  [POWERUP_TYPES.POWER]: 100
+  [POWERUP_TYPES.MISSILE]: 24,
+  [POWERUP_TYPES.MACHINE]: 160,
+  [POWERUP_TYPES.POWER]: 24
 };
 // Duration (ms) for the ship's blue light trail to fade
 export const TRAIL_DURATION       = 3000;

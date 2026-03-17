@@ -1,6 +1,7 @@
 // missileFactory.js
 // Creates homing missile entities in the ECS
 import { degToRad } from './utils.js';
+import * as CONST from './constants.js';
 
 /**
  * Create a homing missile entity.
@@ -22,17 +23,17 @@ export function createMissileEntity(em, game, x, y, angle) {
   // velocity based on angle and current game bullet speed
   const rad = degToRad(angle);
   const base = (game.bulletSpeedMax + game.bulletSpeedMin) / 2;
-  const speed = base * 0.9; // slightly slower than a power shot
+  const speed = base * CONST.MISSILE_SPEED_MULT;
   em.addComponent(id, 'velocity', { x: Math.cos(rad) * speed, y: Math.sin(rad) * speed });
   // rotation (degrees)
   em.addComponent(id, 'rotation', { value: angle });
   // lifetime (longer than a normal bullet)
-  em.addComponent(id, 'lifetime', { value: Math.round(game.bulletLife * 1.5) });
+  em.addComponent(id, 'lifetime', { value: CONST.MISSILE_LIFETIME });
   // collider radius
   const r = Math.max(3, Math.round(game.bulletSize * 1.5));
   em.addComponent(id, 'collider', { r });
   // damage delivered per hit (missiles stronger than bullets)
-  em.addComponent(id, 'damage_delivered', { value: 2 });
+  em.addComponent(id, 'damage_delivered', { value: CONST.MISSILE_DAMAGE });
   // renderable: small orange triangle oriented by rotation
   em.addComponent(id, 'renderable', {
     draw(ctx) {

@@ -873,7 +873,10 @@ export class Game {
     this.restoreBaseWeapon();
     if (this.activePowerup === CONST.POWERUP_TYPES.MACHINE) {
       this.shotInterval = CONST.MACHINE_GUN_INTERVAL;
+    } else if (this.activePowerup === CONST.POWERUP_TYPES.MISSILE) {
+      this.shotInterval = CONST.MISSILE_SHOT_INTERVAL;
     } else if (this.activePowerup === CONST.POWERUP_TYPES.POWER) {
+      this.shotInterval = CONST.POWER_SHOT_INTERVAL;
       this.bulletSpeedMin = CONST.POWER_BULLET_SPEED_MIN * bulletSpeedMult;
       this.bulletSpeedMax = CONST.POWER_BULLET_SPEED_MAX * bulletSpeedMult;
       this.bulletSize = CONST.POWER_BULLET_SIZE;

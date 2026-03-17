@@ -29,7 +29,7 @@ export function createBulletEntity(em, game, x, y, angle, weaponType = 'default'
     machine: {
       speedMin: game.bulletSpeedMin * 1.15,
       speedMax: game.bulletSpeedMax * 1.2,
-      life: Math.round(game.bulletLife * 1.3),
+      life: CONST.MACHINE_BULLET_LIFE,
       radius: Math.max(1.5, game.bulletSize * 0.85),
       damage: 1,
       color: '120,255,255',
@@ -39,9 +39,9 @@ export function createBulletEntity(em, game, x, y, angle, weaponType = 'default'
     power: {
       speedMin: game.bulletSpeedMin,
       speedMax: game.bulletSpeedMax,
-      life: Math.round(game.bulletLife * 2.4),
+      life: CONST.NUKE_BULLET_LIFE,
       radius: Math.max(game.bulletSize, CONST.POWER_BULLET_SIZE),
-      damage: 2,
+      damage: CONST.NUKE_DAMAGE,
       color: '120,220,255',
       glow: 'rgba(120,220,255,0.8)',
       length: Math.max(10, game.bulletSize * 4.5)
