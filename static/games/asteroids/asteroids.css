@@ -43,6 +43,11 @@ body, html {
     font-size: 0.8rem;
     color: #7df9ff;
 }
+.hud-combo {
+    font-size: 0.8rem;
+    color: #ffd36b;
+    display: none;
+}
 /* Ammo bars for weapons */
 #ammoHud {
     /* Positioned by flex layout in #hud */

@@ -16,9 +16,9 @@
 
 ## Progression
 
-- [ ] Add score multipliers, combos, or sector-clear bonuses.
-- [ ] Make power-up drops more strategic instead of purely random.
-- [ ] Add sector themes that change gameplay, visuals, or audio beyond color shifts.
+- [x] Add score multipliers, combos, or sector-clear bonuses.
+- [x] Make power-up drops more strategic instead of purely random.
+- [x] Add sector themes that change gameplay, visuals, or audio beyond color shifts.
 - [ ] Add a boss or mini-boss every few sectors.
 
 ## UX

@@ -112,6 +112,7 @@ export class Game {
     this.sectorEl = document.getElementById('sector');
     this.sectorEl.textContent = this.level;
     this.modifierEl = document.getElementById('modifier');
+    this.comboHudEl = document.getElementById('comboHud');
     // cache HUD shield fill element
     this.shieldFillEl = document.getElementById('shield-fill');
     // nebula overlays per sector
@@ -168,13 +169,21 @@ export class Game {
     // this.asteroidExplosions = [];
     this.score = 0;
     this.shield = 3;
+    this.comboCount = 0;
+    this.comboMultiplier = 1;
+    this.comboExpiry = 0;
+    this.pendingSectorClearBonus = false;
     // overpowered shield state and timer (10s duration)
     this.shieldOverpowered = false;
     this.shieldOverpoweredExpiry = 0;
     this.explosionStart = 0;
+    this.explosionCenter = null;
+    this.explosionPulseTimeouts = [];
     this.finalScore = 0;
     this.currentSectorModifier = CONST.getSectorModifier(this.level);
     if (this.modifierEl) this.modifierEl.textContent = this.currentSectorModifier.name;
+    this.themeState = { particles: [], pulseOffset: Math.random() * Math.PI * 2 };
+    this.resetSectorTheme();
     this.shipInvulnerableUntil = 0;
     this.shakeUntil = 0;
     this.shakeMagnitude = 0;
@@ -229,10 +238,206 @@ export class Game {
     this.setState(GAME_STATE.GAME_OVER);
   }
 
+  updateScoreHud() {
+    this.scoreEl.textContent = this.score;
+    if (!this.comboHudEl) return;
+    const comboActive = this.comboMultiplier > 1 && performance.now() < this.comboExpiry;
+    this.comboHudEl.style.display = comboActive ? 'block' : 'none';
+    if (comboActive) {
+      this.comboHudEl.textContent = `Combo x${this.comboMultiplier}`;
+    }
+  }
+
+  awardScore(baseScore, now = performance.now()) {
+    if (now <= this.comboExpiry) {
+      this.comboCount++;
+    } else {
+      this.comboCount = 1;
+    }
+    this.comboExpiry = now + CONST.COMBO_WINDOW_MS;
+    this.comboMultiplier = Math.min(CONST.COMBO_MAX_MULTIPLIER, 1 + Math.floor(this.comboCount / 2));
+    this.score += baseScore * this.comboMultiplier;
+    this.updateScoreHud();
+  }
+
+  expireCombo(now = performance.now()) {
+    if (now >= this.comboExpiry) {
+      this.comboCount = 0;
+      this.comboMultiplier = 1;
+      this.comboExpiry = 0;
+      this.updateScoreHud();
+    }
+  }
+
   updateSectorModifier() {
     this.currentSectorModifier = CONST.getSectorModifier(this.level);
     if (this.modifierEl) this.modifierEl.textContent = this.currentSectorModifier.name;
+    this.resetSectorTheme();
     this.syncWeaponStats();
+  }
+
+  resetSectorTheme() {
+    const id = this.currentSectorModifier?.id || 'calm';
+    const particles = [];
+    if (id === 'debris') {
+      for (let i = 0; i < 26; i++) {
+        particles.push({
+          x: rand(0, this.W),
+          y: rand(0, this.H),
+          length: rand(18, 68),
+          speed: rand(0.25, 1.1),
+          alpha: rand(0.04, 0.14)
+        });
+      }
+    } else if (id === 'ion') {
+      for (let i = 0; i < 7; i++) {
+        particles.push({
+          x: rand(0, this.W),
+          y: rand(0, this.H),
+          radius: rand(24, 72),
+          drift: rand(0.2, 0.8),
+          alpha: rand(0.08, 0.18)
+        });
+      }
+    } else if (id === 'salvage') {
+      for (let i = 0; i < 18; i++) {
+        particles.push({
+          x: rand(0, this.W),
+          y: rand(0, this.H),
+          size: rand(3, 8),
+          speed: rand(0.12, 0.5),
+          alpha: rand(0.08, 0.2)
+        });
+      }
+    } else if (id === 'fortress') {
+      for (let i = 0; i < 14; i++) {
+        particles.push({
+          angle: rand(0, Math.PI * 2),
+          radius: rand(Math.min(this.W, this.H) * 0.16, Math.min(this.W, this.H) * 0.44),
+          size: rand(6, 14),
+          alpha: rand(0.04, 0.11)
+        });
+      }
+    }
+    this.themeState = {
+      particles,
+      pulseOffset: Math.random() * Math.PI * 2,
+      ionBurstAt: performance.now() + rand(600, 1800)
+    };
+  }
+
+  updateSectorTheme(now) {
+    const id = this.currentSectorModifier?.id || 'calm';
+    const particles = this.themeState?.particles || [];
+    if (id === 'debris') {
+      for (const p of particles) {
+        p.x -= p.speed;
+        p.y += p.speed * 0.18;
+        if (p.x + p.length < 0) {
+          p.x = this.W + rand(0, 40);
+          p.y = rand(0, this.H);
+        }
+        if (p.y > this.H + 20) p.y = -20;
+      }
+    } else if (id === 'ion') {
+      for (const p of particles) {
+        p.y += Math.sin(now / 300 + p.radius) * 0.35;
+        p.x += Math.cos(now / 450 + p.radius) * 0.2;
+      }
+      if (now >= (this.themeState.ionBurstAt || 0)) {
+        this.triggerFlash('120,220,255', 0.08);
+        this.themeState.ionBurstAt = now + rand(1400, 2600);
+      }
+    } else if (id === 'salvage') {
+      for (const p of particles) {
+        p.y += p.speed;
+        p.x += Math.sin(now / 500 + p.size) * 0.2;
+        if (p.y > this.H + 10) {
+          p.y = -10;
+          p.x = rand(0, this.W);
+        }
+      }
+    } else if (id === 'fortress') {
+      for (const p of particles) {
+        p.angle += 0.0015;
+      }
+    }
+  }
+
+  renderSectorTheme(now) {
+    const id = this.currentSectorModifier?.id || 'calm';
+    const pulse = Math.sin(now / 600 + (this.themeState?.pulseOffset || 0)) * 0.5 + 0.5;
+    const particles = this.themeState?.particles || [];
+
+    this.ctx.save();
+    this.ctx.globalCompositeOperation = 'screen';
+
+    if (id === 'calm') {
+      const grad = this.ctx.createRadialGradient(this.W * 0.5, this.H * 0.35, 0, this.W * 0.5, this.H * 0.35, this.W * 0.55);
+      grad.addColorStop(0, `rgba(120,200,255,${0.07 + pulse * 0.03})`);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      this.ctx.fillStyle = grad;
+      this.ctx.fillRect(0, 0, this.W, this.H);
+    } else if (id === 'debris') {
+      this.ctx.strokeStyle = `rgba(255,220,170,${0.08 + pulse * 0.04})`;
+      for (const p of particles) {
+        this.ctx.globalAlpha = p.alpha;
+        this.ctx.lineWidth = 1.2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(p.x, p.y);
+        this.ctx.lineTo(p.x + p.length, p.y - p.length * 0.18);
+        this.ctx.stroke();
+      }
+      this.ctx.globalAlpha = 1;
+    } else if (id === 'ion') {
+      for (const p of particles) {
+        const grad = this.ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
+        grad.addColorStop(0, `rgba(120,220,255,${p.alpha + pulse * 0.04})`);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        this.ctx.fillStyle = grad;
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        this.ctx.fill();
+      }
+      this.ctx.strokeStyle = `rgba(140,240,255,${0.16 + pulse * 0.12})`;
+      this.ctx.lineWidth = 2;
+      for (let i = 0; i < 2; i++) {
+        const baseX = (now * 0.15 + i * this.W * 0.45) % (this.W + 120) - 60;
+        this.ctx.beginPath();
+        this.ctx.moveTo(baseX, 0);
+        this.ctx.lineTo(baseX + 18, this.H * 0.2);
+        this.ctx.lineTo(baseX - 10, this.H * 0.45);
+        this.ctx.lineTo(baseX + 28, this.H * 0.72);
+        this.ctx.lineTo(baseX + 6, this.H);
+        this.ctx.stroke();
+      }
+    } else if (id === 'salvage') {
+      this.ctx.fillStyle = `rgba(120,255,200,${0.06 + pulse * 0.03})`;
+      for (let y = 0; y < this.H; y += 18) {
+        this.ctx.fillRect(0, y, this.W, 1);
+      }
+      for (const p of particles) {
+        this.ctx.globalAlpha = p.alpha + pulse * 0.08;
+        this.ctx.fillStyle = 'rgba(140,255,210,1)';
+        this.ctx.fillRect(p.x, p.y, p.size, p.size);
+        this.ctx.strokeStyle = 'rgba(220,255,240,0.5)';
+        this.ctx.strokeRect(p.x - 2, p.y - 2, p.size + 4, p.size + 4);
+      }
+      this.ctx.globalAlpha = 1;
+    } else if (id === 'fortress') {
+      this.ctx.strokeStyle = `rgba(255,170,110,${0.09 + pulse * 0.05})`;
+      this.ctx.lineWidth = 1.5;
+      for (const p of particles) {
+        const x = this.W * 0.5 + Math.cos(p.angle) * p.radius;
+        const y = this.H * 0.5 + Math.sin(p.angle) * p.radius;
+        this.ctx.strokeRect(x - p.size / 2, y - p.size / 2, p.size, p.size);
+      }
+      this.ctx.lineWidth = 3;
+      this.ctx.strokeRect(26, 26, this.W - 52, this.H - 52);
+      this.ctx.strokeRect(42, 42, this.W - 84, this.H - 84);
+    }
+
+    this.ctx.restore();
   }
 
   getPowerupSpawnChance() {
@@ -275,6 +480,33 @@ export class Game {
     if (typeof x === 'number' && typeof y === 'number' && particles > 0) {
       this.spawnImpactBurst(x, y, particles);
     }
+  }
+
+  clearExplosionPulseTimeouts() {
+    for (const timeoutId of this.explosionPulseTimeouts) {
+      clearTimeout(timeoutId);
+    }
+    this.explosionPulseTimeouts = [];
+  }
+
+  queueExplosionPulse(delay, callback) {
+    const timeoutId = setTimeout(() => {
+      this.explosionPulseTimeouts = this.explosionPulseTimeouts.filter(id => id !== timeoutId);
+      if (!this.isState(GAME_STATE.EXPLODING)) return;
+      callback();
+    }, delay);
+    this.explosionPulseTimeouts.push(timeoutId);
+  }
+
+  spawnExplosionPulse(x, y, {
+    particles = CONST.EXPLOSION_PARTICLES_COUNT,
+    shake = 8,
+    flashAlpha = 0.2,
+    flashColor = '255,140,90'
+  } = {}) {
+    this.spawnImpactBurst(x, y, particles);
+    this.triggerScreenShake(shake, 180);
+    this.triggerFlash(flashColor, flashAlpha);
   }
 
   applyScreenShake(now) {
@@ -358,30 +590,108 @@ export class Game {
 
   /** Begin ship explosion and particle effects. */
   startExplosion() {
+    this.clearExplosionPulseTimeouts();
     this.setState(GAME_STATE.EXPLODING);
     this.explosionStart = performance.now();
-    // spawn explosion particles via ECS
-    // spawn explosion particles via ECS at ship position
     const posComp = this.em.getComponent(this.shipEntity, 'position');
-    for (let i = 0; i < CONST.EXPLOSION_PARTICLES_COUNT; i++) {
-      createExplosionParticleEntity(this.em, posComp.x, posComp.y);
-    }
-    this.triggerImpactFeedback({
-      x: posComp.x,
-      y: posComp.y,
-      shake: 10,
-      flashAlpha: 0.28,
-      flashColor: '255,120,80',
-      particles: 24
+    const x = posComp.x;
+    const y = posComp.y;
+    this.explosionCenter = { x, y };
+    this.shipTrail = [];
+    this.spawnExplosionPulse(x, y, {
+      particles: CONST.EXPLOSION_PARTICLES_COUNT + 52,
+      shake: 18,
+      flashAlpha: 0.38,
+      flashColor: '255,150,110'
+    });
+    this.queueExplosionPulse(160, () => {
+      this.spawnExplosionPulse(x, y, {
+        particles: 42,
+        shake: 12,
+        flashAlpha: 0.24,
+        flashColor: '255,110,80'
+      });
+    });
+    this.queueExplosionPulse(300, () => {
+      this.spawnExplosionPulse(x, y, {
+        particles: 34,
+        shake: 9,
+        flashAlpha: 0.18,
+        flashColor: '255,170,120'
+      });
+    });
+    this.queueExplosionPulse(420, () => {
+      this.spawnExplosionPulse(x, y, {
+        particles: 30,
+        shake: 8,
+        flashAlpha: 0.15,
+        flashColor: '255,200,150'
+      });
+    });
+    this.queueExplosionPulse(620, () => {
+      this.spawnExplosionPulse(x, y, {
+        particles: 22,
+        shake: 6,
+        flashAlpha: 0.11,
+        flashColor: '255,220,180'
+      });
+    });
+    this.queueExplosionPulse(760, () => {
+      this.spawnExplosionPulse(x, y, {
+        particles: 18,
+        shake: 5,
+        flashAlpha: 0.08,
+        flashColor: '255,240,220'
+      });
     });
     audio.playExplosionSound();
   }
 
   /** Drop a random power-up at (x,y). */
   spawnPowerup(x, y) {
-    const types = Object.values(CONST.POWERUP_TYPES);
-    const type = types[Math.floor(rand(0, types.length))];
+    const type = this.choosePowerupDrop();
     createPowerupEntity(this.em, this, x, y, type);
+  }
+
+  choosePowerupDrop() {
+    const weights = new Map();
+    const addWeight = (type, amount) => {
+      weights.set(type, (weights.get(type) || 0) + amount);
+    };
+    const getAmmoRatio = (type) => {
+      const max = CONST.MAX_AMMO[type] || 1;
+      return Math.max(0, Math.min(1, (this.ammo[type] || 0) / max));
+    };
+
+    const shieldNeed = this.shieldOverpowered
+      ? 0
+      : Math.max(0, (3 - this.shield) / 3);
+    addWeight(CONST.POWERUP_TYPES.SHIELD, 0.4 + shieldNeed * 2.6);
+    if (this.shield === 0) addWeight(CONST.POWERUP_TYPES.SHIELD, 1.2);
+
+    for (const type of [
+      CONST.POWERUP_TYPES.MACHINE,
+      CONST.POWERUP_TYPES.POWER,
+      CONST.POWERUP_TYPES.MISSILE
+    ]) {
+      const ammoRatio = getAmmoRatio(type);
+      const shortage = 1 - ammoRatio;
+      addWeight(type, 0.45 + shortage * 1.8);
+      if (this.activePowerup === type && ammoRatio < 0.35) {
+        addWeight(type, 0.9);
+      }
+      if (this.activePowerup !== type && ammoRatio <= 0.05) {
+        addWeight(type, 0.35);
+      }
+    }
+
+    const total = Array.from(weights.values()).reduce((sum, value) => sum + value, 0);
+    let roll = Math.random() * total;
+    for (const [type, weight] of weights.entries()) {
+      roll -= weight;
+      if (roll <= 0) return type;
+    }
+    return CONST.POWERUP_TYPES.SHIELD;
   }
 
   /** Apply collected power-up effects. */
@@ -463,6 +773,11 @@ export class Game {
       y = Math.random() * this.H;
     } while (shipPos && dist({ x, y }, shipPos) < 200);
     this.wormhole = new Wormhole(x, y);
+    if (!this.pendingSectorClearBonus) {
+      this.pendingSectorClearBonus = true;
+      this.score += CONST.SECTOR_CLEAR_BONUS * this.level;
+      this.updateScoreHud();
+    }
     audio.playWormholeStinger();
   }
   /**
@@ -484,6 +799,7 @@ export class Game {
     this.level++;
     this.sectorEl.textContent = this.level;
     this.updateSectorModifier();
+    this.pendingSectorClearBonus = false;
     // regenerate galaxy background
     this.galaxyStars = initGalaxy(this.W, this.H, this.level);
     this.galaxyOffsetX = 0;
@@ -518,6 +834,7 @@ export class Game {
 
   /** Reset game state for a new round. */
   resetGame() {
+    this.clearExplosionPulseTimeouts();
     // Start from a clean ECS state so bullets, asteroids, particles, and
     // power-ups from the previous run cannot leak into the next game.
     for (const entity of this.em.getAllEntities()) {
@@ -534,9 +851,15 @@ export class Game {
     rotSpeed.value = 0;
     this.score = 0;
     this.shield = 3;
+    this.comboCount = 0;
+    this.comboMultiplier = 1;
+    this.comboExpiry = 0;
+    this.pendingSectorClearBonus = false;
     // overpowered shield state and timer (10s duration)
     this.shieldOverpowered = false;
     this.shieldOverpoweredExpiry = 0;
+    this.explosionStart = 0;
+    this.explosionCenter = null;
     this.shipInvulnerableUntil = 0;
     this.shipTrail = [];
     this.ammo = {
@@ -551,7 +874,7 @@ export class Game {
     this.bulletLife = CONST.BASE_BULLET_LIFE;
     this.activePowerup = null;
     this.lastShot = 0;
-    this.scoreEl.textContent = this.score;
+    this.updateScoreHud();
     // reset level/sector display
     this.level = 1;
     this.sectorEl.textContent = this.level;
@@ -583,12 +906,58 @@ export class Game {
     // bullets are now ECS-managed via RenderSystem
   }
 
+  renderExplosionOverlay(now) {
+    if (!this.explosionCenter) return;
+    const elapsed = now - this.explosionStart;
+    const progress = Math.max(0, Math.min(1, elapsed / CONST.EXPLOSION_DURATION));
+    const { x, y } = this.explosionCenter;
+    const maxRadius = Math.min(this.W, this.H) * 0.4;
+
+    this.ctx.save();
+    this.ctx.globalCompositeOperation = 'screen';
+
+    const coreRadius = 24 + maxRadius * 0.34 * progress;
+    const coreAlpha = Math.max(0, 1 - progress * 1.05);
+    const coreGradient = this.ctx.createRadialGradient(x, y, 0, x, y, coreRadius);
+    coreGradient.addColorStop(0, `rgba(255,255,255,${coreAlpha})`);
+    coreGradient.addColorStop(0.35, `rgba(255,210,150,${coreAlpha * 0.9})`);
+    coreGradient.addColorStop(1, 'rgba(255,110,50,0)');
+    this.ctx.fillStyle = coreGradient;
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, coreRadius, 0, Math.PI * 2);
+    this.ctx.fill();
+
+    const shockRadius = 32 + maxRadius * progress;
+    this.ctx.strokeStyle = `rgba(255,210,150,${Math.max(0, 0.58 - progress * 0.42)})`;
+    this.ctx.lineWidth = Math.max(3, 16 * (1 - progress));
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, shockRadius, 0, Math.PI * 2);
+    this.ctx.stroke();
+
+    const emberRadius = 18 + maxRadius * 0.72 * progress;
+    this.ctx.strokeStyle = `rgba(255,120,80,${Math.max(0, 0.38 - progress * 0.2)})`;
+    this.ctx.lineWidth = Math.max(2, 8 * (1 - progress * 0.7));
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, emberRadius, 0, Math.PI * 2);
+    this.ctx.stroke();
+
+    const debrisRadius = 10 + maxRadius * 0.88 * progress;
+    this.ctx.strokeStyle = `rgba(255,170,110,${Math.max(0, 0.24 - progress * 0.16)})`;
+    this.ctx.lineWidth = Math.max(1, 4 * (1 - progress * 0.5));
+    this.ctx.beginPath();
+    this.ctx.arc(x, y, debrisRadius, 0, Math.PI * 2);
+    this.ctx.stroke();
+
+    this.ctx.restore();
+  }
+
   /** Main loop invoked via requestAnimationFrame. */
   loop(now) {
     this.applyScreenShake(now);
     // handle entry portal animation
     if (this.isState(GAME_STATE.ENTRY)) {
       const elapsed = now - this.entryStartTime;
+      this.updateSectorTheme(now);
       // draw background layers
       this.starfield.update();
       const [c1, c2] = SECTOR_BG[(this.level - 1) % SECTOR_BG.length];
@@ -615,6 +984,7 @@ export class Game {
         this.ctx.drawImage(neb, 0, 0, this.W, this.H);
         this.ctx.globalAlpha = 1;
       }
+      this.renderSectorTheme(now);
       this.starfield.draw(this.ctx);
       // animate and draw entry portal
       if (this.entryPortal) {
@@ -642,6 +1012,7 @@ export class Game {
       // compute delta time
       const dt = now - this.lastTime;
       this.lastTime = now;
+      this.updateSectorTheme(now);
       // run ECS update (includes input, movement, collisions, particles, etc.)
       this.sm.update(dt, now);
       // dynamic music intensity based on remaining asteroids in ECS
@@ -654,6 +1025,7 @@ export class Game {
         asteroidCount: count,
         shield: this.shield
       });
+      this.expireCombo(now);
       // spawn wormhole when sector is cleared
       if (count === 0 && !this.wormhole) {
         this.spawnWormhole();
@@ -740,6 +1112,7 @@ export class Game {
       this.ctx.drawImage(neb, 0, 0, this.W, this.H);
       this.ctx.globalAlpha = 1;
     }
+    this.renderSectorTheme(now);
     // prune old ship trail positions
     this.shipTrail = this.shipTrail.filter(tr => now - tr.t <= CONST.TRAIL_DURATION);
     // run ECS render
@@ -765,7 +1138,10 @@ export class Game {
     if (this.isState(GAME_STATE.EXPLODING)) {
       this.render();
       // explosion in progress: ECS ParticleSystem will render remaining particles
+      this.renderExplosionOverlay(now);
       if (now - this.explosionStart > CONST.EXPLOSION_DURATION) {
+        this.clearExplosionPulseTimeouts();
+        this.explosionCenter = null;
         audio.stopBackgroundMusicImmediate();
         audio.suspendAudio();
         this.showGameOverScreen();

@@ -11,6 +11,7 @@ let bgFilter = null;
 let bassGain = null;
 let dangerGain = null;
 let masterMusicGain = null;
+let weaponMusicGain = null;
 // Drum/arpeggio loop state
 // Drum/arpeggio loop state (legacy setInterval vars removed)
 let drumIndex = 0;
@@ -21,6 +22,7 @@ let eighthCount = 0;
 // Scheduler state for sample-accurate drum and arpeggio loops
 let nextQuarterTime = 0;
 let nextEighthTime = 0;
+let loopStartTime = 0;
 let quarterTimerID = null;
 let eighthTimerID = null;
 // Scheduling parameters
@@ -71,6 +73,44 @@ let musicState = {
 
 function currentPreset() {
   return musicState.preset || MUSIC_PRESETS.calm;
+}
+
+function musicBus(ctx) {
+  return weaponMusicGain || masterMusicGain || ctx.destination;
+}
+
+function quantizeToGrid(time, stepDuration) {
+  const anchor = loopStartTime || time;
+  if (stepDuration <= 0) return time;
+  const steps = Math.ceil(Math.max(0, time - anchor) / stepDuration);
+  return anchor + steps * stepDuration;
+}
+
+function arpNoteAtTime(time) {
+  const preset = currentPreset();
+  const notes = preset.arp;
+  const stepDuration = BEAT_DUR / 2;
+  const anchor = loopStartTime || time;
+  const stepIndex = Math.max(0, Math.round((time - anchor) / stepDuration));
+  return notes[stepIndex % notes.length];
+}
+
+function bassNoteAtTime(time) {
+  const preset = currentPreset();
+  const notes = preset.bass;
+  const anchor = loopStartTime || time;
+  const stepIndex = Math.max(0, Math.round((time - anchor) / BEAT_DUR));
+  return notes[stepIndex % notes.length];
+}
+
+function pulseMusicDuck(time, amount = 0.08, duration = 0.12) {
+  if (!masterMusicGain) return;
+  const gain = masterMusicGain.gain;
+  const current = Math.max(gain.value || 0.001, 0.001);
+  gain.cancelScheduledValues(time);
+  gain.setValueAtTime(current, time);
+  gain.linearRampToValueAtTime(Math.max(0.001, current - amount), time + 0.01);
+  gain.exponentialRampToValueAtTime(current, time + duration);
 }
 
 function isFillBar() {
@@ -188,6 +228,9 @@ export function startBackgroundMusic() {
   masterMusicGain = ctx.createGain();
   masterMusicGain.gain.setValueAtTime(1, ctx.currentTime);
   masterMusicGain.connect(ctx.destination);
+  weaponMusicGain = ctx.createGain();
+  weaponMusicGain.gain.setValueAtTime(0.55, ctx.currentTime);
+  weaponMusicGain.connect(ctx.destination);
   // gain for volume control
   bgGain = ctx.createGain();
   // quieter pad (half volume)
@@ -237,6 +280,7 @@ export function stopBackgroundMusic() {
     if (bassGain) { bassGain.disconnect(); bassGain = null; }
     if (dangerGain) { dangerGain.disconnect(); dangerGain = null; }
     if (masterMusicGain) { masterMusicGain.disconnect(); masterMusicGain = null; }
+    if (weaponMusicGain) { weaponMusicGain.disconnect(); weaponMusicGain = null; }
     // stop drum and arpeggio loops
     stopDrumArp();
   }, 1500);
@@ -262,6 +306,7 @@ export function stopBackgroundMusicImmediate() {
   if (bassGain) { bassGain.disconnect(); bassGain = null; }
   if (dangerGain) { dangerGain.disconnect(); dangerGain = null; }
   if (masterMusicGain) { masterMusicGain.disconnect(); masterMusicGain = null; }
+  if (weaponMusicGain) { weaponMusicGain.disconnect(); weaponMusicGain = null; }
   // stop drum and arpeggio loops
 stopDrumArp();
 }
@@ -334,6 +379,7 @@ export function startDrumArp() {
   quarterCount = 0;
   eighthCount = 0;
   // schedule start slightly in the future for smooth playback
+  loopStartTime = ctx.currentTime + 0.05;
   nextQuarterTime = ctx.currentTime + 0.05;
   nextEighthTime  = ctx.currentTime + 0.05;
   quarterScheduler();
@@ -352,6 +398,7 @@ export function stopDrumArp() {
     clearTimeout(eighthTimerID);
     eighthTimerID = null;
   }
+  loopStartTime = 0;
 }
 
 // --- Drum synth functions ---
@@ -502,7 +549,10 @@ export function playSectorAdvanceStinger() {
 export function playLaser(weaponType = 'default') {
   const ctx = getAudioContext();
   const now = ctx.currentTime;
+  const bus = musicBus(ctx);
   if (weaponType === 'machine') {
+    const grooveTime = quantizeToGrid(now + 0.01, BEAT_DUR / 4);
+    const grooveFreq = arpNoteAtTime(grooveTime) * 2;
     const noiseLen = Math.floor(ctx.sampleRate * 0.035);
     const noiseBuf = ctx.createBuffer(1, noiseLen, ctx.sampleRate);
     const data = noiseBuf.getChannelData(0);
@@ -516,22 +566,37 @@ export function playLaser(weaponType = 'default') {
     filter.Q.setValueAtTime(4, now);
     gain.gain.setValueAtTime(0.018, now);
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
-    noise.connect(filter).connect(gain).connect(ctx.destination);
+    noise.connect(filter).connect(gain).connect(bus);
     noise.start(now);
     noise.stop(now + 0.05);
     const clickOsc = ctx.createOscillator();
     const clickGain = ctx.createGain();
     clickOsc.type = 'square';
-    clickOsc.frequency.setValueAtTime(1200, now);
-    clickOsc.frequency.exponentialRampToValueAtTime(500, now + 0.03);
+    clickOsc.frequency.setValueAtTime(grooveFreq * 1.8, now);
+    clickOsc.frequency.exponentialRampToValueAtTime(grooveFreq, now + 0.03);
     clickGain.gain.setValueAtTime(0.01, now);
     clickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
-    clickOsc.connect(clickGain).connect(ctx.destination);
+    clickOsc.connect(clickGain).connect(bus);
     clickOsc.start(now);
     clickOsc.stop(now + 0.04);
+
+    const pulseOsc = ctx.createOscillator();
+    const pulseGain = ctx.createGain();
+    pulseOsc.type = musicState.modifierId === 'ion' ? 'triangle' : 'square';
+    pulseOsc.frequency.setValueAtTime(grooveFreq, grooveTime);
+    pulseOsc.frequency.exponentialRampToValueAtTime(grooveFreq * 0.8, grooveTime + 0.06);
+    pulseGain.gain.setValueAtTime(0.001, grooveTime);
+    pulseGain.gain.exponentialRampToValueAtTime(0.014, grooveTime + 0.008);
+    pulseGain.gain.exponentialRampToValueAtTime(0.001, grooveTime + 0.07);
+    pulseOsc.connect(pulseGain).connect(bus);
+    pulseOsc.start(grooveTime);
+    pulseOsc.stop(grooveTime + 0.08);
     return;
   }
   if (weaponType === 'power') {
+    const impactTime = quantizeToGrid(now + 0.03, BEAT_DUR);
+    const rootFreq = bassNoteAtTime(impactTime) * 2;
+    const fifthFreq = rootFreq * 1.5;
     const chargeOsc = ctx.createOscillator();
     const chargeGain = ctx.createGain();
     const bodyOsc = ctx.createOscillator();
@@ -577,10 +642,10 @@ export function playLaser(weaponType = 'default') {
     noiseGain.gain.exponentialRampToValueAtTime(0.018, now + 0.05);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
 
-    chargeOsc.connect(chargeGain).connect(ctx.destination);
-    bodyOsc.connect(bodyGain).connect(ctx.destination);
-    tailOsc.connect(tailGain).connect(ctx.destination);
-    noise.connect(noiseFilter).connect(noiseGain).connect(ctx.destination);
+    chargeOsc.connect(chargeGain).connect(bus);
+    bodyOsc.connect(bodyGain).connect(bus);
+    tailOsc.connect(tailGain).connect(bus);
+    noise.connect(noiseFilter).connect(noiseGain).connect(bus);
 
     chargeOsc.start(now);
     bodyOsc.start(now + 0.01);
@@ -591,9 +656,31 @@ export function playLaser(weaponType = 'default') {
     bodyOsc.stop(now + 0.4);
     tailOsc.stop(now + 0.28);
     noise.stop(now + 0.2);
+
+    const chordA = ctx.createOscillator();
+    const chordB = ctx.createOscillator();
+    const chordGain = ctx.createGain();
+    chordA.type = 'triangle';
+    chordB.type = 'sine';
+    chordA.frequency.setValueAtTime(rootFreq, impactTime);
+    chordA.frequency.exponentialRampToValueAtTime(rootFreq * 0.92, impactTime + 0.32);
+    chordB.frequency.setValueAtTime(fifthFreq, impactTime);
+    chordB.frequency.exponentialRampToValueAtTime(rootFreq, impactTime + 0.28);
+    chordGain.gain.setValueAtTime(0.001, impactTime);
+    chordGain.gain.exponentialRampToValueAtTime(0.04, impactTime + 0.02);
+    chordGain.gain.exponentialRampToValueAtTime(0.001, impactTime + 0.38);
+    chordA.connect(chordGain).connect(bus);
+    chordB.connect(chordGain).connect(bus);
+    chordA.start(impactTime);
+    chordB.start(impactTime);
+    chordA.stop(impactTime + 0.42);
+    chordB.stop(impactTime + 0.42);
+    pulseMusicDuck(impactTime, 0.1, 0.18);
     return;
   }
   if (weaponType === 'missile') {
+    const launchTime = quantizeToGrid(now + 0.02, BEAT_DUR);
+    const launchFreq = bassNoteAtTime(launchTime);
     const rocketOsc = ctx.createOscillator();
     const rocketGain = ctx.createGain();
     const noiseLen = Math.floor(ctx.sampleRate * 0.12);
@@ -604,8 +691,8 @@ export function playLaser(weaponType = 'default') {
     const filter = ctx.createBiquadFilter();
     const noiseGain = ctx.createGain();
     rocketOsc.type = 'sawtooth';
-    rocketOsc.frequency.setValueAtTime(180, now);
-    rocketOsc.frequency.exponentialRampToValueAtTime(95, now + 0.22);
+    rocketOsc.frequency.setValueAtTime(launchFreq * 3.2, now);
+    rocketOsc.frequency.exponentialRampToValueAtTime(launchFreq * 1.7, now + 0.22);
     rocketGain.gain.setValueAtTime(0.001, now);
     rocketGain.gain.exponentialRampToValueAtTime(0.035, now + 0.015);
     rocketGain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
@@ -614,24 +701,51 @@ export function playLaser(weaponType = 'default') {
     filter.frequency.setValueAtTime(900, now);
     noiseGain.gain.setValueAtTime(0.02, now);
     noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-    rocketOsc.connect(rocketGain).connect(ctx.destination);
-    noise.connect(filter).connect(noiseGain).connect(ctx.destination);
+    rocketOsc.connect(rocketGain).connect(bus);
+    noise.connect(filter).connect(noiseGain).connect(bus);
     rocketOsc.start(now);
     noise.start(now);
     rocketOsc.stop(now + 0.26);
     noise.stop(now + 0.14);
+
+    const thumpOsc = ctx.createOscillator();
+    const thumpGain = ctx.createGain();
+    thumpOsc.type = 'triangle';
+    thumpOsc.frequency.setValueAtTime(launchFreq * 2, launchTime);
+    thumpOsc.frequency.exponentialRampToValueAtTime(launchFreq, launchTime + 0.24);
+    thumpGain.gain.setValueAtTime(0.001, launchTime);
+    thumpGain.gain.exponentialRampToValueAtTime(0.045, launchTime + 0.015);
+    thumpGain.gain.exponentialRampToValueAtTime(0.001, launchTime + 0.3);
+    thumpOsc.connect(thumpGain).connect(bus);
+    thumpOsc.start(launchTime);
+    thumpOsc.stop(launchTime + 0.32);
+    pulseMusicDuck(launchTime, 0.08, 0.16);
     return;
   }
+  const shotTime = quantizeToGrid(now + 0.012, BEAT_DUR / 2);
+  const shotFreq = arpNoteAtTime(shotTime);
   const osc = ctx.createOscillator();
   const gain = ctx.createGain();
   osc.type = 'square';
-  osc.frequency.setValueAtTime(720, now);
-  osc.frequency.exponentialRampToValueAtTime(210, now + 0.12);
+  osc.frequency.setValueAtTime(shotFreq * 2.2, now);
+  osc.frequency.exponentialRampToValueAtTime(shotFreq * 0.8, now + 0.12);
   gain.gain.setValueAtTime(0.018, now);
   gain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
-  osc.connect(gain).connect(ctx.destination);
+  osc.connect(gain).connect(bus);
   osc.start(now);
   osc.stop(now + 0.16);
+
+  const layerOsc = ctx.createOscillator();
+  const layerGain = ctx.createGain();
+  layerOsc.type = 'triangle';
+  layerOsc.frequency.setValueAtTime(shotFreq, shotTime);
+  layerOsc.frequency.exponentialRampToValueAtTime(shotFreq * 1.12, shotTime + 0.08);
+  layerGain.gain.setValueAtTime(0.001, shotTime);
+  layerGain.gain.exponentialRampToValueAtTime(0.02, shotTime + 0.01);
+  layerGain.gain.exponentialRampToValueAtTime(0.001, shotTime + 0.11);
+  layerOsc.connect(layerGain).connect(bus);
+  layerOsc.start(shotTime);
+  layerOsc.stop(shotTime + 0.13);
 }
 
 /** Play asteroid chunk hit sound. */
@@ -733,17 +847,83 @@ export function playPowerupPickup() {
 /** Play ship explosion sound. */
 export function playExplosionSound() {
   const ctx = getAudioContext();
-  const bufferSize = ctx.sampleRate * 0.5;
-  const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
-  const noise = ctx.createBufferSource();
-  noise.buffer = buffer;
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(5, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
-  noise.connect(gain).connect(ctx.destination);
-  noise.start();
+  const now = ctx.currentTime;
+  const makeNoiseBuffer = (duration, curve = 1.5) => {
+    const length = Math.floor(ctx.sampleRate * duration);
+    const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < length; i++) {
+      const env = Math.pow(1 - i / length, curve);
+      data[i] = (Math.random() * 2 - 1) * env;
+    }
+    return buffer;
+  };
+
+  const blast = ctx.createBufferSource();
+  const blastFilter = ctx.createBiquadFilter();
+  const blastGain = ctx.createGain();
+  blast.buffer = makeNoiseBuffer(0.55, 1.25);
+  blastFilter.type = 'lowpass';
+  blastFilter.frequency.setValueAtTime(950, now);
+  blastFilter.frequency.exponentialRampToValueAtTime(220, now + 0.55);
+  blastGain.gain.setValueAtTime(0.001, now);
+  blastGain.gain.exponentialRampToValueAtTime(0.8, now + 0.012);
+  blastGain.gain.exponentialRampToValueAtTime(0.001, now + 0.55);
+  blast.connect(blastFilter).connect(blastGain).connect(ctx.destination);
+
+  const shock = ctx.createOscillator();
+  const shockGain = ctx.createGain();
+  shock.type = 'triangle';
+  shock.frequency.setValueAtTime(82, now);
+  shock.frequency.exponentialRampToValueAtTime(34, now + 1.1);
+  shockGain.gain.setValueAtTime(0.001, now);
+  shockGain.gain.exponentialRampToValueAtTime(0.11, now + 0.02);
+  shockGain.gain.exponentialRampToValueAtTime(0.001, now + 1.15);
+  shock.connect(shockGain).connect(ctx.destination);
+
+  const crack = ctx.createOscillator();
+  const crackGain = ctx.createGain();
+  crack.type = 'sawtooth';
+  crack.frequency.setValueAtTime(260, now);
+  crack.frequency.exponentialRampToValueAtTime(70, now + 0.24);
+  crackGain.gain.setValueAtTime(0.001, now);
+  crackGain.gain.exponentialRampToValueAtTime(0.08, now + 0.01);
+  crackGain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+  crack.connect(crackGain).connect(ctx.destination);
+
+  const secondary = ctx.createBufferSource();
+  const secondaryFilter = ctx.createBiquadFilter();
+  const secondaryGain = ctx.createGain();
+  secondary.buffer = makeNoiseBuffer(0.38, 1.6);
+  secondaryFilter.type = 'bandpass';
+  secondaryFilter.frequency.setValueAtTime(520, now + 0.18);
+  secondaryGain.gain.setValueAtTime(0.001, now + 0.18);
+  secondaryGain.gain.exponentialRampToValueAtTime(0.28, now + 0.22);
+  secondaryGain.gain.exponentialRampToValueAtTime(0.001, now + 0.56);
+  secondary.connect(secondaryFilter).connect(secondaryGain).connect(ctx.destination);
+
+  const debris = ctx.createBufferSource();
+  const debrisFilter = ctx.createBiquadFilter();
+  const debrisGain = ctx.createGain();
+  debris.buffer = makeNoiseBuffer(0.9, 1.1);
+  debrisFilter.type = 'highpass';
+  debrisFilter.frequency.setValueAtTime(1800, now + 0.08);
+  debrisGain.gain.setValueAtTime(0.001, now + 0.08);
+  debrisGain.gain.exponentialRampToValueAtTime(0.12, now + 0.12);
+  debrisGain.gain.exponentialRampToValueAtTime(0.001, now + 1);
+  debris.connect(debrisFilter).connect(debrisGain).connect(ctx.destination);
+
+  blast.start(now);
+  shock.start(now);
+  crack.start(now);
+  secondary.start(now + 0.18);
+  debris.start(now + 0.08);
+
+  blast.stop(now + 0.56);
+  shock.stop(now + 1.18);
+  crack.stop(now + 0.28);
+  secondary.stop(now + 0.58);
+  debris.stop(now + 1.02);
 }
 
 /**

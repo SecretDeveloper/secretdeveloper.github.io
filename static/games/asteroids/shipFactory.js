@@ -31,6 +31,7 @@ export function createShipEntity(em, game) {
     draw(ctx) {
       // RenderSystem provides entity-local translate/rotate to heading.
       // Draw shield ring(s) based on game state, then ship image.
+      if (game.isState && game.isState('exploding')) return;
       const shipComp = em.getComponent(id, 'ship');
       const now = performance.now();
       const invulnerable = game.isShipInvulnerable(now);

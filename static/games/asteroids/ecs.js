@@ -195,8 +195,7 @@ export class CollisionSystem {
               createAsteroidEntity(this.em, this.game, posA.x, posA.y, size / 2, fragmentVariant);
             }
           }
-          this.game.score += scoreValue;
-          this.game.scoreEl.textContent = this.game.score;
+          this.game.awardScore(scoreValue, performance.now());
           this.game.triggerImpactFeedback({
             x: posA.x,
             y: posA.y,

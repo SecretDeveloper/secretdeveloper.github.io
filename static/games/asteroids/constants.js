@@ -31,6 +31,9 @@ export const POWERUP_SPAWN_CHANCE = 0.2;
 export const POWERUP_ATTRACT_RADIUS = 160;
 export const POWERUP_ATTRACT_SPEED  = 0.72;
 export const POWERUP_ATTRACT_SNAP_MULT = 7;
+export const COMBO_WINDOW_MS      = 2200;
+export const COMBO_MAX_MULTIPLIER = 5;
+export const SECTOR_CLEAR_BONUS   = 25;
 
 export const STAR_COUNT           = 200;
 export const STAR_PARALLAX        = 0.2;
