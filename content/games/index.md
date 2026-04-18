@@ -6,6 +6,7 @@ menu:
     identifier: "games"
     weight: 10
 ---
+
 Here are some simple browser based games i created with the help of different Large-Language-Models.
 
 - [Asteroids](/games/asteroids/)
@@ -13,3 +14,4 @@ Here are some simple browser based games i created with the help of different La
 - [Pacman](/games/pacman/)
 - [Sudoku Editor](/games/sudoku/)
 - [Rogue](/games/rogue/)
+- [Golfr](/games/golfr/)
