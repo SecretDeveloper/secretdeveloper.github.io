@@ -14,4 +14,4 @@ Here are some simple browser based games i created with the help of different La
 - [Pacman](/games/pacman/)
 - [Sudoku Editor](/games/sudoku/)
 - [Rogue](/games/rogue/)
-- [Golfr](/games/golfr/)
+- [Birdie Bash](/games/golfr/)
