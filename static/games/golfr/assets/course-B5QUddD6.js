@@ -1,1 +1,0 @@
-const e="practice",c="Practice",t="parkland",n={minMetersPerSecond:0,maxMetersPerSecond:4},o=["practice-01.json","practice-02.json"],r={id:e,name:c,terrain_type:t,wind:n,holes:o};export{r as default,o as holes,e as id,c as name,t as terrain_type,n as wind};
