@@ -1,0 +1,49 @@
+id,name,tier,flag
+argentina,Argentina,top,🇦🇷
+brazil,Brazil,top,🇧🇷
+england,England,top,🏴
+france,France,top,🇫🇷
+germany,Germany,top,🇩🇪
+portugal,Portugal,top,🇵🇹
+spain,Spain,top,🇪🇸
+netherlands,Netherlands,top,🇳🇱
+belgium,Belgium,top,🇧🇪
+croatia,Croatia,top,🇭🇷
+uruguay,Uruguay,top,🇺🇾
+colombia,Colombia,top,🇨🇴
+usa,USA,top,🇺🇸
+mexico,Mexico,top,🇲🇽
+morocco,Morocco,top,🇲🇦
+switzerland,Switzerland,top,🇨🇭
+japan,Japan,middle,🇯🇵
+bosnia_and_herzegovina,Bosnia and Herzegovina,middle,🇧🇦
+senegal,Senegal,middle,🇸🇳
+austria,Austria,middle,🇦🇹
+norway,Norway,middle,🇳🇴
+sweden,Sweden,middle,🇸🇪
+scotland,Scotland,middle,🏴
+turkiye,Türkiye,middle,🇹🇷
+czechia,Czechia,middle,🇨🇿
+korea_republic,Korea Republic,middle,🇰🇷
+australia,Australia,middle,🇦🇺
+iran,IR Iran,middle,🇮🇷
+paraguay,Paraguay,middle,🇵🇾
+ecuador,Ecuador,middle,🇪🇨
+egypt,Egypt,middle,🇪🇬
+ghana,Ghana,middle,🇬🇭
+canada,Canada,longshot,🇨🇦
+new_zealand,New Zealand,longshot,🇳🇿
+panama,Panama,longshot,🇵🇦
+qatar,Qatar,longshot,🇶🇦
+saudi_arabia,Saudi Arabia,longshot,🇸🇦
+tunisia,Tunisia,longshot,🇹🇳
+south_africa,South Africa,longshot,🇿🇦
+algeria,Algeria,longshot,🇩🇿
+cabo_verde,Cabo Verde,longshot,🇨🇻
+congo_dr,Congo DR,longshot,🇨🇩
+cote_divoire,Côte d'Ivoire,longshot,🇨🇮
+curacao,Curaçao,longshot,🇨🇼
+haiti,Haiti,longshot,🇭🇹
+iraq,Iraq,longshot,🇮🇶
+jordan,Jordan,longshot,🇯🇴
+uzbekistan,Uzbekistan,longshot,🇺🇿

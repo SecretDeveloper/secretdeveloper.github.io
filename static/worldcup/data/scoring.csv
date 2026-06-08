@@ -1,0 +1,10 @@
+event,label,points
+win,Win,3
+draw,Draw,1
+goal_for,Goal scored,1
+clean_sheet,Clean sheet,1
+round_of_16,Reach round of 16,5
+quarter_final,Reach quarter-final,8
+semi_final,Reach semi-final,12
+final,Reach final,16
+winner,Win tournament,25

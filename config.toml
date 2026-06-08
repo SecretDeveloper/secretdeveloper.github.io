@@ -177,6 +177,9 @@ hardWraps = false
 unsafe = true
 xhtml = true
 
+[security]
+allowContent = ['^text/markdown$', '^text/html$']
+
 # Sidebar menus
 # Enable with "sidebarMenuEnabled = true" under [params]
 # Header text is "sidebarMenuHeader" under [params]

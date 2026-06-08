@@ -1,0 +1,4 @@
+{{- $this := .Scratch.Get "this" | default dict -}}
+{{- $configScript := $this.configScript | default slice -}}
+{{- $configScript = $configScript | append (slice .Data) -}}
+{{- .Scratch.Set "this" (dict "configScript" $configScript | merge $this) -}}

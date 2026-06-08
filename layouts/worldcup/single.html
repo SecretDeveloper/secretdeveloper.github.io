@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "en-us" }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ .Description }}">
+    <title>{{ .Title }} - {{ .Site.Title }}</title>
+    <link rel="icon" href="/favicon.svg">
+    <link rel="canonical" href="{{ .Permalink }}">
+    <link rel="stylesheet" href="/worldcup/competition.css">
+  </head>
+  <body class="worldcup-standalone">
+    <main class="worldcup-page-shell">
+      <div class="worldcup-app" data-worldcup-app>
+        <header class="worldcup-header">
+          <div class="worldcup-hero-copy">
+            <p class="worldcup-kicker">Family competition</p>
+            <h1>World Cup Family League</h1>
+            <p class="worldcup-intro">
+              Nine players, three tiered teams each, and a standings table that updates as match results are added.
+            </p>
+          </div>
+          <div class="worldcup-hero-side">
+            <img
+              class="worldcup-hero-badge"
+              src="/worldcup/images/trophy-accent.png"
+              alt=""
+              width="180"
+              height="180"
+              loading="eager"
+            >
+            <div class="worldcup-summary" aria-label="Competition summary">
+              <span><strong data-summary-players>0</strong> players</span>
+              <span><strong data-summary-teams>0</strong> teams assigned</span>
+              <span><strong data-summary-matches>0</strong> matches scored</span>
+            </div>
+          </div>
+        </header>
+
+        <details class="worldcup-panel worldcup-draw-setup">
+          <summary>
+            <span>
+              <strong>Team Draw Setup</strong>
+              <small>Collapsed after setup; open when you need to run or review the draw.</small>
+            </span>
+          </summary>
+
+          <div class="worldcup-draw-content">
+            <section class="worldcup-draw-explainer" aria-labelledby="worldcup-draw-title">
+              <div class="worldcup-draw-copy">
+                <h2 id="worldcup-draw-title">How The Draw Works</h2>
+                <p>
+                  Each player receives one team from the top tier, one from the middle tier, and one from the long-shot tier. The draw shuffles each tier separately using the seed below, then deals the first shuffled team in each tier to the first player, the second to the second player, and so on.
+                </p>
+                <p>
+                  Change the seed if you want a different draw. Keep the seed once the family accepts the result, then copy the generated CSV rows into the assignments sheet.
+                </p>
+              </div>
+              <img
+                class="worldcup-draw-image"
+                src="/worldcup/images/draw-ceremony.png"
+                alt=""
+                width="360"
+                height="240"
+                loading="lazy"
+              >
+              <div class="worldcup-control-row">
+                <label for="worldcup-seed">Seed</label>
+                <input id="worldcup-seed" type="text" value="family-cup-2026">
+                <button type="button" data-run-draw>Run draw</button>
+              </div>
+            </section>
+
+            <section class="worldcup-draw-board" aria-label="Draw board">
+              <div>
+                <div class="worldcup-section-heading">
+                  <h2>Team Pools</h2>
+                  <p>Teams start here, grouped by tier.</p>
+                </div>
+                <div class="worldcup-tier-list" data-draw-tier-list></div>
+              </div>
+
+              <div>
+                <div class="worldcup-section-heading">
+                  <h2>Players</h2>
+                  <p>Drawn teams appear under each player.</p>
+                </div>
+                <div class="worldcup-draw-player-slots" data-draw-player-slots></div>
+              </div>
+            </section>
+
+            <section class="worldcup-draw-output" hidden data-draw-output-panel>
+              <div class="worldcup-section-heading">
+                <h2>Generated Draw</h2>
+                <p>Paste these CSV rows into the assignments sheet when the visual draw is final.</p>
+              </div>
+              <textarea readonly data-draw-output aria-label="Generated assignment CSV rows"></textarea>
+            </section>
+          </div>
+        </details>
+
+        <details class="worldcup-panel worldcup-tracking-panel" open>
+          <summary>
+            <span>
+              <strong>Competition Tracker</strong>
+              <small>Standings, saved assignments, scoring rules, and match results.</small>
+            </span>
+          </summary>
+
+          <div class="worldcup-tracking-content">
+            <section class="worldcup-panel worldcup-inner-panel">
+              <div class="worldcup-section-heading">
+                <h2>Rules And Scoring</h2>
+                <p>Every player earns the combined score from their assigned teams.</p>
+              </div>
+              <div class="worldcup-rules-layout">
+                <div>
+                  <p>
+                    Match points are calculated from completed games only. Wins, draws, goals scored, and clean sheets all add to a team's total. Future bonus rows are already in the data so knockout-stage scoring can be switched on later without changing the page structure.
+                  </p>
+                  <img
+                    class="worldcup-tracker-image"
+                    src="/worldcup/images/trophy-accent.png"
+                    alt=""
+                    width="320"
+                    height="320"
+                    loading="lazy"
+                  >
+                </div>
+                <dl class="worldcup-rules" data-rules-list></dl>
+              </div>
+            </section>
+
+            <section class="worldcup-panel worldcup-inner-panel">
+              <div class="worldcup-section-heading">
+                <h2>Player Scores</h2>
+                <p>Each team score is shown separately, with the player's total beside it.</p>
+              </div>
+              <div class="worldcup-player-score-grid" data-player-scores-list></div>
+            </section>
+
+            <section class="worldcup-panel worldcup-inner-panel">
+              <div class="worldcup-section-heading">
+                <h2>Match Board</h2>
+                <p>Completed fixtures feed the scores. Upcoming fixtures are listed separately.</p>
+              </div>
+              <div class="worldcup-match-board" data-match-board></div>
+            </section>
+          </div>
+        </details>
+
+        <p class="worldcup-status" role="status" data-worldcup-status>Loading competition data...</p>
+      </div>
+    </main>
+    <script src="/worldcup/competition.js" defer></script>
+  </body>
+</html>
