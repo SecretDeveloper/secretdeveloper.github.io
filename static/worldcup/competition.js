@@ -633,7 +633,7 @@
     list.innerHTML = "";
 
     if (owners.size === 0) {
-      list.appendChild(el("div", "worldcup-empty-panel", "Run the draw to reveal the family fixtures."));
+      list.appendChild(el("div", "worldcup-empty-panel", "Run the draw to reveal the assigned fixtures."));
       return;
     }
 
@@ -647,7 +647,7 @@
     const upcoming = (futureMatches.length ? futureMatches : familyMatches).slice(0, 4);
 
     if (upcoming.length === 0) {
-      list.appendChild(el("div", "worldcup-empty-panel", "No family-owned fixtures left to play."));
+      list.appendChild(el("div", "worldcup-empty-panel", "No assigned fixtures left to play."));
       return;
     }
 

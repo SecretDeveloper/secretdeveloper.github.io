@@ -29,6 +29,11 @@
   --wc-soft: #e9f6ee;
   --wc-silver: #aab4c0;
   --wc-bronze: #b9783d;
+  --wc-text-xs: 0.75rem;
+  --wc-text-sm: 0.85rem;
+  --wc-text-md: 1rem;
+  --wc-text-lg: 1.15rem;
+  --wc-text-xl: 1.35rem;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
     rgba(242, 248, 244, 0.95);
@@ -43,24 +48,22 @@
 }
 
 .worldcup-header {
-  align-items: end;
+  align-items: center;
   background:
-    radial-gradient(circle at 78% 24%, rgba(255, 242, 199, 0.32), transparent 13rem),
-    radial-gradient(circle at 12% 22%, rgba(233, 93, 60, 0.28), transparent 12rem),
-    linear-gradient(135deg, rgba(5, 34, 24, 0.96), rgba(8, 114, 72, 0.9) 52%, rgba(16, 47, 36, 0.96)),
+    linear-gradient(135deg, rgba(5, 34, 24, 0.96), rgba(8, 114, 72, 0.88)),
     url("/worldcup/images/pitch-pattern.png");
-  background-position: center, center, center, center;
+  background-position: center, center;
   background-repeat: no-repeat;
-  background-size: cover, cover, cover, 18rem 18rem;
+  background-size: cover, 18rem 18rem;
   border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 10px;
   box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.18);
   display: grid;
-  gap: 1.25rem;
-  grid-template-columns: minmax(0, 1fr) minmax(15rem, 18rem);
-  min-height: 26rem;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 0;
   overflow: hidden;
-  padding: 2rem;
+  padding: 1.25rem;
   position: relative;
 }
 
@@ -71,7 +74,7 @@
   background-size: 3.4rem 3.4rem;
   bottom: -1px;
   content: "";
-  opacity: 0.35;
+  opacity: 0.18;
   top: 0;
   left: 0;
   pointer-events: none;
@@ -80,15 +83,7 @@
 }
 
 .worldcup-header::before {
-  border: 2px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-  content: "";
-  height: 18rem;
-  pointer-events: none;
-  position: absolute;
-  right: -5rem;
-  top: -5rem;
-  width: 18rem;
+  content: none;
 }
 
 .worldcup-hero-copy,
@@ -103,7 +98,7 @@
 
 .worldcup-kicker {
   color: var(--wc-gold-soft);
-  font-size: 0.8rem;
+  font-size: var(--wc-text-xs);
   font-weight: 700;
   letter-spacing: 0;
   margin: 0 0 0.25rem;
@@ -117,25 +112,25 @@
 
 .worldcup-header h1 {
   color: #fff;
-  font-size: 3.4rem;
-  line-height: 0.98;
+  font-size: 2rem;
+  line-height: 1.05;
   margin: 0;
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.24);
 }
 
 .worldcup-intro {
   color: rgba(255, 255, 255, 0.86);
-  font-size: 1.05rem;
+  font-size: var(--wc-text-md);
   line-height: 1.55;
   margin: 0.5rem 0 0;
-  max-width: 44rem;
+  max-width: 42rem;
 }
 
 .worldcup-hero-side {
-  align-items: end;
-  display: grid;
-  gap: 1rem;
-  justify-items: end;
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: end;
 }
 
 .worldcup-summary {
@@ -152,10 +147,10 @@
   aspect-ratio: 1;
   border: 1px solid rgba(255, 255, 255, 0.55);
   border-radius: 999px;
-  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.28);
-  height: 11rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+  height: 4.25rem;
   object-fit: cover;
-  width: 11rem;
+  width: 4.25rem;
 }
 
 .worldcup-summary span {
@@ -208,7 +203,7 @@
 .worldcup-draw-setup summary strong,
 .worldcup-tracking-panel summary strong {
   color: var(--wc-accent-strong);
-  font-size: 1.1rem;
+  font-size: var(--wc-text-lg);
 }
 
 .worldcup-draw-setup summary small,
@@ -269,7 +264,7 @@
 }
 
 .worldcup-draw-explainer h2 {
-  font-size: 1.15rem;
+  font-size: var(--wc-text-lg);
   margin: 0 0 0.35rem;
 }
 
@@ -323,7 +318,7 @@
   color: #fff;
   cursor: pointer;
   font: inherit;
-  font-size: 1.15rem;
+  font-size: var(--wc-text-lg);
   font-weight: 700;
   min-height: 3.6rem;
   padding: 0.75rem 1.4rem;
@@ -354,7 +349,7 @@
 
 .worldcup-section-heading h2 {
   color: var(--wc-accent-strong);
-  font-size: 1.2rem;
+  font-size: var(--wc-text-lg);
   margin: 0;
 }
 
@@ -383,7 +378,7 @@
 
 .worldcup-table th {
   color: var(--wc-muted);
-  font-size: 0.8rem;
+  font-size: var(--wc-text-xs);
   text-transform: uppercase;
 }
 
@@ -405,7 +400,7 @@
   border-radius: 999px;
   color: var(--wc-accent-strong);
   display: inline-flex;
-  font-size: 0.8rem;
+  font-size: var(--wc-text-xs);
   gap: 0.28rem;
   line-height: 1.2;
   padding: 0.2rem 0.45rem;
@@ -428,7 +423,7 @@
   background: var(--wc-soft);
   border-radius: 999px;
   display: inline-grid;
-  font-size: 0.95rem;
+  font-size: var(--wc-text-md);
   height: 1.35rem;
   min-width: 1.35rem;
   place-items: center;
@@ -452,7 +447,7 @@
 .worldcup-pill-state {
   background: rgba(255, 255, 255, 0.75);
   border-radius: 999px;
-  font-size: 0.68rem;
+  font-size: var(--wc-text-xs);
   font-weight: 700;
   padding: 0.08rem 0.32rem;
   text-transform: uppercase;
@@ -462,7 +457,7 @@
   background: rgba(8, 114, 72, 0.1);
   border-radius: 999px;
   color: var(--wc-muted);
-  font-size: 0.68rem;
+  font-size: var(--wc-text-xs);
   font-weight: 800;
   padding: 0.08rem 0.32rem;
 }
@@ -498,8 +493,8 @@
 
 .worldcup-rules {
   display: grid;
-  gap: 0.65rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin: 0;
 }
 
@@ -507,7 +502,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
 }
 
 .worldcup-rules-legend-item {
@@ -527,38 +522,17 @@
   padding: 0.1rem 0.4rem;
 }
 
-.worldcup-rules-layout {
-  align-items: start;
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
-}
-
-.worldcup-rules-layout p {
-  color: var(--wc-muted);
-  margin: 0;
-}
-
-.worldcup-tracker-image {
-  display: block;
-  height: auto;
-  margin: 1rem auto 0;
-  max-width: 13rem;
-  opacity: 0.96;
-  width: 58%;
-}
-
 .worldcup-rule-tile {
   background:
     linear-gradient(135deg, rgba(255, 242, 199, 0.88), rgba(255, 255, 255, 0.92)),
     #fff;
   border: 1px solid rgba(201, 147, 32, 0.28);
   border-radius: 8px;
-  box-shadow: 0 8px 18px rgba(8, 47, 32, 0.08);
+  box-shadow: none;
   display: grid;
   gap: 0.25rem;
-  min-height: 4.2rem;
-  padding: 0.65rem;
+  min-height: 0;
+  padding: 0.5rem 0.6rem;
 }
 
 .worldcup-rules dt {
@@ -567,7 +541,7 @@
 
 .worldcup-rules dd {
   color: var(--wc-coral);
-  font-size: 1.35rem;
+  font-size: var(--wc-text-lg);
   font-weight: 700;
   margin: 0;
 }
@@ -615,7 +589,7 @@
 }
 
 .worldcup-player-score-header h3 {
-  font-size: 1.15rem;
+  font-size: var(--wc-text-lg);
   margin: 0;
 }
 
@@ -623,7 +597,7 @@
   background: var(--player-color);
   border-radius: 999px;
   color: #fff;
-  font-size: 0.72rem;
+  font-size: var(--wc-text-xs);
   font-weight: 800;
   padding: 0.22rem 0.5rem;
   text-transform: uppercase;
@@ -636,7 +610,7 @@
 
 .worldcup-player-status {
   color: color-mix(in srgb, var(--player-color) 78%, #102f24);
-  font-size: 0.82rem;
+  font-size: var(--wc-text-xs);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -697,7 +671,7 @@
 }
 
 .worldcup-draw-player-slot h3 {
-  font-size: 0.95rem;
+  font-size: var(--wc-text-md);
   margin: 0 0 0.55rem;
 }
 
@@ -714,7 +688,7 @@
   border-radius: 6px;
   color: var(--wc-muted);
   display: inline-flex;
-  font-size: 0.8rem;
+  font-size: var(--wc-text-xs);
   padding: 0.35rem 0.5rem;
 }
 
@@ -726,7 +700,7 @@
 }
 
 .worldcup-card h3 {
-  font-size: 1rem;
+  font-size: var(--wc-text-md);
   margin: 0 0 0.5rem;
 }
 
@@ -752,7 +726,7 @@
 
 .worldcup-tier h3,
 .worldcup-match h3 {
-  font-size: 1rem;
+  font-size: var(--wc-text-md);
   margin: 0 0 0.35rem;
 }
 
@@ -775,7 +749,7 @@
   background: var(--wc-soft);
   border-radius: 999px;
   display: inline-grid;
-  font-size: 1.9rem;
+  font-size: 2rem;
   height: 2.5rem;
   min-width: 2.5rem;
   place-items: center;
@@ -788,7 +762,7 @@
 .worldcup-match-versus {
   align-self: start;
   color: var(--wc-muted);
-  font-size: 0.82rem;
+  font-size: var(--wc-text-xs);
   font-weight: 800;
   justify-self: center;
   padding-top: 0.85rem;
@@ -845,7 +819,7 @@
 
 .worldcup-match-meta {
   color: var(--wc-muted);
-  font-size: 0.85rem;
+  font-size: var(--wc-text-sm);
 }
 
 .worldcup-match-owner {
@@ -869,13 +843,13 @@
 
 .worldcup-match-owner-name {
   color: color-mix(in srgb, var(--player-color) 76%, #102f24);
-  font-size: 1.05rem;
+  font-size: var(--wc-text-md);
   line-height: 1.1;
 }
 
 .worldcup-match-owner-points {
   color: var(--wc-coral);
-  font-size: 0.78rem;
+  font-size: var(--wc-text-xs);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -885,7 +859,7 @@
   background: #102f24;
   border-radius: 8px;
   color: #fff;
-  font-size: 1.15rem;
+  font-size: var(--wc-text-lg);
   font-weight: 800;
   min-width: 4rem;
   padding: 0.55rem 0.65rem;
@@ -939,14 +913,14 @@
 
 .worldcup-match-board-section > h3 {
   color: var(--wc-accent-strong);
-  font-size: 1.05rem;
+  font-size: var(--wc-text-lg);
   margin: 0 0 0.75rem;
 }
 
 .worldcup-match-upcoming .worldcup-score {
   background: var(--wc-gold-soft);
   color: #704a00;
-  font-size: 0.95rem;
+  font-size: var(--wc-text-md);
 }
 
 .worldcup-draw-output textarea {
@@ -972,7 +946,6 @@
   .worldcup-match-board,
   .worldcup-next-up-list,
   .worldcup-player-score-grid,
-  .worldcup-rules-layout,
   .worldcup-rules,
   .worldcup-card-grid,
   .worldcup-draw-player-slots {
@@ -984,17 +957,19 @@
   }
 
   .worldcup-header {
-    min-height: 24rem;
-    padding: 1.25rem;
+    min-height: 0;
+    padding: 1rem;
   }
 
   .worldcup-header h1 {
-    font-size: 2.35rem;
+    font-size: 1.75rem;
     line-height: 1.05;
   }
 
   .worldcup-hero-side {
-    justify-items: start;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: start;
   }
 
   .worldcup-summary {
@@ -1010,14 +985,6 @@
     background-size: cover;
   }
 
-  .worldcup-hero-badge {
-    display: none;
-  }
-
-  .worldcup-tracker-image {
-    max-width: 9rem;
-    width: 42%;
-  }
 }
 
 @media (max-width: 560px) {
@@ -1027,11 +994,11 @@
   }
 
   .worldcup-header {
-    min-height: 22rem;
+    min-height: 0;
   }
 
   .worldcup-header h1 {
-    font-size: 2rem;
+    font-size: 1.55rem;
   }
 
   .worldcup-control-row {

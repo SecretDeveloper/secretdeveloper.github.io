@@ -14,10 +14,10 @@
       <div class="worldcup-app" data-worldcup-app>
         <header class="worldcup-header">
           <div class="worldcup-hero-copy">
-            <p class="worldcup-kicker">Family competition</p>
-            <h1>The Family World Cup Draw</h1>
+            <p class="worldcup-kicker">World Cup sweepstake</p>
+            <h1>World Cup League</h1>
             <p class="worldcup-intro">
-              Nine players, 48 countries, and a scoreboard ready for bragging rights as every fixture lands.
+              Nine players, three teams each, and a live race through every World Cup fixture.
             </p>
           </div>
           <div class="worldcup-hero-side">
@@ -37,11 +37,11 @@
           </div>
         </header>
 
-        <details class="worldcup-panel worldcup-draw-setup" open>
+        <details class="worldcup-panel worldcup-draw-setup" hidden>
           <summary>
             <span>
               <strong>Draw Night</strong>
-              <small>Open the pots, run the draw, and see who gets the dream run.</small>
+              <small>Open the pots, run the draw, and see who gets the best route.</small>
             </span>
           </summary>
 
@@ -58,7 +58,7 @@
                   using the 48 teams present in the openfootball fixture data. Those teams are sorted by FIFA rank, then split into three equal groups of 16: Big Guns, Wild Cards, and Chaos Picks.
                 </p>
                 <p>
-                  Copy the generated CSV rows into the assignments sheet once the family accepts the result.
+                  Copy the generated CSV rows into the assignments sheet once the result is accepted.
                 </p>
               </div>
               <img
@@ -78,14 +78,14 @@
               <div>
                 <div class="worldcup-section-heading">
                   <h2>The Pots</h2>
-                  <p>Ranked by FIFA, shuffled for family chaos.</p>
+                  <p>Ranked by FIFA, shuffled into three pots.</p>
                 </div>
                 <div class="worldcup-tier-list" data-draw-tier-list></div>
               </div>
 
               <div>
                 <div class="worldcup-section-heading">
-                  <h2>Family Seats</h2>
+                  <h2>Players</h2>
                   <p>Teams fly into their new homes.</p>
                 </div>
                 <div class="worldcup-draw-player-slots" data-draw-player-slots></div>
@@ -106,46 +106,14 @@
           <summary>
             <span>
               <strong>Scoreboard</strong>
-              <small>Family standings, scoring stickers, and fixtures with owners.</small>
+              <small>Standings, scoring, and fixtures with team owners.</small>
             </span>
           </summary>
 
           <div class="worldcup-tracking-content">
-            <section class="worldcup-panel worldcup-inner-panel worldcup-next-up-panel">
-              <div class="worldcup-section-heading">
-                <h2>Next Up</h2>
-                <p>The nearest fixtures involving family-owned teams.</p>
-              </div>
-              <div class="worldcup-next-up-list" data-next-up-list></div>
-            </section>
-
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
-                <h2>Scoring Stickers</h2>
-                <p>Every player earns the combined score from their assigned teams.</p>
-              </div>
-              <div class="worldcup-rules-legend" data-rules-legend></div>
-              <div class="worldcup-rules-layout">
-                <div>
-                  <p>
-                    Completed games feed the points. Wins, draws, goals, and clean sheets all count, with knockout bonuses ready in the scoring data for later.
-                  </p>
-                  <img
-                    class="worldcup-tracker-image"
-                    src="/worldcup/images/trophy-accent.png"
-                    alt=""
-                    width="320"
-                    height="320"
-                    loading="lazy"
-                  >
-                </div>
-                <dl class="worldcup-rules" data-rules-list></dl>
-              </div>
-            </section>
-
-            <section class="worldcup-panel worldcup-inner-panel">
-              <div class="worldcup-section-heading">
-                <h2>Family Standings</h2>
+                <h2>League Table</h2>
                 <p>The leader gets the spotlight. Everyone else is chasing.</p>
               </div>
               <div class="worldcup-player-score-grid" data-player-scores-list></div>
@@ -153,7 +121,24 @@
 
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
-                <h2>Fixtures &amp; Drama</h2>
+                <h2>How Scoring Works</h2>
+                <p>Every player earns the combined score from their assigned teams.</p>
+              </div>
+              <div class="worldcup-rules-legend" data-rules-legend></div>
+              <dl class="worldcup-rules" data-rules-list></dl>
+            </section>
+
+            <section class="worldcup-panel worldcup-inner-panel worldcup-next-up-panel">
+              <div class="worldcup-section-heading">
+                <h2>Upcoming Games</h2>
+                <p>The nearest fixtures involving assigned teams.</p>
+              </div>
+              <div class="worldcup-next-up-list" data-next-up-list></div>
+            </section>
+
+            <section class="worldcup-panel worldcup-inner-panel">
+              <div class="worldcup-section-heading">
+                <h2>Fixtures</h2>
                 <p>
                   Fixtures, match times, venues, and results come from
                   <a href="https://github.com/openfootball/worldcup.json" rel="noreferrer" target="_blank">openfootball/worldcup.json</a>.
