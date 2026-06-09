@@ -53,6 +53,11 @@
                   Each player receives one team from the top tier, one from the middle tier, and one from the long-shot tier. The draw shuffles each tier separately using the seed below, then deals the first shuffled team in each tier to the first player, the second to the second player, and so on.
                 </p>
                 <p>
+                  Tiers are based on the FIFA/Coca-Cola Men's World Ranking table from
+                  <a href="https://inside.fifa.com/fifa-world-ranking/men" rel="noreferrer" target="_blank">FIFA</a>,
+                  using the 48 teams present in the openfootball fixture data. Those teams are sorted by FIFA rank, then split into three equal groups of 16: top, middle, and long-shot.
+                </p>
+                <p>
                   Change the seed if you want a different draw. Keep the seed once the family accepts the result, then copy the generated CSV rows into the assignments sheet.
                 </p>
               </div>
@@ -142,7 +147,10 @@
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
                 <h2>Match Board</h2>
-                <p>Completed fixtures feed the scores. Upcoming fixtures are listed separately.</p>
+                <p>
+                  Fixtures, match times, venues, and results come from
+                  <a href="https://github.com/openfootball/worldcup.json" rel="noreferrer" target="_blank">openfootball/worldcup.json</a>.
+                </p>
               </div>
               <div class="worldcup-match-board" data-match-board></div>
             </section>

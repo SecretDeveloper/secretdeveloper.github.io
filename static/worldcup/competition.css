@@ -432,6 +432,15 @@
   text-transform: uppercase;
 }
 
+.worldcup-pill-rank {
+  background: rgba(8, 114, 72, 0.1);
+  border-radius: 999px;
+  color: var(--wc-muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.08rem 0.32rem;
+}
+
 .worldcup-pill-assigned {
   animation: worldcup-deal-in 180ms ease-out both;
   background: var(--wc-gold-soft);

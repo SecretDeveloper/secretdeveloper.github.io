@@ -1,10 +1,10 @@
 (function () {
   const DATA_BASE = "/worldcup/data";
+  const WORLD_CUP_SOURCE_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
   const DATA_FILES = {
     players: `${DATA_BASE}/players.csv`,
-    teams: `${DATA_BASE}/teams.csv`,
+    tiers: `${DATA_BASE}/tiers.csv`,
     assignments: `${DATA_BASE}/assignments.csv`,
-    matches: `${DATA_BASE}/matches.csv`,
     scoring: `${DATA_BASE}/scoring.csv`,
   };
 
@@ -14,9 +14,11 @@
   const state = {
     players: [],
     teams: [],
+    tiers: [],
     assignments: [],
     matches: [],
     scoring: [],
+    sourceName: "World Cup 2026",
   };
 
   const byId = (items) => new Map(items.map((item) => [item.id, item]));
@@ -80,6 +82,75 @@
       throw new Error(`Could not load ${url}: ${response.status}`);
     }
     return parseCsv(await response.text());
+  }
+
+  async function loadWorldCupJson() {
+    const response = await fetch(WORLD_CUP_SOURCE_URL, { cache: "no-cache" });
+    if (!response.ok) {
+      throw new Error(`Could not load ${WORLD_CUP_SOURCE_URL}: ${response.status}`);
+    }
+    return response.json();
+  }
+
+  function sourceTeamId(name) {
+    return String(name || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "_")
+      .replace(/^_+|_+$/g, "");
+  }
+
+  function isPlaceholderTeamName(name) {
+    return (
+      !name ||
+      /^[WL]\d+$/i.test(name) ||
+      /^\d[A-L]$/i.test(name) ||
+      /^\d[A-L](?:\/[A-L])+$/.test(name)
+    );
+  }
+
+  function normalizeWorldCupData(source, tiers) {
+    const tierMap = new Map(tiers.map((tier) => [tier.team_id, tier]));
+    const sourceTeams = new Map();
+
+    for (const match of source.matches || []) {
+      for (const name of [match.team1, match.team2]) {
+        if (isPlaceholderTeamName(name)) continue;
+        const id = sourceTeamId(name);
+        const tier = tierMap.get(id);
+        sourceTeams.set(id, {
+          id,
+          name,
+          tier: tier?.tier || "unseeded",
+          flag: tier?.flag || "⚽",
+          fifaRank: tier?.fifa_rank || "",
+          fifaPoints: tier?.fifa_points || "",
+        });
+      }
+    }
+
+    return {
+      sourceName: source.name || "World Cup 2026",
+      teams: [...sourceTeams.values()].sort((a, b) => a.name.localeCompare(b.name)),
+      matches: (source.matches || []).map((match, index) => {
+        const score = match.score?.ft || [];
+        return {
+          id: `match_${index + 1}`,
+          date: match.date || "",
+          time: match.time || "",
+          stage: [match.group, match.round].filter(Boolean).join(" - ") || match.round || "",
+          ground: match.ground || "",
+          team_a: isPlaceholderTeamName(match.team1) ? "" : sourceTeamId(match.team1),
+          team_b: isPlaceholderTeamName(match.team2) ? "" : sourceTeamId(match.team2),
+          team_a_label: match.team1 || "TBD",
+          team_b_label: match.team2 || "TBD",
+          score_a: score[0] ?? "",
+          score_b: score[1] ?? "",
+        };
+      }),
+    };
   }
 
   function scoringMap() {
@@ -255,6 +326,10 @@
     pill.classList.add(`worldcup-pill-${team.tier}`);
     pill.appendChild(el("span", "worldcup-flag", team.flag || "⚽"));
     pill.appendChild(el("span", "", `${team.name} (${team.tier})`));
+    if (team.fifaRank) {
+      pill.appendChild(el("span", "worldcup-pill-rank", `#${team.fifaRank}`));
+      pill.title = `${team.name} - FIFA rank ${team.fifaRank}${team.fifaPoints ? `, ${team.fifaPoints} pts` : ""}`;
+    }
     return pill;
   }
 
@@ -265,6 +340,7 @@
 
   function tierLabel(tier) {
     if (tier === "longshot") return "Long shots";
+    if (tier === "unseeded") return "Unseeded";
     return `${tier[0].toUpperCase()}${tier.slice(1)} tier`;
   }
 
@@ -449,9 +525,9 @@
         const teamB = teams.get(match.team_b);
         const item = el("article", `worldcup-match ${matchIsPlayed(match) ? "worldcup-match-played" : "worldcup-match-upcoming"}`);
         const details = document.createElement("div");
-        details.appendChild(el("h3", "", `${teamName(teamA, match.team_a)} vs ${teamName(teamB, match.team_b)}`));
+        details.appendChild(el("h3", "", `${teamName(teamA, match.team_a_label)} vs ${teamName(teamB, match.team_b_label)}`));
         details.appendChild(renderMatchOwners(match, teamA, teamB, owners));
-        details.appendChild(el("div", "worldcup-match-meta", `${match.stage} - ${match.date}`));
+        details.appendChild(el("div", "worldcup-match-meta", matchMeta(match)));
         item.appendChild(details);
         item.appendChild(el("div", "worldcup-score", matchIsPlayed(match) ? `${match.score_a}-${match.score_b}` : "TBD"));
         matches.appendChild(item);
@@ -464,21 +540,26 @@
 
   function renderMatchOwners(match, teamA, teamB, owners) {
     const row = el("div", "worldcup-match-owners");
-    row.appendChild(renderMatchOwner(match, teamA, owners.get(teamA?.id)));
-    row.appendChild(renderMatchOwner(match, teamB, owners.get(teamB?.id)));
+    row.appendChild(renderMatchOwner(match, teamA, match.team_a_label, owners.get(teamA?.id)));
+    row.appendChild(renderMatchOwner(match, teamB, match.team_b_label, owners.get(teamB?.id)));
     return row;
   }
 
-  function renderMatchOwner(match, team, owner) {
-    const ownerName = owner?.name || "Unassigned";
+  function renderMatchOwner(match, team, fallbackLabel, owner) {
+    const ownerName = team ? owner?.name || "Unassigned" : "Pending team";
     const points = team ? pointsForMatch(match, team.id) : null;
     const pointsText = points === null ? "pending" : `+${points} pts`;
-    const item = el("span", "", `${teamName(team, "Team")}: ${ownerName} (${pointsText})`);
+    const item = el("span", "", `${teamName(team, fallbackLabel || "TBD")}: ${ownerName} (${pointsText})`);
     return item;
   }
 
   function teamNameWithTier(team) {
-    return `${teamName(team, "Team")} (${team.tier})`;
+    const rank = team.fifaRank ? `, FIFA #${team.fifaRank}` : "";
+    return `${teamName(team, "Team")} (${team.tier}${rank})`;
+  }
+
+  function matchMeta(match) {
+    return [match.stage, match.date, match.time, match.ground].filter(Boolean).join(" - ");
   }
 
   function pointsForMatch(match, teamId) {
@@ -577,10 +658,17 @@
         await dealTeamToPlayer(assignment);
       }
 
+      state.assignments = generatedAssignments.map((assignment) => ({
+        player_id: assignment.player.id,
+        team_id: assignment.team.id,
+      }));
+      renderSummary();
+      renderPlayerScores();
+      renderMatchBoard();
       renderDrawTiers(new Set(generatedAssignments.map((assignment) => assignment.team.id)));
       output.value = rows.join("\n");
       outputPanel.hidden = false;
-      setStatus(`Generated draw from seed "${seed}".`);
+      setStatus(`Generated draw from seed "${seed}" and updated the tracker from ${state.sourceName}.`);
     } finally {
       drawButton.disabled = false;
       drawButton.textContent = "Run draw";
@@ -664,20 +752,21 @@
 
   async function init() {
     try {
-      const [players, teams, assignments, matches, scoring] = await Promise.all([
+      const [players, tiers, assignments, scoring, worldCupSource] = await Promise.all([
         loadCsv(DATA_FILES.players),
-        loadCsv(DATA_FILES.teams),
+        loadCsv(DATA_FILES.tiers),
         loadCsv(DATA_FILES.assignments),
-        loadCsv(DATA_FILES.matches),
         loadCsv(DATA_FILES.scoring),
+        loadWorldCupJson(),
       ]);
-      Object.assign(state, { players, teams, assignments, matches, scoring });
+      const sourceData = normalizeWorldCupData(worldCupSource, tiers);
+      Object.assign(state, { players, tiers, assignments, scoring, ...sourceData });
       render();
       app.querySelector("[data-run-draw]").addEventListener("click", runDraw);
-      setStatus("Competition data loaded from local CSV files.");
+      setStatus(`Competition data loaded from ${state.sourceName}.`);
     } catch (error) {
       console.error(error);
-      setStatus("Could not load competition data. Check the CSV files and browser console.");
+      setStatus("Could not load competition data. Check the local CSV files, openfootball source, and browser console.");
     }
   }
 
