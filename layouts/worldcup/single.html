@@ -15,9 +15,9 @@
         <header class="worldcup-header">
           <div class="worldcup-hero-copy">
             <p class="worldcup-kicker">Family competition</p>
-            <h1>World Cup Family League</h1>
+            <h1>The Family World Cup Draw</h1>
             <p class="worldcup-intro">
-              Nine players, three tiered teams each, and a standings table that updates as match results are added.
+              Nine players, 48 countries, and a scoreboard ready for bragging rights as every fixture lands.
             </p>
           </div>
           <div class="worldcup-hero-side">
@@ -37,11 +37,11 @@
           </div>
         </header>
 
-        <details class="worldcup-panel worldcup-draw-setup">
+        <details class="worldcup-panel worldcup-draw-setup" open>
           <summary>
             <span>
-              <strong>Team Draw Setup</strong>
-              <small>Collapsed after setup; open when you need to run or review the draw.</small>
+              <strong>Draw Night</strong>
+              <small>Open the pots, run the draw, and see who gets the dream run.</small>
             </span>
           </summary>
 
@@ -50,15 +50,15 @@
               <div class="worldcup-draw-copy">
                 <h2 id="worldcup-draw-title">How The Draw Works</h2>
                 <p>
-                  Each player receives one team from the top tier, one from the middle tier, and one from the long-shot tier. The draw shuffles each tier separately using the seed below, then deals the first shuffled team in each tier to the first player, the second to the second player, and so on.
+                  Each player receives one team from the Big Guns, one from the Wild Cards, and one from the Chaos Picks. The draw shuffles each pot separately, then deals the first shuffled team in each pot to the first player, the second to the second player, and so on.
                 </p>
                 <p>
                   Tiers are based on the FIFA/Coca-Cola Men's World Ranking table from
                   <a href="https://inside.fifa.com/fifa-world-ranking/men" rel="noreferrer" target="_blank">FIFA</a>,
-                  using the 48 teams present in the openfootball fixture data. Those teams are sorted by FIFA rank, then split into three equal groups of 16: top, middle, and long-shot.
+                  using the 48 teams present in the openfootball fixture data. Those teams are sorted by FIFA rank, then split into three equal groups of 16: Big Guns, Wild Cards, and Chaos Picks.
                 </p>
                 <p>
-                  Change the seed if you want a different draw. Keep the seed once the family accepts the result, then copy the generated CSV rows into the assignments sheet.
+                  Copy the generated CSV rows into the assignments sheet once the family accepts the result.
                 </p>
               </div>
               <img
@@ -70,8 +70,6 @@
                 loading="lazy"
               >
               <div class="worldcup-control-row">
-                <label for="worldcup-seed">Seed</label>
-                <input id="worldcup-seed" type="text" value="family-cup-2026">
                 <button type="button" data-run-draw>Run draw</button>
               </div>
             </section>
@@ -79,16 +77,16 @@
             <section class="worldcup-draw-board" aria-label="Draw board">
               <div>
                 <div class="worldcup-section-heading">
-                  <h2>Team Pools</h2>
-                  <p>Teams start here, grouped by tier.</p>
+                  <h2>The Pots</h2>
+                  <p>Ranked by FIFA, shuffled for family chaos.</p>
                 </div>
                 <div class="worldcup-tier-list" data-draw-tier-list></div>
               </div>
 
               <div>
                 <div class="worldcup-section-heading">
-                  <h2>Players</h2>
-                  <p>Drawn teams appear under each player.</p>
+                  <h2>Family Seats</h2>
+                  <p>Teams fly into their new homes.</p>
                 </div>
                 <div class="worldcup-draw-player-slots" data-draw-player-slots></div>
               </div>
@@ -107,21 +105,30 @@
         <details class="worldcup-panel worldcup-tracking-panel" open>
           <summary>
             <span>
-              <strong>Competition Tracker</strong>
-              <small>Standings, saved assignments, scoring rules, and match results.</small>
+              <strong>Scoreboard</strong>
+              <small>Family standings, scoring stickers, and fixtures with owners.</small>
             </span>
           </summary>
 
           <div class="worldcup-tracking-content">
+            <section class="worldcup-panel worldcup-inner-panel worldcup-next-up-panel">
+              <div class="worldcup-section-heading">
+                <h2>Next Up</h2>
+                <p>The nearest fixtures involving family-owned teams.</p>
+              </div>
+              <div class="worldcup-next-up-list" data-next-up-list></div>
+            </section>
+
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
-                <h2>Rules And Scoring</h2>
+                <h2>Scoring Stickers</h2>
                 <p>Every player earns the combined score from their assigned teams.</p>
               </div>
+              <div class="worldcup-rules-legend" data-rules-legend></div>
               <div class="worldcup-rules-layout">
                 <div>
                   <p>
-                    Match points are calculated from completed games only. Wins, draws, goals scored, and clean sheets all add to a team's total. Future bonus rows are already in the data so knockout-stage scoring can be switched on later without changing the page structure.
+                    Completed games feed the points. Wins, draws, goals, and clean sheets all count, with knockout bonuses ready in the scoring data for later.
                   </p>
                   <img
                     class="worldcup-tracker-image"
@@ -138,15 +145,15 @@
 
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
-                <h2>Player Scores</h2>
-                <p>Each team score is shown separately, with the player's total beside it.</p>
+                <h2>Family Standings</h2>
+                <p>The leader gets the spotlight. Everyone else is chasing.</p>
               </div>
               <div class="worldcup-player-score-grid" data-player-scores-list></div>
             </section>
 
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
-                <h2>Match Board</h2>
+                <h2>Fixtures &amp; Drama</h2>
                 <p>
                   Fixtures, match times, venues, and results come from
                   <a href="https://github.com/openfootball/worldcup.json" rel="noreferrer" target="_blank">openfootball/worldcup.json</a>.
