@@ -11,13 +11,18 @@
   </head>
   <body class="worldcup-standalone">
     <main class="worldcup-page-shell">
-      <div class="worldcup-app" data-worldcup-app>
+      <div
+        class="worldcup-app"
+        data-worldcup-app
+        data-data-base="{{ .Params.dataBase | default "/worldcup/data" }}"
+        data-world-cup-source-url="{{ .Params.worldCupSourceUrl | default "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json" }}"
+      >
         <header class="worldcup-header">
           <div class="worldcup-hero-copy">
-            <p class="worldcup-kicker">World Cup sweepstake</p>
-            <h1>World Cup League</h1>
+            <p class="worldcup-kicker">{{ .Params.kicker | default "World Cup sweepstake" }}</p>
+            <h1>{{ .Params.heading | default "World Cup League" }}</h1>
             <p class="worldcup-intro">
-              Nine players, three teams each, and a live race through every World Cup fixture.
+              {{ .Params.intro | default "Nine players, three teams each, and a live race through every World Cup fixture." }}
             </p>
           </div>
           <div class="worldcup-hero-side">
@@ -122,9 +127,11 @@
             <section class="worldcup-panel worldcup-inner-panel">
               <div class="worldcup-section-heading">
                 <h2>How Scoring Works</h2>
-                <p>Every player earns the combined score from their assigned teams.</p>
+                <p>
+                  Every player earns the combined score from their three teams. Match points apply in every round,
+                  then group, progress, tier, and upset bonuses are added as the tournament data confirms them.
+                </p>
               </div>
-              <div class="worldcup-rules-legend" data-rules-legend></div>
               <dl class="worldcup-rules" data-rules-list></dl>
             </section>
 
@@ -141,7 +148,7 @@
                 <h2>Fixtures</h2>
                 <p>
                   Fixtures, match times, venues, and results come from
-                  <a href="https://github.com/openfootball/worldcup.json" rel="noreferrer" target="_blank">openfootball/worldcup.json</a>.
+                  <a href="{{ .Params.sourceLink | default "https://github.com/openfootball/worldcup.json" }}" rel="noreferrer" target="_blank">{{ .Params.sourceLabel | default "openfootball/worldcup.json" }}</a>.
                 </p>
               </div>
               <div class="worldcup-match-board" data-match-board></div>

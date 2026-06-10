@@ -1,15 +1,16 @@
 (function () {
-  const DATA_BASE = "/worldcup/data";
-  const WORLD_CUP_SOURCE_URL = "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+  const app = document.querySelector("[data-worldcup-app]");
+  if (!app) return;
+
+  const DATA_BASE = app.dataset.dataBase || "/worldcup/data";
+  const WORLD_CUP_SOURCE_URL =
+    app.dataset.worldCupSourceUrl || "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
   const DATA_FILES = {
     players: `${DATA_BASE}/players.csv`,
     tiers: `${DATA_BASE}/tiers.csv`,
     assignments: `${DATA_BASE}/assignments.csv`,
     scoring: `${DATA_BASE}/scoring.csv`,
   };
-
-  const app = document.querySelector("[data-worldcup-app]");
-  if (!app) return;
 
   const state = {
     players: [],
@@ -147,20 +148,25 @@
       sourceName: source.name || "World Cup 2026",
       teams: [...sourceTeams.values()].sort((a, b) => a.name.localeCompare(b.name)),
       matches: (source.matches || []).map((match, index) => {
-        const score = match.score?.ft || [];
+        const goalScore = match.score?.et || match.score?.ft || [];
+        const penaltyScore = match.score?.p || [];
         return {
           id: `match_${index + 1}`,
           date: match.date || "",
           time: match.time || "",
           sort_time: matchSortTime(match),
+          group: match.group || "",
+          round: match.round || "",
           stage: [match.group, match.round].filter(Boolean).join(" - ") || match.round || "",
           ground: match.ground || "",
           team_a: isPlaceholderTeamName(match.team1) ? "" : sourceTeamId(match.team1),
           team_b: isPlaceholderTeamName(match.team2) ? "" : sourceTeamId(match.team2),
           team_a_label: match.team1 || "TBD",
           team_b_label: match.team2 || "TBD",
-          score_a: score[0] ?? "",
-          score_b: score[1] ?? "",
+          score_a: goalScore[0] ?? "",
+          score_b: goalScore[1] ?? "",
+          penalty_a: penaltyScore[0] ?? "",
+          penalty_b: penaltyScore[1] ?? "",
         };
       }),
     };
@@ -188,6 +194,10 @@
     return Object.fromEntries(state.scoring.map((rule) => [rule.event, Number(rule.points) || 0]));
   }
 
+  function scoreValue(event) {
+    return scoringMap()[event] || 0;
+  }
+
   function matchIsPlayed(match) {
     return match.score_a !== "" && match.score_b !== "";
   }
@@ -199,11 +209,23 @@
     const goalsAgainst = Number(isA ? match.score_b : match.score_a);
     if (Number.isNaN(goalsFor) || Number.isNaN(goalsAgainst)) return null;
 
+    const rawPenaltyFor = isA ? match.penalty_a : match.penalty_b;
+    const rawPenaltyAgainst = isA ? match.penalty_b : match.penalty_a;
+    const penaltyFor = Number(rawPenaltyFor);
+    const penaltyAgainst = Number(rawPenaltyAgainst);
+    const hasPenalties =
+      rawPenaltyFor !== "" &&
+      rawPenaltyAgainst !== "" &&
+      !Number.isNaN(penaltyFor) &&
+      !Number.isNaN(penaltyAgainst);
+    const resultFor = hasPenalties ? penaltyFor : goalsFor;
+    const resultAgainst = hasPenalties ? penaltyAgainst : goalsAgainst;
+
     return {
       played: 1,
-      wins: goalsFor > goalsAgainst ? 1 : 0,
-      draws: goalsFor === goalsAgainst ? 1 : 0,
-      losses: goalsFor < goalsAgainst ? 1 : 0,
+      wins: resultFor > resultAgainst ? 1 : 0,
+      draws: resultFor === resultAgainst && !hasPenalties ? 1 : 0,
+      losses: resultFor < resultAgainst ? 1 : 0,
       goalsFor,
       goalsAgainst,
       cleanSheets: goalsAgainst === 0 ? 1 : 0,
@@ -221,6 +243,11 @@
       goalsFor: 0,
       goalsAgainst: 0,
       cleanSheets: 0,
+      matchPoints: 0,
+      groupBonus: 0,
+      progressBonus: 0,
+      tierBonus: 0,
+      upsetBonus: 0,
       points: 0,
     };
   }
@@ -235,12 +262,16 @@
       goalsFor: 0,
       goalsAgainst: 0,
       cleanSheets: 0,
+      matchPoints: 0,
+      groupBonus: 0,
+      progressBonus: 0,
+      tierBonus: 0,
+      upsetBonus: 0,
       points: 0,
     };
   }
 
   function scoreTeam(team) {
-    const rules = scoringMap();
     const stats = emptyTeamStats(team);
     const teamMatches = state.matches.filter((match) => match.team_a === team.id || match.team_b === team.id);
 
@@ -255,17 +286,21 @@
       stats.goalsFor += result.goalsFor;
       stats.goalsAgainst += result.goalsAgainst;
       stats.cleanSheets += result.cleanSheets;
-      stats.points += result.wins * rules.win;
-      stats.points += result.draws * rules.draw;
-      stats.points += result.goalsFor * rules.goal_for;
-      stats.points += result.cleanSheets * rules.clean_sheet;
+      const matchPoints = pointsForMatch(match, team.id);
+      stats.matchPoints += matchPoints || 0;
+      stats.points += matchPoints || 0;
     }
 
+    const bonuses = tournamentBonusesForTeam(team);
+    stats.groupBonus = bonuses.groupBonus;
+    stats.progressBonus = bonuses.progressBonus;
+    stats.tierBonus = bonuses.tierBonus;
+    stats.upsetBonus = bonuses.upsetBonus;
+    stats.points += bonuses.groupBonus + bonuses.progressBonus + bonuses.tierBonus;
     return stats;
   }
 
   function calculateStandings() {
-    const rules = scoringMap();
     const teams = byId(state.teams);
     const players = byId(state.players);
     const standings = new Map(state.players.map((player) => [player.id, emptyStats(player)]));
@@ -280,23 +315,20 @@
 
     for (const standing of standings.values()) {
       for (const team of standing.teams) {
-        const teamMatches = state.matches.filter((match) => match.team_a === team.id || match.team_b === team.id);
-        for (const match of teamMatches) {
-          const result = resultFor(match, team.id);
-          if (!result) continue;
-
-          standing.played += result.played;
-          standing.wins += result.wins;
-          standing.draws += result.draws;
-          standing.losses += result.losses;
-          standing.goalsFor += result.goalsFor;
-          standing.goalsAgainst += result.goalsAgainst;
-          standing.cleanSheets += result.cleanSheets;
-          standing.points += result.wins * rules.win;
-          standing.points += result.draws * rules.draw;
-          standing.points += result.goalsFor * rules.goal_for;
-          standing.points += result.cleanSheets * rules.clean_sheet;
-        }
+        const teamStats = scoreTeam(team);
+        standing.played += teamStats.played;
+        standing.wins += teamStats.wins;
+        standing.draws += teamStats.draws;
+        standing.losses += teamStats.losses;
+        standing.goalsFor += teamStats.goalsFor;
+        standing.goalsAgainst += teamStats.goalsAgainst;
+        standing.cleanSheets += teamStats.cleanSheets;
+        standing.matchPoints += teamStats.matchPoints;
+        standing.groupBonus += teamStats.groupBonus;
+        standing.progressBonus += teamStats.progressBonus;
+        standing.tierBonus += teamStats.tierBonus;
+        standing.upsetBonus += teamStats.upsetBonus;
+        standing.points += teamStats.points;
       }
     }
 
@@ -367,7 +399,8 @@
     pill.dataset.teamId = team.id;
     pill.classList.add(`worldcup-pill-${team.tier}`);
     pill.appendChild(el("span", "worldcup-flag", team.flag || "⚽"));
-    pill.appendChild(el("span", "", `${team.name} (${tierShortLabel(team.tier)})`));
+    pill.appendChild(tierBadge(team));
+    pill.appendChild(el("span", "", team.name));
     if (team.fifaRank) {
       pill.appendChild(el("span", "worldcup-pill-rank", `#${team.fifaRank}`));
       pill.title = `${team.name} - FIFA rank ${team.fifaRank}${team.fifaPoints ? `, ${team.fifaPoints} pts` : ""}`;
@@ -377,13 +410,14 @@
 
   function teamName(team, fallback) {
     if (!team) return fallback;
-    return `${team.flag || "⚽"} ${team.name}`;
+    return `${team.flag || "⚽"} ${tierCode(team.tier)} ${team.name}`;
   }
 
   function renderTeamName(team, fallback) {
     const wrapper = el("span", "worldcup-team-name");
     if (team) {
       wrapper.appendChild(el("span", "worldcup-team-flag", team.flag || "⚽"));
+      wrapper.appendChild(tierBadge(team));
       wrapper.appendChild(el("span", "worldcup-team-label", team.name));
       return wrapper;
     }
@@ -404,6 +438,19 @@
     if (tier === "middle") return "wild card";
     if (tier === "longshot") return "chaos pick";
     return tier;
+  }
+
+  function tierCode(tier) {
+    if (tier === "top") return "T1";
+    if (tier === "middle") return "T2";
+    if (tier === "longshot") return "T3";
+    return "T?";
+  }
+
+  function tierBadge(team) {
+    const badge = el("span", `worldcup-team-tier worldcup-team-tier-${team?.tier || "unseeded"}`, tierCode(team?.tier));
+    badge.title = tierLabel(team?.tier || "unseeded");
+    return badge;
   }
 
   function renderStandings() {
@@ -495,10 +542,12 @@
       for (const teamStats of score.teams) {
         const row = el("div", "worldcup-team-score-row");
         const teamName = el("span", "", teamNameWithTier(teamStats.team));
+        const bonusPoints = teamStats.groupBonus + teamStats.progressBonus + teamStats.tierBonus;
+        const bonusText = bonusPoints > 0 ? `, bonuses +${bonusPoints}` : "";
         const record = el(
           "small",
           "",
-          `${teamStats.points} pts - ${teamStats.wins}W ${teamStats.draws}D ${teamStats.losses}L, ${teamStats.goalsFor} GF, ${teamStats.cleanSheets} CS`,
+          `${teamStats.points} pts - matches +${teamStats.matchPoints}${bonusText}; ${teamStats.wins}W ${teamStats.draws}D ${teamStats.losses}L, ${teamStats.goalsFor} GF, ${teamStats.cleanSheets} CS`,
         );
         row.appendChild(teamName);
         row.appendChild(record);
@@ -608,7 +657,7 @@
         details.appendChild(renderMatchTeams(match, teamA, teamB, owners));
         details.appendChild(el("div", "worldcup-match-meta", matchMeta(match)));
         item.appendChild(details);
-        item.appendChild(el("div", "worldcup-score", matchIsPlayed(match) ? `${match.score_a}-${match.score_b}` : "TBD"));
+        item.appendChild(el("div", "worldcup-score", matchScoreLabel(match)));
         matches.appendChild(item);
       }
 
@@ -695,17 +744,228 @@
     return [match.stage, match.date, match.time, match.ground].filter(Boolean).join(" - ");
   }
 
+  function matchScoreLabel(match) {
+    if (!matchIsPlayed(match)) return "TBD";
+    const score = `${match.score_a}-${match.score_b}`;
+    if (match.penalty_a !== "" && match.penalty_b !== "") return `${score} pens ${match.penalty_a}-${match.penalty_b}`;
+    return score;
+  }
+
   function pointsForMatch(match, teamId) {
-    const rules = scoringMap();
     const result = resultFor(match, teamId);
     if (!result) return null;
 
     return (
-      result.wins * rules.win +
-      result.draws * rules.draw +
-      result.goalsFor * rules.goal_for +
-      result.cleanSheets * rules.clean_sheet
+      result.wins * scoreValue("win") +
+      result.draws * scoreValue("draw") +
+      result.goalsFor * scoreValue("goal_for") +
+      result.cleanSheets * scoreValue("clean_sheet") +
+      upsetBonusForMatch(match, teamId)
     );
+  }
+
+  function tournamentBonusesForTeam(team) {
+    const groupProfile = groupProfileForTeam(team.id);
+    const progress = progressProfileForTeam(team.id);
+    const groupBonus =
+      (groupProfile.qualified ? scoreValue("group_qualify") : 0) +
+      (groupProfile.groupWinner ? scoreValue("group_winner") : 0) +
+      (groupProfile.groupUnbeaten ? scoreValue("group_unbeaten") : 0);
+    const progressBonus = scoreValue(progress.event);
+    const tierBonus = tierBonusForTeam(team, groupProfile, progress);
+    const upsetBonus = state.matches.reduce((sum, match) => sum + upsetBonusForMatch(match, team.id), 0);
+
+    return { groupBonus, progressBonus, tierBonus, upsetBonus };
+  }
+
+  function groupProfileForTeam(teamId) {
+    const groups = groupStandings();
+    const teamGroup = [...groups.values()].find((group) => group.rows.some((row) => row.teamId === teamId));
+    if (!teamGroup) return { qualified: false, groupWinner: false, groupUnbeaten: false };
+
+    const row = teamGroup.rows.find((candidate) => candidate.teamId === teamId);
+    const qualifiedFromKnockout = progressProfileForTeam(teamId).stage !== "group_stage";
+    const qualifiedFromGroup = teamGroup.complete && (row.rank <= 2 || thirdPlaceQualifiers().has(teamId));
+
+    return {
+      qualified: qualifiedFromKnockout || qualifiedFromGroup,
+      groupWinner: teamGroup.complete && row.rank === 1,
+      groupUnbeaten: teamGroup.complete && row.played > 0 && row.losses === 0,
+    };
+  }
+
+  function groupStandings() {
+    const groupMatches = state.matches.filter((match) => match.group && match.team_a && match.team_b);
+    const matchesByGroup = new Map();
+    for (const match of groupMatches) {
+      if (!matchesByGroup.has(match.group)) matchesByGroup.set(match.group, []);
+      matchesByGroup.get(match.group).push(match);
+    }
+
+    const groups = new Map();
+    for (const [group, matches] of matchesByGroup) {
+      const rows = new Map();
+      for (const match of matches) {
+        for (const teamId of [match.team_a, match.team_b]) {
+          if (!rows.has(teamId)) {
+            rows.set(teamId, {
+              teamId,
+              played: 0,
+              footballPoints: 0,
+              wins: 0,
+              draws: 0,
+              losses: 0,
+              goalsFor: 0,
+              goalsAgainst: 0,
+            });
+          }
+        }
+      }
+
+      for (const match of matches) {
+        for (const teamId of [match.team_a, match.team_b]) {
+          const result = resultFor(match, teamId);
+          if (!result) continue;
+          const row = rows.get(teamId);
+          row.played += 1;
+          row.wins += result.wins;
+          row.draws += result.draws;
+          row.losses += result.losses;
+          row.goalsFor += result.goalsFor;
+          row.goalsAgainst += result.goalsAgainst;
+          row.footballPoints += result.wins * 3 + result.draws;
+        }
+      }
+
+      const sortedRows = [...rows.values()].sort((a, b) => {
+        const goalDifferenceA = a.goalsFor - a.goalsAgainst;
+        const goalDifferenceB = b.goalsFor - b.goalsAgainst;
+        if (b.footballPoints !== a.footballPoints) return b.footballPoints - a.footballPoints;
+        if (goalDifferenceB !== goalDifferenceA) return goalDifferenceB - goalDifferenceA;
+        if (b.goalsFor !== a.goalsFor) return b.goalsFor - a.goalsFor;
+        return teamNameById(a.teamId).localeCompare(teamNameById(b.teamId));
+      });
+
+      sortedRows.forEach((row, index) => {
+        row.rank = index + 1;
+      });
+
+      groups.set(group, {
+        complete: matches.every(matchIsPlayed),
+        rows: sortedRows,
+      });
+    }
+
+    return groups;
+  }
+
+  function thirdPlaceQualifiers() {
+    const groups = [...groupStandings().values()];
+    if (groups.length === 0 || groups.some((group) => !group.complete)) return new Set();
+
+    return new Set(
+      groups
+        .map((group) => group.rows[2])
+        .filter(Boolean)
+        .sort((a, b) => {
+          const goalDifferenceA = a.goalsFor - a.goalsAgainst;
+          const goalDifferenceB = b.goalsFor - b.goalsAgainst;
+          if (b.footballPoints !== a.footballPoints) return b.footballPoints - a.footballPoints;
+          if (goalDifferenceB !== goalDifferenceA) return goalDifferenceB - goalDifferenceA;
+          if (b.goalsFor !== a.goalsFor) return b.goalsFor - a.goalsFor;
+          return teamNameById(a.teamId).localeCompare(teamNameById(b.teamId));
+        })
+        .slice(0, 8)
+        .map((row) => row.teamId),
+    );
+  }
+
+  function teamNameById(teamId) {
+    return byId(state.teams).get(teamId)?.name || teamId;
+  }
+
+  function progressProfileForTeam(teamId) {
+    const progressByStage = {
+      group_stage: { order: 0, event: "" },
+      last_32: { order: 1, event: "progress_last_32" },
+      last_16: { order: 2, event: "progress_last_16" },
+      quarter_final: { order: 3, event: "progress_quarter_final" },
+      semi_final: { order: 4, event: "progress_semi_final" },
+      final: { order: 5, event: "progress_final" },
+      winner: { order: 6, event: "progress_winner" },
+    };
+
+    let best = "group_stage";
+    for (const match of state.matches) {
+      if (match.team_a !== teamId && match.team_b !== teamId) continue;
+      const stage = stageFromRound(match.stage);
+      if (progressByStage[stage].order > progressByStage[best].order) best = stage;
+      if (stage === "final" && resultFor(match, teamId)?.wins) best = "winner";
+    }
+
+    return { stage: best, ...progressByStage[best] };
+  }
+
+  function stageFromRound(stage) {
+    const normalized = String(stage || "").toLowerCase();
+    if (normalized.includes("final") && !normalized.includes("semi") && !normalized.includes("third")) return "final";
+    if (normalized.includes("semi")) return "semi_final";
+    if (normalized.includes("quarter")) return "quarter_final";
+    if (normalized.includes("round of 16")) return "last_16";
+    if (normalized.includes("round of 32")) return "last_32";
+    return "group_stage";
+  }
+
+  function stageReached(progress, stage) {
+    const order = {
+      group_stage: 0,
+      last_32: 1,
+      last_16: 2,
+      quarter_final: 3,
+      semi_final: 4,
+      final: 5,
+      winner: 6,
+    };
+    return order[progress.stage] >= order[stage];
+  }
+
+  function tierBonusForTeam(team, groupProfile, progress) {
+    const tierNumber = tierNumberForTeam(team);
+    if (tierNumber === 1) return 0;
+
+    let total = 0;
+    if (groupProfile.qualified) total += scoreValue(`tier_${tierNumber}_group_qualify`);
+    if (stageReached(progress, "quarter_final")) total += scoreValue(`tier_${tierNumber}_quarter_final`);
+    if (stageReached(progress, "semi_final")) total += scoreValue(`tier_${tierNumber}_semi_final`);
+    if (stageReached(progress, "final")) total += scoreValue(`tier_${tierNumber}_final`);
+    if (progress.stage === "winner") total += scoreValue(`tier_${tierNumber}_winner`);
+    return total;
+  }
+
+  function tierNumberForTeam(team) {
+    if (team?.tier === "top") return 1;
+    if (team?.tier === "middle") return 2;
+    if (team?.tier === "longshot") return 3;
+    return 1;
+  }
+
+  function upsetBonusForMatch(match, teamId) {
+    const result = resultFor(match, teamId);
+    if (!result?.wins) return 0;
+
+    const teams = byId(state.teams);
+    const team = teams.get(teamId);
+    const opponent = teams.get(match.team_a === teamId ? match.team_b : match.team_a);
+    if (!team || !opponent) return 0;
+
+    const teamTier = tierNumberForTeam(team);
+    const opponentTier = tierNumberForTeam(opponent);
+    if (teamTier <= opponentTier) return 0;
+
+    if (teamTier === 2 && opponentTier === 1) return scoreValue("upset_tier_2_over_1");
+    if (teamTier === 3 && opponentTier === 2) return scoreValue("upset_tier_3_over_2");
+    if (teamTier === 3 && opponentTier === 1) return scoreValue("upset_tier_3_over_1");
+    return 0;
   }
 
   function renderRules() {
@@ -713,27 +973,12 @@
     list.innerHTML = "";
     for (const rule of state.scoring) {
       const row = el("div", "worldcup-rule-tile");
-      row.appendChild(el("dt", "", rule.label));
-      row.appendChild(el("dd", "", `+${rule.points}`));
+      const header = el("div", "worldcup-rule-header");
+      header.appendChild(el("dt", "", rule.label));
+      header.appendChild(el("dd", "", `+${rule.points}`));
+      row.appendChild(header);
+      if (rule.description) row.appendChild(el("p", "worldcup-rule-description", rule.description));
       list.appendChild(row);
-    }
-  }
-
-  function renderRulesLegend() {
-    const legend = app.querySelector("[data-rules-legend]");
-    if (!legend) return;
-
-    const featuredEvents = ["win", "draw", "goal_for", "clean_sheet"];
-    const rules = new Map(state.scoring.map((rule) => [rule.event, rule]));
-    legend.innerHTML = "";
-
-    for (const event of featuredEvents) {
-      const rule = rules.get(event);
-      if (!rule) continue;
-      const item = el("span", "worldcup-rules-legend-item");
-      item.appendChild(el("strong", "", rule.label));
-      item.appendChild(el("span", "", `+${rule.points}`));
-      legend.appendChild(item);
     }
   }
 
@@ -898,7 +1143,6 @@
     renderSummary();
     renderDrawBoard();
     renderNextUp();
-    renderRulesLegend();
     renderRules();
     renderPlayerScores();
     renderMatchBoard();
