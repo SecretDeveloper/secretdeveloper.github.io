@@ -651,13 +651,7 @@
       for (const match of group.matches) {
         const teamA = teams.get(match.team_a);
         const teamB = teams.get(match.team_b);
-        const item = el("article", `worldcup-match ${matchIsPlayed(match) ? "worldcup-match-played" : "worldcup-match-upcoming"}`);
-        const details = document.createElement("div");
-        details.className = "worldcup-match-details";
-        details.appendChild(renderMatchTeams(match, teamA, teamB, owners));
-        details.appendChild(el("div", "worldcup-match-meta", matchMeta(match)));
-        item.appendChild(details);
-        item.appendChild(el("div", "worldcup-score", matchScoreLabel(match)));
+        const item = renderMatchCard(match, teamA, teamB, owners);
         matches.appendChild(item);
       }
 
@@ -767,35 +761,51 @@
       const teamA = teams.get(match.team_a);
       const teamB = teams.get(match.team_b);
       const card = el("article", "worldcup-next-up-card");
-      card.appendChild(renderMatchTeams(match, teamA, teamB, owners));
       card.appendChild(el("div", "worldcup-match-meta", matchMeta(match)));
+      card.appendChild(renderMatchTeams(match, teamA, teamB, owners));
+      card.appendChild(renderMatchOwners(match, teamA, teamB, owners));
       list.appendChild(card);
     }
   }
 
+  function renderMatchCard(match, teamA, teamB, owners) {
+    const item = el("article", `worldcup-match ${matchIsPlayed(match) ? "worldcup-match-played" : "worldcup-match-upcoming"}`);
+    item.appendChild(el("div", "worldcup-match-meta", matchMeta(match)));
+    item.appendChild(renderMatchTeams(match, teamA, teamB, owners));
+    item.appendChild(renderMatchOwners(match, teamA, teamB, owners));
+    return item;
+  }
+
   function renderMatchTeams(match, teamA, teamB, owners) {
     const row = el("div", "worldcup-match-teams");
-    row.appendChild(renderMatchTeamColumn(match, teamA, match.team_a_label, owners.get(teamA?.id)));
-    row.appendChild(el("span", "worldcup-match-versus", "vs"));
-    row.appendChild(renderMatchTeamColumn(match, teamB, match.team_b_label, owners.get(teamB?.id)));
+    row.appendChild(renderMatchTeamColumn(teamA, match.team_a_label, "left"));
+    row.appendChild(el("span", "worldcup-score", matchScoreLabel(match)));
+    row.appendChild(renderMatchTeamColumn(teamB, match.team_b_label, "right"));
     return row;
   }
 
-  function renderMatchTeamColumn(match, team, fallbackLabel, owner) {
-    const column = el("div", "worldcup-match-team-column");
-    const title = el("h3", "worldcup-match-title");
-    title.appendChild(renderTeamName(team, fallbackLabel));
-    column.appendChild(title);
+  function renderMatchOwners(match, teamA, teamB, owners) {
+    const row = el("div", "worldcup-match-owners");
+    row.appendChild(renderMatchOwner(match, teamA, owners.get(teamA?.id), "left"));
+    row.appendChild(el("span", "worldcup-match-owner-spacer", ""));
+    row.appendChild(renderMatchOwner(match, teamB, owners.get(teamB?.id), "right"));
+    return row;
+  }
 
+  function renderMatchTeamColumn(team, fallbackLabel, side) {
+    const column = el("h3", `worldcup-match-team-column worldcup-match-team-${side}`);
+    column.appendChild(renderTeamName(team, fallbackLabel));
+    return column;
+  }
+
+  function renderMatchOwner(match, team, owner, side) {
+    const ownerBadge = el("span", `worldcup-match-owner worldcup-match-owner-${side} ${owner ? "worldcup-match-owner-assigned" : ""}`);
     const ownerName = team ? owner?.name || "Unassigned" : "Pending team";
     const points = team ? pointsForMatch(match, team.id) : null;
-    const pointsText = points === null ? "pending" : `+${points} pts`;
-    const ownerBadge = el("span", `worldcup-match-owner ${owner ? "worldcup-match-owner-assigned" : ""}`);
     setPlayerColor(ownerBadge, owner);
     ownerBadge.appendChild(el("strong", "worldcup-match-owner-name", ownerName));
-    ownerBadge.appendChild(el("span", "worldcup-match-owner-points", pointsText));
-    column.appendChild(ownerBadge);
-    return column;
+    if (points !== null) ownerBadge.appendChild(el("span", "worldcup-match-owner-points", `+${points} pts`));
+    return ownerBadge;
   }
 
   function teamNameWithTier(team) {
