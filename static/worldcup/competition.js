@@ -741,7 +741,27 @@
   }
 
   function matchMeta(match) {
-    return [match.stage, match.date, match.time, match.ground].filter(Boolean).join(" - ");
+    return [matchStageLabel(match), localKickoffLabel(match), match.ground].filter(Boolean).join(" - ");
+  }
+
+  function matchStageLabel(match) {
+    if (match.group && /^Matchday\s+\d+$/i.test(match.round || "")) return match.group;
+    return match.stage;
+  }
+
+  function localKickoffLabel(match) {
+    if (!Number.isFinite(match.sort_time)) {
+      return [match.date, match.time].filter(Boolean).join(" ");
+    }
+
+    return new Intl.DateTimeFormat(undefined, {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZoneName: "short",
+    }).format(new Date(match.sort_time));
   }
 
   function matchScoreLabel(match) {
