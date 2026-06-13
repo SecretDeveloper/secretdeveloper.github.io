@@ -666,6 +666,69 @@
     }
   }
 
+  function renderGroupStandings() {
+    const list = app.querySelector("[data-group-standings]");
+    if (!list) return;
+
+    const teams = byId(state.teams);
+    const groups = [...groupStandings().entries()].sort(([groupA], [groupB]) => groupA.localeCompare(groupB));
+    list.innerHTML = "";
+
+    if (groups.length === 0) {
+      list.appendChild(el("div", "worldcup-empty-panel", "Group standings will appear once the fixture data loads."));
+      return;
+    }
+
+    for (const [groupName, group] of groups) {
+      const card = el("section", "worldcup-group-card");
+      card.appendChild(el("h3", "", groupName));
+
+      const table = el("table", "worldcup-group-table");
+      const thead = document.createElement("thead");
+      const header = document.createElement("tr");
+      for (const label of ["Team", "P", "W-D-L", "GD", "Pts"]) {
+        header.appendChild(el("th", "", label));
+      }
+      thead.appendChild(header);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      for (const row of group.rows) {
+        const team = teams.get(row.teamId);
+        const tr = document.createElement("tr");
+        if (row.played > 0 && row.rank <= 2) tr.classList.add("worldcup-group-qualifier");
+
+        const teamCell = document.createElement("td");
+        teamCell.appendChild(renderGroupTeamName(team, row.teamId, row.rank));
+        tr.appendChild(teamCell);
+        tr.appendChild(el("td", "", row.played));
+        tr.appendChild(el("td", "", `${row.wins}-${row.draws}-${row.losses}`));
+        tr.appendChild(el("td", "", row.goalsFor - row.goalsAgainst));
+        tr.appendChild(el("td", "worldcup-group-points", row.footballPoints));
+        tbody.appendChild(tr);
+      }
+      table.appendChild(tbody);
+
+      const wrap = el("div", "worldcup-group-table-wrap");
+      wrap.appendChild(table);
+      card.appendChild(wrap);
+      list.appendChild(card);
+    }
+  }
+
+  function renderGroupTeamName(team, fallback, rank) {
+    const wrapper = el("span", "worldcup-group-team-name");
+    wrapper.appendChild(el("span", "worldcup-group-rank", rank));
+    if (team) {
+      wrapper.appendChild(el("span", "worldcup-group-team-flag", team.flag || "⚽"));
+      wrapper.appendChild(tierBadge(team));
+      wrapper.appendChild(el("span", "worldcup-group-team-label", team.name));
+      return wrapper;
+    }
+    wrapper.appendChild(el("span", "worldcup-group-team-label", fallback || "TBD"));
+    return wrapper;
+  }
+
   function sortMatchesByTime(matches) {
     return [...matches].sort((a, b) => {
       if (a.sort_time !== b.sort_time) return a.sort_time - b.sort_time;
@@ -1165,6 +1228,7 @@
     renderNextUp();
     renderRules();
     renderPlayerScores();
+    renderGroupStandings();
     renderMatchBoard();
   }
 

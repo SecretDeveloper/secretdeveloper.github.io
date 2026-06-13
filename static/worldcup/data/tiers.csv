@@ -2,7 +2,7 @@ team_id,tier,flag,fifa_rank,fifa_points
 argentina,top,🇦🇷,1,1876.12
 spain,top,🇪🇸,2,1874.71
 france,top,🇫🇷,3,1870.70
-england,top,🏴,4,1827.05
+england,top,🏴󠁧󠁢󠁥󠁮󠁧󠁿,4,1827.05
 portugal,top,🇵🇹,5,1766.18
 brazil,top,🇧🇷,6,1765.86
 morocco,top,🇲🇦,7,1755.10
@@ -32,7 +32,7 @@ panama,middle,🇵🇦,34,1539.16
 sweden,middle,🇸🇪,38,1509.79
 czech_republic,middle,🇨🇿,39,1505.74
 paraguay,longshot,🇵🇾,40,1505.35
-scotland,longshot,🏴,42,1503.34
+scotland,longshot,🏴󠁧󠁢󠁳󠁣󠁴󠁿,42,1503.34
 dr_congo,longshot,🇨🇩,45,1479.68
 tunisia,longshot,🇹🇳,46,1476.41
 uzbekistan,longshot,🇺🇿,50,1458.73

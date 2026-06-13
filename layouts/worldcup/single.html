@@ -19,10 +19,10 @@
       >
         <header class="worldcup-header">
           <div class="worldcup-hero-copy">
-            <p class="worldcup-kicker">{{ .Params.kicker | default "World Cup sweepstake" }}</p>
-            <h1>{{ .Params.heading | default "World Cup League" }}</h1>
+            <p class="worldcup-kicker">{{ .Params.kicker | default "Sweepstake central" }}</p>
+            <h1>{{ .Params.heading | default "World Cup Chaos" }}</h1>
             <p class="worldcup-intro">
-              {{ .Params.intro | default "Nine players, three teams each, and a live race through every World Cup fixture." }}
+              {{ .Params.intro | default "Nine players. Three teams each. Every goal, clean sheet, and upset can shake the table." }}
             </p>
           </div>
           <div class="worldcup-hero-side">
@@ -36,8 +36,8 @@
             >
             <div class="worldcup-summary" aria-label="Competition summary">
               <span><strong data-summary-players>0</strong> players</span>
-              <span><strong data-summary-teams>0</strong> teams assigned</span>
-              <span><strong data-summary-matches>0</strong> matches scored</span>
+              <span><strong data-summary-teams>0</strong> teams in play</span>
+              <span><strong data-summary-matches>0</strong> games scored</span>
             </div>
           </div>
         </header>
@@ -107,55 +107,54 @@
           </div>
         </details>
 
-        <details class="worldcup-panel worldcup-tracking-panel" open>
-          <summary>
-            <span>
-              <strong>Scoreboard</strong>
-              <small>Standings, scoring, and fixtures with team owners.</small>
-            </span>
-          </summary>
-
-          <div class="worldcup-tracking-content">
-            <section class="worldcup-panel worldcup-inner-panel">
-              <div class="worldcup-section-heading">
+        <div class="worldcup-tracking-content">
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details" open>
+              <summary class="worldcup-section-heading">
                 <h2>League Table</h2>
                 <p>The leader gets the spotlight. Everyone else is chasing.</p>
-              </div>
+              </summary>
               <div class="worldcup-player-score-grid" data-player-scores-list></div>
-            </section>
+            </details>
 
-            <section class="worldcup-panel worldcup-inner-panel">
-              <div class="worldcup-section-heading">
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details">
+              <summary class="worldcup-section-heading">
                 <h2>How Scoring Works</h2>
                 <p>
                   Every player gets points from their three teams, but the fun is in the chaos: goals and clean sheets
                   keep every match alive, while surprise wins, deep runs, and lower-tier teams punching above their
                   weight can swing the table fast.
                 </p>
-              </div>
+              </summary>
               <dl class="worldcup-rules" data-rules-list></dl>
-            </section>
+            </details>
 
-            <section class="worldcup-panel worldcup-inner-panel worldcup-next-up-panel">
-              <div class="worldcup-section-heading">
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details" open>
+              <summary class="worldcup-section-heading">
+                <h2>Groups</h2>
+                <p>Current group tables from the fixture results.</p>
+              </summary>
+              <div class="worldcup-group-standings" data-group-standings></div>
+            </details>
+
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details worldcup-next-up-panel" open>
+              <summary class="worldcup-section-heading">
                 <h2>Upcoming Games</h2>
                 <p>The nearest fixtures involving assigned teams.</p>
-              </div>
+              </summary>
               <div class="worldcup-next-up-list" data-next-up-list></div>
-            </section>
+            </details>
 
-            <section class="worldcup-panel worldcup-inner-panel">
-              <div class="worldcup-section-heading">
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details" open>
+              <summary class="worldcup-section-heading">
                 <h2>Fixtures</h2>
                 <p>
                   Fixtures, match times, venues, and results come from
                   <a href="{{ .Params.sourceLink | default "https://github.com/openfootball/worldcup.json" }}" rel="noreferrer" target="_blank">{{ .Params.sourceLabel | default "openfootball/worldcup.json" }}</a>.
                 </p>
-              </div>
+              </summary>
               <div class="worldcup-match-board" data-match-board></div>
-            </section>
+            </details>
           </div>
-        </details>
 
         <p class="worldcup-status" role="status" data-worldcup-status>Loading competition data...</p>
       </div>
