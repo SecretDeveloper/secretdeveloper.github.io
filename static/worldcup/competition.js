@@ -633,30 +633,40 @@
   }
 
   function renderMatchBoard() {
-    const list = app.querySelector("[data-match-board]");
+    const upcomingList = app.querySelector("[data-upcoming-fixtures]");
+    const completedList = app.querySelector("[data-completed-games]");
     const teams = byId(state.teams);
     const owners = teamOwnerMap();
+
+    renderMatchList(
+      upcomingList,
+      sortMatchesByTime(state.matches.filter((match) => !matchIsPlayed(match))),
+      teams,
+      owners,
+      "No upcoming fixtures found.",
+    );
+    renderMatchList(
+      completedList,
+      sortMatchesByTime(state.matches.filter(matchIsPlayed)).reverse(),
+      teams,
+      owners,
+      "No games have been completed yet.",
+    );
+  }
+
+  function renderMatchList(list, matches, teams, owners, emptyMessage) {
+    if (!list) return;
     list.innerHTML = "";
 
-    const groups = [
-      { title: "Results In", matches: sortMatchesByTime(state.matches.filter(matchIsPlayed)) },
-      { title: "Games To Watch", matches: sortMatchesByTime(state.matches.filter((match) => !matchIsPlayed(match))) },
-    ];
+    if (matches.length === 0) {
+      list.appendChild(el("div", "worldcup-empty-panel", emptyMessage));
+      return;
+    }
 
-    for (const group of groups) {
-      const section = el("section", "worldcup-match-board-section");
-      section.appendChild(el("h3", "", group.title));
-      const matches = el("div", "worldcup-match-list");
-
-      for (const match of group.matches) {
-        const teamA = teams.get(match.team_a);
-        const teamB = teams.get(match.team_b);
-        const item = renderMatchCard(match, teamA, teamB, owners);
-        matches.appendChild(item);
-      }
-
-      section.appendChild(matches);
-      list.appendChild(section);
+    for (const match of matches) {
+      const teamA = teams.get(match.team_a);
+      const teamB = teams.get(match.team_b);
+      list.appendChild(renderMatchCard(match, teamA, teamB, owners));
     }
   }
 
@@ -665,6 +675,7 @@
     if (!list) return;
 
     const teams = byId(state.teams);
+    const owners = teamOwnerMap();
     const groups = [...groupStandings().entries()].sort(([groupA], [groupB]) => groupA.localeCompare(groupB));
     list.innerHTML = "";
 
@@ -693,7 +704,7 @@
         if (row.played > 0 && row.rank <= 2) tr.classList.add("worldcup-group-qualifier");
 
         const teamCell = document.createElement("td");
-        teamCell.appendChild(renderGroupTeamName(team, row.teamId, row.rank));
+        teamCell.appendChild(renderGroupTeamName(team, row.teamId, row.rank, owners.get(team?.id)));
         tr.appendChild(teamCell);
         tr.appendChild(el("td", "", row.played));
         tr.appendChild(el("td", "", `${row.wins}-${row.draws}-${row.losses}`));
@@ -710,13 +721,14 @@
     }
   }
 
-  function renderGroupTeamName(team, fallback, rank) {
+  function renderGroupTeamName(team, fallback, rank, owner) {
     const wrapper = el("span", "worldcup-group-team-name");
     wrapper.appendChild(el("span", "worldcup-group-rank", rank));
     if (team) {
       wrapper.appendChild(el("span", "worldcup-group-team-flag", team.flag || "⚽"));
       wrapper.appendChild(tierBadge(team));
       wrapper.appendChild(el("span", "worldcup-group-team-label", team.name));
+      if (owner) wrapper.appendChild(el("span", "worldcup-group-team-owner", `(${owner.name})`));
       return wrapper;
     }
     wrapper.appendChild(el("span", "worldcup-group-team-label", fallback || "TBD"));

@@ -128,7 +128,7 @@
               <dl class="worldcup-rules" data-rules-list></dl>
             </details>
 
-            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details" open>
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details">
               <summary class="worldcup-section-heading">
                 <h2>Groups</h2>
                 <p>Current group tables from the fixture results.</p>
@@ -146,13 +146,21 @@
 
             <details class="worldcup-panel worldcup-inner-panel worldcup-section-details" open>
               <summary class="worldcup-section-heading">
-                <h2>Fixtures</h2>
+                <h2>Upcoming Fixtures</h2>
                 <p>
-                  Fixtures, match times, venues, and results come from
+                  Full fixture list, ordered by kickoff time. Match times and venues come from
                   <a href="{{ .Params.sourceLink | default "https://github.com/openfootball/worldcup.json" }}" rel="noreferrer" target="_blank">{{ .Params.sourceLabel | default "openfootball/worldcup.json" }}</a>.
                 </p>
               </summary>
-              <div class="worldcup-match-board" data-match-board></div>
+              <div class="worldcup-match-list" data-upcoming-fixtures></div>
+            </details>
+
+            <details class="worldcup-panel worldcup-inner-panel worldcup-section-details">
+              <summary class="worldcup-section-heading">
+                <h2>Completed Games</h2>
+                <p>Completed games, newest first.</p>
+              </summary>
+              <div class="worldcup-match-list" data-completed-games></div>
             </details>
           </div>
 
