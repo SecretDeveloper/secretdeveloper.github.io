@@ -817,6 +817,110 @@
   padding: 0.12rem 0.25rem;
 }
 
+.worldcup-knockout-board {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(6, minmax(12rem, 1fr));
+  overflow-x: auto;
+  padding-bottom: 0.25rem;
+}
+
+.worldcup-knockout-round {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(8, 114, 72, 0.18);
+  border-radius: 8px;
+  min-width: 12rem;
+  overflow: hidden;
+}
+
+.worldcup-knockout-round h3 {
+  background: #102f24;
+  color: #fff;
+  font-size: var(--wc-text-xs);
+  font-weight: 900;
+  letter-spacing: 0;
+  margin: 0;
+  padding: 0.45rem 0.55rem;
+  text-transform: uppercase;
+}
+
+.worldcup-knockout-match-list {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.5rem;
+}
+
+.worldcup-knockout-match {
+  background: #fff;
+  border: 1px solid var(--wc-border);
+  border-left: 4px solid var(--wc-coral);
+  border-radius: 7px;
+  display: grid;
+  gap: 0.35rem;
+  padding: 0.5rem;
+}
+
+.worldcup-knockout-played {
+  border-left-color: var(--wc-blue);
+}
+
+.worldcup-knockout-meta {
+  color: var(--wc-muted);
+  font-size: var(--wc-text-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worldcup-knockout-body {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.worldcup-knockout-team {
+  align-items: center;
+  display: grid;
+  gap: 0.25rem;
+  grid-template-columns: auto auto minmax(0, 1fr);
+}
+
+.worldcup-knockout-team strong {
+  font-size: var(--wc-text-sm);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worldcup-knockout-team small {
+  color: var(--wc-muted);
+  font-size: var(--wc-text-xs);
+  font-weight: 800;
+  grid-column: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worldcup-knockout-flag {
+  background: var(--wc-soft);
+  border-radius: 999px;
+  display: inline-grid;
+  font-size: var(--wc-text-sm);
+  height: 1.35rem;
+  min-width: 1.35rem;
+  place-items: center;
+}
+
+.worldcup-knockout-score {
+  background: var(--wc-gold-soft);
+  border-radius: 999px;
+  color: #704a00;
+  font-size: var(--wc-text-xs);
+  font-weight: 900;
+  justify-self: center;
+  padding: 0.12rem 0.45rem;
+}
+
 .worldcup-draw-player-slots {
   display: grid;
   gap: 0.6rem;

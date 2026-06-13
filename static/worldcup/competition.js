@@ -735,6 +735,84 @@
     return wrapper;
   }
 
+  function renderKnockoutBoard() {
+    const board = app.querySelector("[data-knockout-board]");
+    if (!board) return;
+
+    const teams = byId(state.teams);
+    const owners = teamOwnerMap();
+    const rounds = [
+      { key: "round of 32", title: "Round of 32" },
+      { key: "round of 16", title: "Round of 16" },
+      { key: "quarter", title: "Quarter-finals" },
+      { key: "semi", title: "Semi-finals" },
+      { key: "third", title: "Third place" },
+      { key: "final", title: "Final" },
+    ];
+    const knockoutMatches = state.matches.filter((match) => knockoutRoundKey(match));
+
+    board.innerHTML = "";
+
+    if (knockoutMatches.length === 0) {
+      board.appendChild(el("div", "worldcup-empty-panel", "Knockout fixtures will appear here once the source data includes the bracket."));
+      return;
+    }
+
+    let renderedRounds = 0;
+    for (const round of rounds) {
+      const matches = sortMatchesByTime(knockoutMatches.filter((match) => knockoutRoundKey(match) === round.key));
+      if (matches.length === 0) continue;
+
+      renderedRounds += 1;
+      const column = el("section", "worldcup-knockout-round");
+      column.appendChild(el("h3", "", round.title));
+      const stack = el("div", "worldcup-knockout-match-list");
+
+      for (const match of matches) {
+        const card = el("article", `worldcup-knockout-match ${matchIsPlayed(match) ? "worldcup-knockout-played" : ""}`);
+        card.appendChild(el("div", "worldcup-knockout-meta", localKickoffLabel(match)));
+        const body = el("div", "worldcup-knockout-body");
+        body.appendChild(renderKnockoutTeam(teams.get(match.team_a), match.team_a_label, owners.get(match.team_a)));
+        body.appendChild(el("span", "worldcup-knockout-score", matchScoreLabel(match)));
+        body.appendChild(renderKnockoutTeam(teams.get(match.team_b), match.team_b_label, owners.get(match.team_b)));
+        card.appendChild(body);
+        stack.appendChild(card);
+      }
+
+      column.appendChild(stack);
+      board.appendChild(column);
+    }
+
+    if (renderedRounds === 0) {
+      board.appendChild(el("div", "worldcup-empty-panel", "Knockout fixtures are in the source data, but their round labels need mapping."));
+    }
+  }
+
+  function knockoutRoundKey(match) {
+    const stage = String(match.round || match.stage || "").toLowerCase();
+    if (stage.includes("third")) return "third";
+    if (stage.includes("quarter")) return "quarter";
+    if (stage.includes("semi")) return "semi";
+    if (stage.includes("final")) return "final";
+    if (stage.includes("round of 16")) return "round of 16";
+    if (stage.includes("round of 32")) return "round of 32";
+    return "";
+  }
+
+  function renderKnockoutTeam(team, fallback, owner) {
+    const row = el("div", "worldcup-knockout-team");
+    if (team) {
+      row.appendChild(el("span", "worldcup-knockout-flag", team.flag || "⚽"));
+      row.appendChild(tierBadge(team));
+      row.appendChild(el("strong", "", team.name));
+      if (owner) row.appendChild(el("small", "", owner.name));
+      return row;
+    }
+
+    row.appendChild(el("strong", "", fallback || "TBD"));
+    return row;
+  }
+
   function sortMatchesByTime(matches) {
     return [...matches].sort((a, b) => {
       if (a.sort_time !== b.sort_time) return a.sort_time - b.sort_time;
@@ -1251,6 +1329,7 @@
     renderRules();
     renderPlayerScores();
     renderGroupStandings();
+    renderKnockoutBoard();
     renderMatchBoard();
   }
 
