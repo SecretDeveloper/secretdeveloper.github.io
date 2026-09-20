@@ -31,7 +31,6 @@ menu:
         <a class="game-action" href="/games/siege/">Begin the siege <span aria-hidden="true">→</span></a>
       </article>
 
-    <div class="game-grid">
       <article class="game-card game-card--siege">
         <span class="game-card__mark" aria-hidden="true">⚔</span>
         <p class="game-card__eyebrow">New · Sailing Game</p>
