@@ -1,0 +1,123 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - link "Gary Kenneally" [ref=f2e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f2e8]:
+        - link "Posts" [ref=f2e9] [cursor=pointer]:
+          - /url: /
+        - link "Categories" [ref=f2e10] [cursor=pointer]:
+          - /url: /categories/
+        - link "Tags" [ref=f2e11] [cursor=pointer]:
+          - /url: /tags/
+        - link "Series" [ref=f2e12] [cursor=pointer]:
+          - /url: /series/
+        - link "Presentations" [ref=f2e13] [cursor=pointer]:
+          - /url: /presentations/
+        - link "Projects" [ref=f2e14] [cursor=pointer]:
+          - /url: /projects/
+        - link "World Cup" [ref=f2e15] [cursor=pointer]:
+          - /url: /worldcup/
+        - link "Games" [ref=f2e16] [cursor=pointer]:
+          - /url: /games/
+        - link "About" [ref=f2e17] [cursor=pointer]:
+          - /url: /about/
+        - button "Switch Theme" [ref=f2e19] [cursor=pointer]
+  - main [ref=f2e22]:
+    - generic [ref=f2e23]:
+      - heading "Games" [level=1] [ref=f2e24]
+      - generic [ref=f2e26]:
+        - paragraph [ref=f2e27]: Playable experiments
+        - paragraph [ref=f2e28]: Small browser games built to explore simulation, interface design, WebAssembly, and what changes when an idea becomes something you can actually play.
+        - region [ref=f2e29]:
+          - generic [ref=f2e30]:
+            - 'img "A Siege: Iron & Ash battlefield with companies preparing to assault a fortified river town" [ref=f2e31]'
+            - generic [ref=f2e32]: New
+          - generic [ref=f2e33]:
+            - paragraph [ref=f2e34]: Featured · Tactical strategy
+            - 'heading "Siege: Iron & Ash" [level=2] [ref=f2e35]'
+            - paragraph [ref=f2e36]: Command hundreds of autonomous soldiers through breaches, burning streets, and collapsing morale. Play either side across a three-battle campaign where every survivor matters.
+            - list "Siege game features" [ref=f2e37]:
+              - listitem [ref=f2e38]: Mouse & touch
+              - listitem [ref=f2e39]: Campaign
+              - listitem [ref=f2e40]: Large-scale simulation
+            - link "Play Siege" [ref=f2e41] [cursor=pointer]:
+              - /url: /games/siege/
+              - text: Play Siege
+              - generic [aria-hidden] [ref=f2e42]: →
+        - region [ref=f2e43]:
+          - generic [ref=f2e44]:
+            - generic [ref=f2e45]:
+              - paragraph [ref=f2e46]: The arcade cabinet
+              - heading "More games" [level=2] [ref=f2e47]
+            - paragraph [ref=f2e48]: Six smaller projects, from quick arcade runs to slower puzzles and dungeon crawls.
+          - generic [ref=f2e49]:
+            - article [ref=f2e50]:
+              - generic [aria-hidden] [ref=f2e51]: ⚑
+              - paragraph [ref=f2e52]: Sports · Precision
+              - heading "Birdie Bash" [level=3] [ref=f2e53]
+              - paragraph [ref=f2e54]: A compact pixel-golf game with full courses, changing wind, and a timing-driven swing.
+              - link "Tee off" [ref=f2e55] [cursor=pointer]:
+                - /url: /games/golfr/
+                - text: Tee off
+                - generic [aria-hidden] [ref=f2e56]: →
+            - article [ref=f2e57]:
+              - generic [aria-hidden] [ref=f2e58]: ✦
+              - paragraph [ref=f2e59]: Arcade · Keyboard
+              - heading "Asteroids" [level=3] [ref=f2e60]
+              - paragraph [ref=f2e61]: Defend the planet through hostile sectors, shifting field conditions, and escalating alien formations.
+              - link "Launch fighter" [ref=f2e62] [cursor=pointer]:
+                - /url: /games/asteroids/
+                - text: Launch fighter
+                - generic [aria-hidden] [ref=f2e63]: →
+            - article [ref=f2e64]:
+              - generic [aria-hidden] [ref=f2e65]: "@"
+              - paragraph [ref=f2e66]: Roguelike · WebAssembly
+              - heading "Rogue" [level=3] [ref=f2e67]
+              - paragraph [ref=f2e68]: A Rust-powered dungeon crawl with procedural floors, tactical movement, and a browser-native WASM build.
+              - link "Enter the dungeon" [ref=f2e69] [cursor=pointer]:
+                - /url: /games/rogue/
+                - text: Enter the dungeon
+                - generic [aria-hidden] [ref=f2e70]: →
+            - article [ref=f2e71]:
+              - generic [aria-hidden] [ref=f2e72]: "9"
+              - paragraph [ref=f2e73]: Puzzle · Touch friendly
+              - heading "Sudoku Editor" [level=3] [ref=f2e74]
+              - paragraph [ref=f2e75]: Generate, edit, and solve puzzles with candidates, undo history, and explainable solving tactics.
+              - link "Open a puzzle" [ref=f2e76] [cursor=pointer]:
+                - /url: /games/sudoku/
+                - text: Open a puzzle
+                - generic [aria-hidden] [ref=f2e77]: →
+            - article [ref=f2e78]:
+              - generic [aria-hidden] [ref=f2e79]: ▦
+              - paragraph [ref=f2e80]: Arcade · Keyboard
+              - heading "Breakout" [level=3] [ref=f2e81]
+              - paragraph [ref=f2e82]: A clean retro take on the paddle-and-bricks classic. Three lives, one screen, no excuses.
+              - link "Break some bricks" [ref=f2e83] [cursor=pointer]:
+                - /url: /games/breakout/
+                - text: Break some bricks
+                - generic [aria-hidden] [ref=f2e84]: →
+            - article [ref=f2e85]:
+              - generic [aria-hidden] [ref=f2e86]: ●
+              - paragraph [ref=f2e87]: Arcade · Maze chase
+              - heading "Pac-Man" [level=3] [ref=f2e88]
+              - paragraph [ref=f2e89]: A compact browser remake of the maze-chase original, built around the familiar dots, ghosts, and tight corners.
+              - link "Start the chase" [ref=f2e90] [cursor=pointer]:
+                - /url: /games/pacman/
+                - text: Start the chase
+                - generic [aria-hidden] [ref=f2e91]: →
+  - contentinfo [ref=f2e92]:
+    - generic [ref=f2e93]:
+      - generic [ref=f2e94]:
+        - text: Powered by
+        - link "Hugo" [ref=f2e95] [cursor=pointer]:
+          - /url: https://gohugo.io/
+        - text: "| Theme -"
+        - link "DoIt" [ref=f2e96] [cursor=pointer]:
+          - /url: https://github.com/HEIGE-PCloud/DoIt
+      - generic [ref=f2e99]:
+        - text: "2026"
+        - link "Gary Kenneally" [ref=f2e103] [cursor=pointer]:
+          - /url: /
+  - link "Back to Top" [ref=f2e105] [cursor=pointer]:
+    - /url: "#back-to-top"

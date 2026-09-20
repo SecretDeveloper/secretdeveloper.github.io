@@ -1,0 +1,25 @@
+- main [ref=f5e3]:
+  - navigation [ref=f5e58]:
+    - generic [ref=f5e59]: S // IA
+    - button "Toggle sound" [ref=f5e60] [cursor=pointer]: SOUND ON
+  - generic [ref=f5e61]:
+    - paragraph [ref=f5e62]: A tactical siege chronicle
+    - heading "SIEGE IRON & ASH" [level=1] [ref=f5e63]:
+      - generic [ref=f5e64]: SIEGE
+      - generic [ref=f5e65]: IRON & ASH
+    - paragraph [ref=f5e66]: Command hundreds. Break the geometry. Hold when courage fails.
+    - blockquote [ref=f5e67]:
+      - text: Terrain determines movement. Geometry determines combat.Morale determines collapse.
+      - strong [ref=f5e68]: You determine the pressure.
+    - generic [ref=f5e69]:
+      - button "Begin campaign" [ref=f5e70] [cursor=pointer]
+      - button "Quick battle" [ref=f5e71] [cursor=pointer]
+    - region "Watch tactical demonstrations" [ref=f5e72]:
+      - paragraph [ref=f5e73]: Learn by watching a commander
+      - generic [ref=f5e74]:
+        - button "Watch attacker demo ↗" [ref=f5e75] [cursor=pointer]
+        - button "Watch defender demo ↗" [ref=f5e76] [cursor=pointer]
+  - generic [ref=f5e77]:
+    - generic [ref=f5e78]: Browser-first tactical simulation
+    - generic [ref=f5e79]: Hundreds fight independently
+    - button "Field manual" [ref=f5e81] [cursor=pointer]

@@ -1,0 +1,7 @@
+[    1709ms] [LOG] %c %c %c %c %c Phaser v3.90.0 (WebGL | Web Audio) %c https://phaser.io/v390 background: #ff0000 background: #ffff00 background: #00ff00 background: #00ffff color: #ffffff; background: #000000 background: transparent @ http://127.0.0.1:1314/games/golfr/assets/index-CLjsHRID.js:6373
+[    5100ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:1314/favicon.ico:0
+[    6561ms] [WARNING] using deprecated parameters for the initialization function; pass a single object instead @ http://127.0.0.1:1314/games/rogue/rogue.js:831
+[    6753ms] [LOG] GL initialized: resources/terminal8x8.png @ http://127.0.0.1:1314/games/rogue/rogue.js:563
+[    9639ms] [ERROR] Refused to apply style from 'http://127.0.0.1:1314/games/breakout/style.css' because its MIME type ('text/plain') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://127.0.0.1:1314/games/breakout/:0
+[    9640ms] [ERROR] Refused to apply style from 'http://127.0.0.1:1314/games/breakout/style.css' because its MIME type ('text/plain') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://127.0.0.1:1314/games/breakout/:0
+[   53578ms] [ERROR] Refused to apply style from 'http://127.0.0.1:1314/games/breakout/style.css' because its MIME type ('text/plain') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://127.0.0.1:1314/games/breakout/:0

@@ -1,0 +1,4 @@
+- generic [ref=f16e4]:
+  - heading "Breakout!" [level=1] [ref=f16e5]
+  - paragraph [ref=f16e6]: • Use the ← and → arrow keys (or A/D) to move the paddle. • Destroy all bricks before the ball falls below the paddle. • You have 3 lives. Good luck!
+  - button "Start Game" [ref=f16e7]

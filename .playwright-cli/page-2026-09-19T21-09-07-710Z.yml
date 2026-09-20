@@ -1,0 +1,67 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e3]:
+    - generic [ref=f4e4]:
+      - link "Gary Kenneally" [ref=f4e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f4e8]:
+        - link "Posts" [ref=f4e9] [cursor=pointer]:
+          - /url: /
+        - link "Categories" [ref=f4e10] [cursor=pointer]:
+          - /url: /categories/
+        - link "Tags" [ref=f4e11] [cursor=pointer]:
+          - /url: /tags/
+        - link "Series" [ref=f4e12] [cursor=pointer]:
+          - /url: /series/
+        - link "Presentations" [ref=f4e13] [cursor=pointer]:
+          - /url: /presentations/
+        - link "Projects" [ref=f4e14] [cursor=pointer]:
+          - /url: /projects/
+        - link "World Cup" [ref=f4e15] [cursor=pointer]:
+          - /url: /worldcup/
+        - link "Games" [ref=f4e16] [cursor=pointer]:
+          - /url: /games/
+        - link "About" [ref=f4e17] [cursor=pointer]:
+          - /url: /about/
+        - button "Switch Theme" [ref=f4e19] [cursor=pointer]
+  - main [ref=f4e22]:
+    - generic [ref=f4e23]:
+      - heading "Games" [level=1] [ref=f4e24]
+      - generic [ref=f4e25]:
+        - paragraph [ref=f4e26]: Here are some simple browser based games i created with the help of different Large-Language-Models.
+        - list [ref=f4e27]:
+          - listitem [ref=f4e28]:
+            - link "Asteroids" [ref=f4e29] [cursor=pointer]:
+              - /url: /games/asteroids/
+          - listitem [ref=f4e30]:
+            - link "Breakout / Arkanoid" [ref=f4e31] [cursor=pointer]:
+              - /url: /games/breakout/
+          - listitem [ref=f4e32]:
+            - link "Pacman" [ref=f4e33] [cursor=pointer]:
+              - /url: /games/pacman/
+          - listitem [ref=f4e34]:
+            - link "Sudoku Editor" [ref=f4e35] [cursor=pointer]:
+              - /url: /games/sudoku/
+          - listitem [ref=f4e36]:
+            - link "Rogue" [ref=f4e37] [cursor=pointer]:
+              - /url: /games/rogue/
+          - listitem [ref=f4e38]:
+            - link "Birdie Bash" [ref=f4e39] [cursor=pointer]:
+              - /url: /games/golfr/
+          - listitem [ref=f4e40]:
+            - 'link "Siege: Iron & Ash" [ref=f4e41] [cursor=pointer]':
+              - /url: /games/siege/
+  - contentinfo [ref=f4e42]:
+    - generic [ref=f4e43]:
+      - generic [ref=f4e44]:
+        - text: Powered by
+        - link "Hugo" [ref=f4e45] [cursor=pointer]:
+          - /url: https://gohugo.io/
+        - text: "| Theme -"
+        - link "DoIt" [ref=f4e46] [cursor=pointer]:
+          - /url: https://github.com/HEIGE-PCloud/DoIt
+      - generic [ref=f4e49]:
+        - text: "2026"
+        - link "Gary Kenneally" [ref=f4e53] [cursor=pointer]:
+          - /url: /
+  - link "Back to Top" [ref=f4e55] [cursor=pointer]:
+    - /url: "#back-to-top"

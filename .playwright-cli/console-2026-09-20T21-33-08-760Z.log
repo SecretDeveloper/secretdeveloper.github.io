@@ -1,0 +1,2 @@
+[      38ms] [ERROR] Refused to apply style from 'http://127.0.0.1:1314/games/breakout/style.css' because its MIME type ('text/plain') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://127.0.0.1:1314/games/breakout/:0
+[      41ms] [ERROR] Refused to apply style from 'http://127.0.0.1:1314/games/breakout/style.css' because its MIME type ('text/plain') is not a supported stylesheet MIME type, and strict MIME checking is enabled. @ http://127.0.0.1:1314/games/breakout/:0
