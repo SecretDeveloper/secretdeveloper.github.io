@@ -1,0 +1,133 @@
+- generic [active] [ref=f1e1]:
+  - banner [ref=f1e3]:
+    - generic [ref=f1e4]:
+      - link "Gary Kenneally" [ref=f1e6] [cursor=pointer]:
+        - /url: /
+      - generic [ref=f1e8]:
+        - link "Posts" [ref=f1e9] [cursor=pointer]:
+          - /url: /
+        - link "Categories" [ref=f1e10] [cursor=pointer]:
+          - /url: /categories/
+        - link "Tags" [ref=f1e11] [cursor=pointer]:
+          - /url: /tags/
+        - link "Series" [ref=f1e12] [cursor=pointer]:
+          - /url: /series/
+        - link "Presentations" [ref=f1e13] [cursor=pointer]:
+          - /url: /presentations/
+        - link "Projects" [ref=f1e14] [cursor=pointer]:
+          - /url: /projects/
+        - link "World Cup" [ref=f1e15] [cursor=pointer]:
+          - /url: /worldcup/
+        - link "Games" [ref=f1e16] [cursor=pointer]:
+          - /url: /games/
+        - link "About" [ref=f1e17] [cursor=pointer]:
+          - /url: /about/
+        - button "Switch Theme" [ref=f1e19] [cursor=pointer]
+  - main [ref=f1e22]:
+    - generic [ref=f1e23]:
+      - heading "Games" [level=1] [ref=f1e24]
+      - generic [ref=f1e26]:
+        - paragraph [ref=f1e27]: Playable experiments
+        - paragraph [ref=f1e28]: Small browser games built to explore simulation, interface design, WebAssembly, and what changes when an idea becomes something you can actually play.
+        - region [ref=f1e29]:
+          - generic [ref=f1e30]:
+            - generic [ref=f1e31]:
+              - paragraph [ref=f1e32]: The arcade cabinet
+              - heading "More games" [level=2] [ref=f1e33]
+            - paragraph [ref=f1e34]: Eight projects, from open-water sailing and tactical battles to quick arcade runs, puzzles, and dungeon crawls.
+          - generic [ref=f1e35]:
+            - article [ref=f1e36]:
+              - 'img "Siege: Iron & Ash title screen" [ref=f1e38]'
+              - generic [ref=f1e39]:
+                - paragraph [ref=f1e40]: New · Tactical strategy
+                - 'heading "Siege: Iron & Ash" [level=3] [ref=f1e41]'
+                - paragraph [ref=f1e42]: Command hundreds through breaches, burning streets, and collapsing morale in a three-battle campaign.
+                - link "Begin the siege" [ref=f1e43] [cursor=pointer]:
+                  - /url: /games/siege/
+                  - text: Begin the siege
+                  - generic [aria-hidden] [ref=f1e44]: →
+            - article [ref=f1e45]:
+              - img "Tideline sailing game welcome screen" [ref=f1e47]
+              - generic [ref=f1e48]:
+                - paragraph [ref=f1e49]: New · Sailing game
+                - 'heading "Tideline: Race your boat to win" [level=3] [ref=f1e50]'
+                - paragraph [ref=f1e51]: Race your sailing boat around obstacles and complete the course to win a medal.
+                - link "Begin the sail" [ref=f1e52] [cursor=pointer]:
+                  - /url: /games/sailing/
+                  - text: Begin the sail
+                  - generic [aria-hidden] [ref=f1e53]: →
+            - article [ref=f1e54]:
+              - img "Birdie Bash title screen" [ref=f1e56]
+              - generic [ref=f1e57]:
+                - paragraph [ref=f1e58]: Sports · Precision
+                - heading "Birdie Bash" [level=3] [ref=f1e59]
+                - paragraph [ref=f1e60]: A compact pixel-golf game with full courses, changing wind, and a timing-driven swing.
+                - link "Tee off" [ref=f1e61] [cursor=pointer]:
+                  - /url: /games/golfr/
+                  - text: Tee off
+                  - generic [aria-hidden] [ref=f1e62]: →
+            - article [ref=f1e63]:
+              - img "The Milky War briefing screen" [ref=f1e65]
+              - generic [ref=f1e66]:
+                - paragraph [ref=f1e67]: Arcade · Keyboard
+                - heading "Asteroids" [level=3] [ref=f1e68]
+                - paragraph [ref=f1e69]: Defend the planet through hostile sectors, shifting field conditions, and escalating alien formations.
+                - link "Launch fighter" [ref=f1e70] [cursor=pointer]:
+                  - /url: /games/asteroids/
+                  - text: Launch fighter
+                  - generic [aria-hidden] [ref=f1e71]: →
+            - article [ref=f1e72]:
+              - img "Rogue browser dungeon view" [ref=f1e74]
+              - generic [ref=f1e75]:
+                - paragraph [ref=f1e76]: Roguelike · WebAssembly
+                - heading "Rogue" [level=3] [ref=f1e77]
+                - paragraph [ref=f1e78]: A Rust-powered dungeon crawl with procedural floors, tactical movement, and a browser-native WASM build.
+                - link "Enter the dungeon" [ref=f1e79] [cursor=pointer]:
+                  - /url: /games/rogue/
+                  - text: Enter the dungeon
+                  - generic [aria-hidden] [ref=f1e80]: →
+            - article [ref=f1e81]:
+              - img "Sudoku Editor puzzle board" [ref=f1e83]
+              - generic [ref=f1e84]:
+                - paragraph [ref=f1e85]: Puzzle · Touch friendly
+                - heading "Sudoku Editor" [level=3] [ref=f1e86]
+                - paragraph [ref=f1e87]: Generate, edit, and solve puzzles with candidates, undo history, and explainable solving tactics.
+                - link "Open a puzzle" [ref=f1e88] [cursor=pointer]:
+                  - /url: /games/sudoku/
+                  - text: Open a puzzle
+                  - generic [aria-hidden] [ref=f1e89]: →
+            - article [ref=f1e90]:
+              - img "Breakout game in progress with pink bricks" [ref=f1e92]
+              - generic [ref=f1e93]:
+                - paragraph [ref=f1e94]: Arcade · Keyboard
+                - heading "Breakout" [level=3] [ref=f1e95]
+                - paragraph [ref=f1e96]: A clean retro take on the paddle-and-bricks classic. Three lives, one screen, no excuses.
+                - link "Break some bricks" [ref=f1e97] [cursor=pointer]:
+                  - /url: /games/breakout/
+                  - text: Break some bricks
+                  - generic [aria-hidden] [ref=f1e98]: →
+            - article [ref=f1e99]:
+              - img "Pac-Man maze with dots and ghosts" [ref=f1e101]
+              - generic [ref=f1e102]:
+                - paragraph [ref=f1e103]: Arcade · Maze chase
+                - heading "Pac-Man" [level=3] [ref=f1e104]
+                - paragraph [ref=f1e105]: A compact browser remake of the maze-chase original, built around the familiar dots, ghosts, and tight corners.
+                - link "Start the chase" [ref=f1e106] [cursor=pointer]:
+                  - /url: /games/pacman/
+                  - text: Start the chase
+                  - generic [aria-hidden] [ref=f1e107]: →
+  - contentinfo [ref=f1e108]:
+    - generic [ref=f1e109]:
+      - generic [ref=f1e110]:
+        - text: Powered by
+        - link "Hugo" [ref=f1e111] [cursor=pointer]:
+          - /url: https://gohugo.io/
+        - text: "| Theme -"
+        - link "DoIt" [ref=f1e112] [cursor=pointer]:
+          - /url: https://github.com/HEIGE-PCloud/DoIt
+      - generic [ref=f1e115]:
+        - text: "2026"
+        - link "Gary Kenneally" [ref=f1e119] [cursor=pointer]:
+          - /url: /
+  - link "Back to Top" [ref=f1e121] [cursor=pointer]:
+    - /url: "#back-to-top"

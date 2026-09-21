@@ -71,7 +71,7 @@ footer {
 
 .game-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: 1fr;
   gap: 1rem;
 }
@@ -79,9 +79,11 @@ footer {
 .game-card {
   --game-accent: $global-link-color;
   display: flex;
-  min-height: 17rem;
+  min-width: 0;
+  height: 100%;
   flex-direction: column;
-  padding: 1.5rem;
+  overflow: hidden;
+  padding: 0;
   border: 1px solid $global-border-color;
   border-top: 3px solid var(--game-accent);
   border-radius: 0.5rem;
@@ -96,6 +98,10 @@ footer {
 
   &--siege {
     --game-accent: #a88d3d;
+  }
+
+  &--sailing {
+    --game-accent: #4b8f8c;
   }
 
   &--golf {
@@ -122,18 +128,32 @@ footer {
     --game-accent: #d4af37;
   }
 
-  &__mark {
-    display: grid;
-    width: 3rem;
-    height: 3rem;
-    place-items: center;
-    margin-bottom: 1.5rem;
-    border: 1px solid var(--game-accent);
-    border-radius: 0.25rem;
-    color: var(--game-accent);
-    font-family: $code-font-family;
-    font-size: 1.35rem;
-    font-weight: 700;
+  &__media {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-bottom: 1px solid $global-border-color;
+    background: $global-background-color;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      object-fit: cover;
+      transition: transform 220ms ease;
+    }
+  }
+
+  &:hover &__media img,
+  &:focus-within &__media img {
+    transform: scale(1.025);
+  }
+
+  &__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 1.25rem;
   }
 
   h3 {
@@ -141,7 +161,7 @@ footer {
     font-size: 1.4rem;
   }
 
-  > p:not(.game-card__eyebrow) {
+  &__body > p:not(.game-card__eyebrow) {
     margin: 0 0 1.5rem;
     color: $global-font-secondary-color;
     line-height: 1.6;
@@ -166,11 +186,22 @@ footer {
     transform: translateX(0.25rem);
   }
 
+  &:focus-visible {
+    border-radius: 0.125rem;
+    outline: 2px solid var(--game-accent);
+    outline-offset: 0.25rem;
+  }
 }
 
 @media (max-width: 1000px) {
   .page:has(.games-showcase) {
     width: 100% !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .game-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -195,6 +226,7 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .game-card,
+  .game-card__media img,
   .game-action span {
     transition: none;
   }

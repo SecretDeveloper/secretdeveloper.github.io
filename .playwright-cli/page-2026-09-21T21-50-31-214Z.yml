@@ -1,0 +1,46 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - link "Tideline home" [ref=e4] [cursor=pointer]:
+      - /url: ./
+      - generic [ref=e9]:
+        - text: TIDELINE
+        - generic [ref=e10]: A LITTLE SAILING ADVENTURE
+    - generic [ref=e11]:
+      - generic [ref=e13]: THE LANTERN ISLANDS
+      - generic [ref=e14]: /
+      - generic [ref=e15]: "01"
+    - navigation "Game options" [ref=e16]:
+      - button "Disable sound" [pressed] [ref=e17] [cursor=pointer]
+      - button "How to sail" [ref=e20] [cursor=pointer]
+  - main [ref=e25]:
+    - 'generic "Sailing game: use left and right arrows to steer, up to let the sail out, and down to pull it in." [ref=e26]'
+    - generic [ref=e27]:
+      - generic [ref=e28]: A SMALL BOAT. A WIDE WORLD.
+      - heading [level=1] [ref=e30]:
+        - text: Find your
+        - emphasis [ref=e31]: wind.
+      - paragraph [ref=e32]: A little salt air. A little adventure. Let the breeze take you somewhere good.
+      - generic [ref=e33]:
+        - generic [ref=e34]: CHOOSE YOUR WATERS
+        - combobox "Choose course" [ref=e35] [cursor=pointer]:
+          - option "Lantern Bay · Training" [selected]
+          - option "Atlantic Reach · Intermediate"
+        - heading "Lantern Bay" [level=2] [ref=e36]
+        - paragraph [ref=e37]: Thread the gates, round the buoy, and find your way home.
+        - generic [ref=e38]:
+          - generic [ref=e39]: Sheltered waters
+          - generic [ref=e42]: ≈ 2 min
+        - button "Set sail" [ref=e43] [cursor=pointer]
+        - button "New to sailing? Learn the ropes ↗" [ref=e46] [cursor=pointer]
+      - generic [ref=e47]:
+        - generic [ref=e48]: ←
+        - generic [ref=e49]: →
+        - text: steer
+        - generic [ref=e50]: ↑
+        - generic [ref=e51]: ↓
+        - text: trim the sail
+    - generic [ref=e54]:
+      - text: LANTERN BAY
+      - generic [ref=e55]: The Lantern Islands
+    - status
+    - generic: TAKE THE SCENIC ROUTE.

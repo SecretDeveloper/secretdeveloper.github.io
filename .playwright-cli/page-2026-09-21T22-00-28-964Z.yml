@@ -1,0 +1,46 @@
+- generic [ref=f1e2]:
+  - banner [ref=f1e3]:
+    - link "Tideline home" [ref=f1e4] [cursor=pointer]:
+      - /url: ./
+      - generic [ref=f1e9]:
+        - text: TIDELINE
+        - generic [ref=f1e10]: A LITTLE SAILING ADVENTURE
+    - generic [ref=f1e11]:
+      - generic [ref=f1e13]: THE LANTERN ISLANDS
+      - generic [ref=f1e14]: /
+      - generic [ref=f1e15]: "01"
+    - navigation "Game options" [ref=f1e16]:
+      - button "Disable sound" [pressed] [ref=f1e17] [cursor=pointer]
+      - button "How to sail" [ref=f1e20] [cursor=pointer]
+  - main [ref=f1e25]:
+    - 'generic "Sailing game: use left and right arrows to steer, up to let the sail out, and down to pull it in." [ref=f1e26]'
+    - generic [ref=f1e27]:
+      - generic [ref=f1e28]: A SMALL BOAT. A WIDE WORLD.
+      - heading [level=1] [ref=f1e30]:
+        - text: Find your
+        - emphasis [ref=f1e31]: wind.
+      - paragraph [ref=f1e32]: A little salt air. A little adventure. Let the breeze take you somewhere good.
+      - generic [ref=f1e33]:
+        - generic [ref=f1e34]: CHOOSE YOUR WATERS
+        - combobox "Choose course" [ref=f1e35] [cursor=pointer]:
+          - option "Lantern Bay · Training" [selected]
+          - option "Atlantic Reach · Intermediate"
+        - heading "Lantern Bay" [level=2] [ref=f1e36]
+        - paragraph [ref=f1e37]: Thread the gates, round the buoy, and find your way home.
+        - generic [ref=f1e38]:
+          - generic [ref=f1e39]: Sheltered waters
+          - generic [ref=f1e42]: ≈ 2 min
+        - button "Set sail" [ref=f1e43] [cursor=pointer]
+        - button "New to sailing? Learn the ropes ↗" [ref=f1e46] [cursor=pointer]
+      - generic [ref=f1e47]:
+        - generic [ref=f1e48]: ←
+        - generic [ref=f1e49]: →
+        - text: steer
+        - generic [ref=f1e50]: ↑
+        - generic [ref=f1e51]: ↓
+        - text: trim the sail
+    - generic [ref=f1e54]:
+      - text: LANTERN BAY
+      - generic [ref=f1e55]: The Lantern Islands
+    - status
+    - generic: TAKE THE SCENIC ROUTE.
