@@ -1,4 +1,4 @@
-import{E as e}from"./index-Biyemt3C.js";import{a as t,c as ee,d as te,i as ne,l as re,n,o as ie,r as ae,s as oe,t as r,u as i}from"./vertexColorMixing-DXZcKO_Q.js";import{a,i as o,n as s,r as c,t as se}from"./logDepthDeclaration-D-uHmgbI.js";import{t as ce}from"./helperFunctions-c3Py5PHE.js";var l=`uvAttributeDeclaration`,u=`#if defined(UV{X}) && !defined(USE_VERTEX_PULLING)
+import{E as e}from"./index-b5XmVbi1.js";import{a as t,c as ee,d as te,i as ne,l as re,n,o as ie,r as ae,s as oe,t as r,u as i}from"./vertexColorMixing-BBuLqemk.js";import{a,i as o,n as s,r as c,t as se}from"./logDepthDeclaration-B1YXnsKs.js";import{t as ce}from"./helperFunctions-Cybo4NBr.js";var l=`uvAttributeDeclaration`,u=`#if defined(UV{X}) && !defined(USE_VERTEX_PULLING)
 attribute uv{X}: vec2f;
 #endif
 `;e.IncludesShadersStoreWGSL[l]||(e.IncludesShadersStoreWGSL[l]=u);var le={name:l,shader:u},d=`prePassVertexDeclaration`,f=`#ifdef PREPASS

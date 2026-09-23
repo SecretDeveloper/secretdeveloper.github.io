@@ -1,4 +1,4 @@
-import{E as e}from"./index-Biyemt3C.js";import{i as t,n,r,t as i}from"./fogFragment-BmI04Axj.js";var a=`colorPixelShader`,o=`#if defined(VERTEXCOLOR) || defined(INSTANCESCOLOR) && defined(INSTANCES)
+import{E as e}from"./index-b5XmVbi1.js";import{i as t,n,r,t as i}from"./fogFragment-D6l9TDFj.js";var a=`colorPixelShader`,o=`#if defined(VERTEXCOLOR) || defined(INSTANCESCOLOR) && defined(INSTANCES)
 #define VERTEXCOLOR
 varying vColor: vec4f;
 #else

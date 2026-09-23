@@ -1,4 +1,4 @@
-import{E as e}from"./index-Biyemt3C.js";import{a as t,c as n,d as r,i,l as a,n as o,o as s,r as c,s as l,t as u,u as d}from"./vertexColorMixing-p1leHx7-.js";var f=`colorVertexShader`,p=`attribute vec3 position;
+import{E as e}from"./index-b5XmVbi1.js";import{a as t,c as n,d as r,i,l as a,n as o,o as s,r as c,s as l,t as u,u as d}from"./vertexColorMixing-CVEDDTjp.js";var f=`colorVertexShader`,p=`attribute vec3 position;
 #ifdef VERTEXCOLOR
 attribute vec4 color;
 #endif

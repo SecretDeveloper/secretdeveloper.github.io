@@ -1,4 +1,4 @@
-import{E as e}from"./index-Biyemt3C.js";var t=`bonesDeclaration`,n=`#if NUM_BONE_INFLUENCERS>0
+import{E as e}from"./index-b5XmVbi1.js";var t=`bonesDeclaration`,n=`#if NUM_BONE_INFLUENCERS>0
 attribute vec4 matricesIndices;attribute vec4 matricesWeights;
 #if NUM_BONE_INFLUENCERS>4
 attribute vec4 matricesIndicesExtra;attribute vec4 matricesWeightsExtra;
