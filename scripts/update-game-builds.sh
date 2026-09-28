@@ -5,8 +5,9 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 site_root="$(cd "${script_dir}/.." && pwd)"
 games_dir="${site_root}/static/games"
+images_dir="${site_root}/static/images/games"
 checkout_root="$(mktemp -d "${TMPDIR:-/tmp}/secretdeveloper-games.XXXXXX")"
-readonly script_dir site_root games_dir checkout_root
+readonly script_dir site_root games_dir images_dir checkout_root
 
 cleanup() {
   rm -rf "${checkout_root}"
@@ -47,7 +48,7 @@ else
   games=("$@")
 fi
 
-mkdir -p "${games_dir}"
+mkdir -p "${games_dir}" "${images_dir}"
 
 for game in "${games[@]}"; do
   if ! repository_url="$(repository_for "${game}")"; then
@@ -74,6 +75,10 @@ for game in "${games[@]}"; do
 
   mkdir -p "${destination_dir}"
   rsync -a --delete "${checkout_dir}/dist/" "${destination_dir}/"
+
+  if [[ -f "${checkout_dir}/dist/tile.webp" ]]; then
+    cp "${checkout_dir}/dist/tile.webp" "${images_dir}/${game}.webp"
+  fi
 
   revision="$(git -C "${checkout_dir}" rev-parse --short HEAD)"
   printf 'Updated static/games/%s/ to %s\n' "${game}" "${revision}"

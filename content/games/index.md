@@ -25,13 +25,13 @@ menu:
     <div class="game-grid">
       <article class="game-card game-card--av8n">
         <div class="game-card__media">
-          <img src="/images/games/av8n.webp" width="800" height="450" alt="Av8n flight selection screen over a green island landscape" fetchpriority="high" decoding="async" />
+          <img src="/images/games/av8n.webp" width="800" height="450" alt="Av8n plane chase over rolling green hills" fetchpriority="high" decoding="async" />
         </div>
         <div class="game-card__body">
-          <p class="game-card__eyebrow">New · Flight adventure</p>
+          <p class="game-card__eyebrow">New · Flight simulation</p>
           <h3>Av8n</h3>
-          <p>Take off in a light aircraft and explore an endless landscape through free flight, ring runs, chases, and cross-country landings.</p>
-          <a class="game-action" href="/games/av8n/">Take to the skies <span aria-hidden="true">→</span></a>
+          <p>Pilot a light aircraft across endless landscapes and tackle ring, chase, and landing challenges.</p>
+          <a class="game-action" href="/games/av8n/">Take flight <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
