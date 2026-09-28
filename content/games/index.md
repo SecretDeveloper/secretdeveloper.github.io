@@ -19,13 +19,25 @@ menu:
         <p class="games-showcase__kicker">The arcade cabinet</p>
         <h2 id="more-games-title">More games</h2>
       </div>
-      <p>Eight projects, from open-water sailing and tactical battles to quick arcade runs, puzzles, and dungeon crawls.</p>
+      <p>Nine projects, from open-air flying and open-water sailing to tactical battles, arcade runs, puzzles, and dungeon crawls.</p>
     </div>
 
     <div class="game-grid">
+      <article class="game-card game-card--av8n">
+        <div class="game-card__media">
+          <img src="/images/games/av8n.webp" width="800" height="450" alt="Av8n flight selection screen over a green island landscape" fetchpriority="high" decoding="async" />
+        </div>
+        <div class="game-card__body">
+          <p class="game-card__eyebrow">New · Flight adventure</p>
+          <h3>Av8n</h3>
+          <p>Take off in a light aircraft and explore an endless landscape through free flight, ring runs, chases, and cross-country landings.</p>
+          <a class="game-action" href="/games/av8n/">Take to the skies <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
       <article class="game-card game-card--siege">
         <div class="game-card__media">
-          <img src="/images/games/siege.webp" width="800" height="450" alt="Siege: Iron &amp; Ash title screen" fetchpriority="high" decoding="async" />
+          <img src="/images/games/siege.webp" width="800" height="450" alt="Siege: Iron &amp; Ash title screen" loading="lazy" decoding="async" />
         </div>
         <div class="game-card__body">
           <p class="game-card__eyebrow">New · Tactical strategy</p>

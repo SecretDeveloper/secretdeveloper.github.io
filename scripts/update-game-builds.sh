@@ -23,6 +23,7 @@ With no arguments, all external games are updated.
 Games:
   siege
   sailing
+  av8n
 EOF
 }
 
@@ -30,6 +31,7 @@ repository_for() {
   case "$1" in
     siege) printf '%s\n' 'https://github.com/SecretDeveloper/siege.git' ;;
     sailing) printf '%s\n' 'https://github.com/SecretDeveloper/sailing.git' ;;
+    av8n) printf '%s\n' 'https://github.com/SecretDeveloper/Av8n.git' ;;
     *) return 1 ;;
   esac
 }
@@ -40,7 +42,7 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
 fi
 
 if (( $# == 0 )); then
-  games=(siege sailing)
+  games=(siege sailing av8n)
 else
   games=("$@")
 fi
