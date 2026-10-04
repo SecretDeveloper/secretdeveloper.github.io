@@ -25,6 +25,7 @@ Games:
   siege
   sailing
   av8n
+  catchmeifyoucan
 EOF
 }
 
@@ -33,6 +34,7 @@ repository_for() {
     siege) printf '%s\n' 'https://github.com/SecretDeveloper/siege.git' ;;
     sailing) printf '%s\n' 'https://github.com/SecretDeveloper/sailing.git' ;;
     av8n) printf '%s\n' 'https://github.com/SecretDeveloper/Av8n.git' ;;
+    catchmeifyoucan) printf '%s\n' 'https://github.com/SecretDeveloper/CatchMeIfYouCan.git' ;;
     *) return 1 ;;
   esac
 }
@@ -43,7 +45,7 @@ if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
 fi
 
 if (( $# == 0 )); then
-  games=(siege sailing av8n)
+  games=(siege sailing av8n catchmeifyoucan)
 else
   games=("$@")
 fi

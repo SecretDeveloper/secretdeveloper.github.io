@@ -19,7 +19,7 @@ menu:
         <p class="games-showcase__kicker">The arcade cabinet</p>
         <h2 id="more-games-title">More games</h2>
       </div>
-      <p>Nine projects, from open-air flying and open-water sailing to tactical battles, arcade runs, puzzles, and dungeon crawls.</p>
+      <p>Ten projects, from open-air flying and open-water sailing to tactical battles, arcade runs, puzzles, and dungeon crawls.</p>
     </div>
 
     <div class="game-grid">
@@ -32,6 +32,18 @@ menu:
           <h3>Av8n</h3>
           <p>Pilot a light aircraft across endless landscapes and tackle ring, chase, and landing challenges.</p>
           <a class="game-action" href="/games/av8n/">Take flight <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="game-card game-card--catchmeifyoucan">
+        <div class="game-card__media">
+          <img src="/images/games/catchmeifyoucan.webp" width="800" height="450" alt="Catch Me If You Can title screen with Own the Streets and a city map" loading="lazy" decoding="async" />
+        </div>
+        <div class="game-card__body">
+          <p class="game-card__eyebrow">New · Arcade car chase</p>
+          <h3>Catch Me If You Can</h3>
+          <p>Drive a getaway car through a living city, collect robbers, make the drop-off, and survive the police pursuit.</p>
+          <a class="game-action" href="/games/catchmeifyoucan/">Start the chase <span aria-hidden="true">→</span></a>
         </div>
       </article>
 
